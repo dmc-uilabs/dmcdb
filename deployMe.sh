@@ -10,7 +10,7 @@ echo "local all all trust" >> ~postgres/9.1/data/pg_hba.conf
 
 # Add only authorized hosts i.e DOME, Rest Services preferably via  config file
 echo host all gforge 172.0.0.0/8 trust >> ~postgres/9.1/data/pg_hba.conf
-echo listen_addresses = \\'*\\' >> ~postgres/9.1/data/postgresql.conf
+echo listen_addresses ='*' >> ~postgres/9.1/data/postgresql.conf
 service postgresql-9.1 start
 sleep 60
 
