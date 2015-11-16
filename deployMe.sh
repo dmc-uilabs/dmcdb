@@ -3,7 +3,6 @@
 echo user_allow_other >> fuse.conf
 mv fuse.conf /etc/fuse.conf
 chmod 644 /etc/fuse.conf
-rpm -i http://yum.postgresql.org/9.1/redhat/rhel-5-x86_64/pgdg-redhat91-9.1-5.noarch.rpm
 yum -y install postgresql91 postgresql91-server postgresql91-contrib
 service postgresql-9.1 initdb
 chkconfig postgresql-9.1 on
