@@ -15,6 +15,7 @@ service postgresql-9.1 start
 sleep 60
 
 # create users, prefereably via the same config file above
+su - postgres
 psql -c 'CREATE ROLE gforge NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT LOGIN;' template1
 psql -c 'CREATE DATABASE gforge WITH OWNER gforge;' template1
 psql -c 'reateuser -h localhost –p 5432 -S -d -R -l gforge;' template1
