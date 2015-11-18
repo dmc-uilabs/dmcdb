@@ -18,7 +18,7 @@ sleep 30
 su - postgres
 psql -c 'CREATE ROLE gforge NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT LOGIN;' template1
 psql -c 'CREATE DATABASE gforge WITH OWNER gforge;' template1
-psql -c 'createuser -h localhost –p 5432 -S -d -R -l gforge;' template1
-psql -c 'createdb -h localhost –p 5432 gforge;' template1
-psql -d gforge < db_dump_11.16.15.sql
+#psql -c 'createuser -h localhost –p 5432 -S -d -R -l gforge;' template1
+#psql -c 'createdb -h localhost –p 5432 gforge;' template1
+psql -d gforge < gforge.psql
 
