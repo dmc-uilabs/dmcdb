@@ -16,6 +16,9 @@ sleep 30
 
 # create users, prefereably via the same config file above
 su - postgres
+
+# git pull from master DB to get latest version of gforge.psql
+mv gforge.psql /var/lib/pgsql/.
 psql -c 'CREATE ROLE gforge NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT LOGIN;' template1
 psql -c 'CREATE DATABASE gforge WITH OWNER gforge;' template1
 #psql -c 'createuser -h localhost –p 5432 -S -d -R -l gforge;' template1
