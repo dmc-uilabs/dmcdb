@@ -12,7 +12,7 @@ echo "local all all trust" >> ~postgres/9.1/data/pg_hba.conf
 echo host all gforge 172.0.0.0/8 trust >> ~postgres/9.1/data/pg_hba.conf
 echo "listen_addresses = '*'" >> ~postgres/9.1/data/postgresql.conf
 service postgresql-9.1 start
-sleep 60
+sleep 30
 
 # create users, prefereably via the same config file above
 su - postgres
