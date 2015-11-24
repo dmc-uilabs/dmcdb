@@ -6,28 +6,29 @@
 #db='gforge'
 
 # export variables
-sudo -i # switch to root
+#sudo -i # switch to root
 cd ~
-echo "export PSQLUSER=$psqluser" >> ~/.bashrc
-echo "export PASS=$pass" >> ~/.bashrc
-echo "export DB=$db" >> ~/.bashrc
+sudo echo "export PSQLUSER=$psqluser" >> ~/.bashrc
+sudo echo "export PASS=$pass" >> ~/.bashrc
+sudo echo "export DB=$db" >> ~/.bashrc
 source ~/.bashrc
 
-echo "USER SET: $PSQLUSER"
-echo "PASSWORD SET: $PASS"
-echo "DB SET: $DB"
+#echo "USER SET: $PSQLUSER"
+#echo "PASSWORD SET: $PASS"
+#echo "DB SET: $DB"
 
-echo user_allow_other >> fuse.conf
-mv fuse.conf /etc/fuse.conf
-chmod 644 /etc/fuse.conf
-yum -y install postgresql94.x86_64 postgresql94-server.x86_64 postgresql94-contrib.x86_64
-service postgresql94 initdb
-chkconfig postgresql94 on
-echo "local all all trust" >> ~postgres/9.1/data/pg_hba.conf
+sudo echo user_allow_other >> fuse.conf
+sudo mv fuse.conf /etc/fuse.conf
+sudo chmod 644 /etc/fuse.conf
+sudo yum -y install postgresql94.x86_64 postgresql94-server.x86_64 postgresql94-cont$
+sudo service postgresql94 initdb
+sudo chkconfig postgresql94 on
+sudo su -c 'echo "local all all trust" >> ~postgres/data/pg_hba.conf'
 
 # Add only authorized hosts i.e DOME, Rest Services preferably via  config file
-echo "host all gforge 172.0.0.0/8 trust" >> ~postgres/data/pg_hba.conf
-echo "listen_addresses = '*'" >> ~postgres/data/postgresql.conf
+sudo su -c 'echo "host all gforge 172.0.0.0/8 trust" >> ~postgres/data/pg_hba.conf'
+sudo su -c 'echo "listen_addresses = '*'" >> ~postgres/data/postgresql.conf'
+
 service postgresql94 start
 sleep 30
 
