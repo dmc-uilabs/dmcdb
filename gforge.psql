@@ -6315,6 +6315,8 @@ CREATE TABLE site_activity (
     assigned_to_id integer
 );
 
+ALTER TABLE site_activity OWNER TO gforge;
+
 --
 -- Name: site_activity_mapping; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
 --
@@ -6327,20 +6329,20 @@ CREATE TABLE site_activity_mapping (
 ALTER TABLE site_activity_mapping OWNER TO gforge;
 
 INSERT INTO site_activity_mapping VALUES 
-(1,  "user_profile_comment"),
-(2,  "project_home_comment"),
-(3,  "project_add_member"),
-(4,  "project_news_post"),
-(5,  "project_forum_post"),
-(6,  "project_gallery_addition"),
-(7,  "project_bug_addition"),
-(8,  "project_task_addition"),
-(9,  "project_task_update"),
-(10, "project_create"),
-(11, "project_bug_update"),
-(12, "project_bug_closed"),
-(13, "project_component_add"),
-(14, "project_component_created");
+(1,  'user_profile_comment'),
+(2,  'project_home_comment'),
+(3,  'project_add_member'),
+(4,  'project_news_post'),
+(5,  'project_forum_post'),
+(6,  'project_gallery_addition'),
+(7,  'project_bug_addition'),
+(8,  'project_task_addition'),
+(9,  'project_task_update'),
+(10, 'project_create'),
+(11, 'project_bug_update'),
+(12, 'project_bug_closed'),
+(13, 'project_component_add'),
+(14, 'project_component_created');
 
 --
 -- Name: site_activity_activity_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
