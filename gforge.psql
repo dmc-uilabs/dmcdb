@@ -203,6 +203,81 @@ $$;
 
 ALTER FUNCTION public.cem_delete() OWNER TO gforge;
 
+
+--
+-- Create Organization tables
+--
+create table user_organization
+(
+   user_organizaation_id serial NOT NULL,
+   user_id integer,
+   organization integer
+);
+ALTER TABLE user_organization OWNER TO gforge;
+
+create table organization
+(
+   organization_id serial NOT NULL,
+   name text,
+   company_logo text,
+   division text,
+   address_id integer,
+   perf_method_comm text,
+   website text,
+   social_media_linkedin text,
+   social_media_twitter text,
+   social_medial_inTheNews text,
+   NAICS text,
+   description text,
+   DMC_tech_expertise text,
+   DMC_resources text,
+   awards text
+);
+ALTER TABLE organization OWNER TO gforge;
+
+create table address(
+   id serial NOT NULL,
+   street_address1 text,
+   street_address2 text,
+   city text,
+   state text,
+   country text,
+   zip text
+);
+ALTER TABLE address OWNER TO gforge;
+
+create table organization_customer
+(
+   id serial NOT NULL,
+   organization_id integer,
+   org_user_flag boolean,
+   ref_name text NOT NULL,
+   ref_id integer
+);
+ALTER TABLE organization_customer OWNER TO gforge;
+
+create table organization_capabilities_pictures
+(
+   id serial NOT NULL,
+   organization_id integer,
+   caption text,
+   photo_link text
+);
+ALTER TABLE organization_capabilities_pictures OWNER TO gforge;
+
+
+create table organization_vidio
+(
+   id serial NOT NULL,
+   organization_id integer,
+   time integer,
+   caption text,
+   vidio_link text
+);
+ALTER TABLE organization_vidio OWNER TO gforge;
+
+
+
 --
 -- Name: cem_insert(); Type: FUNCTION; Schema: public; Owner: gforge
 --
