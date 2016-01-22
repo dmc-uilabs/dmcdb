@@ -17,17 +17,14 @@ then
 	fi
 else 
 	pg_dump -U postgres -h localhost gforge > /home/ec2-user/dmcdb/gforge.psql
-	cp /home/ec2-user/dmcdb/gforge.psql /home/ec2-user/archivesgforge$(date +%F_%R).sql
+	cp /home/ec2-user/dmcdb/gforge.psql archivesgforge$(date +%F_%R).sql
 	touch db.log
-	echo "Ran backup and archive of gforge on $date" >> db.log
+	echo "Ran backup and archive of gforge on $(date)" >> db.log
 
 	cd /home/ec2-user/dmcdb
-	git add gforge.psql
-	git commit -m "adding revised gforge dump on $date"
+	git add .
+	git commit -m "adding revised gforge dump and archive on $(date)"
 	git push origin master
 
-	cd /home/ec2-user/archives
-	git add .
-	git commit -m "adding new archive dump on $date"
-	git push origin master
+	
 fi
