@@ -18,48 +18,6 @@ CREATE SCHEMA sqlj;
 
 ALTER SCHEMA sqlj OWNER TO postgres;
 
-SET search_path = sqlj, pg_catalog;
-
---
--- Name: java_call_handler(); Type: FUNCTION; Schema: sqlj; Owner: postgres
---
-
-CREATE FUNCTION java_call_handler() RETURNS language_handler
-    LANGUAGE c
-    AS 'pljava', 'java_call_handler';
-
-
-ALTER FUNCTION sqlj.java_call_handler() OWNER TO postgres;
-
---
--- Name: java; Type: PROCEDURAL LANGUAGE; Schema: sqlj; Owner: postgres
---
-
-CREATE TRUSTED PROCEDURAL LANGUAGE java HANDLER java_call_handler;
-
-
-ALTER PROCEDURAL LANGUAGE java OWNER TO postgres;
-
---
--- Name: javau_call_handler(); Type: FUNCTION; Schema: sqlj; Owner: postgres
---
-
-CREATE FUNCTION javau_call_handler() RETURNS language_handler
-    LANGUAGE c
-    AS 'pljava', 'javau_call_handler';
-
-
-ALTER FUNCTION sqlj.javau_call_handler() OWNER TO postgres;
-
---
--- Name: javau; Type: PROCEDURAL LANGUAGE; Schema: sqlj; Owner: postgres
---
-
-CREATE PROCEDURAL LANGUAGE javau HANDLER javau_call_handler;
-
-
-ALTER PROCEDURAL LANGUAGE javau OWNER TO postgres;
-
 --
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
 --
@@ -202,81 +160,6 @@ $$;
 
 
 ALTER FUNCTION public.cem_delete() OWNER TO gforge;
-
-
---
--- Create Organization tables
---
-create table user_organization
-(
-   user_organizaation_id serial NOT NULL,
-   user_id integer,
-   organization integer
-);
-ALTER TABLE user_organization OWNER TO gforge;
-
-create table organization
-(
-   organization_id serial NOT NULL,
-   name text,
-   company_logo text,
-   division text,
-   address_id integer,
-   perf_method_comm text,
-   website text,
-   social_media_linkedin text,
-   social_media_twitter text,
-   social_medial_inTheNews text,
-   NAICS text,
-   description text,
-   DMC_tech_expertise text,
-   DMC_resources text,
-   awards text
-);
-ALTER TABLE organization OWNER TO gforge;
-
-create table address(
-   id serial NOT NULL,
-   street_address1 text,
-   street_address2 text,
-   city text,
-   state text,
-   country text,
-   zip text
-);
-ALTER TABLE address OWNER TO gforge;
-
-create table organization_customer
-(
-   id serial NOT NULL,
-   organization_id integer,
-   org_user_flag boolean,
-   ref_name text NOT NULL,
-   ref_id integer
-);
-ALTER TABLE organization_customer OWNER TO gforge;
-
-create table organization_capabilities_pictures
-(
-   id serial NOT NULL,
-   organization_id integer,
-   caption text,
-   photo_link text
-);
-ALTER TABLE organization_capabilities_pictures OWNER TO gforge;
-
-
-create table organization_vidio
-(
-   id serial NOT NULL,
-   organization_id integer,
-   time integer,
-   caption text,
-   vidio_link text
-);
-ALTER TABLE organization_vidio OWNER TO gforge;
-
-
 
 --
 -- Name: cem_insert(); Type: FUNCTION; Schema: public; Owner: gforge
@@ -1167,28 +1050,6 @@ $$;
 ALTER FUNCTION public.site_activity_comments_before_delete() OWNER TO gforge;
 
 --
--- Name: solr_index_event_process(); Type: FUNCTION; Schema: public; Owner: postgres
---
-
-CREATE FUNCTION solr_index_event_process() RETURNS trigger
-    LANGUAGE javau
-    AS $$com.ge.research.vehicleforge.solr.SolrPush.pushNotify$$;
-
-
-ALTER FUNCTION public.solr_index_event_process() OWNER TO postgres;
-
---
--- Name: solr_retry_push(); Type: FUNCTION; Schema: public; Owner: postgres
---
-
-CREATE FUNCTION solr_retry_push() RETURNS boolean
-    LANGUAGE javau
-    AS $$com.ge.research.vehicleforge.solr.SolrPush.retryPush$$;
-
-
-ALTER FUNCTION public.solr_retry_push() OWNER TO postgres;
-
---
 -- Name: update_last_modified_date(); Type: FUNCTION; Schema: public; Owner: gforge
 --
 
@@ -1407,109 +1268,6 @@ $$;
 
 
 ALTER FUNCTION public.wiki_pages_update() OWNER TO postgres;
-
-SET search_path = sqlj, pg_catalog;
-
---
--- Name: add_type_mapping(character varying, character varying); Type: FUNCTION; Schema: sqlj; Owner: postgres
---
-
-CREATE FUNCTION add_type_mapping(character varying, character varying) RETURNS void
-    LANGUAGE java SECURITY DEFINER
-    AS $$org.postgresql.pljava.management.Commands.addTypeMapping$$;
-
-
-ALTER FUNCTION sqlj.add_type_mapping(character varying, character varying) OWNER TO postgres;
-
---
--- Name: drop_type_mapping(character varying); Type: FUNCTION; Schema: sqlj; Owner: postgres
---
-
-CREATE FUNCTION drop_type_mapping(character varying) RETURNS void
-    LANGUAGE java SECURITY DEFINER
-    AS $$org.postgresql.pljava.management.Commands.dropTypeMapping$$;
-
-
-ALTER FUNCTION sqlj.drop_type_mapping(character varying) OWNER TO postgres;
-
---
--- Name: get_classpath(character varying); Type: FUNCTION; Schema: sqlj; Owner: postgres
---
-
-CREATE FUNCTION get_classpath(character varying) RETURNS character varying
-    LANGUAGE java STABLE SECURITY DEFINER
-    AS $$org.postgresql.pljava.management.Commands.getClassPath$$;
-
-
-ALTER FUNCTION sqlj.get_classpath(character varying) OWNER TO postgres;
-
---
--- Name: install_jar(bytea, character varying, boolean); Type: FUNCTION; Schema: sqlj; Owner: postgres
---
-
-CREATE FUNCTION install_jar(bytea, character varying, boolean) RETURNS void
-    LANGUAGE java SECURITY DEFINER
-    AS $$org.postgresql.pljava.management.Commands.installJar$$;
-
-
-ALTER FUNCTION sqlj.install_jar(bytea, character varying, boolean) OWNER TO postgres;
-
---
--- Name: install_jar(character varying, character varying, boolean); Type: FUNCTION; Schema: sqlj; Owner: postgres
---
-
-CREATE FUNCTION install_jar(character varying, character varying, boolean) RETURNS void
-    LANGUAGE java SECURITY DEFINER
-    AS $$org.postgresql.pljava.management.Commands.installJar$$;
-
-
-ALTER FUNCTION sqlj.install_jar(character varying, character varying, boolean) OWNER TO postgres;
-
---
--- Name: remove_jar(character varying, boolean); Type: FUNCTION; Schema: sqlj; Owner: postgres
---
-
-CREATE FUNCTION remove_jar(character varying, boolean) RETURNS void
-    LANGUAGE java SECURITY DEFINER
-    AS $$org.postgresql.pljava.management.Commands.removeJar$$;
-
-
-ALTER FUNCTION sqlj.remove_jar(character varying, boolean) OWNER TO postgres;
-
---
--- Name: replace_jar(bytea, character varying, boolean); Type: FUNCTION; Schema: sqlj; Owner: postgres
---
-
-CREATE FUNCTION replace_jar(bytea, character varying, boolean) RETURNS void
-    LANGUAGE java SECURITY DEFINER
-    AS $$org.postgresql.pljava.management.Commands.replaceJar$$;
-
-
-ALTER FUNCTION sqlj.replace_jar(bytea, character varying, boolean) OWNER TO postgres;
-
---
--- Name: replace_jar(character varying, character varying, boolean); Type: FUNCTION; Schema: sqlj; Owner: postgres
---
-
-CREATE FUNCTION replace_jar(character varying, character varying, boolean) RETURNS void
-    LANGUAGE java SECURITY DEFINER
-    AS $$org.postgresql.pljava.management.Commands.replaceJar$$;
-
-
-ALTER FUNCTION sqlj.replace_jar(character varying, character varying, boolean) OWNER TO postgres;
-
---
--- Name: set_classpath(character varying, character varying); Type: FUNCTION; Schema: sqlj; Owner: postgres
---
-
-CREATE FUNCTION set_classpath(character varying, character varying) RETURNS void
-    LANGUAGE java SECURITY DEFINER
-    AS $$org.postgresql.pljava.management.Commands.setClassPath$$;
-
-
-ALTER FUNCTION sqlj.set_classpath(character varying, character varying) OWNER TO postgres;
-
-SET search_path = public, pg_catalog;
 
 --
 -- Name: ff_string_agg(text); Type: AGGREGATE; Schema: public; Owner: gforge
@@ -1764,10 +1522,118 @@ ALTER TABLE users OWNER TO gforge;
 --
 
 CREATE VIEW activity_vw AS
-(((SELECT agl.group_id, 'trackeropen'::text AS section, agl.group_artifact_id AS ref_id, a.artifact_id AS subref_id, a.summary AS description, a.open_date AS activity_date, u.user_id, u.user_name, u.realname FROM (artifact_group_list agl JOIN artifact a USING (group_artifact_id)), users u WHERE (u.user_id = a.submitted_by) UNION SELECT agl.group_id, 'trackerclose'::text AS section, agl.group_artifact_id AS ref_id, a.artifact_id AS subref_id, a.summary AS description, a.close_date AS activity_date, u.user_id, u.user_name, u.realname FROM (artifact_group_list agl JOIN artifact a USING (group_artifact_id)), users u WHERE ((u.user_id = a.assigned_to) AND (a.close_date > 0))) UNION SELECT agl.group_id, 'commit'::text AS section, agl.group_artifact_id AS ref_id, a.artifact_id AS subref_id, pcdm.log_text AS description, pcdm.cvs_date AS activity_date, u.user_id, u.user_name, u.realname FROM (artifact_group_list agl JOIN artifact a USING (group_artifact_id)), plugin_cvstracker_data_master pcdm, plugin_cvstracker_data_artifact pcda, users u WHERE (((pcdm.holder_id = pcda.id) AND (pcda.group_artifact_id = a.artifact_id)) AND (u.user_name = pcdm.author))) UNION SELECT frsp.group_id, 'frsrelease'::text AS section, frsp.package_id AS ref_id, frsr.release_id AS subref_id, frsr.name AS description, frsr.release_date AS activity_date, u.user_id, u.user_name, u.realname FROM (frs_package frsp JOIN frs_release frsr USING (package_id)), users u WHERE (u.user_id = frsr.released_by)) UNION SELECT fgl.group_id, 'forumpost'::text AS section, fgl.group_forum_id AS ref_id, forum.msg_id AS subref_id, forum.subject AS description, forum.post_date AS activity_date, u.user_id, u.user_name, u.realname FROM (forum_group_list fgl JOIN forum USING (group_forum_id)), users u WHERE (u.user_id = forum.posted_by);
+ SELECT agl.group_id,
+    'trackeropen'::text AS section,
+    agl.group_artifact_id AS ref_id,
+    a.artifact_id AS subref_id,
+    a.summary AS description,
+    a.open_date AS activity_date,
+    u.user_id,
+    u.user_name,
+    u.realname
+   FROM (artifact_group_list agl
+     JOIN artifact a USING (group_artifact_id)),
+    users u
+  WHERE (u.user_id = a.submitted_by)
+UNION
+ SELECT agl.group_id,
+    'trackerclose'::text AS section,
+    agl.group_artifact_id AS ref_id,
+    a.artifact_id AS subref_id,
+    a.summary AS description,
+    a.close_date AS activity_date,
+    u.user_id,
+    u.user_name,
+    u.realname
+   FROM (artifact_group_list agl
+     JOIN artifact a USING (group_artifact_id)),
+    users u
+  WHERE ((u.user_id = a.assigned_to) AND (a.close_date > 0))
+UNION
+ SELECT agl.group_id,
+    'commit'::text AS section,
+    agl.group_artifact_id AS ref_id,
+    a.artifact_id AS subref_id,
+    pcdm.log_text AS description,
+    pcdm.cvs_date AS activity_date,
+    u.user_id,
+    u.user_name,
+    u.realname
+   FROM (artifact_group_list agl
+     JOIN artifact a USING (group_artifact_id)),
+    plugin_cvstracker_data_master pcdm,
+    plugin_cvstracker_data_artifact pcda,
+    users u
+  WHERE (((pcdm.holder_id = pcda.id) AND (pcda.group_artifact_id = a.artifact_id)) AND (u.user_name = pcdm.author))
+UNION
+ SELECT frsp.group_id,
+    'frsrelease'::text AS section,
+    frsp.package_id AS ref_id,
+    frsr.release_id AS subref_id,
+    frsr.name AS description,
+    frsr.release_date AS activity_date,
+    u.user_id,
+    u.user_name,
+    u.realname
+   FROM (frs_package frsp
+     JOIN frs_release frsr USING (package_id)),
+    users u
+  WHERE (u.user_id = frsr.released_by)
+UNION
+ SELECT fgl.group_id,
+    'forumpost'::text AS section,
+    fgl.group_forum_id AS ref_id,
+    forum.msg_id AS subref_id,
+    forum.subject AS description,
+    forum.post_date AS activity_date,
+    u.user_id,
+    u.user_name,
+    u.realname
+   FROM (forum_group_list fgl
+     JOIN forum USING (group_forum_id)),
+    users u
+  WHERE (u.user_id = forum.posted_by);
 
 
 ALTER TABLE activity_vw OWNER TO gforge;
+
+--
+-- Name: address; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE address (
+    id integer NOT NULL,
+    street_address1 text,
+    street_address2 text,
+    city text,
+    state text,
+    country text,
+    zip text
+);
+
+
+ALTER TABLE address OWNER TO gforge;
+
+--
+-- Name: address_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE address_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE address_id_seq OWNER TO gforge;
+
+--
+-- Name: address_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE address_id_seq OWNED BY address.id;
+
 
 --
 -- Name: artifact_artifact_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
@@ -1951,7 +1817,20 @@ ALTER TABLE artifact_file_id_seq OWNER TO gforge;
 --
 
 CREATE VIEW artifact_file_user_vw AS
-SELECT af.id, af.artifact_id, af.description, af.bin_data, af.filename, af.filesize, af.filetype, af.adddate, af.submitted_by, users.user_name, users.realname FROM artifact_file af, users WHERE (af.submitted_by = users.user_id);
+ SELECT af.id,
+    af.artifact_id,
+    af.description,
+    af.bin_data,
+    af.filename,
+    af.filesize,
+    af.filetype,
+    af.adddate,
+    af.submitted_by,
+    users.user_name,
+    users.realname
+   FROM artifact_file af,
+    users
+  WHERE (af.submitted_by = users.user_id);
 
 
 ALTER TABLE artifact_file_user_vw OWNER TO gforge;
@@ -1975,7 +1854,26 @@ ALTER TABLE artifact_grou_group_artifac_seq OWNER TO gforge;
 --
 
 CREATE VIEW artifact_group_list_vw AS
-SELECT agl.group_artifact_id, agl.group_id, agl.name, agl.description, agl.is_public, agl.allow_anon, agl.email_all_updates, agl.email_address, agl.due_period, agl.submit_instructions, agl.browse_instructions, agl.browse_list, agl.datatype, agl.status_timeout, agl.custom_status_field, agl.custom_renderer, aca.count, aca.open_count FROM (artifact_group_list agl LEFT JOIN artifact_counts_agg aca USING (group_artifact_id));
+ SELECT agl.group_artifact_id,
+    agl.group_id,
+    agl.name,
+    agl.description,
+    agl.is_public,
+    agl.allow_anon,
+    agl.email_all_updates,
+    agl.email_address,
+    agl.due_period,
+    agl.submit_instructions,
+    agl.browse_instructions,
+    agl.browse_list,
+    agl.datatype,
+    agl.status_timeout,
+    agl.custom_status_field,
+    agl.custom_renderer,
+    aca.count,
+    aca.open_count
+   FROM (artifact_group_list agl
+     LEFT JOIN artifact_counts_agg aca USING (group_artifact_id));
 
 
 ALTER TABLE artifact_group_list_vw OWNER TO gforge;
@@ -2015,7 +1913,15 @@ ALTER TABLE artifact_history_id_seq OWNER TO gforge;
 --
 
 CREATE VIEW artifact_history_user_vw AS
-SELECT ah.id, ah.artifact_id, ah.field_name, ah.old_value, ah.entrydate, users.user_name FROM artifact_history ah, users WHERE (ah.mod_by = users.user_id);
+ SELECT ah.id,
+    ah.artifact_id,
+    ah.field_name,
+    ah.old_value,
+    ah.entrydate,
+    users.user_name
+   FROM artifact_history ah,
+    users
+  WHERE (ah.mod_by = users.user_id);
 
 
 ALTER TABLE artifact_history_user_vw OWNER TO gforge;
@@ -2055,7 +1961,18 @@ ALTER TABLE artifact_message_id_seq OWNER TO gforge;
 --
 
 CREATE VIEW artifact_message_user_vw AS
-SELECT am.id, am.artifact_id, am.from_email, am.body, am.adddate, users.user_id, users.email, users.user_name, users.realname FROM artifact_message am, users WHERE (am.submitted_by = users.user_id);
+ SELECT am.id,
+    am.artifact_id,
+    am.from_email,
+    am.body,
+    am.adddate,
+    users.user_id,
+    users.email,
+    users.user_name,
+    users.realname
+   FROM artifact_message am,
+    users
+  WHERE (am.submitted_by = users.user_id);
 
 
 ALTER TABLE artifact_message_user_vw OWNER TO gforge;
@@ -2182,7 +2099,29 @@ ALTER TABLE artifact_type_monitor OWNER TO gforge;
 --
 
 CREATE VIEW artifact_vw AS
-SELECT artifact.artifact_id, artifact.group_artifact_id, artifact.status_id, artifact.priority, artifact.submitted_by, artifact.assigned_to, artifact.open_date, artifact.close_date, artifact.summary, artifact.details, u.user_name AS assigned_unixname, u.realname AS assigned_realname, u.email AS assigned_email, u2.user_name AS submitted_unixname, u2.realname AS submitted_realname, u2.email AS submitted_email, artifact_status.status_name, artifact.last_modified_date FROM users u, users u2, artifact_status, artifact WHERE (((artifact.assigned_to = u.user_id) AND (artifact.submitted_by = u2.user_id)) AND (artifact.status_id = artifact_status.id));
+ SELECT artifact.artifact_id,
+    artifact.group_artifact_id,
+    artifact.status_id,
+    artifact.priority,
+    artifact.submitted_by,
+    artifact.assigned_to,
+    artifact.open_date,
+    artifact.close_date,
+    artifact.summary,
+    artifact.details,
+    u.user_name AS assigned_unixname,
+    u.realname AS assigned_realname,
+    u.email AS assigned_email,
+    u2.user_name AS submitted_unixname,
+    u2.realname AS submitted_realname,
+    u2.email AS submitted_email,
+    artifact_status.status_name,
+    artifact.last_modified_date
+   FROM users u,
+    users u2,
+    artifact_status,
+    artifact
+  WHERE (((artifact.assigned_to = u.user_id) AND (artifact.submitted_by = u2.user_id)) AND (artifact.status_id = artifact_status.id));
 
 
 ALTER TABLE artifact_vw OWNER TO gforge;
@@ -3411,7 +3350,33 @@ ALTER TABLE docdata_monitored_docman_pk_seq OWNER TO gforge;
 --
 
 CREATE VIEW docdata_vw AS
-SELECT users.user_name, users.realname, users.email, d.group_id, d.docid, d.stateid, d.title, d.updatedate, d.createdate, d.created_by, d.doc_group, d.description, d.filename, d.filetype, d.filesize, d.reserved, d.reserved_by, d.locked, d.locked_by, d.lockdate, doc_states.name AS state_name, doc_groups.groupname AS group_name FROM doc_data d, users, doc_groups, doc_states WHERE (((d.created_by = users.user_id) AND (doc_groups.doc_group = d.doc_group)) AND (doc_states.stateid = d.stateid));
+ SELECT users.user_name,
+    users.realname,
+    users.email,
+    d.group_id,
+    d.docid,
+    d.stateid,
+    d.title,
+    d.updatedate,
+    d.createdate,
+    d.created_by,
+    d.doc_group,
+    d.description,
+    d.filename,
+    d.filetype,
+    d.filesize,
+    d.reserved,
+    d.reserved_by,
+    d.locked,
+    d.locked_by,
+    d.lockdate,
+    doc_states.name AS state_name,
+    doc_groups.groupname AS group_name
+   FROM doc_data d,
+    users,
+    doc_groups,
+    doc_states
+  WHERE (((d.created_by = users.user_id) AND (doc_groups.doc_group = d.doc_group)) AND (doc_states.stateid = d.stateid));
 
 
 ALTER TABLE docdata_vw OWNER TO gforge;
@@ -3636,7 +3601,25 @@ ALTER TABLE forum_group_list_pk_seq OWNER TO gforge;
 --
 
 CREATE VIEW forum_group_list_vw AS
-SELECT forum_group_list.group_forum_id, forum_group_list.group_id, forum_group_list.forum_name, forum_group_list.is_public, forum_group_list.description, forum_group_list.allow_anonymous, forum_group_list.send_all_posts_to, forum_group_list.moderation_level, forum_agg_msg_count.count AS total, (SELECT max(forum.post_date) AS recent FROM forum WHERE (forum.group_forum_id = forum_group_list.group_forum_id)) AS recent, (SELECT count(*) AS count FROM (SELECT forum.thread_id FROM forum WHERE (forum.group_forum_id = forum_group_list.group_forum_id) GROUP BY forum.thread_id) tmp) AS threads FROM (forum_group_list LEFT JOIN forum_agg_msg_count USING (group_forum_id));
+ SELECT forum_group_list.group_forum_id,
+    forum_group_list.group_id,
+    forum_group_list.forum_name,
+    forum_group_list.is_public,
+    forum_group_list.description,
+    forum_group_list.allow_anonymous,
+    forum_group_list.send_all_posts_to,
+    forum_group_list.moderation_level,
+    forum_agg_msg_count.count AS total,
+    ( SELECT max(forum.post_date) AS recent
+           FROM forum
+          WHERE (forum.group_forum_id = forum_group_list.group_forum_id)) AS recent,
+    ( SELECT count(*) AS count
+           FROM ( SELECT forum.thread_id
+                   FROM forum
+                  WHERE (forum.group_forum_id = forum_group_list.group_forum_id)
+                  GROUP BY forum.thread_id) tmp) AS threads
+   FROM (forum_group_list
+     LEFT JOIN forum_agg_msg_count USING (group_forum_id));
 
 
 ALTER TABLE forum_group_list_vw OWNER TO gforge;
@@ -3793,7 +3776,21 @@ ALTER SEQUENCE forum_pending_messages_msg_id_seq OWNED BY forum_pending_messages
 --
 
 CREATE VIEW forum_pending_user_vw AS
-SELECT forum_pending_messages.msg_id, forum_pending_messages.group_forum_id, forum_pending_messages.posted_by, forum_pending_messages.subject, forum_pending_messages.body, forum_pending_messages.post_date, forum_pending_messages.is_followup_to, forum_pending_messages.thread_id, forum_pending_messages.has_followups, forum_pending_messages.most_recent_date, users.user_name, users.realname FROM forum_pending_messages, users WHERE (forum_pending_messages.posted_by = users.user_id);
+ SELECT forum_pending_messages.msg_id,
+    forum_pending_messages.group_forum_id,
+    forum_pending_messages.posted_by,
+    forum_pending_messages.subject,
+    forum_pending_messages.body,
+    forum_pending_messages.post_date,
+    forum_pending_messages.is_followup_to,
+    forum_pending_messages.thread_id,
+    forum_pending_messages.has_followups,
+    forum_pending_messages.most_recent_date,
+    users.user_name,
+    users.realname
+   FROM forum_pending_messages,
+    users
+  WHERE (forum_pending_messages.posted_by = users.user_id);
 
 
 ALTER TABLE forum_pending_user_vw OWNER TO gforge;
@@ -3896,7 +3893,21 @@ ALTER SEQUENCE forum_topics_topic_id_seq OWNED BY forum_topics.topic_id;
 --
 
 CREATE VIEW forum_user_vw AS
-SELECT forum.msg_id, forum.group_forum_id, forum.posted_by, forum.subject, forum.body, forum.post_date, forum.is_followup_to, forum.thread_id, forum.has_followups, forum.most_recent_date, users.user_name, users.realname FROM forum, users WHERE (forum.posted_by = users.user_id);
+ SELECT forum.msg_id,
+    forum.group_forum_id,
+    forum.posted_by,
+    forum.subject,
+    forum.body,
+    forum.post_date,
+    forum.is_followup_to,
+    forum.thread_id,
+    forum.has_followups,
+    forum.most_recent_date,
+    users.user_name,
+    users.realname
+   FROM forum,
+    users
+  WHERE (forum.posted_by = users.user_id);
 
 
 ALTER TABLE forum_user_vw OWNER TO gforge;
@@ -3970,7 +3981,12 @@ ALTER TABLE frs_dlstats_file OWNER TO gforge;
 --
 
 CREATE VIEW frs_dlstats_file_agg_vw AS
-SELECT frs_dlstats_file.month, frs_dlstats_file.day, frs_dlstats_file.file_id, count(*) AS downloads FROM frs_dlstats_file GROUP BY frs_dlstats_file.month, frs_dlstats_file.day, frs_dlstats_file.file_id;
+ SELECT frs_dlstats_file.month,
+    frs_dlstats_file.day,
+    frs_dlstats_file.file_id,
+    count(*) AS downloads
+   FROM frs_dlstats_file
+  GROUP BY frs_dlstats_file.month, frs_dlstats_file.day, frs_dlstats_file.file_id;
 
 
 ALTER TABLE frs_dlstats_file_agg_vw OWNER TO gforge;
@@ -4010,7 +4026,16 @@ ALTER TABLE frs_file OWNER TO gforge;
 --
 
 CREATE VIEW frs_dlstats_group_vw AS
-SELECT frs_package.group_id, fdfa.month, fdfa.day, sum(fdfa.downloads) AS downloads FROM frs_package, frs_release, frs_file, frs_dlstats_file_agg_vw fdfa WHERE (((frs_package.package_id = frs_release.package_id) AND (frs_release.release_id = frs_file.release_id)) AND (frs_file.file_id = fdfa.file_id)) GROUP BY frs_package.group_id, fdfa.month, fdfa.day;
+ SELECT frs_package.group_id,
+    fdfa.month,
+    fdfa.day,
+    sum(fdfa.downloads) AS downloads
+   FROM frs_package,
+    frs_release,
+    frs_file,
+    frs_dlstats_file_agg_vw fdfa
+  WHERE (((frs_package.package_id = frs_release.package_id) AND (frs_release.release_id = frs_file.release_id)) AND (frs_file.file_id = fdfa.file_id))
+  GROUP BY frs_package.group_id, fdfa.month, fdfa.day;
 
 
 ALTER TABLE frs_dlstats_group_vw OWNER TO gforge;
@@ -4020,7 +4045,14 @@ ALTER TABLE frs_dlstats_group_vw OWNER TO gforge;
 --
 
 CREATE VIEW frs_dlstats_grouptotal_vw AS
-SELECT frs_package.group_id, sum(frs_dlstats_filetotal_agg.downloads) AS downloads FROM frs_package, frs_release, frs_file, frs_dlstats_filetotal_agg WHERE (((frs_package.package_id = frs_release.package_id) AND (frs_release.release_id = frs_file.release_id)) AND (frs_file.file_id = frs_dlstats_filetotal_agg.file_id)) GROUP BY frs_package.group_id;
+ SELECT frs_package.group_id,
+    sum(frs_dlstats_filetotal_agg.downloads) AS downloads
+   FROM frs_package,
+    frs_release,
+    frs_file,
+    frs_dlstats_filetotal_agg
+  WHERE (((frs_package.package_id = frs_release.package_id) AND (frs_release.release_id = frs_file.release_id)) AND (frs_file.file_id = frs_dlstats_filetotal_agg.file_id))
+  GROUP BY frs_package.group_id;
 
 
 ALTER TABLE frs_dlstats_grouptotal_vw OWNER TO gforge;
@@ -4068,7 +4100,22 @@ ALTER TABLE frs_processor OWNER TO gforge;
 --
 
 CREATE VIEW frs_file_vw AS
-SELECT frs_file.file_id, frs_file.filename, frs_file.release_id, frs_file.type_id, frs_file.processor_id, frs_file.release_time, frs_file.file_size, frs_file.post_date, frs_filetype.name AS filetype, frs_processor.name AS processor, frs_dlstats_filetotal_agg.downloads FROM frs_filetype, frs_processor, (frs_file LEFT JOIN frs_dlstats_filetotal_agg ON ((frs_dlstats_filetotal_agg.file_id = frs_file.file_id))) WHERE ((frs_filetype.type_id = frs_file.type_id) AND (frs_processor.processor_id = frs_file.processor_id));
+ SELECT frs_file.file_id,
+    frs_file.filename,
+    frs_file.release_id,
+    frs_file.type_id,
+    frs_file.processor_id,
+    frs_file.release_time,
+    frs_file.file_size,
+    frs_file.post_date,
+    frs_filetype.name AS filetype,
+    frs_processor.name AS processor,
+    frs_dlstats_filetotal_agg.downloads
+   FROM frs_filetype,
+    frs_processor,
+    (frs_file
+     LEFT JOIN frs_dlstats_filetotal_agg ON ((frs_dlstats_filetotal_agg.file_id = frs_file.file_id)))
+  WHERE ((frs_filetype.type_id = frs_file.type_id) AND (frs_processor.processor_id = frs_file.processor_id));
 
 
 ALTER TABLE frs_file_vw OWNER TO gforge;
@@ -4613,7 +4660,19 @@ ALTER TABLE massmail_queue_id_seq OWNER TO gforge;
 --
 
 CREATE VIEW mta_lists AS
-SELECT mail_group_list.list_name, ('|/var/lib/mailman/mail/mailman post '::text || mail_group_list.list_name) AS post_address, ('|/var/lib/mailman/mail/mailman admin '::text || mail_group_list.list_name) AS admin_address, ('|/var/lib/mailman/mail/mailman bounces '::text || mail_group_list.list_name) AS bounces_address, ('|/var/lib/mailman/mail/mailman confirm '::text || mail_group_list.list_name) AS confirm_address, ('|/var/lib/mailman/mail/mailman join '::text || mail_group_list.list_name) AS join_address, ('|/var/lib/mailman/mail/mailman leave '::text || mail_group_list.list_name) AS leave_address, ('|/var/lib/mailman/mail/mailman owner '::text || mail_group_list.list_name) AS owner_address, ('|/var/lib/mailman/mail/mailman request '::text || mail_group_list.list_name) AS request_address, ('|/var/lib/mailman/mail/mailman subscribe '::text || mail_group_list.list_name) AS subscribe_address, ('|/var/lib/mailman/mail/mailman unsubscribe '::text || mail_group_list.list_name) AS unsubscribe_address FROM mail_group_list WHERE ((mail_group_list.status = 3) OR (mail_group_list.status = 4));
+ SELECT mail_group_list.list_name,
+    ('|/var/lib/mailman/mail/mailman post '::text || mail_group_list.list_name) AS post_address,
+    ('|/var/lib/mailman/mail/mailman admin '::text || mail_group_list.list_name) AS admin_address,
+    ('|/var/lib/mailman/mail/mailman bounces '::text || mail_group_list.list_name) AS bounces_address,
+    ('|/var/lib/mailman/mail/mailman confirm '::text || mail_group_list.list_name) AS confirm_address,
+    ('|/var/lib/mailman/mail/mailman join '::text || mail_group_list.list_name) AS join_address,
+    ('|/var/lib/mailman/mail/mailman leave '::text || mail_group_list.list_name) AS leave_address,
+    ('|/var/lib/mailman/mail/mailman owner '::text || mail_group_list.list_name) AS owner_address,
+    ('|/var/lib/mailman/mail/mailman request '::text || mail_group_list.list_name) AS request_address,
+    ('|/var/lib/mailman/mail/mailman subscribe '::text || mail_group_list.list_name) AS subscribe_address,
+    ('|/var/lib/mailman/mail/mailman unsubscribe '::text || mail_group_list.list_name) AS unsubscribe_address
+   FROM mail_group_list
+  WHERE ((mail_group_list.status = 3) OR (mail_group_list.status = 4));
 
 
 ALTER TABLE mta_lists OWNER TO gforge;
@@ -4669,7 +4728,16 @@ ALTER TABLE nss_groups OWNER TO gforge;
 --
 
 CREATE VIEW nss_passwd AS
-SELECT users.unix_uid AS uid, users.unix_gid AS gid, users.user_name AS login, users.unix_pw AS passwd, users.realname AS gecos, users.shell, users.user_name AS homedir, users.status FROM users WHERE (users.unix_status = 'A'::bpchar);
+ SELECT users.unix_uid AS uid,
+    users.unix_gid AS gid,
+    users.user_name AS login,
+    users.unix_pw AS passwd,
+    users.realname AS gecos,
+    users.shell,
+    users.user_name AS homedir,
+    users.status
+   FROM users
+  WHERE (users.unix_status = 'A'::bpchar);
 
 
 ALTER TABLE nss_passwd OWNER TO gforge;
@@ -4679,7 +4747,12 @@ ALTER TABLE nss_passwd OWNER TO gforge;
 --
 
 CREATE VIEW nss_shadow AS
-SELECT users.user_name AS login, users.unix_pw AS passwd, 'n'::bpchar AS expired, 'n'::bpchar AS pwchange FROM users WHERE (users.unix_status = 'A'::bpchar);
+ SELECT users.user_name AS login,
+    users.unix_pw AS passwd,
+    'n'::bpchar AS expired,
+    'n'::bpchar AS pwchange
+   FROM users
+  WHERE (users.unix_status = 'A'::bpchar);
 
 
 ALTER TABLE nss_shadow OWNER TO gforge;
@@ -4699,6 +4772,159 @@ CREATE TABLE nss_usergroups (
 
 
 ALTER TABLE nss_usergroups OWNER TO gforge;
+
+--
+-- Name: organization; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE organization (
+    organization_id integer NOT NULL,
+    name text,
+    company_logo text,
+    division text,
+    address_id integer,
+    perf_method_comm text,
+    website text,
+    social_media_linkedin text,
+    social_media_twitter text,
+    social_medial_inthenews text,
+    naics text,
+    description text,
+    dmc_tech_expertise text,
+    dmc_resources text,
+    awards text
+);
+
+
+ALTER TABLE organization OWNER TO gforge;
+
+--
+-- Name: organization_capabilities_pictures; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE organization_capabilities_pictures (
+    id integer NOT NULL,
+    organization_id integer,
+    caption text,
+    photo_link text
+);
+
+
+ALTER TABLE organization_capabilities_pictures OWNER TO gforge;
+
+--
+-- Name: organization_capabilities_pictures_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE organization_capabilities_pictures_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE organization_capabilities_pictures_id_seq OWNER TO gforge;
+
+--
+-- Name: organization_capabilities_pictures_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE organization_capabilities_pictures_id_seq OWNED BY organization_capabilities_pictures.id;
+
+
+--
+-- Name: organization_customer; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE organization_customer (
+    id integer NOT NULL,
+    organization_id integer,
+    org_user_flag boolean,
+    ref_name text NOT NULL,
+    ref_id integer
+);
+
+
+ALTER TABLE organization_customer OWNER TO gforge;
+
+--
+-- Name: organization_customer_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE organization_customer_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE organization_customer_id_seq OWNER TO gforge;
+
+--
+-- Name: organization_customer_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE organization_customer_id_seq OWNED BY organization_customer.id;
+
+
+--
+-- Name: organization_organization_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE organization_organization_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE organization_organization_id_seq OWNER TO gforge;
+
+--
+-- Name: organization_organization_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE organization_organization_id_seq OWNED BY organization.organization_id;
+
+
+--
+-- Name: organization_vidio; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE organization_vidio (
+    id integer NOT NULL,
+    organization_id integer,
+    "time" integer,
+    caption text,
+    vidio_link text
+);
+
+
+ALTER TABLE organization_vidio OWNER TO gforge;
+
+--
+-- Name: organization_vidio_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE organization_vidio_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE organization_vidio_id_seq OWNER TO gforge;
+
+--
+-- Name: organization_vidio_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE organization_vidio_id_seq OWNED BY organization_vidio.id;
+
 
 --
 -- Name: owner_layouts; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
@@ -5241,7 +5467,13 @@ ALTER TABLE project_task OWNER TO gforge;
 --
 
 CREATE VIEW project_depend_vw AS
-SELECT pt.project_task_id, pd.is_dependent_on_task_id, pd.link_type, pt.end_date, pt.start_date FROM (project_task pt NATURAL JOIN project_dependencies pd);
+ SELECT pt.project_task_id,
+    pd.is_dependent_on_task_id,
+    pd.link_type,
+    pt.end_date,
+    pt.start_date
+   FROM (project_task pt
+     JOIN project_dependencies pd USING (project_task_id));
 
 
 ALTER TABLE project_depend_vw OWNER TO gforge;
@@ -5265,7 +5497,13 @@ ALTER TABLE project_dependencies_pk_seq OWNER TO gforge;
 --
 
 CREATE VIEW project_dependon_vw AS
-SELECT pd.project_task_id, pd.is_dependent_on_task_id, pd.link_type, pt.end_date, pt.start_date FROM (project_task pt FULL JOIN project_dependencies pd ON ((pd.is_dependent_on_task_id = pt.project_task_id)));
+ SELECT pd.project_task_id,
+    pd.is_dependent_on_task_id,
+    pd.link_type,
+    pt.end_date,
+    pt.start_date
+   FROM (project_task pt
+     FULL JOIN project_dependencies pd ON ((pd.is_dependent_on_task_id = pt.project_task_id)));
 
 
 ALTER TABLE project_dependon_vw OWNER TO gforge;
@@ -5305,7 +5543,16 @@ ALTER TABLE project_group_list_pk_seq OWNER TO gforge;
 --
 
 CREATE VIEW project_group_list_vw AS
-SELECT project_group_list.group_project_id, project_group_list.group_id, project_group_list.project_name, project_group_list.is_public, project_group_list.description, project_group_list.send_all_posts_to, project_counts_agg.count, project_counts_agg.open_count FROM (project_group_list NATURAL JOIN project_counts_agg);
+ SELECT project_group_list.group_project_id,
+    project_group_list.group_id,
+    project_group_list.project_name,
+    project_group_list.is_public,
+    project_group_list.description,
+    project_group_list.send_all_posts_to,
+    project_counts_agg.count,
+    project_counts_agg.open_count
+   FROM (project_group_list
+     JOIN project_counts_agg USING (group_project_id));
 
 
 ALTER TABLE project_group_list_vw OWNER TO gforge;
@@ -5345,7 +5592,18 @@ ALTER TABLE project_history_pk_seq OWNER TO gforge;
 --
 
 CREATE VIEW project_history_user_vw AS
-SELECT users.realname, users.email, users.user_name, project_history.project_history_id, project_history.project_task_id, project_history.field_name, project_history.old_value, project_history.mod_by, project_history.mod_date FROM users, project_history WHERE (project_history.mod_by = users.user_id);
+ SELECT users.realname,
+    users.email,
+    users.user_name,
+    project_history.project_history_id,
+    project_history.project_task_id,
+    project_history.field_name,
+    project_history.old_value,
+    project_history.mod_by,
+    project_history.mod_date
+   FROM users,
+    project_history
+  WHERE (project_history.mod_by = users.user_id);
 
 
 ALTER TABLE project_history_user_vw OWNER TO gforge;
@@ -5384,7 +5642,17 @@ ALTER TABLE project_messages OWNER TO gforge;
 --
 
 CREATE VIEW project_message_user_vw AS
-SELECT users.realname, users.email, users.user_name, project_messages.project_message_id, project_messages.project_task_id, project_messages.body, project_messages.posted_by, project_messages.postdate FROM users, project_messages WHERE (project_messages.posted_by = users.user_id);
+ SELECT users.realname,
+    users.email,
+    users.user_name,
+    project_messages.project_message_id,
+    project_messages.project_task_id,
+    project_messages.body,
+    project_messages.posted_by,
+    project_messages.postdate
+   FROM users,
+    project_messages
+  WHERE (project_messages.posted_by = users.user_id);
 
 
 ALTER TABLE project_message_user_vw OWNER TO gforge;
@@ -5623,7 +5891,29 @@ ALTER TABLE project_task_pk_seq OWNER TO gforge;
 --
 
 CREATE VIEW project_task_vw AS
-SELECT project_task.project_task_id, project_task.group_project_id, project_task.summary, project_task.details, project_task.percent_complete, project_task.priority, project_task.hours, project_task.start_date, project_task.end_date, project_task.created_by, project_task.status_id, project_task.category_id, project_task.duration, project_task.parent_id, project_task.last_modified_date, project_category.category_name, project_status.status_name, users.user_name, users.realname FROM (((project_task FULL JOIN project_category ON ((project_category.category_id = project_task.category_id))) FULL JOIN users ON ((users.user_id = project_task.created_by))) NATURAL JOIN project_status);
+ SELECT project_task.project_task_id,
+    project_task.group_project_id,
+    project_task.summary,
+    project_task.details,
+    project_task.percent_complete,
+    project_task.priority,
+    project_task.hours,
+    project_task.start_date,
+    project_task.end_date,
+    project_task.created_by,
+    project_task.status_id,
+    project_task.category_id,
+    project_task.duration,
+    project_task.parent_id,
+    project_task.last_modified_date,
+    project_category.category_name,
+    project_status.status_name,
+    users.user_name,
+    users.realname
+   FROM (((project_task
+     FULL JOIN project_category ON ((project_category.category_id = project_task.category_id)))
+     FULL JOIN users ON ((users.user_id = project_task.created_by)))
+     JOIN project_status USING (status_id));
 
 
 ALTER TABLE project_task_vw OWNER TO gforge;
@@ -5779,7 +6069,17 @@ ALTER TABLE rep_group_act_monthly OWNER TO gforge;
 --
 
 CREATE VIEW rep_group_act_oa_vw AS
-SELECT rep_group_act_monthly.group_id, sum(rep_group_act_monthly.tracker_opened) AS tracker_opened, sum(rep_group_act_monthly.tracker_closed) AS tracker_closed, sum(rep_group_act_monthly.forum) AS forum, sum(rep_group_act_monthly.docs) AS docs, sum(rep_group_act_monthly.downloads) AS downloads, sum(rep_group_act_monthly.cvs_commits) AS cvs_commits, sum(rep_group_act_monthly.tasks_opened) AS tasks_opened, sum(rep_group_act_monthly.tasks_closed) AS tasks_closed FROM rep_group_act_monthly GROUP BY rep_group_act_monthly.group_id;
+ SELECT rep_group_act_monthly.group_id,
+    sum(rep_group_act_monthly.tracker_opened) AS tracker_opened,
+    sum(rep_group_act_monthly.tracker_closed) AS tracker_closed,
+    sum(rep_group_act_monthly.forum) AS forum,
+    sum(rep_group_act_monthly.docs) AS docs,
+    sum(rep_group_act_monthly.downloads) AS downloads,
+    sum(rep_group_act_monthly.cvs_commits) AS cvs_commits,
+    sum(rep_group_act_monthly.tasks_opened) AS tasks_opened,
+    sum(rep_group_act_monthly.tasks_closed) AS tasks_closed
+   FROM rep_group_act_monthly
+  GROUP BY rep_group_act_monthly.group_id;
 
 
 ALTER TABLE rep_group_act_oa_vw OWNER TO gforge;
@@ -5881,7 +6181,17 @@ ALTER TABLE rep_groups_cum_weekly OWNER TO gforge;
 --
 
 CREATE VIEW rep_site_act_daily_vw AS
-SELECT rep_group_act_daily.day, sum(rep_group_act_daily.tracker_opened) AS tracker_opened, sum(rep_group_act_daily.tracker_closed) AS tracker_closed, sum(rep_group_act_daily.forum) AS forum, sum(rep_group_act_daily.docs) AS docs, sum(rep_group_act_daily.downloads) AS downloads, sum(rep_group_act_daily.cvs_commits) AS cvs_commits, sum(rep_group_act_daily.tasks_opened) AS tasks_opened, sum(rep_group_act_daily.tasks_closed) AS tasks_closed FROM rep_group_act_daily GROUP BY rep_group_act_daily.day;
+ SELECT rep_group_act_daily.day,
+    sum(rep_group_act_daily.tracker_opened) AS tracker_opened,
+    sum(rep_group_act_daily.tracker_closed) AS tracker_closed,
+    sum(rep_group_act_daily.forum) AS forum,
+    sum(rep_group_act_daily.docs) AS docs,
+    sum(rep_group_act_daily.downloads) AS downloads,
+    sum(rep_group_act_daily.cvs_commits) AS cvs_commits,
+    sum(rep_group_act_daily.tasks_opened) AS tasks_opened,
+    sum(rep_group_act_daily.tasks_closed) AS tasks_closed
+   FROM rep_group_act_daily
+  GROUP BY rep_group_act_daily.day;
 
 
 ALTER TABLE rep_site_act_daily_vw OWNER TO gforge;
@@ -5891,7 +6201,17 @@ ALTER TABLE rep_site_act_daily_vw OWNER TO gforge;
 --
 
 CREATE VIEW rep_site_act_monthly_vw AS
-SELECT rep_group_act_monthly.month, sum(rep_group_act_monthly.tracker_opened) AS tracker_opened, sum(rep_group_act_monthly.tracker_closed) AS tracker_closed, sum(rep_group_act_monthly.forum) AS forum, sum(rep_group_act_monthly.docs) AS docs, sum(rep_group_act_monthly.downloads) AS downloads, sum(rep_group_act_monthly.cvs_commits) AS cvs_commits, sum(rep_group_act_monthly.tasks_opened) AS tasks_opened, sum(rep_group_act_monthly.tasks_closed) AS tasks_closed FROM rep_group_act_monthly GROUP BY rep_group_act_monthly.month;
+ SELECT rep_group_act_monthly.month,
+    sum(rep_group_act_monthly.tracker_opened) AS tracker_opened,
+    sum(rep_group_act_monthly.tracker_closed) AS tracker_closed,
+    sum(rep_group_act_monthly.forum) AS forum,
+    sum(rep_group_act_monthly.docs) AS docs,
+    sum(rep_group_act_monthly.downloads) AS downloads,
+    sum(rep_group_act_monthly.cvs_commits) AS cvs_commits,
+    sum(rep_group_act_monthly.tasks_opened) AS tasks_opened,
+    sum(rep_group_act_monthly.tasks_closed) AS tasks_closed
+   FROM rep_group_act_monthly
+  GROUP BY rep_group_act_monthly.month;
 
 
 ALTER TABLE rep_site_act_monthly_vw OWNER TO gforge;
@@ -5901,7 +6221,17 @@ ALTER TABLE rep_site_act_monthly_vw OWNER TO gforge;
 --
 
 CREATE VIEW rep_site_act_weekly_vw AS
-SELECT rep_group_act_weekly.week, sum(rep_group_act_weekly.tracker_opened) AS tracker_opened, sum(rep_group_act_weekly.tracker_closed) AS tracker_closed, sum(rep_group_act_weekly.forum) AS forum, sum(rep_group_act_weekly.docs) AS docs, sum(rep_group_act_weekly.downloads) AS downloads, sum(rep_group_act_weekly.cvs_commits) AS cvs_commits, sum(rep_group_act_weekly.tasks_opened) AS tasks_opened, sum(rep_group_act_weekly.tasks_closed) AS tasks_closed FROM rep_group_act_weekly GROUP BY rep_group_act_weekly.week;
+ SELECT rep_group_act_weekly.week,
+    sum(rep_group_act_weekly.tracker_opened) AS tracker_opened,
+    sum(rep_group_act_weekly.tracker_closed) AS tracker_closed,
+    sum(rep_group_act_weekly.forum) AS forum,
+    sum(rep_group_act_weekly.docs) AS docs,
+    sum(rep_group_act_weekly.downloads) AS downloads,
+    sum(rep_group_act_weekly.cvs_commits) AS cvs_commits,
+    sum(rep_group_act_weekly.tasks_opened) AS tasks_opened,
+    sum(rep_group_act_weekly.tasks_closed) AS tasks_closed
+   FROM rep_group_act_weekly
+  GROUP BY rep_group_act_weekly.week;
 
 
 ALTER TABLE rep_site_act_weekly_vw OWNER TO gforge;
@@ -5991,7 +6321,16 @@ ALTER TABLE rep_user_act_monthly OWNER TO gforge;
 --
 
 CREATE VIEW rep_user_act_oa_vw AS
-SELECT rep_user_act_monthly.user_id, sum(rep_user_act_monthly.tracker_opened) AS tracker_opened, sum(rep_user_act_monthly.tracker_closed) AS tracker_closed, sum(rep_user_act_monthly.forum) AS forum, sum(rep_user_act_monthly.docs) AS docs, sum(rep_user_act_monthly.cvs_commits) AS cvs_commits, sum(rep_user_act_monthly.tasks_opened) AS tasks_opened, sum(rep_user_act_monthly.tasks_closed) AS tasks_closed FROM rep_user_act_monthly GROUP BY rep_user_act_monthly.user_id;
+ SELECT rep_user_act_monthly.user_id,
+    sum(rep_user_act_monthly.tracker_opened) AS tracker_opened,
+    sum(rep_user_act_monthly.tracker_closed) AS tracker_closed,
+    sum(rep_user_act_monthly.forum) AS forum,
+    sum(rep_user_act_monthly.docs) AS docs,
+    sum(rep_user_act_monthly.cvs_commits) AS cvs_commits,
+    sum(rep_user_act_monthly.tasks_opened) AS tasks_opened,
+    sum(rep_user_act_monthly.tasks_closed) AS tasks_closed
+   FROM rep_user_act_monthly
+  GROUP BY rep_user_act_monthly.user_id;
 
 
 ALTER TABLE rep_user_act_oa_vw OWNER TO gforge;
@@ -6390,34 +6729,8 @@ CREATE TABLE site_activity (
     assigned_to_id integer
 );
 
+
 ALTER TABLE site_activity OWNER TO gforge;
-
---
--- Name: site_activity_mapping; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
---
-
-CREATE TABLE site_activity_mapping (
-    activity_type_id integer NOT NULL,
-    activity_type_string text NOT NULL
-);
-
-ALTER TABLE site_activity_mapping OWNER TO gforge;
-
-INSERT INTO site_activity_mapping VALUES 
-(1,  'user_profile_comment'),
-(2,  'project_home_comment'),
-(3,  'project_add_member'),
-(4,  'project_news_post'),
-(5,  'project_forum_post'),
-(6,  'project_gallery_addition'),
-(7,  'project_bug_addition'),
-(8,  'project_task_addition'),
-(9,  'project_task_update'),
-(10, 'project_create'),
-(11, 'project_bug_update'),
-(12, 'project_bug_closed'),
-(13, 'project_component_add'),
-(14, 'project_component_created');
 
 --
 -- Name: site_activity_activity_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
@@ -6475,6 +6788,18 @@ ALTER TABLE site_activity_comments_activity_comment_id_seq OWNER TO gforge;
 
 ALTER SEQUENCE site_activity_comments_activity_comment_id_seq OWNED BY site_activity_comments.activity_comment_id;
 
+
+--
+-- Name: site_activity_mapping; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE site_activity_mapping (
+    activity_type_id integer NOT NULL,
+    activity_type_string text NOT NULL
+);
+
+
+ALTER TABLE site_activity_mapping OWNER TO gforge;
 
 --
 -- Name: skill_keywords; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
@@ -6879,7 +7204,34 @@ ALTER TABLE stats_project_months OWNER TO gforge;
 --
 
 CREATE VIEW stats_project_all_vw AS
-SELECT stats_project_months.group_id, int4(avg(stats_project_months.developers)) AS developers, int4(avg(stats_project_months.group_ranking)) AS group_ranking, avg(stats_project_months.group_metric) AS group_metric, sum(stats_project_months.logo_showings) AS logo_showings, sum(stats_project_months.downloads) AS downloads, sum(stats_project_months.site_views) AS site_views, sum(stats_project_months.subdomain_views) AS subdomain_views, sum(stats_project_months.page_views) AS page_views, sum(stats_project_months.file_releases) AS file_releases, sum(stats_project_months.msg_posted) AS msg_posted, int4(avg(stats_project_months.msg_uniq_auth)) AS msg_uniq_auth, sum(stats_project_months.bugs_opened) AS bugs_opened, sum(stats_project_months.bugs_closed) AS bugs_closed, sum(stats_project_months.support_opened) AS support_opened, sum(stats_project_months.support_closed) AS support_closed, sum(stats_project_months.patches_opened) AS patches_opened, sum(stats_project_months.patches_closed) AS patches_closed, sum(stats_project_months.artifacts_opened) AS artifacts_opened, sum(stats_project_months.artifacts_closed) AS artifacts_closed, sum(stats_project_months.tasks_opened) AS tasks_opened, sum(stats_project_months.tasks_closed) AS tasks_closed, sum(stats_project_months.help_requests) AS help_requests, sum(stats_project_months.cvs_checkouts) AS cvs_checkouts, sum(stats_project_months.cvs_commits) AS cvs_commits, sum(stats_project_months.cvs_adds) AS cvs_adds FROM stats_project_months GROUP BY stats_project_months.group_id;
+ SELECT stats_project_months.group_id,
+    int4(avg(stats_project_months.developers)) AS developers,
+    int4(avg(stats_project_months.group_ranking)) AS group_ranking,
+    avg(stats_project_months.group_metric) AS group_metric,
+    sum(stats_project_months.logo_showings) AS logo_showings,
+    sum(stats_project_months.downloads) AS downloads,
+    sum(stats_project_months.site_views) AS site_views,
+    sum(stats_project_months.subdomain_views) AS subdomain_views,
+    sum(stats_project_months.page_views) AS page_views,
+    sum(stats_project_months.file_releases) AS file_releases,
+    sum(stats_project_months.msg_posted) AS msg_posted,
+    int4(avg(stats_project_months.msg_uniq_auth)) AS msg_uniq_auth,
+    sum(stats_project_months.bugs_opened) AS bugs_opened,
+    sum(stats_project_months.bugs_closed) AS bugs_closed,
+    sum(stats_project_months.support_opened) AS support_opened,
+    sum(stats_project_months.support_closed) AS support_closed,
+    sum(stats_project_months.patches_opened) AS patches_opened,
+    sum(stats_project_months.patches_closed) AS patches_closed,
+    sum(stats_project_months.artifacts_opened) AS artifacts_opened,
+    sum(stats_project_months.artifacts_closed) AS artifacts_closed,
+    sum(stats_project_months.tasks_opened) AS tasks_opened,
+    sum(stats_project_months.tasks_closed) AS tasks_closed,
+    sum(stats_project_months.help_requests) AS help_requests,
+    sum(stats_project_months.cvs_checkouts) AS cvs_checkouts,
+    sum(stats_project_months.cvs_commits) AS cvs_commits,
+    sum(stats_project_months.cvs_adds) AS cvs_adds
+   FROM stats_project_months
+  GROUP BY stats_project_months.group_id;
 
 
 ALTER TABLE stats_project_all_vw OWNER TO gforge;
@@ -6932,7 +7284,52 @@ ALTER TABLE stats_subd_pages OWNER TO gforge;
 --
 
 CREATE VIEW stats_project_vw AS
-SELECT spd.group_id, spd.month, spd.day, spd.developers, spm.ranking AS group_ranking, spm.percentile AS group_metric, salbg.count AS logo_showings, fdga.downloads, sasbg.count AS site_views, ssp.pages AS subdomain_views, (CASE WHEN (sasbg.count IS NOT NULL) THEN sasbg.count WHEN (0 IS NOT NULL) THEN 0 ELSE NULL::integer END + CASE WHEN (ssp.pages IS NOT NULL) THEN ssp.pages WHEN (0 IS NOT NULL) THEN 0 ELSE NULL::integer END) AS page_views, sp.file_releases, sp.msg_posted, sp.msg_uniq_auth, sp.bugs_opened, sp.bugs_closed, sp.support_opened, sp.support_closed, sp.patches_opened, sp.patches_closed, sp.artifacts_opened, sp.artifacts_closed, sp.tasks_opened, sp.tasks_closed, sp.help_requests, scg.checkouts AS cvs_checkouts, scg.commits AS cvs_commits, scg.adds AS cvs_adds FROM (((((((stats_project_developers spd LEFT JOIN stats_project sp USING (month, day, group_id)) LEFT JOIN stats_project_metric spm USING (month, day, group_id)) LEFT JOIN stats_cvs_group scg USING (month, day, group_id)) LEFT JOIN stats_agg_site_by_group sasbg USING (month, day, group_id)) LEFT JOIN stats_agg_logo_by_group salbg USING (month, day, group_id)) LEFT JOIN stats_subd_pages ssp USING (month, day, group_id)) LEFT JOIN frs_dlstats_group_vw fdga USING (month, day, group_id));
+ SELECT spd.group_id,
+    spd.month,
+    spd.day,
+    spd.developers,
+    spm.ranking AS group_ranking,
+    spm.percentile AS group_metric,
+    salbg.count AS logo_showings,
+    fdga.downloads,
+    sasbg.count AS site_views,
+    ssp.pages AS subdomain_views,
+    (
+        CASE
+            WHEN (sasbg.count IS NOT NULL) THEN sasbg.count
+            WHEN (0 IS NOT NULL) THEN 0
+            ELSE NULL::integer
+        END +
+        CASE
+            WHEN (ssp.pages IS NOT NULL) THEN ssp.pages
+            WHEN (0 IS NOT NULL) THEN 0
+            ELSE NULL::integer
+        END) AS page_views,
+    sp.file_releases,
+    sp.msg_posted,
+    sp.msg_uniq_auth,
+    sp.bugs_opened,
+    sp.bugs_closed,
+    sp.support_opened,
+    sp.support_closed,
+    sp.patches_opened,
+    sp.patches_closed,
+    sp.artifacts_opened,
+    sp.artifacts_closed,
+    sp.tasks_opened,
+    sp.tasks_closed,
+    sp.help_requests,
+    scg.checkouts AS cvs_checkouts,
+    scg.commits AS cvs_commits,
+    scg.adds AS cvs_adds
+   FROM (((((((stats_project_developers spd
+     LEFT JOIN stats_project sp USING (month, day, group_id))
+     LEFT JOIN stats_project_metric spm USING (month, day, group_id))
+     LEFT JOIN stats_cvs_group scg USING (month, day, group_id))
+     LEFT JOIN stats_agg_site_by_group sasbg USING (month, day, group_id))
+     LEFT JOIN stats_agg_logo_by_group salbg USING (month, day, group_id))
+     LEFT JOIN stats_subd_pages ssp USING (month, day, group_id))
+     LEFT JOIN frs_dlstats_group_vw fdga USING (month, day, group_id));
 
 
 ALTER TABLE stats_project_vw OWNER TO gforge;
@@ -6988,7 +7385,25 @@ ALTER TABLE stats_site_months OWNER TO gforge;
 --
 
 CREATE VIEW stats_site_all_vw AS
-SELECT sum(stats_site_months.site_page_views) AS site_page_views, sum(stats_site_months.downloads) AS downloads, sum(stats_site_months.subdomain_views) AS subdomain_views, sum(stats_site_months.msg_posted) AS msg_posted, sum(stats_site_months.bugs_opened) AS bugs_opened, sum(stats_site_months.bugs_closed) AS bugs_closed, sum(stats_site_months.support_opened) AS support_opened, sum(stats_site_months.support_closed) AS support_closed, sum(stats_site_months.patches_opened) AS patches_opened, sum(stats_site_months.patches_closed) AS patches_closed, sum(stats_site_months.artifacts_opened) AS artifacts_opened, sum(stats_site_months.artifacts_closed) AS artifacts_closed, sum(stats_site_months.tasks_opened) AS tasks_opened, sum(stats_site_months.tasks_closed) AS tasks_closed, sum(stats_site_months.help_requests) AS help_requests, sum(stats_site_months.cvs_checkouts) AS cvs_checkouts, sum(stats_site_months.cvs_commits) AS cvs_commits, sum(stats_site_months.cvs_adds) AS cvs_adds FROM stats_site_months;
+ SELECT sum(stats_site_months.site_page_views) AS site_page_views,
+    sum(stats_site_months.downloads) AS downloads,
+    sum(stats_site_months.subdomain_views) AS subdomain_views,
+    sum(stats_site_months.msg_posted) AS msg_posted,
+    sum(stats_site_months.bugs_opened) AS bugs_opened,
+    sum(stats_site_months.bugs_closed) AS bugs_closed,
+    sum(stats_site_months.support_opened) AS support_opened,
+    sum(stats_site_months.support_closed) AS support_closed,
+    sum(stats_site_months.patches_opened) AS patches_opened,
+    sum(stats_site_months.patches_closed) AS patches_closed,
+    sum(stats_site_months.artifacts_opened) AS artifacts_opened,
+    sum(stats_site_months.artifacts_closed) AS artifacts_closed,
+    sum(stats_site_months.tasks_opened) AS tasks_opened,
+    sum(stats_site_months.tasks_closed) AS tasks_closed,
+    sum(stats_site_months.help_requests) AS help_requests,
+    sum(stats_site_months.cvs_checkouts) AS cvs_checkouts,
+    sum(stats_site_months.cvs_commits) AS cvs_commits,
+    sum(stats_site_months.cvs_adds) AS cvs_adds
+   FROM stats_site_months;
 
 
 ALTER TABLE stats_site_all_vw OWNER TO gforge;
@@ -7023,7 +7438,30 @@ ALTER TABLE stats_site_pages_by_month OWNER TO gforge;
 --
 
 CREATE VIEW stats_site_vw AS
-SELECT p.month, p.day, sspbd.site_page_views, sum(p.downloads) AS downloads, sum(p.subdomain_views) AS subdomain_views, sum(p.msg_posted) AS msg_posted, sum(p.bugs_opened) AS bugs_opened, sum(p.bugs_closed) AS bugs_closed, sum(p.support_opened) AS support_opened, sum(p.support_closed) AS support_closed, sum(p.patches_opened) AS patches_opened, sum(p.patches_closed) AS patches_closed, sum(p.artifacts_opened) AS artifacts_opened, sum(p.artifacts_closed) AS artifacts_closed, sum(p.tasks_opened) AS tasks_opened, sum(p.tasks_closed) AS tasks_closed, sum(p.help_requests) AS help_requests, sum(p.cvs_checkouts) AS cvs_checkouts, sum(p.cvs_commits) AS cvs_commits, sum(p.cvs_adds) AS cvs_adds FROM stats_project_vw p, stats_site_pages_by_day sspbd WHERE ((p.month = sspbd.month) AND (p.day = sspbd.day)) GROUP BY p.month, p.day, sspbd.site_page_views;
+ SELECT p.month,
+    p.day,
+    sspbd.site_page_views,
+    sum(p.downloads) AS downloads,
+    sum(p.subdomain_views) AS subdomain_views,
+    sum(p.msg_posted) AS msg_posted,
+    sum(p.bugs_opened) AS bugs_opened,
+    sum(p.bugs_closed) AS bugs_closed,
+    sum(p.support_opened) AS support_opened,
+    sum(p.support_closed) AS support_closed,
+    sum(p.patches_opened) AS patches_opened,
+    sum(p.patches_closed) AS patches_closed,
+    sum(p.artifacts_opened) AS artifacts_opened,
+    sum(p.artifacts_closed) AS artifacts_closed,
+    sum(p.tasks_opened) AS tasks_opened,
+    sum(p.tasks_closed) AS tasks_closed,
+    sum(p.help_requests) AS help_requests,
+    sum(p.cvs_checkouts) AS cvs_checkouts,
+    sum(p.cvs_commits) AS cvs_commits,
+    sum(p.cvs_adds) AS cvs_adds
+   FROM stats_project_vw p,
+    stats_site_pages_by_day sspbd
+  WHERE ((p.month = sspbd.month) AND (p.day = sspbd.day))
+  GROUP BY p.month, p.day, sspbd.site_page_views;
 
 
 ALTER TABLE stats_site_vw OWNER TO gforge;
@@ -7709,6 +8147,40 @@ CREATE SEQUENCE user_metric_pk_seq
 ALTER TABLE user_metric_pk_seq OWNER TO gforge;
 
 --
+-- Name: user_organization; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE user_organization (
+    user_organizaation_id integer NOT NULL,
+    user_id integer,
+    organization integer
+);
+
+
+ALTER TABLE user_organization OWNER TO gforge;
+
+--
+-- Name: user_organization_user_organizaation_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE user_organization_user_organizaation_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE user_organization_user_organizaation_id_seq OWNER TO gforge;
+
+--
+-- Name: user_organization_user_organizaation_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE user_organization_user_organizaation_id_seq OWNED BY user_organization.user_organizaation_id;
+
+
+--
 -- Name: user_plugin; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
 --
 
@@ -8190,6 +8662,13 @@ ALTER SEQUENCE typemap_entry_mapid_seq OWNED BY typemap_entry.mapid;
 SET search_path = public, pg_catalog;
 
 --
+-- Name: id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY address ALTER COLUMN id SET DEFAULT nextval('address_id_seq'::regclass);
+
+
+--
 -- Name: artifact_query_id; Type: DEFAULT; Schema: public; Owner: gforge
 --
 
@@ -8365,6 +8844,34 @@ ALTER TABLE ONLY licenses ALTER COLUMN license_id SET DEFAULT nextval('licenses_
 
 
 --
+-- Name: organization_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY organization ALTER COLUMN organization_id SET DEFAULT nextval('organization_organization_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY organization_capabilities_pictures ALTER COLUMN id SET DEFAULT nextval('organization_capabilities_pictures_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY organization_customer ALTER COLUMN id SET DEFAULT nextval('organization_customer_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY organization_vidio ALTER COLUMN id SET DEFAULT nextval('organization_vidio_id_seq'::regclass);
+
+
+--
 -- Name: tag_id; Type: DEFAULT; Schema: public; Owner: gforge
 --
 
@@ -8446,6 +8953,13 @@ ALTER TABLE ONLY skill_keywords ALTER COLUMN skill_keyword_id SET DEFAULT nextva
 --
 
 ALTER TABLE ONLY user_messages ALTER COLUMN message_id SET DEFAULT nextval('user_messages_message_id_seq'::regclass);
+
+
+--
+-- Name: user_organizaation_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY user_organization ALTER COLUMN user_organizaation_id SET DEFAULT nextval('user_organization_user_organizaation_id_seq'::regclass);
 
 
 --
@@ -9132,6 +9646,7 @@ COPY activity_log (day, hour, group_id, browser, ver, platform, "time", page, ty
 20150918	0	0	MOZILLA	5	Other	1442551013	/community/members.php	0
 20150918	0	0	OTHER	0	Other	1442551201	/export_git_acl_settings.php	0
 20150918	0	0	OTHER	0	Other	1442551501	/export_git_acl_settings.php	0
+20150919	10	0	MOZILLA	5	Other	1442673592	/community/index.php	0
 20150918	0	0	OTHER	0	Other	1442551801	/export_git_acl_settings.php	0
 20150918	0	0	OTHER	0	Other	1442552101	/export_git_acl_settings.php	0
 20150918	1	0	OTHER	0	Other	1442552401	/export_git_acl_settings.php	0
@@ -9582,7 +10097,6 @@ COPY activity_log (day, hour, group_id, browser, ver, platform, "time", page, ty
 20150919	8	0	OTHER	0	Other	1442664601	/export_git_acl_settings.php	0
 20150919	8	0	OTHER	0	Other	1442666401	/export_git_acl_settings.php	0
 20150919	10	0	OTHER	0	Other	1442671801	/export_git_acl_settings.php	0
-20150919	10	0	MOZILLA	5	Other	1442673592	/community/index.php	0
 20150919	10	0	OTHER	0	Other	1442674201	/export_git_acl_settings.php	0
 20150919	11	0	OTHER	0	Other	1442677801	/export_git_acl_settings.php	0
 20150919	8	0	OTHER	0	Other	1442664901	/export_git_acl_settings.php	0
@@ -11986,6 +12500,7 @@ COPY activity_log (day, hour, group_id, browser, ver, platform, "time", page, ty
 20150927	11	0	OTHER	0	Other	1443367802	/export_git_acl_settings.php	0
 20150927	12	0	OTHER	0	Other	1443370801	/export_git_acl_settings.php	0
 20150927	12	0	OTHER	0	Other	1443371702	/export_git_acl_settings.php	0
+20151004	11	0	MOZILLA	5	Other	1443971117	/community/latest.php	0
 20150927	14	0	OTHER	0	Other	1443376801	/export_git_acl_settings.php	0
 20150927	14	0	OTHER	0	Other	1443379201	/export_git_acl_settings.php	0
 20150927	2	0	OTHER	0	Other	1443336301	/export_git_acl_settings.php	0
@@ -12962,6 +13477,7 @@ COPY activity_log (day, hour, group_id, browser, ver, platform, "time", page, ty
 20150930	19	0	MOZILLA	5	Other	1443654199	/community/boards.php	0
 20150930	19	0	OTHER	0	Other	1443654301	/export_git_acl_settings.php	0
 20150930	19	0	OTHER	0	Other	1443654601	/export_git_acl_settings.php	0
+20151004	22	0	MOZILLA	5	Other	1444011278	/community/index.php	0
 20150930	19	0	OTHER	0	Other	1443654901	/export_git_acl_settings.php	0
 20150930	19	0	OTHER	0	Other	1443655201	/export_git_acl_settings.php	0
 20150930	19	0	OTHER	0	Other	1443655501	/export_git_acl_settings.php	0
@@ -14088,7 +14604,6 @@ COPY activity_log (day, hour, group_id, browser, ver, platform, "time", page, ty
 20151004	10	0	MOZILLA	5	Other	1443968490	/marketplace/services.php	0
 20151004	10	0	OTHER	0	Other	1443970201	/export_git_acl_settings.php	0
 20151004	10	0	OTHER	0	Other	1443970501	/export_git_acl_settings.php	0
-20151004	11	0	MOZILLA	5	Other	1443971117	/community/latest.php	0
 20151004	11	0	OTHER	0	Other	1443971701	/export_git_acl_settings.php	0
 20151004	13	0	OTHER	0	Other	1443978601	/export_git_acl_settings.php	0
 20151004	13	0	OTHER	0	Other	1443981001	/export_git_acl_settings.php	0
@@ -14164,7 +14679,6 @@ COPY activity_log (day, hour, group_id, browser, ver, platform, "time", page, ty
 20151004	16	0	OTHER	0	Other	1443990601	/export_git_acl_settings.php	0
 20151004	19	0	OTHER	0	Other	1444000201	/export_git_acl_settings.php	0
 20151004	20	0	OTHER	0	Other	1444006501	/export_git_acl_settings.php	0
-20151004	22	0	MOZILLA	5	Other	1444011278	/community/index.php	0
 20151005	0	0	OTHER	0	Other	1444018201	/export_git_acl_settings.php	0
 20151005	0	0	OTHER	0	Other	1444018802	/export_git_acl_settings.php	0
 20151005	0	0	OTHER	0	Other	1444020901	/export_git_acl_settings.php	0
@@ -14990,6 +15504,7 @@ COPY activity_log (day, hour, group_id, browser, ver, platform, "time", page, ty
 20151023	12	0	OTHER	0	Other	1445616601	/export_git_acl_settings.php	0
 20151023	16	0	OTHER	0	Other	1445631001	/export_git_acl_settings.php	0
 20151023	18	0	OTHER	0	Other	1445638201	/export_git_acl_settings.php	0
+20151024	20	0	MOZILLA	5	Other	1445733100	/export/rss_sfnews.php	0
 20151023	19	0	OTHER	0	Other	1445642701	/export_git_acl_settings.php	0
 20151023	23	0	OTHER	0	Other	1445656501	/export_git_acl_settings.php	0
 20151007	13	0	OTHER	0	Other	1444239302	/export_git_acl_settings.php	0
@@ -15215,6 +15730,7 @@ COPY activity_log (day, hour, group_id, browser, ver, platform, "time", page, ty
 20151008	10	0	OTHER	0	Other	1444314601	/export_git_acl_settings.php	0
 20151008	15	0	OTHER	0	Other	1444331101	/export_git_acl_settings.php	0
 20151008	15	0	OTHER	0	Other	1444333202	/export_git_acl_settings.php	0
+20151028	12	0	MOZILLA	5	Other	1446051351	/export/rss_sfnews.php	0
 20151008	17	0	OTHER	0	Other	1444338301	/export_git_acl_settings.php	0
 20151008	18	0	OTHER	0	Other	1444343701	/export_git_acl_settings.php	0
 20151008	19	0	OTHER	0	Other	1444345201	/export_git_acl_settings.php	0
@@ -16117,7 +16633,6 @@ COPY activity_log (day, hour, group_id, browser, ver, platform, "time", page, ty
 20151024	17	0	OTHER	0	Other	1445721001	/export_git_acl_settings.php	0
 20151024	19	0	OTHER	0	Other	1445730001	/export_git_acl_settings.php	0
 20151024	20	0	OTHER	0	Other	1445731801	/export_git_acl_settings.php	0
-20151024	20	0	MOZILLA	5	Other	1445733100	/export/rss_sfnews.php	0
 20151024	21	0	OTHER	0	Other	1445737201	/export_git_acl_settings.php	0
 20151025	1	0	OTHER	0	Other	1445751001	/export_git_acl_settings.php	0
 20151025	2	0	OTHER	0	Other	1445752801	/export_git_acl_settings.php	0
@@ -16193,6 +16708,7 @@ COPY activity_log (day, hour, group_id, browser, ver, platform, "time", page, ty
 20151026	4	0	OTHER	0	Other	1445847602	/export_git_acl_settings.php	0
 20151026	5	0	OTHER	0	Other	1445852101	/export_git_acl_settings.php	0
 20151026	6	0	OTHER	0	Other	1445853601	/export_git_acl_settings.php	0
+20151031	20	0	MOZILLA	5	Other	1446338441	/export/rss_sfnews.php	0
 20151026	7	0	OTHER	0	Other	1445857201	/export_git_acl_settings.php	0
 20151026	8	0	OTHER	0	Other	1445862301	/export_git_acl_settings.php	0
 20151026	8	0	MOZILLA	5	Other	1445863511	/community/boards.php	0
@@ -16343,6 +16859,7 @@ COPY activity_log (day, hour, group_id, browser, ver, platform, "time", page, ty
 20151026	15	0	OTHER	0	Other	1445888401	/export_git_acl_settings.php	0
 20151026	15	0	OTHER	0	Other	1445888701	/export_git_acl_settings.php	0
 20151026	15	0	OTHER	0	Other	1445889001	/export_git_acl_settings.php	0
+20151102	18	0	MOZILLA	5	Linux	1446505379	/account/login.php	0
 20151026	15	0	OTHER	0	Other	1445889301	/export_git_acl_settings.php	0
 20151026	16	0	OTHER	0	Other	1445889601	/export_git_acl_settings.php	0
 20151026	16	0	OTHER	0	Other	1445889901	/export_git_acl_settings.php	0
@@ -16493,6 +17010,7 @@ COPY activity_log (day, hour, group_id, browser, ver, platform, "time", page, ty
 20151027	0	0	OTHER	0	Other	1445919601	/export_git_acl_settings.php	0
 20151027	1	0	OTHER	0	Other	1445923201	/export_git_acl_settings.php	0
 20151027	2	0	OTHER	0	Other	1445925901	/export_git_acl_settings.php	0
+20151102	18	0	MOZILLA	5	Linux	1446505379	/my/index.php	0
 20151027	3	0	OTHER	0	Other	1445930101	/export_git_acl_settings.php	0
 20151027	5	0	OTHER	0	Other	1445936701	/export_git_acl_settings.php	0
 20151027	5	0	OTHER	0	Other	1445938201	/export_git_acl_settings.php	0
@@ -16943,7 +17461,6 @@ COPY activity_log (day, hour, group_id, browser, ver, platform, "time", page, ty
 20151028	8	0	OTHER	0	Other	1446035402	/export_git_acl_settings.php	0
 20151028	8	0	OTHER	0	Other	1446036901	/export_git_acl_settings.php	0
 20151028	9	0	OTHER	0	Other	1446038101	/export_git_acl_settings.php	0
-20151028	12	0	MOZILLA	5	Other	1446051351	/export/rss_sfnews.php	0
 20151028	13	0	OTHER	0	Other	1446052802	/export_git_acl_settings.php	0
 20151028	15	0	OTHER	0	Other	1446059701	/export_git_acl_settings.php	0
 20151028	15	0	OTHER	0	Other	1446060901	/export_git_acl_settings.php	0
@@ -17769,7 +18286,6 @@ COPY activity_log (day, hour, group_id, browser, ver, platform, "time", page, ty
 20151031	17	0	OTHER	0	Other	1446325501	/export_git_acl_settings.php	0
 20151031	19	0	OTHER	0	Other	1446335101	/export_git_acl_settings.php	0
 20151031	20	0	OTHER	0	Other	1446337501	/export_git_acl_settings.php	0
-20151031	20	0	MOZILLA	5	Other	1446338441	/export/rss_sfnews.php	0
 20151031	20	0	OTHER	0	Other	1446338701	/export_git_acl_settings.php	0
 20151031	21	0	OTHER	0	Other	1446339901	/export_git_acl_settings.php	0
 20151031	22	0	OTHER	0	Other	1446346201	/export_git_acl_settings.php	0
@@ -18526,8 +19042,6 @@ COPY activity_log (day, hour, group_id, browser, ver, platform, "time", page, ty
 20151102	18	0	MOZILLA	5	Linux	1446505283	/account/login.php	0
 20151102	18	0	MOZILLA	5	Linux	1446505300	/account/login.php	0
 20151102	18	0	MOZILLA	5	Other	1446505353	/export/rss_sfnews.php	0
-20151102	18	0	MOZILLA	5	Linux	1446505379	/account/login.php	0
-20151102	18	0	MOZILLA	5	Linux	1446505379	/my/index.php	0
 20151102	18	0	MOZILLA	5	Linux	1446505396	/my/ajax/update_subs.php	0
 20151102	18	0	MOZILLA	5	Linux	1446505404	/softwaremap/index.php	0
 20151102	18	0	MOZILLA	5	Linux	1446505404	/softwaremap/full_list.php	0
@@ -18618,6 +19132,21 @@ COPY activity_log (day, hour, group_id, browser, ver, platform, "time", page, ty
 20151102	21	0	OTHER	0	Other	1446516601	/export_git_acl_settings.php	0
 20151102	22	0	OTHER	0	Other	1446519601	/export_git_acl_settings.php	0
 \.
+
+
+--
+-- Data for Name: address; Type: TABLE DATA; Schema: public; Owner: gforge
+--
+
+COPY address (id, street_address1, street_address2, city, state, country, zip) FROM stdin;
+\.
+
+
+--
+-- Name: address_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gforge
+--
+
+SELECT pg_catalog.setval('address_id_seq', 1, false);
 
 
 --
@@ -18946,8 +19475,13 @@ SELECT pg_catalog.setval('cem_object_git_acl_cem_git_acl_id_seq', 1, false);
 --
 
 COPY cem_objects (cem_id, group_id, name, parent_cem_id, last_repo_update, repo_creation_time, export_control, description) FROM stdin;
-1	6	Transformer	0	0	0	f	\N
-2	6	Physics	0	0	0	f	\N
+3	1	Component 3	0	0	0	f	test
+4	2	Component 4	0	0	0	f	test
+5	3	Component 5	0	0	0	f	test
+6	4	Component 6	0	0	0	f	test
+7	5	Component 7	0	0	0	f	test
+1	6	Transformer	0	0	0	f	test
+2	6	Physics	0	0	0	f	test
 \.
 
 
@@ -19088,6 +19622,11 @@ SELECT pg_catalog.setval('cem_service_categories_cem_service_id_seq1', 1, false)
 --
 
 COPY cem_tags (cem_tag_id, tag_name) FROM stdin;
+1	Tag 1
+2	Tag 2
+3	Tag 3
+4	Tag 4
+5	Tag 5
 \.
 
 
@@ -19103,6 +19642,22 @@ SELECT pg_catalog.setval('cem_tags_cem_tag_id_seq', 1, false);
 --
 
 COPY cem_tags_join (join_id, cem_id, cem_tag_id, group_id) FROM stdin;
+1	1	1	1
+2	1	2	4
+3	2	3	3
+4	5	5	2
+5	3	4	5
+6	1	1	6
+7	2	3	6
+8	3	5	1
+9	4	1	2
+10	4	2	2
+11	5	4	3
+12	5	5	3
+13	6	1	4
+14	7	2	5
+15	7	4	5
+16	7	1	5
 \.
 
 
@@ -20357,6 +20912,13 @@ SELECT pg_catalog.setval('docgroup_monitored_docman_pk_seq', 1, false);
 
 COPY dome_interfaces (interface_id, interface_data, server_id, cem_id, alias, description) FROM stdin;
 1	{"interFace":{"version":1,"modelId":"995f865e-d90a-1004-8438-64281c6cab63","interfaceId":"995f8660-d90a-1004-8438-64281c6cab63","type":"interface","name":"velocity interface","path":[33,34,35]},"inParams":{"timeCopy":{"name":"timeCopy","type":"Real","unit":"second","category":"time","value":2,"parameterid":"0163d124-d8de-1004-8a2f-592d01a9bb93"},"distanceCopy":{"name":"distanceCopy","type":"Real","unit":"centimeter","category":"length","value":3,"parameterid":"0163d123-d8de-1004-8a2f-592d01a9bb93"}},"outParams":{"averageVelocity":{"name":"averageVelocity","type":"Real","unit":"centimeter per second","category":"velocity","value":1.5,"parameterid":"0163d125-d8de-1004-8a2f-592d01a9bb93","instancename":"averageVelocity"}},"modelName":"velocity interface","modelDescription":"","server":{"name":"localhost","port":"7795","user":"ceed","pw":"ceed","space":"USER"}}	1	2		Average velocity of object over time.
+2	{"interFace":{"version":1,"modelId":"995f865e-d90a-1004-8438-64281c6cab63","interfaceId":"995f8660-d90a-1004-8438-64281c6cab63","type":"interface","name":"velocity interface","path":[33,34,35]},"inParams":{"timeCopy":{"name":"timeCopy","type":"Real","unit":"second","category":"time","value":2,"parameterid":"0163d124-d8de-1004-8a2f-592d01a9bb93"},"distanceCopy":{"name":"distanceCopy","type":"Real","unit":"centimeter","category":"length","value":3,"parameterid":"0163d123-d8de-1004-8a2f-592d01a9bb93"}},"outParams":{"averageVelocity":{"name":"averageVelocity","type":"Real","unit":"centimeter per second","category":"velocity","value":1.5,"parameterid":"0163d125-d8de-1004-8a2f-592d01a9bb93","instancename":"averageVelocity"}},"modelName":"velocity interface","modelDescription":"","server":{"name":"localhost","port":"7795","user":"ceed","pw":"ceed","space":"USER"}}	1	1		test description
+3	{"interFace":{"version":1,"modelId":"995f865e-d90a-1004-8438-64281c6cab63","interfaceId":"995f8660-d90a-1004-8438-64281c6cab63","type":"interface","name":"velocity interface","path":[33,34,35]},"inParams":{"timeCopy":{"name":"timeCopy","type":"Real","unit":"second","category":"time","value":2,"parameterid":"0163d124-d8de-1004-8a2f-592d01a9bb93"},"distanceCopy":{"name":"distanceCopy","type":"Real","unit":"centimeter","category":"length","value":3,"parameterid":"0163d123-d8de-1004-8a2f-592d01a9bb93"}},"outParams":{"averageVelocity":{"name":"averageVelocity","type":"Real","unit":"centimeter per second","category":"velocity","value":1.5,"parameterid":"0163d125-d8de-1004-8a2f-592d01a9bb93","instancename":"averageVelocity"}},"modelName":"velocity interface","modelDescription":"","server":{"name":"localhost","port":"7795","user":"ceed","pw":"ceed","space":"USER"}}	1	2		test description
+4	{"interFace":{"version":1,"modelId":"995f865e-d90a-1004-8438-64281c6cab63","interfaceId":"995f8660-d90a-1004-8438-64281c6cab63","type":"interface","name":"velocity interface","path":[33,34,35]},"inParams":{"timeCopy":{"name":"timeCopy","type":"Real","unit":"second","category":"time","value":2,"parameterid":"0163d124-d8de-1004-8a2f-592d01a9bb93"},"distanceCopy":{"name":"distanceCopy","type":"Real","unit":"centimeter","category":"length","value":3,"parameterid":"0163d123-d8de-1004-8a2f-592d01a9bb93"}},"outParams":{"averageVelocity":{"name":"averageVelocity","type":"Real","unit":"centimeter per second","category":"velocity","value":1.5,"parameterid":"0163d125-d8de-1004-8a2f-592d01a9bb93","instancename":"averageVelocity"}},"modelName":"velocity interface","modelDescription":"","server":{"name":"localhost","port":"7795","user":"ceed","pw":"ceed","space":"USER"}}	1	1		test description
+5	{"interFace":{"version":1,"modelId":"995f865e-d90a-1004-8438-64281c6cab63","interfaceId":"995f8660-d90a-1004-8438-64281c6cab63","type":"interface","name":"velocity interface","path":[33,34,35]},"inParams":{"timeCopy":{"name":"timeCopy","type":"Real","unit":"second","category":"time","value":2,"parameterid":"0163d124-d8de-1004-8a2f-592d01a9bb93"},"distanceCopy":{"name":"distanceCopy","type":"Real","unit":"centimeter","category":"length","value":3,"parameterid":"0163d123-d8de-1004-8a2f-592d01a9bb93"}},"outParams":{"averageVelocity":{"name":"averageVelocity","type":"Real","unit":"centimeter per second","category":"velocity","value":1.5,"parameterid":"0163d125-d8de-1004-8a2f-592d01a9bb93","instancename":"averageVelocity"}},"modelName":"velocity interface","modelDescription":"","server":{"name":"localhost","port":"7795","user":"ceed","pw":"ceed","space":"USER"}}	1	3		test description
+6	{"interFace":{"version":1,"modelId":"995f865e-d90a-1004-8438-64281c6cab63","interfaceId":"995f8660-d90a-1004-8438-64281c6cab63","type":"interface","name":"velocity interface","path":[33,34,35]},"inParams":{"timeCopy":{"name":"timeCopy","type":"Real","unit":"second","category":"time","value":2,"parameterid":"0163d124-d8de-1004-8a2f-592d01a9bb93"},"distanceCopy":{"name":"distanceCopy","type":"Real","unit":"centimeter","category":"length","value":3,"parameterid":"0163d123-d8de-1004-8a2f-592d01a9bb93"}},"outParams":{"averageVelocity":{"name":"averageVelocity","type":"Real","unit":"centimeter per second","category":"velocity","value":1.5,"parameterid":"0163d125-d8de-1004-8a2f-592d01a9bb93","instancename":"averageVelocity"}},"modelName":"velocity interface","modelDescription":"","server":{"name":"localhost","port":"7795","user":"ceed","pw":"ceed","space":"USER"}}	1	4		test description
+7	{"interFace":{"version":1,"modelId":"995f865e-d90a-1004-8438-64281c6cab63","interfaceId":"995f8660-d90a-1004-8438-64281c6cab63","type":"interface","name":"velocity interface","path":[33,34,35]},"inParams":{"timeCopy":{"name":"timeCopy","type":"Real","unit":"second","category":"time","value":2,"parameterid":"0163d124-d8de-1004-8a2f-592d01a9bb93"},"distanceCopy":{"name":"distanceCopy","type":"Real","unit":"centimeter","category":"length","value":3,"parameterid":"0163d123-d8de-1004-8a2f-592d01a9bb93"}},"outParams":{"averageVelocity":{"name":"averageVelocity","type":"Real","unit":"centimeter per second","category":"velocity","value":1.5,"parameterid":"0163d125-d8de-1004-8a2f-592d01a9bb93","instancename":"averageVelocity"}},"modelName":"velocity interface","modelDescription":"","server":{"name":"localhost","port":"7795","user":"ceed","pw":"ceed","space":"USER"}}	1	5		test description
+8	{"interFace":{"version":1,"modelId":"995f865e-d90a-1004-8438-64281c6cab63","interfaceId":"995f8660-d90a-1004-8438-64281c6cab63","type":"interface","name":"velocity interface","path":[33,34,35]},"inParams":{"timeCopy":{"name":"timeCopy","type":"Real","unit":"second","category":"time","value":2,"parameterid":"0163d124-d8de-1004-8a2f-592d01a9bb93"},"distanceCopy":{"name":"distanceCopy","type":"Real","unit":"centimeter","category":"length","value":3,"parameterid":"0163d123-d8de-1004-8a2f-592d01a9bb93"}},"outParams":{"averageVelocity":{"name":"averageVelocity","type":"Real","unit":"centimeter per second","category":"velocity","value":1.5,"parameterid":"0163d125-d8de-1004-8a2f-592d01a9bb93","instancename":"averageVelocity"}},"modelName":"velocity interface","modelDescription":"","server":{"name":"localhost","port":"7795","user":"ceed","pw":"ceed","space":"USER"}}	1	6		test desciption
 \.
 
 
@@ -20847,6 +21409,13 @@ SELECT pg_catalog.setval('groups_pk_seq', 6, true);
 --
 
 COPY home_comments (ref_id, type_id, time_posted, user_id, comment, comment_id) FROM stdin;
+2	2	0	2	This is a test comment for project 2	2
+3	2	0	2	This is a test comment for project 3	3
+4	2	0	2	This is a test comment for project 4	4
+5	2	0	2	This is a test comment for project 5	5
+6	2	0	2	This is a test comment for project 6	6
+7	2	0	2	This is a test comment for project 7	7
+1	2	0	2	This is a test comment for project 1	1
 \.
 
 
@@ -21098,6 +21667,66 @@ COPY nss_groups (user_id, group_id, name, gid) FROM stdin;
 
 COPY nss_usergroups (uid, gid, user_id, group_id, user_name, unix_group_name) FROM stdin;
 \.
+
+
+--
+-- Data for Name: organization; Type: TABLE DATA; Schema: public; Owner: gforge
+--
+
+COPY organization (organization_id, name, company_logo, division, address_id, perf_method_comm, website, social_media_linkedin, social_media_twitter, social_medial_inthenews, naics, description, dmc_tech_expertise, dmc_resources, awards) FROM stdin;
+\.
+
+
+--
+-- Data for Name: organization_capabilities_pictures; Type: TABLE DATA; Schema: public; Owner: gforge
+--
+
+COPY organization_capabilities_pictures (id, organization_id, caption, photo_link) FROM stdin;
+\.
+
+
+--
+-- Name: organization_capabilities_pictures_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gforge
+--
+
+SELECT pg_catalog.setval('organization_capabilities_pictures_id_seq', 1, false);
+
+
+--
+-- Data for Name: organization_customer; Type: TABLE DATA; Schema: public; Owner: gforge
+--
+
+COPY organization_customer (id, organization_id, org_user_flag, ref_name, ref_id) FROM stdin;
+\.
+
+
+--
+-- Name: organization_customer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gforge
+--
+
+SELECT pg_catalog.setval('organization_customer_id_seq', 1, false);
+
+
+--
+-- Name: organization_organization_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gforge
+--
+
+SELECT pg_catalog.setval('organization_organization_id_seq', 1, false);
+
+
+--
+-- Data for Name: organization_vidio; Type: TABLE DATA; Schema: public; Owner: gforge
+--
+
+COPY organization_vidio (id, organization_id, "time", caption, vidio_link) FROM stdin;
+\.
+
+
+--
+-- Name: organization_vidio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gforge
+--
+
+SELECT pg_catalog.setval('organization_vidio_id_seq', 1, false);
 
 
 --
@@ -21835,6 +22464,10 @@ COPY prdb_types (dbtypeid, dbservername, dbsoftware) FROM stdin;
 --
 
 COPY project_assigned_to (project_assigned_id, project_task_id, assigned_to_id) FROM stdin;
+1	1	2
+2	2	9
+3	10	0
+4	20	20
 \.
 
 
@@ -21866,7 +22499,13 @@ COPY project_category (category_id, group_project_id, category_name) FROM stdin;
 --
 
 COPY project_counts_agg (group_project_id, count, open_count) FROM stdin;
-1	1	1
+1	2	2
+2	1	1
+3	1	1
+4	1	1
+5	1	1
+6	2	2
+7	1	1
 \.
 
 
@@ -21891,6 +22530,12 @@ SELECT pg_catalog.setval('project_dependencies_pk_seq', 1, false);
 
 COPY project_group_list (group_project_id, group_id, project_name, is_public, description, send_all_posts_to) FROM stdin;
 1	1	Default	0	Default Project - Don't Change	\N
+2	2	Sample Project 2	0	This is a dummy	\N
+3	3	Sample Project	1	project for org 3	\N
+4	4	Sample project 4	0	project for org 4	\N
+5	5	Sample project 5	1	project for org 5	\N
+6	6	sample project 6	0	project for org 6	\N
+7	6	sample project 7	1	project 2 for org 6	\N
 \.
 
 
@@ -22036,7 +22681,15 @@ SELECT pg_catalog.setval('project_tags_tag_id_seq', 1, false);
 --
 
 COPY project_task (project_task_id, group_project_id, summary, details, percent_complete, priority, hours, start_date, end_date, created_by, status_id, category_id, duration, parent_id, last_modified_date) FROM stdin;
-1	1			0	0	0	0	0	100	1	100	0	0	1108701981
+3	2	Task 3 for project 2	task 3	0	0	0	0	0	2	1	100	0	0	1452637205
+5	4	Task 5 for project 4	task 5	0	0	0	0	0	2	1	100	0	0	1452637452
+6	5	Task 6 for project 5	task 6	0	0	0	0	0	2	1	100	0	0	1452637480
+7	6	Task 7 for project 6	task 7	0	0	0	0	0	2	1	100	0	0	1452637514
+8	6	Task 8 for project 6	task 8	0	0	0	0	0	2	1	100	0	0	1452637549
+9	7	Task 9 for project 7	task 9	0	0	0	0	0	2	1	100	0	0	1452637580
+4	3	Task 4 for project 3	task 4	0	0	0	0	0	2	1	100	0	0	1452637585
+1	1	Task 1 for Project 1	Task 1	0	0	0	0	0	2	1	100	0	0	1452637591
+2	1	Task 2 for project 1	Task 2	0	0	0	0	0	2	1	100	0	0	1452637636
 \.
 
 
@@ -22619,6 +23272,20 @@ SELECT pg_catalog.setval('service_categories_cat_id_seq1', 1, false);
 --
 
 COPY service_subscriptions (group_id, interface_id) FROM stdin;
+1	3
+1	4
+2	2
+2	1
+3	3
+3	6
+3	1
+4	5
+4	6
+5	7
+6	3
+6	1
+6	2
+4	3
 \.
 
 
@@ -22628,6 +23295,12 @@ COPY service_subscriptions (group_id, interface_id) FROM stdin;
 
 COPY site_activity (activity_id, time_posted, user_id, type_id, object_id, ref_id, assigned_to_id) FROM stdin;
 1	1442495898	102	10	6	\N	\N
+4	0	102	13	7	5	\N
+5	0	102	13	1	6	\N
+6	0	102	13	6	1	\N
+7	0	102	14	7	5	\N
+8	0	102	14	6	1	\N
+9	0	102	14	1	6	\N
 \.
 
 
@@ -22635,7 +23308,7 @@ COPY site_activity (activity_id, time_posted, user_id, type_id, object_id, ref_i
 -- Name: site_activity_activity_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gforge
 --
 
-SELECT pg_catalog.setval('site_activity_activity_id_seq', 1, true);
+SELECT pg_catalog.setval('site_activity_activity_id_seq', 9, true);
 
 
 --
@@ -22651,6 +23324,28 @@ COPY site_activity_comments (activity_comment_id, site_activity_id, user_id, tim
 --
 
 SELECT pg_catalog.setval('site_activity_comments_activity_comment_id_seq', 1, false);
+
+
+--
+-- Data for Name: site_activity_mapping; Type: TABLE DATA; Schema: public; Owner: gforge
+--
+
+COPY site_activity_mapping (activity_type_id, activity_type_string) FROM stdin;
+1	user_profile_comment
+2	project_home_comment
+3	project_add_member
+4	project_news_post
+5	project_forum_post
+6	project_gallery_addition
+7	project_bug_addition
+8	project_task_addition
+9	project_task_update
+10	project_create
+11	project_bug_update
+12	project_bug_closed
+13	project_component_add
+14	project_component_created
+\.
 
 
 --
@@ -22782,6 +23477,19 @@ SELECT pg_catalog.setval('snippet_version_pk_seq', 1, false);
 --
 
 COPY solr_index_event (core, id, update_type, status, modified, event_xml) FROM stdin;
+components	3	UPDATE    	NEW       	2016-01-12 21:42:16.544294	\N
+components	4	UPDATE    	NEW       	2016-01-12 21:42:21.148648	\N
+components	5	UPDATE    	NEW       	2016-01-12 21:42:25.042521	\N
+components	6	UPDATE    	NEW       	2016-01-12 21:42:29.225886	\N
+components	7	ADD       	NEW       	2016-01-12 21:42:57.213135	\N
+services	1	UPDATE    	NEW       	2016-01-15 21:26:23.451582	\N
+services	2	UPDATE    	NEW       	2016-01-15 21:26:23.451582	\N
+services	3	UPDATE    	NEW       	2016-01-15 21:26:23.451582	\N
+services	4	UPDATE    	NEW       	2016-01-15 21:26:23.451582	\N
+services	5	UPDATE    	NEW       	2016-01-15 21:26:23.451582	\N
+services	6	UPDATE    	NEW       	2016-01-15 21:26:23.451582	\N
+services	7	UPDATE    	NEW       	2016-01-15 21:26:23.451582	\N
+services	8	UPDATE    	NEW       	2016-01-15 21:26:23.451582	\N
 \.
 
 
@@ -23593,6 +24301,21 @@ COPY user_metric_history (month, day, user_id, ranking, metric) FROM stdin;
 --
 
 SELECT pg_catalog.setval('user_metric_pk_seq', 1, false);
+
+
+--
+-- Data for Name: user_organization; Type: TABLE DATA; Schema: public; Owner: gforge
+--
+
+COPY user_organization (user_organizaation_id, user_id, organization) FROM stdin;
+\.
+
+
+--
+-- Name: user_organization_user_organizaation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gforge
+--
+
+SELECT pg_catalog.setval('user_organization_user_organizaation_id_seq', 1, false);
 
 
 --
@@ -26210,56 +26933,84 @@ CREATE INDEX users_status ON users USING btree (status);
 -- Name: artifact_delete_agg; Type: RULE; Schema: public; Owner: gforge
 --
 
-CREATE RULE artifact_delete_agg AS ON DELETE TO artifact DO UPDATE artifact_counts_agg SET count = (artifact_counts_agg.count - 1), open_count = CASE WHEN (old.status_id = 1) THEN (artifact_counts_agg.open_count - 1) ELSE artifact_counts_agg.open_count END WHERE (artifact_counts_agg.group_artifact_id = old.group_artifact_id);
+CREATE RULE artifact_delete_agg AS
+    ON DELETE TO artifact DO  UPDATE artifact_counts_agg SET count = (artifact_counts_agg.count - 1), open_count =
+        CASE
+            WHEN (old.status_id = 1) THEN (artifact_counts_agg.open_count - 1)
+            ELSE artifact_counts_agg.open_count
+        END
+  WHERE (artifact_counts_agg.group_artifact_id = old.group_artifact_id);
 
 
 --
 -- Name: artifact_insert_agg; Type: RULE; Schema: public; Owner: gforge
 --
 
-CREATE RULE artifact_insert_agg AS ON INSERT TO artifact DO UPDATE artifact_counts_agg SET count = (artifact_counts_agg.count + 1), open_count = (artifact_counts_agg.open_count + 1) WHERE (artifact_counts_agg.group_artifact_id = new.group_artifact_id);
+CREATE RULE artifact_insert_agg AS
+    ON INSERT TO artifact DO  UPDATE artifact_counts_agg SET count = (artifact_counts_agg.count + 1), open_count = (artifact_counts_agg.open_count + 1)
+  WHERE (artifact_counts_agg.group_artifact_id = new.group_artifact_id);
 
 
 --
 -- Name: forum_delete_agg; Type: RULE; Schema: public; Owner: gforge
 --
 
-CREATE RULE forum_delete_agg AS ON DELETE TO forum DO UPDATE forum_agg_msg_count SET count = (forum_agg_msg_count.count - 1) WHERE (forum_agg_msg_count.group_forum_id = old.group_forum_id);
+CREATE RULE forum_delete_agg AS
+    ON DELETE TO forum DO  UPDATE forum_agg_msg_count SET count = (forum_agg_msg_count.count - 1)
+  WHERE (forum_agg_msg_count.group_forum_id = old.group_forum_id);
 
 
 --
 -- Name: forum_insert_agg; Type: RULE; Schema: public; Owner: gforge
 --
 
-CREATE RULE forum_insert_agg AS ON INSERT TO forum DO UPDATE forum_agg_msg_count SET count = (forum_agg_msg_count.count + 1) WHERE (forum_agg_msg_count.group_forum_id = new.group_forum_id);
+CREATE RULE forum_insert_agg AS
+    ON INSERT TO forum DO  UPDATE forum_agg_msg_count SET count = (forum_agg_msg_count.count + 1)
+  WHERE (forum_agg_msg_count.group_forum_id = new.group_forum_id);
 
 
 --
 -- Name: frs_dlstats_file_rule; Type: RULE; Schema: public; Owner: gforge
 --
 
-CREATE RULE frs_dlstats_file_rule AS ON INSERT TO frs_dlstats_file DO UPDATE frs_dlstats_filetotal_agg SET downloads = (frs_dlstats_filetotal_agg.downloads + 1) WHERE (frs_dlstats_filetotal_agg.file_id = new.file_id);
+CREATE RULE frs_dlstats_file_rule AS
+    ON INSERT TO frs_dlstats_file DO  UPDATE frs_dlstats_filetotal_agg SET downloads = (frs_dlstats_filetotal_agg.downloads + 1)
+  WHERE (frs_dlstats_filetotal_agg.file_id = new.file_id);
 
 
 --
 -- Name: groupactivity_userdelete_rule; Type: RULE; Schema: public; Owner: gforge
 --
 
-CREATE RULE groupactivity_userdelete_rule AS ON UPDATE TO users DO DELETE FROM group_activity_monitor WHERE (group_activity_monitor.user_id = CASE WHEN (new.status = 'D'::bpchar) THEN new.user_id ELSE 0 END);
+CREATE RULE groupactivity_userdelete_rule AS
+    ON UPDATE TO users DO  DELETE FROM group_activity_monitor
+  WHERE (group_activity_monitor.user_id =
+        CASE
+            WHEN (new.status = 'D'::bpchar) THEN new.user_id
+            ELSE 0
+        END);
 
 
 --
 -- Name: projecttask_delete_agg; Type: RULE; Schema: public; Owner: gforge
 --
 
-CREATE RULE projecttask_delete_agg AS ON DELETE TO project_task DO UPDATE project_counts_agg SET count = (project_counts_agg.count - 1), open_count = CASE WHEN (old.status_id = 1) THEN (project_counts_agg.open_count - 1) ELSE project_counts_agg.open_count END WHERE (project_counts_agg.group_project_id = old.group_project_id);
+CREATE RULE projecttask_delete_agg AS
+    ON DELETE TO project_task DO  UPDATE project_counts_agg SET count = (project_counts_agg.count - 1), open_count =
+        CASE
+            WHEN (old.status_id = 1) THEN (project_counts_agg.open_count - 1)
+            ELSE project_counts_agg.open_count
+        END
+  WHERE (project_counts_agg.group_project_id = old.group_project_id);
 
 
 --
 -- Name: projecttask_insert_agg; Type: RULE; Schema: public; Owner: gforge
 --
 
-CREATE RULE projecttask_insert_agg AS ON INSERT TO project_task DO UPDATE project_counts_agg SET count = (project_counts_agg.count + 1), open_count = (project_counts_agg.open_count + 1) WHERE (project_counts_agg.group_project_id = new.group_project_id);
+CREATE RULE projecttask_insert_agg AS
+    ON INSERT TO project_task DO  UPDATE project_counts_agg SET count = (project_counts_agg.count + 1), open_count = (project_counts_agg.open_count + 1)
+  WHERE (project_counts_agg.group_project_id = new.group_project_id);
 
 
 --
@@ -26477,13 +27228,6 @@ CREATE TRIGGER site_activity_before_delete_trigger BEFORE DELETE ON site_activit
 --
 
 CREATE TRIGGER site_activity_comments_before_delete_trigger BEFORE DELETE ON site_activity_comments FOR EACH ROW EXECUTE PROCEDURE site_activity_comments_before_delete();
-
-
---
--- Name: solr_index_event_insert_trigger; Type: TRIGGER; Schema: public; Owner: gforge
---
-
-CREATE TRIGGER solr_index_event_insert_trigger AFTER INSERT ON solr_index_event FOR EACH ROW EXECUTE PROCEDURE solr_index_event_process();
 
 
 --
