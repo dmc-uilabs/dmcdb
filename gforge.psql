@@ -243,7 +243,7 @@ create table organization
     categoryTier integer,
     date_joining text,
     reason_joining text,
-    logo_image_id integer,
+    logo_image text,
     follow text,
     favorates_count integer,
     isOwner text,
@@ -272,11 +272,9 @@ create table organization_customer
 );
 ALTER TABLE organization_customer OWNER TO gforge;
 
--- image_type=1: logo; image_type=2: feature images
 CREATE TABLE organization_capabilities_pictures (
     id integer NOT NULL,
     organization_id integer,
-    image_type integer,
     caption text,
     thumbnail text,
     large_image text
