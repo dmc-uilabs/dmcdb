@@ -1707,11 +1707,12 @@ create table organization
 	description text,
     division text,
     industry text,
-	naics_scode text,
-    rd_forcus text,
+	naics_code text,
+    rd_focus text,
+	customers text,
     awards text,
     tech_expertise text,
-    tools_software_Equp_Mach text,
+    tools_software_equip_mach text,
     post_collaboration text,
 	collaboration_interest text,
 	past_projects text,
@@ -1790,7 +1791,7 @@ ALTER TABLE common_video OWNER TO gforge;
 CREATE TABLE organization_video (
     id serial primary key,
     organization_id integer references organization(organization_id),
-	image_type integer references video_image_type(id),
+	video_type integer references video_image_type(id),
     video_id integer references common_video(id)
 );
 ALTER TABLE organization_video OWNER TO gforge;
