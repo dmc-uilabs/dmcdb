@@ -1737,9 +1737,9 @@ ALTER TABLE organization OWNER TO gforge;
 
 create table organization_user
 (
-   user_organizaation_id serial NOT NULL,
+   id serial NOT NULL,
    user_id integer references users(user_id),
-   organization integer references organization(organization_id)
+   organization_id integer references organization(organization_id)
 );
 ALTER TABLE organization_user OWNER TO gforge;
 
@@ -1764,7 +1764,7 @@ CREATE TABLE common_image (
 ALTER TABLE common_image OWNER TO gforge;
 
 -- video_image_type = skill_image/feature_image, etc.
-CREATE TABLE video_image_type (
+CREATE TABLE common_video_image_type (
     id serial primary key,
     type_desc text
 );
@@ -1791,7 +1791,7 @@ CREATE TABLE organization_video (
     id serial primary key,
     organization_id integer references organization(organization_id),
 	image_type integer references video_image_type(id),
-    image_id integer references common_video(id)
+    video_id integer references common_video(id)
 );
 ALTER TABLE organization_video OWNER TO gforge;
 
@@ -1808,7 +1808,7 @@ CREATE TABLE organization_contact
 (
 	id serial primary key,
 	organization_id integer references organization(organization_id),
-	contact_type integer references organization_contact_type(id),
+	contact_type_id integer references organization_contact_type(id),
 	user_id integer references users(user_id)
 );
 ALTER TABLE organization_contact OWNER TO gforge;
