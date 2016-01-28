@@ -203,97 +203,6 @@ $$;
 
 ALTER FUNCTION public.cem_delete() OWNER TO gforge;
 
-
---
--- Create Organization tables
---
-create table user_organization
-(
-   user_organizaation_id serial NOT NULL,
-   user_id integer,
-   organization integer
-);
-ALTER TABLE user_organization OWNER TO gforge;
-
-create table organization
-(
-    organization_id integer NOT NULL,
-    accountId integer,
-    name text,
-    location text,
-    division text,
-    industry text,
-    rdforcus text,
-    address_id integer,
-    perf_method_comm text,
-    website text,
-    social_media_linkedin text,
-    social_media_twitter text,
-    social_medial_inthenews text,
-    naics text,
-    description text,
-    awards text,
-    tech_expertise text,
-    resources text,
-    past_projects text,
-    project_interests text,
-    addressId integer,
-    email text,
-    phone text,
-    categoryTier integer,
-    date_joining text,
-    reason_joining text,
-    logo_image text,
-    follow text,
-    favorates_count integer,
-    isOwner text,
-    owner text
-);
-ALTER TABLE organization OWNER TO gforge;
-
-create table address(
-   id serial NOT NULL,
-   street_address1 text,
-   street_address2 text,
-   city text,
-   state text,
-   country text,
-   zip text
-);
-ALTER TABLE address OWNER TO gforge;
-
-create table organization_customer
-(
-   id serial NOT NULL,
-   organization_id integer,
-   org_user_flag boolean,
-   ref_name text NOT NULL,
-   ref_id integer
-);
-ALTER TABLE organization_customer OWNER TO gforge;
-
-CREATE TABLE organization_capabilities_pictures (
-    id integer NOT NULL,
-    organization_id integer,
-    caption text,
-    thumbnail text,
-    large_image text
-);
-ALTER TABLE organization_capabilities_pictures OWNER TO gforge;
-
-
-create table organization_vidio
-(
-   id serial NOT NULL,
-   organization_id integer,
-   time integer,
-   caption text,
-   vidio_link text
-);
-ALTER TABLE organization_vidio OWNER TO gforge;
-
-
-
 --
 -- Name: cem_insert(); Type: FUNCTION; Schema: public; Owner: gforge
 --
@@ -1774,6 +1683,164 @@ CREATE TABLE users (
 
 
 ALTER TABLE users OWNER TO gforge;
+
+--
+-- Tables for organization / company profiles
+--
+create table common_address(
+   id serial primary key,
+   street_address1 text,
+   street_address2 text,
+   city text,
+   state text,
+   country text,
+   zip text
+);
+ALTER TABLE common_address OWNER TO gforge;
+
+create table organization
+(
+    organization_id serial primary key,
+    accountId integer,
+    name text,
+    location text,
+	description text,
+    division text,
+    industry text,
+	naics_scode text,
+    rd_forcus text,
+    awards text,
+    tech_expertise text,
+    tools_software_Equp_Mach text,
+    post_collaboration text,
+	collaboration_interest text,
+	past_projects text,
+    upcoming_project_interests text,
+    addressId integer references common_address(id),
+    email text,
+    phone text,
+	website text,
+    social_media_linkedin text,
+    social_media_twitter text,
+    social_medial_inthenews text, 
+	perfered_comm_method text,
+    category_tier integer,
+    date_joining text,
+    reason_joining text,
+    logo_image text,
+    follow text,
+    favorates_count integer,
+    is_owner text,
+    owner text
+);
+ALTER TABLE organization OWNER TO gforge;
+
+create table organization_user
+(
+   user_organizaation_id serial NOT NULL,
+   user_id integer references users(user_id),
+   organization integer references organization(organization_id)
+);
+ALTER TABLE organization_user OWNER TO gforge;
+
+
+-- org_user_flag=true, the customer is in organization with ref_id as organization_id; otherwise, the customer is created with name
+create table organization_customer
+(
+   id serial primary key,
+   organization_id integer references organization(organization_id),
+   org_user_flag boolean,
+   ref_name text NOT NULL,
+   ref_id integer
+);
+ALTER TABLE organization_customer OWNER TO gforge;
+
+CREATE TABLE common_image (
+    id serial primary key,
+    caption text,
+    thumbnail text,
+    large_image text
+);
+ALTER TABLE common_image OWNER TO gforge;
+
+-- video_image_type = skill_image/feature_image, etc.
+CREATE TABLE video_image_type (
+    id serial primary key,
+    type_desc text
+);
+ALTER TABLE video_image_type OWNER TO gforge;
+
+CREATE TABLE organization_image (
+    id serial primary key,
+    organization_id integer references organization(organization_id),
+	image_type integer references video_image_type(id),
+    image_id integer references common_image(id)
+);
+ALTER TABLE organization_image OWNER TO gforge;
+
+create table common_video
+(
+   id serial primary key,
+   length integer,
+   caption text,
+   video_link text
+);
+ALTER TABLE common_video OWNER TO gforge;
+
+CREATE TABLE organization_video (
+    id serial primary key,
+    organization_id integer references organization(organization_id),
+	image_type integer references video_image_type(id),
+    image_id integer references common_video(id)
+);
+ALTER TABLE organization_video OWNER TO gforge;
+
+
+CREATE TABLE organization_contact_type
+(
+	id serial primary key,
+	contact_type text
+);
+ALTER TABLE organization_contact_type  OWNER TO gforge;
+
+
+CREATE TABLE organization_contact
+(
+	id serial primary key,
+	organization_id integer references organization(organization_id),
+	contact_type integer references organization_contact_type(id),
+	user_id integer references users(user_id)
+);
+ALTER TABLE organization_contact OWNER TO gforge;
+
+CREATE TABLE organization_skill
+(
+	id serial primary key,
+	organization_id integer references organization(organization_id),
+	skill text
+);
+ALTER TABLE organization_skill  OWNER TO gforge;
+
+-- Company reviews -- this may need to be changed based on where the review is written
+CREATE TABLE organization_review
+(
+	id serial primary key,
+	organization_id integer references organization(organization_id),
+	name text,
+	reply boolean,
+	reviewId text,
+	status boolean,
+	date text,
+	rating integer,
+	likes integer,
+	dislike integer,
+	comment text
+);
+ALTER TABLE organization_review  OWNER TO gforge;
+
+--
+-- End tables for organization
+--
 
 --
 -- Name: activity_vw; Type: VIEW; Schema: public; Owner: gforge
