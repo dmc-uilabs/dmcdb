@@ -1844,6 +1844,50 @@ ALTER TABLE organization_review  OWNER TO gforge;
 --
 
 --
+-- Tables for user profile review.
+--
+--
+-- Tables for profile review
+--
+-- id=1, user review; id=2, company review, etc.
+create table common_review_type (
+	id serial primary key,
+	review_type text
+);
+ALTER TABLE common_review_type OWNER TO gforge;
+
+-- contains a piece of review information
+create table common_review (
+	id serial primary key,
+	reviewer integer references users(user_id),
+	review_type_id integer references common_review_type(id),
+	-- reference_id: id to user_id or organization_id
+	reference_id integer,
+	review_text text
+);
+ALTER TABLE common_review OWNER TO gforge;
+
+create table user_review(
+   id serial primary key,
+   user_id integer references users(user_id) ,
+   reply boolean,
+   review_id integer references common_review(id),
+   status boolean,
+   date text,
+   rating integer,
+   user_rating_review text,
+   likes integer,
+   dislikes integer,
+   comments text
+);
+ALTER TABLE user_review OWNER TO gforge;
+
+--
+-- End user profile tables.
+--
+
+
+--
 -- Name: activity_vw; Type: VIEW; Schema: public; Owner: gforge
 --
 
