@@ -1698,6 +1698,16 @@ create table common_address(
 );
 ALTER TABLE common_address OWNER TO gforge;
 
+
+CREATE TABLE common_image (
+    id serial primary key,
+    caption text,
+    thumbnail text,
+    large_image text
+);
+ALTER TABLE common_image OWNER TO gforge;
+
+
 create table organization
 (
     organization_id serial primary key,
@@ -1728,6 +1738,7 @@ create table organization
     category_tier integer,
     date_joining text,
     reason_joining text,
+    feature_image integer references common_image(id),
     logo_image text,
     follow text,
     favorates_count integer,
@@ -1756,13 +1767,6 @@ create table organization_customer
 );
 ALTER TABLE organization_customer OWNER TO gforge;
 
-CREATE TABLE common_image (
-    id serial primary key,
-    caption text,
-    thumbnail text,
-    large_image text
-);
-ALTER TABLE common_image OWNER TO gforge;
 
 -- video_image_type = skill_image/feature_image, etc.
 CREATE TABLE common_video_image_type (
