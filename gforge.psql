@@ -1685,6 +1685,19 @@ CREATE TABLE users (
 ALTER TABLE users OWNER TO gforge;
 
 --
+-- Table for user's onboarding status
+--
+CREATE TABLE onboarding_status (
+    user_id integer primary key NOT NULL,
+    profile boolean DEFAULT false NOT NULL,
+    account boolean DEFAULT false NOT NULL,
+    company boolean DEFAULT false NOT NULL,
+    storefront boolean DEFAULT false NOT NULL
+);
+
+ALTER TABLE onboarding_status OWNER TO gforge;
+
+--
 -- Tables for organization / company profiles
 --
 create table common_address(
@@ -26736,6 +26749,12 @@ ALTER TABLE ONLY forum_attachment
 ALTER TABLE ONLY group_join_request
     ADD CONSTRAINT "$2" FOREIGN KEY (user_id) REFERENCES users(user_id);
 
+--
+-- Name: $2; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY onboarding_status
+    ADD CONSTRAINT "$2" FOREIGN KEY (user_id) REFERENCES users(user_id);
 
 --
 -- Name: $2; Type: FK CONSTRAINT; Schema: public; Owner: gforge
