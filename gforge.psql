@@ -1910,6 +1910,46 @@ ALTER TABLE user_review OWNER TO gforge;
 -- End user profile tables.
 --
 
+--
+-- Tables for user view company site
+--
+create table userview_org_actiontype
+(
+   id serial primary key,
+   action_desc text
+);
+ALTER TABLE userview_org_actiontype OWNER TO gforge;
+
+insert into userview_org_actiontype values (1,'SERVICE_RUN');
+insert into userview_org_actiontype values (2,'FOLLOW_SERVICE');
+insert into userview_org_actiontype values (3,'FOLLOW_COMPONENT');
+insert into userview_org_actiontype values (4,'FOLLOW_USER');
+insert into userview_org_actiontype values (5,'FOLLOW_COMPANY');
+insert into userview_org_actiontype values (6,'SUBSCRIBE_SERVICE_TO_YOUR_PROJECT');
+insert into userview_org_actiontype values (7,'SUBSCRIBE_USER_TO_COMPANY');
+insert into userview_org_actiontype values (8,'UPDATE_SERVICE');
+insert into userview_org_actiontype values (9,'UPDATE_PROJECT');
+insert into userview_org_actiontype values (10,'UPDATE_COMPANY_STOREFRONT');
+insert into userview_org_actiontype values (11,'UPDATE_COMPANY_PROFILE');
+insert into userview_org_actiontype values (12,'UPDATE_USER_PROFILE');
+insert into userview_org_actiontype values (13,'REVIEW_SERVICE');
+insert into userview_org_actiontype values (14,'REVIEW_COMPONENT');
+insert into userview_org_actiontype values (15,'REVIEW_COMPANY');
+insert into userview_org_actiontype values (16,'TASK_ASSIGN');
+insert into userview_org_actiontype values (17,'TASK_DUE');
+insert into userview_org_actiontype values (18,'TASK_UPDATE');
+insert into userview_org_actiontype values (19,'JOIN_PUBLIC_PROJECT');
+
+create table userview_org_tracking
+(
+   id serial primary key,
+   user_id integer references users(user_id),
+   organization_id integer references organization(organization_id),
+   action_id integer references userview_org_actiontype(id),
+   visit_timestamp timestamp,
+   other_info text
+);
+ALTER TABLE userview_org_tracking OWNER TO gforge;
 
 --
 -- Name: activity_vw; Type: VIEW; Schema: public; Owner: gforge
