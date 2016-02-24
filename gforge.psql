@@ -1639,7 +1639,8 @@ ALTER TABLE plugin_cvstracker_data_master OWNER TO gforge;
 --
 
 CREATE TABLE users (
-    user_id integer DEFAULT nextval(('users_pk_seq'::text)::regclass) NOT NULL,
+--    user_id integer DEFAULT nextval(('users_pk_seq'::text)::regclass) NOT NULL,
+    user_id serial primary key,
     user_name text DEFAULT ''::text NOT NULL,
     email text DEFAULT ''::text NOT NULL,
     user_pw character varying(128) DEFAULT ''::character varying NOT NULL,
@@ -1680,7 +1681,6 @@ CREATE TABLE users (
     image text,
     last_activity integer
 );
-
 
 ALTER TABLE users OWNER TO gforge;
 
@@ -1762,12 +1762,19 @@ ALTER TABLE organization OWNER TO gforge;
 
 create table organization_user
 (
-   id serial NOT NULL,
+   id serial primary key,
    user_id integer references users(user_id),
    organization_id integer references organization(organization_id)
 );
 ALTER TABLE organization_user OWNER TO gforge;
 
+create table organization_admin
+(
+   id serial primary key,
+   organization_user_id integer references organization_user(id),
+   organization_id integer references organization(organization_id)
+);
+ALTER TABLE organization_admin OWNER TO gforge;
 
 -- org_user_flag=true, the customer is in organization with ref_id as organization_id; otherwise, the customer is created with name
 create table organization_customer
@@ -1781,17 +1788,17 @@ create table organization_customer
 ALTER TABLE organization_customer OWNER TO gforge;
 
 
--- video_image_type = skill_image/feature_image, etc.
+-- common_video_image_type = skill_image/feature_image, etc.
 CREATE TABLE common_video_image_type (
     id serial primary key,
     type_desc text
 );
-ALTER TABLE video_image_type OWNER TO gforge;
+ALTER TABLE common_video_image_type OWNER TO gforge;
 
 CREATE TABLE organization_image (
     id serial primary key,
     organization_id integer references organization(organization_id),
-	image_type integer references video_image_type(id),
+	image_type integer references common_video_image_type(id),
     image_id integer references common_image(id)
 );
 ALTER TABLE organization_image OWNER TO gforge;
@@ -1808,7 +1815,7 @@ ALTER TABLE common_video OWNER TO gforge;
 CREATE TABLE organization_video (
     id serial primary key,
     organization_id integer references organization(organization_id),
-	video_type integer references video_image_type(id),
+	video_type integer references common_video_image_type(id),
     video_id integer references common_video(id)
 );
 ALTER TABLE organization_video OWNER TO gforge;
@@ -8088,15 +8095,15 @@ ALTER TABLE user_user_id_seq OWNER TO postgres;
 -- Name: users_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
 --
 
-CREATE SEQUENCE users_pk_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    MAXVALUE 2147483647
-    CACHE 1;
+-- CREATE SEQUENCE users_pk_seq
+--    START WITH 1
+--    INCREMENT BY 1
+--    NO MINVALUE
+--    MAXVALUE 2147483647
+--    CACHE 1;
 
 
-ALTER TABLE users_pk_seq OWNER TO gforge;
+-- ALTER TABLE users_pk_seq OWNER TO gforge;
 
 --
 -- Name: widget_rss; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
@@ -23887,7 +23894,7 @@ COPY users (user_id, user_name, email, user_pw, realname, status, shell, unix_pw
 -- Name: users_pk_seq; Type: SEQUENCE SET; Schema: public; Owner: gforge
 --
 
-SELECT pg_catalog.setval('users_pk_seq', 113, true);
+-- SELECT pg_catalog.setval('users_pk_seq', 113, true);
 
 
 --
@@ -25454,8 +25461,8 @@ ALTER TABLE ONLY user_type
 -- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
 --
 
-ALTER TABLE ONLY users
-    ADD CONSTRAINT users_pkey PRIMARY KEY (user_id);
+-- ALTER TABLE ONLY users
+--    ADD CONSTRAINT users_pkey PRIMARY KEY (user_id);
 
 
 --
@@ -27773,4 +27780,7 @@ GRANT SELECT ON TABLE typemap_entry TO PUBLIC;
 --
 -- PostgreSQL database dump complete
 --
+
+
+
 
