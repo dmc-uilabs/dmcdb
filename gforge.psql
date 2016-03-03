@@ -1639,7 +1639,8 @@ ALTER TABLE plugin_cvstracker_data_master OWNER TO gforge;
 --
 
 CREATE TABLE users (
-    user_id integer DEFAULT nextval(('users_pk_seq'::text)::regclass) NOT NULL,
+--    user_id integer DEFAULT nextval(('users_pk_seq'::text)::regclass) NOT NULL,
+    user_id serial primary key,
     user_name text DEFAULT ''::text NOT NULL,
     email text DEFAULT ''::text NOT NULL,
     user_pw character varying(128) DEFAULT ''::character varying NOT NULL,
@@ -1681,8 +1682,20 @@ CREATE TABLE users (
     last_activity integer
 );
 
-
 ALTER TABLE users OWNER TO gforge;
+
+--
+-- Table for user's onboarding status
+--
+CREATE TABLE onboarding_status (
+    user_id integer primary key NOT NULL,
+    profile boolean DEFAULT false NOT NULL,
+    account boolean DEFAULT false NOT NULL,
+    company boolean DEFAULT false NOT NULL,
+    storefront boolean DEFAULT false NOT NULL
+);
+
+ALTER TABLE onboarding_status OWNER TO gforge;
 
 --
 -- Tables for organization / company profiles
@@ -1749,12 +1762,19 @@ ALTER TABLE organization OWNER TO gforge;
 
 create table organization_user
 (
-   id serial NOT NULL,
+   id serial primary key,
    user_id integer references users(user_id),
    organization_id integer references organization(organization_id)
 );
 ALTER TABLE organization_user OWNER TO gforge;
 
+create table organization_admin
+(
+   id serial primary key,
+   organization_user_id integer references organization_user(id),
+   organization_id integer references organization(organization_id)
+);
+ALTER TABLE organization_admin OWNER TO gforge;
 
 -- org_user_flag=true, the customer is in organization with ref_id as organization_id; otherwise, the customer is created with name
 create table organization_customer
@@ -1768,17 +1788,17 @@ create table organization_customer
 ALTER TABLE organization_customer OWNER TO gforge;
 
 
--- video_image_type = skill_image/feature_image, etc.
+-- common_video_image_type = skill_image/feature_image, etc.
 CREATE TABLE common_video_image_type (
     id serial primary key,
     type_desc text
 );
-ALTER TABLE video_image_type OWNER TO gforge;
+ALTER TABLE common_video_image_type OWNER TO gforge;
 
 CREATE TABLE organization_image (
     id serial primary key,
     organization_id integer references organization(organization_id),
-	image_type integer references video_image_type(id),
+	image_type integer references common_video_image_type(id),
     image_id integer references common_image(id)
 );
 ALTER TABLE organization_image OWNER TO gforge;
@@ -1795,7 +1815,7 @@ ALTER TABLE common_video OWNER TO gforge;
 CREATE TABLE organization_video (
     id serial primary key,
     organization_id integer references organization(organization_id),
-	video_type integer references video_image_type(id),
+	video_type integer references common_video_image_type(id),
     video_id integer references common_video(id)
 );
 ALTER TABLE organization_video OWNER TO gforge;
@@ -1890,6 +1910,134 @@ ALTER TABLE user_review OWNER TO gforge;
 -- End user profile tables.
 --
 
+--
+-- Tables for tracking notification
+--
+
+create table notification_action
+(
+   id serial primary key,
+   action text
+);
+ALTER TABLE notification_action OWNER TO gforge;
+
+insert into notification_action values (1,'FOLLOW');
+insert into notification_action values (2,'UN_FOLLOW');
+insert into notification_action values (3,'SUBSCRIBE');
+insert into notification_action values (4,'UNSUBSCRIBE');
+insert into notification_action values (5,'FAVORITE');
+insert into notification_action values (6,'UN_FAVORITE');
+insert into notification_action values (7,'COMMENT');
+insert into notification_action values (8,'UN_COMMENT');
+insert into notification_action values (9, 'REVIEW');
+insert into notification_action values (10, 'REVOKE_REVIEW');
+insert into notification_action values (11,'REPLY');
+insert into notification_action values (12,'REVOKE_REPLY');
+insert into notification_action values (13,'CREATE');
+insert into notification_action values (14,'REMOVE');
+insert into notification_action values (15,'UPDATE_DUE_DATE');
+insert into notification_action values (16,'SEND_INVITE');
+insert into notification_action values (17,'REJECT_INVITE');
+insert into notification_action values (18,'ACCEPT_INVITE');
+
+create table notification_object_type
+(
+	id serial primary key,
+	object_name text
+);
+ALTER TABLE notification_object_type OWNER TO gforge;
+insert into notification_object_type values(1, 'PROJECT');
+insert into notification_object_type values(2, 'TASK');
+insert into notification_object_type values(3, 'SERVICE');
+insert into notification_object_type values(4, 'COMPONENT');
+insert into notification_object_type values(5, 'COMPANY');
+insert into notification_object_type values(6, 'DISCUSSION');
+insert into notification_object_type values(7, 'REVIEW');
+insert into notification_object_type values(8, 'SYSTEM_ANNOUNCEMENT');
+insert into notification_object_type values(9, 'DMC_ANNOUNCEMENT');
+insert into notification_object_type values(10, 'EVNET');
+
+create table notification_type
+(
+	id serial primary key,
+	notification_object_type_id integer references notification_object_type(id),
+	action_id integer references notification_action(id),
+	notification_type text
+);
+ALTER TABLE notification_type OWNER TO gforge;
+insert into notification_type values(1,3,5,'SERVICE_FAVORITED');
+insert into notification_type values(2,1,9,'PROJECT_REVIEW');
+insert into notification_type values(3,7,9, 'REPLY_REVIEW');
+insert into notification_type values(4,3,3,'SUBSCRIBE_YOUR_SERVICE_TO_PROJECT');
+insert into notification_type values(5,5,9, 'REVIEW_COMPANY');
+insert into notification_type values(6,6,13,'DISCUSSION_POSTED');
+insert into notification_type values(7,6,11,'REPLY_DISCUSSION');
+insert into notification_type values(8,9,13, 'ANNOUNCEMENT_DMC');
+insert into notification_type values(9,8,13, 'ANNOUNCEMENT_SYSTEM');
+insert into notification_type values(10,10,13, 'EVENT_DMC');
+insert into notification_type values(11,3,18,'SERVICE_ERROR');
+
+
+create table notification
+(
+	id serial primary key,
+	notification_type_id integer references notification_type(id),
+	object_id integer,
+	origination_user_id integer,
+	detail_link text,
+	notification_time timestamp
+);
+ALTER TABLE notification OWNER TO gforge;
+
+drop table notification_consumption;
+create table notification_consumption
+(
+	id serial primary key,
+	notificaition_id integer references notification(id),
+	user_id integer,
+	consumption_time timestamp
+);
+ALTER TABLE notification_consumption OWNER TO gforge;
+
+create table notification_additional_info
+(
+	id serial primary key,
+	notificaiton_id integer references notification(id),
+	addition_info_order integer,
+	information text,
+	note text
+);
+ALTER TABLE notification_additional_info OWNER TO gforge;
+
+-- A case study
+-- "Thomas has favorited your service." -- assume service id: 5; service owner: Thomas with user id 10; a user Bob with user id 20 favorited the service.
+
+-- Producing: When Bob click and favored service 1, an entry will be created in notification:
+----- insert into notification (notification_type_id, object_id, origination_user_id, detail_link, notification_time) values (1, 5, 20, '/service-marketplace.php#/1', to_timestamp('02-03-2016 10:50:54', 'dd-mm-yyyy hh24:mi:ss'));
+
+-- Using: When user Thomas with user id 10 login, the steps to get all the service favorited notifier will be:
+-- 1) a query to get all the services that user Thomas owned, followed, subscribed, for example, this include service with id 1
+-- 2) perform the following query to get all service favorited by Thomas, note if there are more than one services found, they can be listed in (5,...).
+----- select * from notification where notification_type_id = 1 and object_id in (5);
+-- To add a constrain, only check notifier within 30 days:
+----- select * from notification where notification_type_id = 1 and object_id in (5) and date_part('days',now() - notification_time) <30;
+-- An example of using timestamp: select date_part('days',notification_time - to_timestamp('02-02-2016 10:50:54', 'dd-mm-yyyy hh24:mi:ss')) as day from notification;
+
+-- Consuming: if the notifier is consumed and record is added to the notification
+-- When Thomas read and like to ignore the notifier next time, an entry is created in notification_consumption table:
+----- insert into notification_consumption (notificaition_id, user_id, consumption_time) values (1, 10, now());
+
+-- Using with ignoring of consumed notifier:
+
+-- To add a constrain, only check notifier within 30 days:
+----- select notification.id from notification 
+----- 	where notification_type_id = 1 
+----- 	and object_id in (5) 
+----- 	and date_part('days',now() - notification_time) <30
+----- except
+----- select notification.id from notification, notification_consumption 
+----- 	where notification.id = notification_consumption.notificaition_id 
+----- 	and notification_consumption.user_id = 10;
 
 --
 -- Name: activity_vw; Type: VIEW; Schema: public; Owner: gforge
@@ -8075,15 +8223,15 @@ ALTER TABLE user_user_id_seq OWNER TO postgres;
 -- Name: users_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
 --
 
-CREATE SEQUENCE users_pk_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    MAXVALUE 2147483647
-    CACHE 1;
+-- CREATE SEQUENCE users_pk_seq
+--    START WITH 1
+--    INCREMENT BY 1
+--    NO MINVALUE
+--    MAXVALUE 2147483647
+--    CACHE 1;
 
 
-ALTER TABLE users_pk_seq OWNER TO gforge;
+-- ALTER TABLE users_pk_seq OWNER TO gforge;
 
 --
 -- Name: widget_rss; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
@@ -23874,7 +24022,7 @@ COPY users (user_id, user_name, email, user_pw, realname, status, shell, unix_pw
 -- Name: users_pk_seq; Type: SEQUENCE SET; Schema: public; Owner: gforge
 --
 
-SELECT pg_catalog.setval('users_pk_seq', 113, true);
+-- SELECT pg_catalog.setval('users_pk_seq', 113, true);
 
 
 --
@@ -25441,8 +25589,8 @@ ALTER TABLE ONLY user_type
 -- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
 --
 
-ALTER TABLE ONLY users
-    ADD CONSTRAINT users_pkey PRIMARY KEY (user_id);
+-- ALTER TABLE ONLY users
+--    ADD CONSTRAINT users_pkey PRIMARY KEY (user_id);
 
 
 --
@@ -26736,6 +26884,12 @@ ALTER TABLE ONLY forum_attachment
 ALTER TABLE ONLY group_join_request
     ADD CONSTRAINT "$2" FOREIGN KEY (user_id) REFERENCES users(user_id);
 
+--
+-- Name: $2; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY onboarding_status
+    ADD CONSTRAINT "$2" FOREIGN KEY (user_id) REFERENCES users(user_id);
 
 --
 -- Name: $2; Type: FK CONSTRAINT; Schema: public; Owner: gforge
@@ -27754,4 +27908,7 @@ GRANT SELECT ON TABLE typemap_entry TO PUBLIC;
 --
 -- PostgreSQL database dump complete
 --
+
+
+
 
