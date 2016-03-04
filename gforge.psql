@@ -1989,7 +1989,6 @@ create table notification
 );
 ALTER TABLE notification OWNER TO gforge;
 
-drop table notification_consumption;
 create table notification_consumption
 (
 	id serial primary key,
