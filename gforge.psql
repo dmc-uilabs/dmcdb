@@ -8205,21 +8205,6 @@ ALTER TABLE user_type_type_id_seq OWNER TO gforge;
 
 ALTER SEQUENCE user_type_type_id_seq OWNED BY user_type.type_id;
 
-
---
--- Name: user_user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE user_user_id_seq
-    START WITH 0
-    INCREMENT BY 1
-    MINVALUE 0
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE user_user_id_seq OWNER TO postgres;
-
 --
 -- Name: users_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
 --
@@ -23991,14 +23976,6 @@ COPY user_type (type_id, type_name) FROM stdin;
 
 SELECT pg_catalog.setval('user_type_type_id_seq', 2, true);
 
-
---
--- Name: user_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('user_user_id_seq', 0, false);
-
-
 --
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: gforge
 --
@@ -24023,7 +24000,7 @@ COPY users (user_id, user_name, email, user_pw, realname, status, shell, unix_pw
 -- Name: users_pk_seq; Type: SEQUENCE SET; Schema: public; Owner: gforge
 --
 
-SELECT pg_catalog.setval('users_pk_seq', 113, true);
+SELECT pg_catalog.setval('users_pk_seq', 115, true);
 
 
 --
