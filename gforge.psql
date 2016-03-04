@@ -1639,8 +1639,7 @@ ALTER TABLE plugin_cvstracker_data_master OWNER TO gforge;
 --
 
 CREATE TABLE users (
---    user_id integer DEFAULT nextval(('users_pk_seq'::text)::regclass) NOT NULL,
-    user_id serial primary key,
+    user_id integer DEFAULT nextval(('users_pk_seq'::text)::regclass) NOT NULL,
     user_name text DEFAULT ''::text NOT NULL,
     email text DEFAULT ''::text NOT NULL,
     user_pw character varying(128) DEFAULT ''::character varying NOT NULL,
@@ -1683,6 +1682,9 @@ CREATE TABLE users (
 );
 
 ALTER TABLE users OWNER TO gforge;
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (user_id);
 
 --
 -- Table for user's onboarding status
@@ -1989,7 +1991,6 @@ create table notification
 );
 ALTER TABLE notification OWNER TO gforge;
 
-drop table notification_consumption;
 create table notification_consumption
 (
 	id serial primary key,
@@ -8223,15 +8224,15 @@ ALTER TABLE user_user_id_seq OWNER TO postgres;
 -- Name: users_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
 --
 
--- CREATE SEQUENCE users_pk_seq
---    START WITH 1
---    INCREMENT BY 1
---    NO MINVALUE
---    MAXVALUE 2147483647
---    CACHE 1;
+CREATE SEQUENCE users_pk_seq
+   START WITH 1
+   INCREMENT BY 1
+   NO MINVALUE
+   MAXVALUE 2147483647
+   CACHE 1;
 
 
--- ALTER TABLE users_pk_seq OWNER TO gforge;
+ALTER SEQUENCE users_pk_seq OWNER TO gforge;
 
 --
 -- Name: widget_rss; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
@@ -24022,7 +24023,7 @@ COPY users (user_id, user_name, email, user_pw, realname, status, shell, unix_pw
 -- Name: users_pk_seq; Type: SEQUENCE SET; Schema: public; Owner: gforge
 --
 
--- SELECT pg_catalog.setval('users_pk_seq', 113, true);
+SELECT pg_catalog.setval('users_pk_seq', 113, true);
 
 
 --
@@ -25583,14 +25584,6 @@ ALTER TABLE ONLY user_ratings
 
 ALTER TABLE ONLY user_type
     ADD CONSTRAINT user_type_type_id_key UNIQUE (type_id);
-
-
---
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
---
-
--- ALTER TABLE ONLY users
---    ADD CONSTRAINT users_pkey PRIMARY KEY (user_id);
 
 
 --
