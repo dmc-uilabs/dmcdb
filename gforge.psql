@@ -1873,11 +1873,16 @@ CREATE TABLE organization_dmdii_type
 	dmdii_member_desc text
 );
 ALTER TABLE organization_dmdii_type OWNER TO gforge;
-insert into organization_dmdii_type values (1, 'FOUNDER');
-insert into organization_dmdii_type values (2, 'BOARD');
-insert into organization_dmdii_type values (3, 'VIP');
-insert into organization_dmdii_type values (4, 'GENERAL');
-insert into organization_dmdii_type values (5, 'TRAIL');
+-- Membership are defined by referencing: http://dmdii.uilabs.org/membership/become-a-member
+insert into organization_dmdii_type values (1, 'Industry Tier 1');
+insert into organization_dmdii_type values (2, 'Industry Tier 2');
+insert into organization_dmdii_type values (3, 'Industry Tier 3');
+insert into organization_dmdii_type values (4, 'Academic / Non-profit Tier 1');
+insert into organization_dmdii_type values (5, 'Academic / Non-profit Tier 2');
+insert into organization_dmdii_type values (6, 'Academic / Non-profit Tier 3');
+insert into organization_dmdii_type values (7, 'Academic / Non-profit Tier 4');
+insert into organization_dmdii_type values (8, 'U.S. Government');
+insert into organization_dmdii_type values (9, 'State And Local Government');
 
 CREATE TABLE organization_dmdii_member
 (
@@ -1890,7 +1895,7 @@ CREATE TABLE organization_dmdii_member
 );
 ALTER TABLE organization_dmdii_member OWNER TO gforge;
 
--- Case 1:  GGG is a founding member, assume GGG's organization_id is 1
+-- Case 1:  GGG is an Industry Tier 1 member, assume GGG's organization_id is 1
 -- insert into organization (organization_id, accountid, name) values (1, 123, 'GGG');
 -- insert into organization_dmdii_member (organization_id, DMDII_type_id, modification_date, start_date, expire_date) values (1,1, to_timestamp('01-01-2014','dd-mm-yyyy'),to_timestamp('01-01-2014','dd-mm-yyyy'),to_timestamp('01-01-2024','dd-mm-yyyy'));
 -- Current membership:
@@ -1899,10 +1904,10 @@ ALTER TABLE organization_dmdii_member OWNER TO gforge;
 --    order by modification_date
 --    limit 1;
 
--- Case 2:  BBB was a trail member, then become a general member
+-- Case 2:  BBB was an Academic / Non-profit Tier 4, then become an Academic / Non-profit Tier 3
 -- insert into organization (organization_id, accountid, name) values (2, 123, 'BBB');
--- insert into organization_dmdii_member (organization_id, DMDII_type_id, modification_date, start_date, expire_date) values (2,5, to_timestamp('01-01-2015','dd-mm-yyyy'),to_timestamp('01-01-2015','dd-mm-yyyy'),to_timestamp('31-01-2015','dd-mm-yyyy'));
--- insert into organization_dmdii_member (organization_id, DMDII_type_id, modification_date, start_date, expire_date) values (2,4, to_timestamp('15-01-2015','dd-mm-yyyy'),to_timestamp('01-02-2015','dd-mm-yyyy'),to_timestamp('31-03-2016','dd-mm-yyyy'));
+-- insert into organization_dmdii_member (organization_id, DMDII_type_id, modification_date, start_date, expire_date) values (2,7, to_timestamp('01-01-2015','dd-mm-yyyy'),to_timestamp('01-01-2015','dd-mm-yyyy'),to_timestamp('31-01-2015','dd-mm-yyyy'));
+-- insert into organization_dmdii_member (organization_id, DMDII_type_id, modification_date, start_date, expire_date) values (2,6, to_timestamp('15-01-2015','dd-mm-yyyy'),to_timestamp('01-02-2015','dd-mm-yyyy'),to_timestamp('31-03-2016','dd-mm-yyyy'));
 -- Current membership:
 -- select organization_dmdii_type.dmdii_member_desc from organization_dmdii_type,organization_dmdii_member
 --    where organization_dmdii_member.organization_id=2 and organization_dmdii_member.dmdii_type_id=organization_dmdii_type.id 
@@ -1910,9 +1915,9 @@ ALTER TABLE organization_dmdii_member OWNER TO gforge;
 --    order by modification_date
 --    limit 1;
  
--- Case 2:  CCC was a general member, but the membership expired now
+-- Case 2:  CCC was an Industry Tier 3 member, but the membership expired now
 -- insert into organization (organization_id, accountid, name) values (3, 123, 'CCC');
--- insert into organization_dmdii_member (organization_id, DMDII_type_id, modification_date, start_date, expire_date) values (3,4, to_timestamp('15-01-2014','dd-mm-yyyy'),to_timestamp('01-02-2015','dd-mm-yyyy'),to_timestamp('28-02-2016','dd-mm-yyyy'));
+-- insert into organization_dmdii_member (organization_id, DMDII_type_id, modification_date, start_date, expire_date) values (3,3, to_timestamp('15-01-2014','dd-mm-yyyy'),to_timestamp('01-02-2015','dd-mm-yyyy'),to_timestamp('28-02-2016','dd-mm-yyyy'));
 -- current membership
 -- select organization_dmdii_type.dmdii_member_desc from organization_dmdii_type,organization_dmdii_member
 --    where organization_dmdii_member.organization_id=3 and organization_dmdii_member.dmdii_type_id=organization_dmdii_type.id 
