@@ -19393,6 +19393,7 @@ SELECT pg_catalog.setval('cem_runnables_running_running_id_seq1', 6, true);
 --
 
 COPY cem_service_categories (cem_service_id, cem_id, cat_id) FROM stdin;
+1	2	2
 \.
 
 
