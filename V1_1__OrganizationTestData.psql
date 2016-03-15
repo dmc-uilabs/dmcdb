@@ -1,0 +1,49 @@
+-- The Organization_id will be automatically generated.
+-- The data is for testing purpose. Only need to be added for testing purpose.
+
+-- Industry Tier 1
+insert into organization (organization_id, name) values (1, 'General Electric');
+insert into Organization_DMDII_Member (Organization_ID, DMDII_Type_ID, Modification_Date, Start_Date, Expire_Date)
+	values (1, 1, to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2019','dd-mm-yyyy'));
+
+insert into organization (organization_id,name) values (2,'Dow');
+insert into Organization_DMDII_Member (Organization_ID, DMDII_Type_ID, Modification_Date, Start_Date, Expire_Date)
+	values (2, 1, to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2019','dd-mm-yyyy'));	
+	
+insert into organization (organization_id,name) values (3,'Lockheed Martin Corporation');
+insert into Organization_DMDII_Member (Organization_ID, DMDII_Type_ID, Modification_Date, Start_Date, Expire_Date)
+	values (3, 1, to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2019','dd-mm-yyyy'));
+	
+insert into organization (organization_id,name) values (4,'Siemens Product Lifecycle Management Software Inc.');
+insert into Organization_DMDII_Member (Organization_ID, DMDII_Type_ID, Modification_Date, Start_Date, Expire_Date)
+	values (4, 1, to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2019','dd-mm-yyyy'));
+
+insert into organization (organization_id,name) values (5,'Rolls-Royce');
+insert into Organization_DMDII_Member (Organization_ID, DMDII_Type_ID, Modification_Date, Start_Date, Expire_Date)
+	values (5, 1, to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2019','dd-mm-yyyy'));
+	
+-- Industry Tire 2
+
+insert into organization (organization_id,name) values (6,'Boeing');
+insert into Organization_DMDII_Member (Organization_ID, DMDII_Type_ID, Modification_Date, Start_Date, Expire_Date)
+	values (6, 2, to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2019','dd-mm-yyyy'));
+
+insert into organization (organization_id,name) values (7,'Deere and Company');
+insert into Organization_DMDII_Member (Organization_ID, DMDII_Type_ID, Modification_Date, Start_Date, Expire_Date)
+	values (7, 2, to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2019','dd-mm-yyyy'));	
+	
+insert into organization (organization_id,name) values (8,'Microsoft');
+insert into Organization_DMDII_Member (Organization_ID, DMDII_Type_ID, Modification_Date, Start_Date, Expire_Date)
+	values (8, 2, to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2019','dd-mm-yyyy'));
+	
+insert into organization (organization_id,name) values (9,'Caterpillar');
+insert into Organization_DMDII_Member (Organization_ID, DMDII_Type_ID, Modification_Date, Start_Date, Expire_Date)
+	values (9, 2, to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2019','dd-mm-yyyy'));
+
+insert into organization (organization_id,name) values (10,'Illinois Tool Works');
+insert into Organization_DMDII_Member (Organization_ID, DMDII_Type_ID, Modification_Date, Start_Date, Expire_Date)
+	values (10, 2, to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2019','dd-mm-yyyy'));
+	
+insert into organization (organization_id,name) values (11,'Procter & Gamble');
+insert into Organization_DMDII_Member (Organization_ID, DMDII_Type_ID, Modification_Date, Start_Date, Expire_Date)
+	values (11, 2, to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2019','dd-mm-yyyy'));
