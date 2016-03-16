@@ -47,3 +47,8 @@ insert into Organization_DMDII_Member (Organization_ID, DMDII_Type_ID, Modificat
 insert into organization (organization_id,name) values (11,'Procter & Gamble');
 insert into Organization_DMDII_Member (Organization_ID, DMDII_Type_ID, Modification_Date, Start_Date, Expire_Date)
 	values (11, 2, to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2019','dd-mm-yyyy'));
+	
+-- A company that is not DMDII member and a dummy entry with "Other" stands for any other companies not listed.
+insert into organization (organization_id,name) values (12,'Google');
+insert into organization (organization_id,name) values (13,'Other');
+
