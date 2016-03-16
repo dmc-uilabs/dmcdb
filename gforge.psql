@@ -4659,7 +4659,7 @@ CREATE TABLE groups (
     gallery_folder integer DEFAULT 0 NOT NULL,
     profile_image integer DEFAULT 0 NOT NULL,
     user_id integer,
-	due_date integer
+	due_date timestamp
 );
 
 
