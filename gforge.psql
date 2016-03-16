@@ -547,7 +547,7 @@ CREATE FUNCTION group_update() RETURNS trigger
 	       PERFORM core_update( 'wiki', wid);
 	   END LOOP;
 	   -- loop over affected users
-	   FOR uid IN SELECT user_id FROM user_group WHERE user_group_id = NEW.group_id LOOP
+	   FOR uid IN SELECT user_id FROM pfo_user_role WHERE user_group_id = NEW.group_id LOOP
 	       PERFORM core_update( 'users', uid);
 	   END LOOP;
        END IF;
@@ -5153,18 +5153,6 @@ CREATE TABLE pfo_role_setting (
 ALTER TABLE pfo_role_setting OWNER TO gforge;
 
 --
--- Name: pfo_user_role; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
---
-
-CREATE TABLE pfo_user_role (
-    user_id integer DEFAULT 0 NOT NULL,
-    role_id integer DEFAULT 0 NOT NULL
-);
-
-
-ALTER TABLE pfo_user_role OWNER TO gforge;
-
---
 -- Name: plugin_cvstracker_artifact_seq; Type: SEQUENCE; Schema: public; Owner: gforge
 --
 
@@ -7604,11 +7592,26 @@ CREATE SEQUENCE user_diary_pk_seq
 ALTER TABLE user_diary_pk_seq OWNER TO gforge;
 
 --
--- Name: user_group; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+-- Name: pfo_user_role; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
 --
 
-CREATE TABLE user_group (
-    user_group_id integer DEFAULT nextval(('user_group_pk_seq'::text)::regclass) NOT NULL,
+-- old with user_group_id as pk instead of combination user_id, group_id
+--CREATE TABLE pfo_user_role (
+--    user_group_id integer DEFAULT nextval(('pfo_user_role_pk_seq'::text)::regclass) NOT NULL,
+--    user_id integer DEFAULT 0 NOT NULL,
+--    group_id integer DEFAULT 0 NOT NULL,
+--    admin_flags character(16) DEFAULT ''::bpchar NOT NULL,
+--    forum_flags integer DEFAULT 0 NOT NULL,
+--    project_flags integer DEFAULT 2 NOT NULL,
+--    doc_flags integer DEFAULT 0 NOT NULL,
+--    cvs_flags integer DEFAULT 1 NOT NULL,
+--    member_role integer DEFAULT 100 NOT NULL,
+--    release_flags integer DEFAULT 0 NOT NULL,
+--    artifact_flags integer,
+--    role_id integer DEFAULT 1
+--);
+
+CREATE TABLE pfo_user_role (
     user_id integer DEFAULT 0 NOT NULL,
     group_id integer DEFAULT 0 NOT NULL,
     admin_flags character(16) DEFAULT ''::bpchar NOT NULL,
@@ -7623,21 +7626,21 @@ CREATE TABLE user_group (
 );
 
 
-ALTER TABLE user_group OWNER TO gforge;
+ALTER TABLE pfo_user_role OWNER TO gforge;
 
 --
--- Name: user_group_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+-- Name: pfo_user_role_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
 --
 
-CREATE SEQUENCE user_group_pk_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    MAXVALUE 2147483647
-    CACHE 1;
+--CREATE SEQUENCE pfo_user_role_pk_seq
+--    START WITH 1
+--    INCREMENT BY 1
+--    NO MINVALUE
+--    MAXVALUE 2147483647
+--    CACHE 1;
 
 
-ALTER TABLE user_group_pk_seq OWNER TO gforge;
+--ALTER TABLE pfo_user_role_pk_seq OWNER TO gforge;
 
 --
 -- Name: user_history; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
@@ -21777,17 +21780,6 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 28	forge_stats	-1	0
 \.
 
-
---
--- Data for Name: pfo_user_role; Type: TABLE DATA; Schema: public; Owner: gforge
---
-
-COPY pfo_user_role (user_id, role_id) FROM stdin;
-102	3
-102	28
-\.
-
-
 --
 -- Name: plugin_cvstracker_artifact_seq; Type: SEQUENCE SET; Schema: public; Owner: gforge
 --
@@ -23493,20 +23485,30 @@ SELECT pg_catalog.setval('user_diary_pk_seq', 1, false);
 
 
 --
--- Data for Name: user_group; Type: TABLE DATA; Schema: public; Owner: gforge
+-- Data for Name: pfo_user_role; Type: TABLE DATA; Schema: public; Owner: gforge
+--
+--
+--COPY pfo_user_role (user_group_id, user_id, group_id, admin_flags, forum_flags, project_flags, doc_flags, cvs_flags, member_role, release_flags, artifact_flags, role_id) FROM stdin;
+--2	102	1	A               	0	2	0	1	100	0	\N	1
+--3	102	2	A               	0	2	0	1	100	0	\N	3
+--5	102	6	A               	0	2	0	1	100	0	\N	28
+--6	111	6	                	0	2	0	1	100	0	\N	27
+--\.
 --
 
-COPY user_group (user_group_id, user_id, group_id, admin_flags, forum_flags, project_flags, doc_flags, cvs_flags, member_role, release_flags, artifact_flags, role_id) FROM stdin;
-2	102	1	A               	0	2	0	1	100	0	\N	1
+COPY pfo_user_role (user_id, group_id, admin_flags, forum_flags, project_flags, doc_flags, cvs_flags, member_role, release_flags, artifact_flags, role_id) FROM stdin;
+102	1	A               	0	2	0	1	100	0	\N	1
+102	2	A               	0	2	0	1	100	0	\N	3
+102	6	A               	0	2	0	1	100	0	\N	28
+111	6	                	0	2	0	1	100	0	\N	27
 \.
 
-
 --
--- Name: user_group_pk_seq; Type: SEQUENCE SET; Schema: public; Owner: gforge
+-- Name: pfo_user_role_pk_seq; Type: SEQUENCE SET; Schema: public; Owner: gforge
 --
-
-SELECT pg_catalog.setval('user_group_pk_seq', 2, true);
-
+--
+--SELECT pg_catalog.setval('pfo_user_role_pk_seq', 7, true);
+--
 
 --
 -- Data for Name: user_history; Type: TABLE DATA; Schema: public; Owner: gforge
@@ -25186,7 +25188,7 @@ ALTER TABLE ONLY user_diary
 -- Name: user_group_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
 --
 
-ALTER TABLE ONLY user_group
+ALTER TABLE ONLY pfo_user_role
     ADD CONSTRAINT user_group_pkey PRIMARY KEY (group_id, user_id);
 
 
@@ -26116,7 +26118,7 @@ CREATE INDEX userdiarymon_useridmonitoredid ON user_diary_monitor USING btree (u
 -- Name: usergroup_useridgroupid; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
 --
 
-CREATE INDEX usergroup_useridgroupid ON user_group USING btree (user_id, group_id);
+CREATE INDEX pfo_user_role_useridgroupid ON pfo_user_role USING btree (user_id, group_id);
 
 
 --
@@ -27396,16 +27398,16 @@ ALTER TABLE ONLY trove_treesums
 -- Name: user_group_group_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
 --
 
-ALTER TABLE ONLY user_group
-    ADD CONSTRAINT user_group_group_id_fk FOREIGN KEY (group_id) REFERENCES groups(group_id) MATCH FULL;
+ALTER TABLE ONLY pfo_user_role
+    ADD CONSTRAINT pfo_user_role_group_id_fk FOREIGN KEY (group_id) REFERENCES groups(group_id) MATCH FULL;
 
 
 --
--- Name: user_group_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+-- Name: pfo_user_role_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
 --
 
-ALTER TABLE ONLY user_group
-    ADD CONSTRAINT user_group_user_id_fk FOREIGN KEY (user_id) REFERENCES users(user_id) MATCH FULL;
+ALTER TABLE ONLY pfo_user_role
+    ADD CONSTRAINT pfo_user_role_user_id_fk FOREIGN KEY (user_id) REFERENCES users(user_id) MATCH FULL;
 
 
 --
@@ -27428,8 +27430,8 @@ ALTER TABLE ONLY user_plugin
 -- Name: usergroup_roleid; Type: FK CONSTRAINT; Schema: public; Owner: gforge
 --
 
-ALTER TABLE ONLY user_group
-    ADD CONSTRAINT usergroup_roleid FOREIGN KEY (role_id) REFERENCES pfo_role(role_id) MATCH FULL;
+ALTER TABLE ONLY pfo_user_role
+    ADD CONSTRAINT pfo_user_role_roleid FOREIGN KEY (role_id) REFERENCES pfo_role(role_id) MATCH FULL;
 
 
 --
