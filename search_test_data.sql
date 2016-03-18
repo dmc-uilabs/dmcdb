@@ -43,3 +43,10 @@ COPY organization_user (id, user_id, organization_id) FROM stdin;
 3	550	1
 \.
 
+--
+-- Data for Name: organization_dmdii_member; Type: TABLE DATA; Schema: public; Owner: gforge
+--
+
+COPY organization_dmdii_member (id, organization_id, dmdii_type_id, modification_date, start_date, expire_date) FROM stdin;
+15	1	1	\N	\N	\N
+\.
