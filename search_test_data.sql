@@ -4,7 +4,7 @@
 
 COPY users (user_id, user_name, accept_term_cond_time, email, user_pw, realname, status, shell, unix_pw, unix_status, unix_uid, unix_box, add_date, confirm_hash, mail_siteupdates, mail_va, authorized_keys, email_new, people_view_skills, people_resume, timezone, language, block_ratings, jabber_address, jabber_only, address, phone, fax, title, firstname, lastname, address2, ccode, theme_id, type_id, unix_gid, gateway_id, about_me, export_control, image, last_activity) FROM stdin;
 300	acmeUser	\N	change.your.default.password@vf.com	6c569aabbf7775ef8fc570e228c16b98	dliscomb test	A	/bin/bash	$1$4P$CufaU1dtBgQr2eYYxLXpx1	N	0		1442413978	b3c0db843beac424	0	0	\N	\N	0		America/New_York	1	0		0					dliscomb	test		US	1	1	0	0	\N	f	\N	\N
-550	joeengineer	\N	change.your.default.password@vf.com	6c569aabbf7775ef8fc570e228c16b98	dliscomb test	A	/bin/bash	$1$4P$CufaU1dtBgQr2eYYxLXpx1	N	0		1442413978	b3c0db843beac424	0	0	\N	\N	0		America/New_York	1	0		0					dliscomb	test		US	1	1	0	0	\N	f	\N	\N
+550	joeengineer	\N	joeengineer@ge.com	password	Joe Engineer	A	/bin/bash		N	0	shell1	0	\N	0	0	\N	\N	0		GMT	1	0	\r	\N	\N	\N	\N	\N	\N	\N	\N	US	\N	1	0	0	\N	f	\N	\N
 \.
 
 --
