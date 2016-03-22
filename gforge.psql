@@ -4464,7 +4464,8 @@ CREATE TABLE groups (
     export_control boolean DEFAULT false,
     gallery_folder integer DEFAULT 0 NOT NULL,
     profile_image integer DEFAULT 0 NOT NULL,
-    user_id integer
+    user_id integer,
+	due_date timestamp
 );
 
 
