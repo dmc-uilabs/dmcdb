@@ -547,7 +547,7 @@ CREATE FUNCTION group_update() RETURNS trigger
 	       PERFORM core_update( 'wiki', wid);
 	   END LOOP;
 	   -- loop over affected users
-	   FOR uid IN SELECT user_id FROM pfo_user_role WHERE user_group_id = NEW.group_id LOOP
+	   FOR uid IN SELECT user_id FROM pfo_user_role ur, pfo_role r WHERE r.home_group_id = NEW.group_id AND ur.role_id = r.role_id LOOP
 	       PERFORM core_update( 'users', uid);
 	   END LOOP;
        END IF;
@@ -6237,33 +6237,6 @@ CREATE SEQUENCE revision_rev_id_seq
 ALTER TABLE revision_rev_id_seq OWNER TO postgres;
 
 --
--- Name: role_project_refs; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
---
-
-CREATE TABLE role_project_refs (
-    role_id integer DEFAULT 0 NOT NULL,
-    group_id integer DEFAULT 0 NOT NULL
-);
-
-
-ALTER TABLE role_project_refs OWNER TO gforge;
-
-
---
--- Name: role_setting; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
---
-
-CREATE TABLE role_setting (
-    role_id integer NOT NULL,
-    section_name text NOT NULL,
-    ref_id integer NOT NULL,
-    value character varying(2) NOT NULL
-);
-
-
-ALTER TABLE role_setting OWNER TO gforge;
-
---
 -- Name: runnable_runtimes; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
 --
 
@@ -7613,15 +7586,6 @@ ALTER TABLE user_diary_pk_seq OWNER TO gforge;
 
 CREATE TABLE pfo_user_role (
     user_id integer DEFAULT 0 NOT NULL,
-    group_id integer DEFAULT 0 NOT NULL,
-    admin_flags character(16) DEFAULT ''::bpchar NOT NULL,
-    forum_flags integer DEFAULT 0 NOT NULL,
-    project_flags integer DEFAULT 2 NOT NULL,
-    doc_flags integer DEFAULT 0 NOT NULL,
-    cvs_flags integer DEFAULT 1 NOT NULL,
-    member_role integer DEFAULT 100 NOT NULL,
-    release_flags integer DEFAULT 0 NOT NULL,
-    artifact_flags integer,
     role_id integer DEFAULT 1
 );
 
@@ -21356,140 +21320,12 @@ SELECT pg_catalog.setval('pfo_role_seq', 28, true);
 --
 
 COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
-6	project_read	1	1
-7	project_read	2	1
-7	project_admin	2	1
-7	tracker_admin	2	1
-7	pm_admin	2	1
-7	forum_admin	2	1
-7	docman	2	4
-7	scm	2	2
-7	frs	2	3
-8	project_read	2	1
-8	tracker_admin	2	1
-8	pm_admin	2	1
-8	forum_admin	2	1
-8	docman	2	4
-8	scm	2	2
-8	frs	2	3
-9	project_read	2	1
-9	docman	2	1
-9	scm	2	2
-9	frs	2	1
-10	project_read	2	1
-10	docman	2	4
-10	scm	2	1
-10	frs	2	1
-11	project_read	2	1
-11	docman	2	4
-11	scm	2	1
-11	frs	2	1
-12	project_read	3	1
-12	project_admin	3	1
-12	tracker_admin	3	1
-12	pm_admin	3	1
-12	forum_admin	3	1
-12	docman	3	4
-12	scm	3	2
-12	frs	3	3
-13	project_read	3	1
-13	tracker_admin	3	1
-13	pm_admin	3	1
-13	forum_admin	3	1
-13	docman	3	4
-13	scm	3	2
-13	frs	3	3
-14	project_read	3	1
-14	docman	3	1
-14	scm	3	2
-14	frs	3	1
-15	project_read	3	1
-15	docman	3	4
-15	scm	3	1
-15	frs	3	1
-16	project_read	3	1
-16	docman	3	4
-16	scm	3	1
-16	frs	3	1
-17	project_read	4	1
-17	project_admin	4	1
-17	tracker_admin	4	1
-17	pm_admin	4	1
-17	forum_admin	4	1
-17	docman	4	4
-17	scm	4	2
-17	frs	4	3
-18	project_read	4	1
-18	tracker_admin	4	1
-18	pm_admin	4	1
-18	forum_admin	4	1
-18	docman	4	4
-18	scm	4	2
-18	frs	4	3
-19	project_read	4	1
-19	docman	4	1
-19	scm	4	2
-19	frs	4	1
-20	project_read	4	1
-20	docman	4	4
-20	scm	4	1
-20	frs	4	1
-21	project_read	4	1
-21	docman	4	4
-21	scm	4	1
-21	frs	4	1
-22	project_read	1	1
-22	project_admin	1	1
-22	tracker_admin	1	1
-22	tracker	100	5
-22	pm_admin	1	1
-22	pm	1	5
-22	forum_admin	1	1
-22	docman	1	4
-22	scm	1	2
-22	frs	1	3
-23	project_read	1	1
-23	tracker_admin	1	1
-23	tracker	100	7
-23	pm_admin	1	1
-23	pm	1	7
-23	forum_admin	1	1
-23	docman	1	4
-23	scm	1	2
-23	frs	1	3
-24	project_read	1	1
-24	tracker	100	3
-24	pm	1	3
-24	docman	1	1
-24	scm	1	2
-24	frs	1	1
-25	project_read	1	1
-25	tracker	100	1
-25	pm	1	1
-25	docman	1	4
-25	scm	1	1
-25	frs	1	1
-26	project_read	1	1
-26	tracker	100	7
-26	pm	1	1
-26	docman	1	4
-26	scm	1	1
-26	frs	1	1
 1	project_read	5	1
 1	new_tracker	5	1
 1	new_pm	5	1
 1	new_forum	5	1
 1	frs	5	1
-2	project_read	5	1
-2	new_tracker	5	1
-2	new_pm	5	1
-2	new_forum	5	1
-2	frs	5	1
 1	scm	5	1
-2	scm	5	1
-3	forge_admin	-1	1
-4	approve_news	-1	1
-5	forge_stats	-1	2
 1	project_admin	5	0
 1	docman	5	0
 1	tracker_admin	5	0
@@ -21500,6 +21336,12 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 1	approve_projects	-1	0
 1	approve_news	-1	0
 1	forge_stats	-1	0
+2	project_read	5	1
+2	new_tracker	5	1
+2	new_pm	5	1
+2	new_forum	5	1
+2	frs	5	1
+2	scm	5	1
 2	project_admin	5	0
 2	docman	5	0
 2	tracker_admin	5	0
@@ -21510,15 +21352,19 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 2	approve_projects	-1	0
 2	approve_news	-1	0
 2	forge_stats	-1	0
+3	forge_admin	-1	1
 3	approve_projects	-1	0
 3	approve_news	-1	0
 3	forge_stats	-1	0
+4	approve_news	-1	1
 4	forge_admin	-1	0
 4	approve_projects	-1	0
 4	forge_stats	-1	0
+5	forge_stats	-1	2
 5	forge_admin	-1	0
 5	approve_projects	-1	0
 5	approve_news	-1	0
+6	project_read	1	1
 6	project_admin	1	0
 6	frs	1	0
 6	scm	1	0
@@ -21534,6 +21380,14 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 6	approve_projects	-1	0
 6	approve_news	-1	0
 6	forge_stats	-1	0
+7	project_read	2	1
+7	project_admin	2	1
+7	tracker_admin	2	1
+7	pm_admin	2	1
+7	forum_admin	2	1
+7	docman	2	4
+7	scm	2	2
+7	frs	2	3
 7	new_tracker	2	7
 7	new_forum	2	3
 7	new_pm	2	7
@@ -21542,6 +21396,13 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 7	approve_projects	-1	0
 7	approve_news	-1	0
 7	forge_stats	-1	0
+8	project_read	2	1
+8	tracker_admin	2	1
+8	pm_admin	2	1
+8	forum_admin	2	1
+8	docman	2	4
+8	scm	2	2
+8	frs	2	3
 8	project_admin	2	0
 8	new_tracker	2	7
 8	new_forum	2	3
@@ -21551,6 +21412,10 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 8	approve_projects	-1	0
 8	approve_news	-1	0
 8	forge_stats	-1	0
+9	project_read	2	1
+9	docman	2	1
+9	scm	2	2
+9	frs	2	1
 9	project_admin	2	0
 9	tracker_admin	2	0
 9	new_tracker	2	3
@@ -21563,6 +21428,10 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 9	approve_projects	-1	0
 9	approve_news	-1	0
 9	forge_stats	-1	0
+10	project_read	2	1
+10	docman	2	4
+10	scm	2	1
+10	frs	2	1
 10	project_admin	2	0
 10	tracker_admin	2	0
 10	new_tracker	2	1
@@ -21575,6 +21444,10 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 10	approve_projects	-1	0
 10	approve_news	-1	0
 10	forge_stats	-1	0
+11	project_read	2	1
+11	docman	2	4
+11	scm	2	1
+11	frs	2	1
 11	project_admin	2	0
 11	tracker_admin	2	1
 11	new_tracker	2	3
@@ -21587,6 +21460,14 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 11	approve_projects	-1	0
 11	approve_news	-1	0
 11	forge_stats	-1	0
+12	project_read	3	1
+12	project_admin	3	1
+12	tracker_admin	3	1
+12	pm_admin	3	1
+12	forum_admin	3	1
+12	docman	3	4
+12	scm	3	2
+12	frs	3	3
 12	new_tracker	3	7
 12	new_forum	3	3
 12	new_pm	3	7
@@ -21595,6 +21476,13 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 12	approve_projects	-1	0
 12	approve_news	-1	0
 12	forge_stats	-1	0
+13	project_read	3	1
+13	tracker_admin	3	1
+13	pm_admin	3	1
+13	forum_admin	3	1
+13	docman	3	4
+13	scm	3	2
+13	frs	3	3
 13	project_admin	3	0
 13	new_tracker	3	7
 13	new_forum	3	3
@@ -21604,6 +21492,10 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 13	approve_projects	-1	0
 13	approve_news	-1	0
 13	forge_stats	-1	0
+14	project_read	3	1
+14	docman	3	1
+14	scm	3	2
+14	frs	3	1
 14	project_admin	3	0
 14	tracker_admin	3	0
 14	new_tracker	3	3
@@ -21616,6 +21508,10 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 14	approve_projects	-1	0
 14	approve_news	-1	0
 14	forge_stats	-1	0
+15	project_read	3	1
+15	docman	3	4
+15	scm	3	1
+15	frs	3	1
 15	project_admin	3	0
 15	tracker_admin	3	0
 15	new_tracker	3	1
@@ -21628,6 +21524,10 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 15	approve_projects	-1	0
 15	approve_news	-1	0
 15	forge_stats	-1	0
+16	project_read	3	1
+16	docman	3	4
+16	scm	3	1
+16	frs	3	1
 16	project_admin	3	0
 16	tracker_admin	3	1
 16	new_tracker	3	3
@@ -21640,6 +21540,14 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 16	approve_projects	-1	0
 16	approve_news	-1	0
 16	forge_stats	-1	0
+17	project_read	4	1
+17	project_admin	4	1
+17	tracker_admin	4	1
+17	pm_admin	4	1
+17	forum_admin	4	1
+17	docman	4	4
+17	scm	4	2
+17	frs	4	3
 17	new_tracker	4	7
 17	new_forum	4	3
 17	new_pm	4	7
@@ -21648,6 +21556,13 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 17	approve_projects	-1	0
 17	approve_news	-1	0
 17	forge_stats	-1	0
+18	project_read	4	1
+18	tracker_admin	4	1
+18	pm_admin	4	1
+18	forum_admin	4	1
+18	docman	4	4
+18	scm	4	2
+18	frs	4	3
 18	project_admin	4	0
 18	new_tracker	4	7
 18	new_forum	4	3
@@ -21657,6 +21572,10 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 18	approve_projects	-1	0
 18	approve_news	-1	0
 18	forge_stats	-1	0
+19	project_read	4	1
+19	docman	4	1
+19	scm	4	2
+19	frs	4	1
 19	project_admin	4	0
 19	tracker_admin	4	0
 19	new_tracker	4	3
@@ -21669,6 +21588,10 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 19	approve_projects	-1	0
 19	approve_news	-1	0
 19	forge_stats	-1	0
+20	project_read	4	1
+20	docman	4	4
+20	scm	4	1
+20	frs	4	1
 20	project_admin	4	0
 20	tracker_admin	4	0
 20	new_tracker	4	1
@@ -21681,6 +21604,10 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 20	approve_projects	-1	0
 20	approve_news	-1	0
 20	forge_stats	-1	0
+21	project_read	4	1
+21	docman	4	4
+21	scm	4	1
+21	frs	4	1
 21	project_admin	4	0
 21	tracker_admin	4	1
 21	new_tracker	4	3
@@ -21693,6 +21620,16 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 21	approve_projects	-1	0
 21	approve_news	-1	0
 21	forge_stats	-1	0
+22	project_read	1	1
+22	project_admin	1	1
+22	tracker_admin	1	1
+22	tracker	100	5
+22	pm_admin	1	1
+22	pm	1	5
+22	forum_admin	1	1
+22	docman	1	4
+22	scm	1	2
+22	frs	1	3
 22	new_tracker	1	7
 22	new_forum	1	3
 22	new_pm	1	7
@@ -21701,6 +21638,15 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 22	approve_projects	-1	0
 22	approve_news	-1	0
 22	forge_stats	-1	0
+23	project_read	1	1
+23	tracker_admin	1	1
+23	tracker	100	7
+23	pm_admin	1	1
+23	pm	1	7
+23	forum_admin	1	1
+23	docman	1	4
+23	scm	1	2
+23	frs	1	3
 23	project_admin	1	0
 23	new_tracker	1	7
 23	new_forum	1	3
@@ -21710,6 +21656,12 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 23	approve_projects	-1	0
 23	approve_news	-1	0
 23	forge_stats	-1	0
+24	project_read	1	1
+24	tracker	100	3
+24	pm	1	3
+24	docman	1	1
+24	scm	1	2
+24	frs	1	1
 24	project_admin	1	0
 24	tracker_admin	1	0
 24	new_tracker	1	3
@@ -21722,6 +21674,12 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 24	approve_projects	-1	0
 24	approve_news	-1	0
 24	forge_stats	-1	0
+25	project_read	1	1
+25	tracker	100	1
+25	pm	1	1
+25	docman	1	4
+25	scm	1	1
+25	frs	1	1
 25	project_admin	1	0
 25	tracker_admin	1	0
 25	new_tracker	1	1
@@ -21734,6 +21692,12 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 25	approve_projects	-1	0
 25	approve_news	-1	0
 25	forge_stats	-1	0
+26	project_read	1	1
+26	tracker	100	7
+26	pm	1	1
+26	docman	1	4
+26	scm	1	1
+26	frs	1	1
 26	project_admin	1	0
 26	tracker_admin	1	1
 26	new_tracker	1	3
@@ -22320,174 +22284,6 @@ COPY rep_users_cum_weekly (week, total) FROM stdin;
 --
 
 SELECT pg_catalog.setval('revision_rev_id_seq', 1, false);
-
-
---
--- Data for Name: role_project_refs; Type: TABLE DATA; Schema: public; Owner: gforge
---
-
-COPY role_project_refs (role_id, group_id) FROM stdin;
-1	5
-2	5
-\.
-
-
---
--- Data for Name: role_setting; Type: TABLE DATA; Schema: public; Owner: gforge
---
-
-COPY role_setting (role_id, section_name, ref_id, value) FROM stdin;
-2	projectadmin	0	A
-2	frs	0	1
-2	scm	0	1
-2	docman	0	1
-2	forumadmin	0	2
-2	trackeradmin	0	2
-2	pmadmin	0	2
-3	projectadmin	0	0
-3	frs	0	1
-3	scm	0	1
-3	docman	0	1
-3	forumadmin	0	2
-3	trackeradmin	0	2
-3	pmadmin	0	2
-4	projectadmin	0	0
-4	frs	0	0
-4	scm	0	1
-4	docman	0	0
-4	forumadmin	0	0
-4	trackeradmin	0	0
-4	pmadmin	0	0
-5	projectadmin	0	0
-5	frs	0	0
-5	scm	0	0
-5	docman	0	1
-5	forumadmin	0	0
-5	trackeradmin	0	0
-5	pmadmin	0	0
-6	projectadmin	0	0
-6	frs	0	0
-6	scm	0	0
-6	docman	0	1
-6	forumadmin	0	0
-6	trackeradmin	0	0
-6	pmadmin	0	0
-7	projectadmin	0	A
-7	frs	0	1
-7	scm	0	1
-7	docman	0	1
-7	forumadmin	0	2
-7	trackeradmin	0	2
-7	pmadmin	0	2
-8	projectadmin	0	0
-8	frs	0	1
-8	scm	0	1
-8	docman	0	1
-8	forumadmin	0	2
-8	trackeradmin	0	2
-8	pmadmin	0	2
-9	projectadmin	0	0
-9	frs	0	0
-9	scm	0	1
-9	docman	0	0
-9	forumadmin	0	0
-9	trackeradmin	0	0
-9	pmadmin	0	0
-10	projectadmin	0	0
-10	frs	0	0
-10	scm	0	0
-10	docman	0	1
-10	forumadmin	0	0
-10	trackeradmin	0	0
-10	pmadmin	0	0
-11	projectadmin	0	0
-11	frs	0	0
-11	scm	0	0
-11	docman	0	1
-11	forumadmin	0	0
-11	trackeradmin	0	0
-11	pmadmin	0	0
-12	projectadmin	0	A
-12	frs	0	1
-12	scm	0	1
-12	docman	0	1
-12	forumadmin	0	2
-12	trackeradmin	0	2
-12	pmadmin	0	2
-13	projectadmin	0	0
-13	frs	0	1
-13	scm	0	1
-13	docman	0	1
-13	forumadmin	0	2
-13	trackeradmin	0	2
-13	pmadmin	0	2
-14	projectadmin	0	0
-14	frs	0	0
-14	scm	0	1
-14	docman	0	0
-14	forumadmin	0	0
-14	trackeradmin	0	0
-14	pmadmin	0	0
-15	projectadmin	0	0
-15	frs	0	0
-15	scm	0	0
-15	docman	0	1
-15	forumadmin	0	0
-15	trackeradmin	0	0
-15	pmadmin	0	0
-16	projectadmin	0	0
-16	frs	0	0
-16	scm	0	0
-16	docman	0	1
-16	forumadmin	0	0
-16	trackeradmin	0	0
-16	pmadmin	0	0
-17	projectadmin	0	A
-17	frs	0	1
-17	scm	0	1
-17	docman	0	1
-17	forumadmin	0	2
-17	trackeradmin	0	2
-17	tracker	100	3
-17	pmadmin	0	2
-17	pm	1	3
-18	projectadmin	0	0
-18	frs	0	1
-18	scm	0	1
-18	docman	0	1
-18	forumadmin	0	2
-18	trackeradmin	0	2
-18	tracker	100	2
-18	pmadmin	0	2
-18	pm	1	2
-19	projectadmin	0	0
-19	frs	0	0
-19	scm	0	1
-19	docman	0	0
-19	forumadmin	0	0
-19	trackeradmin	0	0
-19	tracker	100	1
-19	pmadmin	0	0
-19	pm	1	1
-20	projectadmin	0	0
-20	frs	0	0
-20	scm	0	0
-20	docman	0	1
-20	forumadmin	0	0
-20	trackeradmin	0	0
-20	tracker	100	0
-20	pmadmin	0	0
-20	pm	1	0
-21	projectadmin	0	0
-21	frs	0	0
-21	scm	0	0
-21	docman	0	1
-21	forumadmin	0	0
-21	trackeradmin	0	0
-21	tracker	100	2
-21	pmadmin	0	0
-21	pm	1	0
-\.
 
 
 --
@@ -23496,11 +23292,18 @@ SELECT pg_catalog.setval('user_diary_pk_seq', 1, false);
 --\.
 --
 
-COPY pfo_user_role (user_id, group_id, admin_flags, forum_flags, project_flags, doc_flags, cvs_flags, member_role, release_flags, artifact_flags, role_id) FROM stdin;
-102	1	A               	0	2	0	1	100	0	\N	1
-102	2	A               	0	2	0	1	100	0	\N	3
-102	6	A               	0	2	0	1	100	0	\N	28
-111	6	                	0	2	0	1	100	0	\N	27
+--COPY pfo_user_role (user_id, group_id, admin_flags, forum_flags, project_flags, doc_flags, cvs_flags, member_role, release_flags, artifact_flags, role_id) --FROM stdin;
+--102	1	A               	0	2	0	1	100	0	\N	1
+--102	2	A               	0	2	0	1	100	0	\N	3
+--102	6	A               	0	2	0	1	100	0	\N	28
+--111	6	                	0	2	0	1	100	0	\N	27
+--\.
+
+COPY pfo_user_role (user_id, role_id) FROM stdin;
+102	1
+102	3
+102	28
+111	27
 \.
 
 --
@@ -24369,19 +24172,11 @@ ALTER TABLE ONLY pfo_role
 
 
 --
--- Name: pfo_role_setting_unique; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
---
-
-ALTER TABLE ONLY pfo_role_setting
-    ADD CONSTRAINT pfo_role_setting_unique UNIQUE (role_id, section_name, ref_id);
-
-
---
--- Name: pfo_user_role_unique; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+-- Name: pfo_user_role_pk; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
 --
 
 ALTER TABLE ONLY pfo_user_role
-    ADD CONSTRAINT pfo_user_role_unique UNIQUE (user_id, role_id);
+    ADD CONSTRAINT pfo_user_role_pk PRIMARY KEY (user_id, role_id);
 
 
 --
@@ -25017,19 +24812,11 @@ ALTER TABLE ONLY rep_users_cum_weekly
 
 
 --
--- Name: role_project_refs_unique; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+-- Name: pfo_role_setting_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
 --
 
-ALTER TABLE ONLY role_project_refs
-    ADD CONSTRAINT role_project_refs_unique UNIQUE (role_id, group_id);
-
-
---
--- Name: role_setting_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
---
-
-ALTER TABLE ONLY role_setting
-    ADD CONSTRAINT role_setting_pkey PRIMARY KEY (role_id, section_name, ref_id);
+ALTER TABLE ONLY pfo_role_setting
+    ADD CONSTRAINT pfo_role_setting_pkey PRIMARY KEY (role_id, section_name, ref_id);
 
 
 --
@@ -25182,14 +24969,6 @@ ALTER TABLE ONLY user_diary_monitor
 
 ALTER TABLE ONLY user_diary
     ADD CONSTRAINT user_diary_pkey PRIMARY KEY (id);
-
-
---
--- Name: user_group_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
---
-
-ALTER TABLE ONLY pfo_user_role
-    ADD CONSTRAINT user_group_pkey PRIMARY KEY (group_id, user_id);
 
 
 --
@@ -26112,13 +25891,6 @@ CREATE INDEX user_ratings_user_id ON user_ratings USING btree (user_id);
 --
 
 CREATE INDEX userdiarymon_useridmonitoredid ON user_diary_monitor USING btree (user_id, monitored_user);
-
-
---
--- Name: usergroup_useridgroupid; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
---
-
-CREATE INDEX pfo_user_role_useridgroupid ON pfo_user_role USING btree (user_id, group_id);
 
 
 --
@@ -27315,30 +27087,6 @@ ALTER TABLE ONLY rep_time_tracking
 
 
 --
--- Name: role_project_refs_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: gforge
---
-
-ALTER TABLE ONLY role_project_refs
-    ADD CONSTRAINT role_project_refs_group_id_fkey FOREIGN KEY (group_id) REFERENCES groups(group_id);
-
-
---
--- Name: role_project_refs_role_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: gforge
---
-
-ALTER TABLE ONLY role_project_refs
-    ADD CONSTRAINT role_project_refs_role_id_fkey FOREIGN KEY (role_id) REFERENCES pfo_role(role_id);
-
-
---
--- Name: rolesetting_roleroleid; Type: FK CONSTRAINT; Schema: public; Owner: gforge
---
-
-ALTER TABLE ONLY role_setting
-    ADD CONSTRAINT rolesetting_roleroleid FOREIGN KEY (role_id) REFERENCES pfo_role(role_id) ON DELETE CASCADE;
-
-
---
 -- Name: solr_index_event_status_fkey; Type: FK CONSTRAINT; Schema: public; Owner: gforge
 --
 
@@ -27395,22 +27143,6 @@ ALTER TABLE ONLY trove_treesums
 
 
 --
--- Name: user_group_group_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
---
-
-ALTER TABLE ONLY pfo_user_role
-    ADD CONSTRAINT pfo_user_role_group_id_fk FOREIGN KEY (group_id) REFERENCES groups(group_id) MATCH FULL;
-
-
---
--- Name: pfo_user_role_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
---
-
-ALTER TABLE ONLY pfo_user_role
-    ADD CONSTRAINT pfo_user_role_user_id_fk FOREIGN KEY (user_id) REFERENCES users(user_id) MATCH FULL;
-
-
---
 -- Name: user_plugin_plugin_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
 --
 
@@ -27424,14 +27156,6 @@ ALTER TABLE ONLY user_plugin
 
 ALTER TABLE ONLY user_plugin
     ADD CONSTRAINT user_plugin_user_id_fk FOREIGN KEY (user_id) REFERENCES users(user_id) MATCH FULL;
-
-
---
--- Name: usergroup_roleid; Type: FK CONSTRAINT; Schema: public; Owner: gforge
---
-
-ALTER TABLE ONLY pfo_user_role
-    ADD CONSTRAINT pfo_user_role_roleid FOREIGN KEY (role_id) REFERENCES pfo_role(role_id) MATCH FULL;
 
 
 --
