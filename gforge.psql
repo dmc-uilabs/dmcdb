@@ -4384,6 +4384,7 @@ ALTER TABLE group_history_pk_seq OWNER TO gforge;
 CREATE TABLE group_join_request (
     group_id integer NOT NULL,
     user_id integer NOT NULL,
+    requester_id integer NOT NULL,
     comments text,
     request_date integer
 );
@@ -20803,8 +20804,11 @@ SELECT pg_catalog.setval('group_history_pk_seq', 2, true);
 -- Data for Name: group_join_request; Type: TABLE DATA; Schema: public; Owner: gforge
 --
 
-COPY group_join_request (group_id, user_id, comments, request_date) FROM stdin;
-6	102	Fake GroupJoinRequest to store the creator of a project	1442495898
+COPY group_join_request (group_id, user_id, requester_id, comments, request_date) FROM stdin;
+6	102	102	Fake GroupJoinRequest to store the creator of a project	1442495898
+6	111	102	Fake GroupJoinRequest to check queries	1442495898
+6	111	111	Fake GroupJoinRequest to check queries	1442495898
+4	111	111	Fake GroupJoinRequest to check queries	1442495898
 \.
 
 
@@ -23985,7 +23989,7 @@ ALTER TABLE ONLY group_history
 --
 
 ALTER TABLE ONLY group_join_request
-    ADD CONSTRAINT group_join_request_pkey PRIMARY KEY (group_id, user_id);
+    ADD CONSTRAINT group_join_request_pkey PRIMARY KEY (group_id, user_id, requester_id);
 
 
 --
@@ -26321,6 +26325,13 @@ ALTER TABLE ONLY group_join_request
     ADD CONSTRAINT "$2" FOREIGN KEY (user_id) REFERENCES users(user_id);
 
 --
+-- Name: $3; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY group_join_request
+    ADD CONSTRAINT "$3" FOREIGN KEY (requester_id) REFERENCES users(user_id);
+
+    --
 -- Name: $2; Type: FK CONSTRAINT; Schema: public; Owner: gforge
 --
 
