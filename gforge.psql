@@ -1830,14 +1830,22 @@ CREATE TABLE organization_contact_type
 	contact_type text
 );
 ALTER TABLE organization_contact_type  OWNER TO gforge;
-
+insert into organization_contact_type values (1,'ENGINEERING');
+insert into organization_contact_type values (2,'LEGAL');
+insert into organization_contact_type values (3,'MARKETING');
+insert into organization_contact_type values (4,'SOURCING');
+insert into organization_contact_type values (5,'SUPPORT');
+insert into organization_contact_type values (6,'RESEARCH AND DEVELOPMENT');
 
 CREATE TABLE organization_contact
 (
 	id serial primary key,
 	organization_id integer references organization(organization_id),
 	contact_type_id integer references organization_contact_type(id),
-	user_id integer references users(user_id)
+	name text,
+	phone_number text,
+	title text,
+	email text
 );
 ALTER TABLE organization_contact OWNER TO gforge;
 
