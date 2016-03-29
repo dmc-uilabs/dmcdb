@@ -1732,6 +1732,31 @@ ALTER TABLE organization_dmdii_member OWNER TO gforge;
 --    order by modification_date
 --    limit 1;
    
+CREATE TABLE organization_profile_change_type
+(
+	id serial primary key,
+	change_type text,
+	description text
+);
+ALTER TABLE organization_profile_change_type OWNER TO gforge;
+insert into organization_profile_change_type values (1, 'create_organization', 'Create an organization');
+insert into organization_profile_change_type values (2, 'update', 'Update an item in organization table');
+insert into organization_profile_change_type values (3, 'add_item', 'Add an item in an organization related table');
+insert into organization_profile_change_type values (4, 'delete_item', 'Delete an item in an organization related table');
+
+CREATE TABLE organization_profile_change
+(
+	id serial primary key,
+	organization_id integer references organization(organization_id),
+	user_id integer references users(user_id),
+	change_timestamp timestamp,
+	change_type_id integer references organization_profile_change_type(id),
+	table_or_field text,
+	new_value text,
+	old_value text
+);
+ALTER TABLE organization_profile_change OWNER TO gforge;
+
 --
 -- End tables for organization
 --
