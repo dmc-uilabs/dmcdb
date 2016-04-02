@@ -547,7 +547,7 @@ CREATE FUNCTION group_update() RETURNS trigger
 	       PERFORM core_update( 'wiki', wid);
 	   END LOOP;
 	   -- loop over affected users
-	   FOR uid IN SELECT user_id FROM user_group WHERE user_group_id = NEW.group_id LOOP
+	   FOR uid IN SELECT user_id FROM pfo_user_role ur, pfo_role r WHERE r.home_group_id = NEW.group_id AND ur.role_id = r.role_id LOOP
 	       PERFORM core_update( 'users', uid);
 	   END LOOP;
        END IF;
@@ -570,77 +570,6 @@ BEGIN
 	   INSERT INTO pfo_role_setting VALUES (role_id, section_name, ref_id, perm_val) ;	END IF ;END ;$$;
 
 
-ALTER FUNCTION public.insert_pfo_role_setting(role_id integer, section_name text, ref_id integer, perm_val integer) OWNER TO gforge;
-
---
--- Name: migrate_rbac_permissions_to_pfo_rbac(); Type: FUNCTION; Schema: public; Owner: gforge
---
-
-CREATE FUNCTION migrate_rbac_permissions_to_pfo_rbac() RETURNS void
-    LANGUAGE plpgsql
-    AS $$
-DECLARE
-	r role%ROWTYPE ;	nrid integer := 0 ;	nsec text := '' ;	nref integer := 0 ;	nval integer := 0 ;	opid integer := 0 ;	agl artifact_group_list%ROWTYPE ;	pgl project_group_list%ROWTYPE ;	fgl forum_group_list%ROWTYPE ;BEGIN
-	FOR r IN SELECT * FROM role
-	LOOP
-		SELECT role_id INTO nrid FROM pfo_role WHERE old_role_id = r.role_id ;		SELECT group_id INTO opid FROM role WHERE role_id = r.role_id ;
-		PERFORM insert_pfo_role_setting (nrid, 'project_read', opid, 1) ;
-		nsec = 'project_admin' ;		nref = opid ;		nval = pfo_rbac_permissions_from_old (r.role_id, nsec, nref) ;		PERFORM insert_pfo_role_setting (nrid, nsec, nref, nval) ;
-		nsec = 'forge_admin' ;		nref = -1 ;		nval = pfo_rbac_permissions_from_old (r.role_id, nsec, nref) ;		PERFORM insert_pfo_role_setting (nrid, nsec, nref, nval) ;		nsec = 'approve_news' ;		nref = -1 ;		nval = pfo_rbac_permissions_from_old (r.role_id, nsec, nref) ;		PERFORM insert_pfo_role_setting (nrid, nsec, nref, nval) ;		nsec = 'forge_stats' ;		nref = opid ;		nval = pfo_rbac_permissions_from_old (r.role_id, nsec, nref) ;		PERFORM insert_pfo_role_setting (nrid, nsec, nref, nval) ;
-		nsec = 'tracker_admin' ;		nref = opid ;		nval = pfo_rbac_permissions_from_old (r.role_id, nsec, nref) ;		PERFORM insert_pfo_role_setting (nrid, nsec, nref, nval) ;		nsec = 'new_tracker' ;		nref = opid ;		nval = pfo_rbac_permissions_from_old (r.role_id, nsec, nref) ;		PERFORM insert_pfo_role_setting (nrid, nsec, nref, nval) ;		nsec = 'tracker' ;		FOR agl IN SELECT * FROM artifact_group_list WHERE group_id = opid
-		LOOP
-			nref = agl.group_artifact_id ;			nval = pfo_rbac_permissions_from_old (r.role_id, nsec, nref) ;			PERFORM insert_pfo_role_setting (nrid, nsec, nref, nval) ;		END LOOP ;
-		nsec = 'pm_admin' ;		nref = opid ;		nval = pfo_rbac_permissions_from_old (r.role_id, nsec, nref) ;		PERFORM insert_pfo_role_setting (nrid, nsec, nref, nval) ;		nsec = 'new_pm' ;		nref = opid ;		nval = pfo_rbac_permissions_from_old (r.role_id, nsec, nref) ;		PERFORM insert_pfo_role_setting (nrid, nsec, nref, nval) ;		nsec = 'pm' ;		FOR pgl IN SELECT * FROM project_group_list WHERE group_id = opid
-		LOOP
-			nref = pgl.group_project_id ;			nval = pfo_rbac_permissions_from_old (r.role_id, nsec, nref) ;			PERFORM insert_pfo_role_setting (nrid, nsec, nref, nval) ;		END LOOP ;
-		nsec = 'forum_admin' ;		nref = opid ;		nval = pfo_rbac_permissions_from_old (r.role_id, nsec, nref) ;		PERFORM insert_pfo_role_setting (nrid, nsec, nref, nval) ;		nsec = 'new_forum' ;		nref = opid ;		nval = pfo_rbac_permissions_from_old (r.role_id, nsec, nref) ;		PERFORM insert_pfo_role_setting (nrid, nsec, nref, nval) ;		nsec = 'forum' ;		FOR fgl IN SELECT * FROM forum_group_list WHERE group_id = opid
-		LOOP
-			nref = fgl.group_forum_id ;			nval = pfo_rbac_permissions_from_old (r.role_id, nsec, nref) ;			PERFORM insert_pfo_role_setting (nrid, nsec, nref, nval) ;		END LOOP ;
-		nsec = 'docman' ;		nref = opid ;		nval = pfo_rbac_permissions_from_old (r.role_id, nsec, nref) ;		PERFORM insert_pfo_role_setting (nrid, nsec, nref, nval) ;		nsec = 'scm' ;		nref = opid ;		nval = pfo_rbac_permissions_from_old (r.role_id, nsec, nref) ;		PERFORM insert_pfo_role_setting (nrid, nsec, nref, nval) ;		nsec = 'frs' ;		nref = opid ;		nval = pfo_rbac_permissions_from_old (r.role_id, nsec, nref) ;		PERFORM insert_pfo_role_setting (nrid, nsec, nref, nval) ;		nsec = 'webcal' ;		nref = opid ;		nval = pfo_rbac_permissions_from_old (r.role_id, nsec, nref) ;		PERFORM insert_pfo_role_setting (nrid, nsec, nref, nval) ;		nsec = 'plugin_mediawiki_edit' ;		nref = opid ;		nval = pfo_rbac_permissions_from_old (r.role_id, nsec, nref) ;		PERFORM insert_pfo_role_setting (nrid, nsec, nref, nval) ;		
-	END LOOP ;
-END ;$$;
-
-
-ALTER FUNCTION public.migrate_rbac_permissions_to_pfo_rbac() OWNER TO gforge;
-
---
--- Name: migrate_role_observer_to_pfo_rbac(); Type: FUNCTION; Schema: public; Owner: gforge
---
-
-CREATE FUNCTION migrate_role_observer_to_pfo_rbac() RETURNS void
-    LANGUAGE plpgsql
-    AS $$
-DECLARE
-	g groups%ROWTYPE ;	t artifact_group_list%ROWTYPE ;	f forum_group_list%ROWTYPE ;	p project_group_list%ROWTYPE ;	need_loggedin boolean := false ;BEGIN
-	FOR g IN SELECT * FROM groups WHERE is_public = 1
-	LOOP
-		INSERT INTO role_project_refs VALUES (1, g.group_id) ;		INSERT INTO role_project_refs VALUES (2, g.group_id) ;		PERFORM insert_pfo_role_setting (1, 'project_read', g.group_id, 1) ;		PERFORM insert_pfo_role_setting (1, 'new_tracker', g.group_id, 1) ;		PERFORM insert_pfo_role_setting (1, 'new_pm', g.group_id, 1) ;		PERFORM insert_pfo_role_setting (1, 'new_forum', g.group_id, 1) ;		PERFORM insert_pfo_role_setting (1, 'frs', g.group_id, 1) ;		PERFORM insert_pfo_role_setting (2, 'project_read', g.group_id, 1) ;		PERFORM insert_pfo_role_setting (2, 'new_tracker', g.group_id, 1) ;		PERFORM insert_pfo_role_setting (2, 'new_pm', g.group_id, 1) ;		PERFORM insert_pfo_role_setting (2, 'new_forum', g.group_id, 1) ;		PERFORM insert_pfo_role_setting (2, 'frs', g.group_id, 1) ;
-		IF g.enable_anonscm = 1 THEN
-		   PERFORM insert_pfo_role_setting (1, 'scm', g.group_id, 1) ;		   PERFORM insert_pfo_role_setting (2, 'scm', g.group_id, 1) ;		END IF ;
-		FOR t IN SELECT * FROM artifact_group_list WHERE group_id = g.group_id AND is_public = 1
-		LOOP
-			IF t.allow_anon = 1 THEN
-			   PERFORM insert_pfo_role_setting (1, 'tracker', t.group_artifact_id, 1) ;			END IF ;
-			PERFORM insert_pfo_role_setting (2, 'tracker', t.group_artifact_id, 1) ;		END LOOP ;		
-		FOR p IN SELECT * FROM project_group_list WHERE group_id = g.group_id AND is_public = 1
-		LOOP
-			PERFORM insert_pfo_role_setting (1, 'pm', p.group_project_id, 1) ;			PERFORM insert_pfo_role_setting (2, 'pm', p.group_project_id, 1) ;		END LOOP ;		
-		FOR f IN SELECT * FROM forum_group_list WHERE group_id = g.group_id AND is_public = 1
-		LOOP
-			IF f.allow_anonymous = 1 THEN
-			   IF f.moderation_level = 0 THEN
-			      PERFORM insert_pfo_role_setting (1, 'forum', f.group_forum_id, 3) ;			   ELSE
-			      PERFORM insert_pfo_role_setting (1, 'forum', f.group_forum_id, 2) ;			   END IF ;			ELSE
-			   PERFORM insert_pfo_role_setting (1, 'forum', f.group_forum_id, 1) ;			END IF ;
-			IF f.moderation_level = 0 THEN
-			   PERFORM insert_pfo_role_setting (2, 'forum', f.group_forum_id, 3) ;			ELSE
-			   PERFORM insert_pfo_role_setting (2, 'forum', f.group_forum_id, 2) ;			END IF ;		END LOOP ;		
-	END LOOP ;
-END ;$$;
-
-
-ALTER FUNCTION public.migrate_role_observer_to_pfo_rbac() OWNER TO gforge;
-
 --
 -- Name: page_deleted(); Type: FUNCTION; Schema: public; Owner: postgres
 --
@@ -657,129 +586,6 @@ CREATE FUNCTION page_deleted() RETURNS trigger
 
 ALTER FUNCTION public.page_deleted() OWNER TO postgres;
 
---
--- Name: pfo_rbac_full_migration(); Type: FUNCTION; Schema: public; Owner: gforge
---
-
-CREATE FUNCTION pfo_rbac_full_migration() RETURNS void
-    LANGUAGE plpgsql
-    AS $$
-DECLARE
-	mastergroupid integer := 1 ;	newsgroupid integer := 0 ;	statsgroupid integer := 0 ;BEGIN
-	DELETE FROM pfo_user_role ;	DELETE FROM pfo_role_setting ;	DELETE FROM role_project_refs ;	DELETE FROM pfo_role ;	DELETE FROM pfo_role_class ;
-	INSERT INTO pfo_role_class (class_id, class_name) VALUES (1, 'PFO_RoleExplicit') ;	INSERT INTO pfo_role_class (class_id, class_name) VALUES (2, 'PFO_RoleAnonymous') ;	INSERT INTO pfo_role_class (class_id, class_name) VALUES (3, 'PFO_RoleLoggedIn') ;
-	PERFORM setval ('pfo_role_class_seq', 3) ;
-	INSERT INTO pfo_role (role_id, role_name, role_class, is_public) VALUES (1, 'Anonymous', 2, true) ;	INSERT INTO pfo_role (role_id, role_name, role_class, is_public) VALUES (2, 'LoggedIn', 3, true) ;	INSERT INTO pfo_role (role_id, role_name, role_class, is_public) VALUES (3, 'Forge administrators', 1, false) ;	INSERT INTO pfo_role (role_id, role_name, role_class, is_public) VALUES (4, 'News moderators', 1, false) ;	INSERT INTO pfo_role (role_id, role_name, role_class, is_public) VALUES (5, 'Stats administrators', 1, false) ;
-	PERFORM setval ('pfo_role_seq', 5) ;
-	INSERT INTO pfo_role (SELECT nextval ('pfo_role_seq'), role_name, 1, group_id, false, role_id FROM role) ;
-	INSERT INTO pfo_user_role (SELECT DISTINCT ug.user_id, r.role_id FROM user_group ug, pfo_role r WHERE ug.role_id = r.old_role_id AND r.old_role_id != 1) ;
-	PERFORM migrate_rbac_permissions_to_pfo_rbac () ;	PERFORM migrate_role_observer_to_pfo_rbac () ;
-	
-	INSERT INTO pfo_user_role (SELECT user_id, 3 FROM user_group WHERE group_id = mastergroupid AND admin_flags = 'A') ;	PERFORM insert_pfo_role_setting (3, 'forge_admin', -1, 1) ;
-	
-	SELECT group_id INTO newsgroupid FROM groups WHERE unix_group_name = 'newsadmin' ;	INSERT INTO pfo_user_role (SELECT user_id, 4 FROM user_group WHERE group_id = newsgroupid AND admin_flags = 'A') ;	PERFORM insert_pfo_role_setting (4, 'approve_news', -1, 1) ;
-	
-	SELECT group_id INTO statsgroupid FROM groups WHERE unix_group_name = 'stats' ;	INSERT INTO pfo_user_role (SELECT user_id, 5 FROM user_group WHERE group_id = statsgroupid AND admin_flags = 'A') ;	PERFORM insert_pfo_role_setting (5, 'forge_stats', -1, 2) ;
-	DELETE FROM pfo_role_setting WHERE section_name IN ('forge_admin', 'approve_projects', 'approve_news', 'forge_stats') AND role_id IN (SELECT role_id FROM pfo_role WHERE role_class = 1 AND home_group_id IS NOT NULL) ;
-END ;$$;
-
-
-ALTER FUNCTION public.pfo_rbac_full_migration() OWNER TO gforge;
-
---
--- Name: pfo_rbac_permissions_from_old(integer, text, integer); Type: FUNCTION; Schema: public; Owner: gforge
---
-
-CREATE FUNCTION pfo_rbac_permissions_from_old(rid integer, nsec text, nref integer) RETURNS integer
-    LANGUAGE plpgsql
-    AS $$
-DECLARE
-	os role_setting%ROWTYPE ;	onsec text ;	onref integer ;	onval integer ;	r pfo_role%ROWTYPE ;	mastergroupid integer := 1 ;	newsgroupid integer := 0 ;	statsgroupid integer := 0 ;	opid integer := 0 ;	tmp integer := 0 ;BEGIN
-	SELECT group_id INTO newsgroupid FROM groups WHERE unix_group_name = 'newsadmin' ;	SELECT group_id INTO statsgroupid FROM groups WHERE unix_group_name = 'stats' ;
-	SELECT * INTO r FROM pfo_role WHERE old_role_id = rid ;
-	IF nsec = 'project_read' AND nref = r.home_group_id THEN
-	   RETURN 1 ;	END IF ;
-   	IF nsec = 'forge_admin' AND nref = -1 AND rid = 1 THEN
-	   SELECT count(*) INTO tmp FROM role_setting WHERE role_id = rid ;	   IF tmp = 0 THEN
-	      RETURN 1 ;	   END IF ;	END IF ;		   
-	FOR os IN SELECT * FROM role_setting WHERE role_id = rid ORDER BY role_id, section_name, ref_id
-	LOOP
-		SELECT group_id INTO opid FROM role WHERE role_id = os.role_id ;
-		IF os.section_name = 'projectadmin' THEN
-		   CONTINUE WHEN os.value != 'A' ;		   IF nsec = 'project_admin' AND nref = opid THEN
-		      RETURN 1 ;		   END IF ;		   IF nsec = 'forge_admin' AND nref = -1 AND opid = mastergroupid THEN
-		      RETURN 1 ;		   END IF ;		   IF nsec = 'approve_news' AND nref = -1 AND opid = newsgroupid THEN
-		      RETURN 1 ;		   END IF ;		   IF nsec = 'forge_stats' AND nref = -1 AND opid = statsgroupid THEN
-		      RETURN 2 ;		   END IF ;
-		ELSIF os.section_name IN ('trackeradmin', 'pmadmin', 'forumadmin') THEN
-		   CONTINUE WHEN os.value != '2' ;		   onsec = CASE WHEN os.section_name = 'trackeradmin' THEN 'tracker_admin'
-		   	       WHEN os.section_name = 'pmadmin' THEN 'pm_admin'
-		   	       WHEN os.section_name = 'forumadmin' THEN 'forum_admin' END ;		   IF nsec = onsec AND nref = opid THEN
-		      RETURN 1 ;		   END IF ;
-		ELSIF os.section_name IN ('tracker', 'newtracker') THEN
-		   CONTINUE WHEN os.value = '-1' ;		   onsec = CASE WHEN os.section_name = 'tracker' THEN os.section_name
-		   	       WHEN os.section_name = 'newtracker' THEN 'new_tracker' END ;		   onref = CASE WHEN os.section_name = 'tracker' THEN os.ref_id
-		   	       WHEN os.section_name = 'newtracker' THEN opid END ;		   onval = CASE WHEN os.value = '0' THEN 1
-		   	       WHEN os.value = '1' THEN 3
-		   	       WHEN os.value = '2' THEN 7
-		   	       WHEN os.value = '3' THEN 5 END ;		   IF nsec = onsec AND nref = onref THEN
-		      RETURN onval ;		   END IF ;
-		ELSIF os.section_name IN ('pm', 'newpm') THEN
-		   CONTINUE WHEN os.value = '-1' ;		   onsec = CASE WHEN os.section_name = 'pm' THEN os.section_name
-		   	       WHEN os.section_name = 'newpm' THEN 'new_pm' END ;		   onref = CASE WHEN os.section_name = 'pm' THEN os.ref_id
-		   	       WHEN os.section_name = 'newpm' THEN opid END ;		   onval = CASE WHEN os.value = '0' THEN 1
-		   	       WHEN os.value = '1' THEN 3
-		   	       WHEN os.value = '2' THEN 7
-		   	       WHEN os.value = '3' THEN 5 END ;		   IF nsec = onsec AND nref = onref THEN
-		      RETURN onval ;		   END IF ;
-		ELSIF os.section_name = 'forum' THEN
-		   CONTINUE WHEN os.value = '-1' ;		   onsec = os.section_name ;		   onref = os.ref_id ;		   SELECT moderation_level INTO tmp FROM forum_group_list WHERE group_forum_id = onref ;		   onval = CASE WHEN os.value = '0' THEN 1
-		   	       WHEN os.value = '1' AND tmp >= 2 THEN 2
-		   	       WHEN os.value = '1' AND tmp <= 1 THEN 3
-		   	       WHEN os.value = '2' THEN 4 END ;		   IF nsec = onsec AND nref = onref THEN
-		      RETURN onval ;		   END IF ;
-		ELSIF os.section_name = 'newforum' THEN
-		   CONTINUE WHEN os.value = '-1' ;		   onsec = 'new_forum' ;		   onref = opid ;		   onval = CASE WHEN os.value = '0' THEN 1
-		   	       WHEN os.value = '1' THEN 2
-		   	       WHEN os.value = '2' THEN 4 END ;		   IF nsec = onsec AND nref = onref THEN
-		      RETURN onval ;		   END IF ;
-		ELSIF os.section_name = 'docman' THEN
-		   onsec = os.section_name ;		   onref = opid ;		   onval = CASE WHEN os.value = '0' THEN 1
-		   	       WHEN os.value = '1' THEN 4 END ;		   IF nsec = onsec AND nref = onref THEN
-		      RETURN onval ;		   END IF ;
-		ELSIF os.section_name = 'frs' THEN
-		   onsec = os.section_name ;		   onref = opid ;		   onval = CASE WHEN os.value = '0' THEN 1
-		   	       WHEN os.value = '1' THEN 3 END ;		   IF nsec = onsec AND nref = onref THEN
-		      RETURN onval ;		   END IF ;
-		ELSIF os.section_name = 'scm' THEN
-		   CONTINUE WHEN os.value = '-1' ;		   onsec = os.section_name ;		   onref = opid ;		   onval = CASE WHEN os.value = '0' THEN 1
-		   	       WHEN os.value = '1' THEN 2 END ;		   IF nsec = onsec AND nref = onref THEN
-		      RETURN onval ;		   END IF ;
-		ELSIF os.section_name = 'webcal' THEN
-		   CONTINUE WHEN os.value = '0' ;		   onsec = os.section_name ;		   onref = opid ;		   onval = os.value ;		   IF nsec = onsec AND nref = onref THEN
-		      RETURN onval ;		   END IF ;
-		ELSIF os.section_name = 'plugin_mediawiki_read' THEN
-		   CONTINUE WHEN os.value = '0' ;		   onsec = os.section_name ;		   onref = opid ;		   onval = os.value ;		   IF nsec = onsec AND nref = onref THEN
-		      RETURN onval ;		   END IF ;
-		ELSIF os.section_name = 'plugin_mediawiki_edit' THEN
-		   CONTINUE WHEN os.value = '0' ;		   onsec = os.section_name ;		   onref = opid ;		   onval = os.value ;		   IF nsec = onsec AND nref = onref THEN
-		      RETURN onval ;		   END IF ;
-		ELSIF os.section_name = 'plugin_mediawiki_upload' THEN
-		   CONTINUE WHEN os.value = '0' ;		   onsec = os.section_name ;		   onref = opid ;		   onval = os.value ;		   IF nsec = onsec AND nref = onref THEN
-		      RETURN onval ;		   END IF ;
-		ELSIF os.section_name = 'plugin_mediawiki_admin' THEN
-		   CONTINUE WHEN os.value = '0' ;		   onsec = os.section_name ;		   onref = opid ;		   onval = os.value ;		   IF nsec = onsec AND nref = onref THEN
-		      RETURN onval ;		   END IF ;
-		ELSE
-		   RAISE EXCEPTION 'Unknown setting % for role %', os.section_name, os.role_id ;		   CONTINUE WHEN os.value = '0' ;		   onsec = os.section_name ;		   onref = os.ref_id ;		   onval = os.value::integer ;		   IF nsec = onsec AND nref = onref THEN
-		      RETURN onval ;		   END IF ;
-		END IF ;
-	END LOOP ;
-	RETURN 0 ;
-END ;$$;
-
-
-ALTER FUNCTION public.pfo_rbac_permissions_from_old(rid integer, nsec text, nref integer) OWNER TO gforge;
 
 --
 -- Name: project_sums(); Type: FUNCTION; Schema: public; Owner: gforge
@@ -4611,8 +4417,11 @@ ALTER TABLE group_history_pk_seq OWNER TO gforge;
 CREATE TABLE group_join_request (
     group_id integer NOT NULL,
     user_id integer NOT NULL,
+    requester_id integer NOT NULL,
     comments text,
-    request_date integer
+    request_date timestamp,
+    accept_date timestamp,
+    reject_date timestamp
 );
 
 
@@ -5334,8 +5143,7 @@ CREATE TABLE pfo_role (
     role_name text DEFAULT ''::text NOT NULL,
     role_class integer DEFAULT 1 NOT NULL,
     home_group_id integer,
-    is_public boolean DEFAULT false NOT NULL,
-    old_role_id integer DEFAULT 0 NOT NULL
+    is_public boolean DEFAULT false NOT NULL
 );
 
 
@@ -5380,18 +5188,6 @@ CREATE TABLE pfo_role_setting (
 
 
 ALTER TABLE pfo_role_setting OWNER TO gforge;
-
---
--- Name: pfo_user_role; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
---
-
-CREATE TABLE pfo_user_role (
-    user_id integer DEFAULT 0 NOT NULL,
-    role_id integer DEFAULT 0 NOT NULL
-);
-
-
-ALTER TABLE pfo_user_role OWNER TO gforge;
 
 --
 -- Name: plugin_cvstracker_artifact_seq; Type: SEQUENCE; Schema: public; Owner: gforge
@@ -6476,101 +6272,6 @@ CREATE SEQUENCE revision_rev_id_seq
 
 
 ALTER TABLE revision_rev_id_seq OWNER TO postgres;
-
---
--- Name: role; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
---
-
-CREATE TABLE role (
-    role_id integer NOT NULL,
-    group_id integer NOT NULL,
-    role_name text
-);
-
-
-ALTER TABLE role OWNER TO gforge;
-
---
--- Name: role_project_refs; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
---
-
-CREATE TABLE role_project_refs (
-    role_id integer DEFAULT 0 NOT NULL,
-    group_id integer DEFAULT 0 NOT NULL
-);
-
-
-ALTER TABLE role_project_refs OWNER TO gforge;
-
---
--- Name: role_role_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
---
-
-CREATE SEQUENCE role_role_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE role_role_id_seq OWNER TO gforge;
-
---
--- Name: role_role_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
---
-
-ALTER SEQUENCE role_role_id_seq OWNED BY role.role_id;
-
-
---
--- Name: role_setting; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
---
-
-CREATE TABLE role_setting (
-    role_id integer NOT NULL,
-    section_name text NOT NULL,
-    ref_id integer NOT NULL,
-    value character varying(2) NOT NULL
-);
-
-
-ALTER TABLE role_setting OWNER TO gforge;
-
---
--- Name: roles; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
---
-
-CREATE TABLE roles (
-    role_id integer NOT NULL,
-    name text NOT NULL,
-    description text,
-    key text NOT NULL
-);
-
-
-ALTER TABLE roles OWNER TO gforge;
-
---
--- Name: roles_role_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
---
-
-CREATE SEQUENCE roles_role_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE roles_role_id_seq OWNER TO gforge;
-
---
--- Name: roles_role_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
---
-
-ALTER SEQUENCE roles_role_id_seq OWNED BY roles.role_id;
-
 
 --
 -- Name: runnable_runtimes; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
@@ -7901,40 +7602,46 @@ CREATE SEQUENCE user_diary_pk_seq
 ALTER TABLE user_diary_pk_seq OWNER TO gforge;
 
 --
--- Name: user_group; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+-- Name: pfo_user_role; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
 --
 
-CREATE TABLE user_group (
-    user_group_id integer DEFAULT nextval(('user_group_pk_seq'::text)::regclass) NOT NULL,
+-- old with user_group_id as pk instead of combination user_id, group_id
+--CREATE TABLE pfo_user_role (
+--    user_group_id integer DEFAULT nextval(('pfo_user_role_pk_seq'::text)::regclass) NOT NULL,
+--    user_id integer DEFAULT 0 NOT NULL,
+--    group_id integer DEFAULT 0 NOT NULL,
+--    admin_flags character(16) DEFAULT ''::bpchar NOT NULL,
+--    forum_flags integer DEFAULT 0 NOT NULL,
+--    project_flags integer DEFAULT 2 NOT NULL,
+--    doc_flags integer DEFAULT 0 NOT NULL,
+--    cvs_flags integer DEFAULT 1 NOT NULL,
+--    member_role integer DEFAULT 100 NOT NULL,
+--    release_flags integer DEFAULT 0 NOT NULL,
+--    artifact_flags integer,
+--    role_id integer DEFAULT 1
+--);
+
+CREATE TABLE pfo_user_role (
     user_id integer DEFAULT 0 NOT NULL,
-    group_id integer DEFAULT 0 NOT NULL,
-    admin_flags character(16) DEFAULT ''::bpchar NOT NULL,
-    forum_flags integer DEFAULT 0 NOT NULL,
-    project_flags integer DEFAULT 2 NOT NULL,
-    doc_flags integer DEFAULT 0 NOT NULL,
-    cvs_flags integer DEFAULT 1 NOT NULL,
-    member_role integer DEFAULT 100 NOT NULL,
-    release_flags integer DEFAULT 0 NOT NULL,
-    artifact_flags integer,
     role_id integer DEFAULT 1
 );
 
 
-ALTER TABLE user_group OWNER TO gforge;
+ALTER TABLE pfo_user_role OWNER TO gforge;
 
 --
--- Name: user_group_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+-- Name: pfo_user_role_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
 --
 
-CREATE SEQUENCE user_group_pk_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    MAXVALUE 2147483647
-    CACHE 1;
+--CREATE SEQUENCE pfo_user_role_pk_seq
+--    START WITH 1
+--    INCREMENT BY 1
+--    NO MINVALUE
+--    MAXVALUE 2147483647
+--    CACHE 1;
 
 
-ALTER TABLE user_group_pk_seq OWNER TO gforge;
+--ALTER TABLE pfo_user_role_pk_seq OWNER TO gforge;
 
 --
 -- Name: user_history; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
@@ -8193,19 +7900,6 @@ CREATE TABLE user_ratings (
 
 
 ALTER TABLE user_ratings OWNER TO gforge;
-
---
--- Name: user_roles; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
---
-
-CREATE TABLE user_roles (
-    user_id integer NOT NULL,
-    group_id integer NOT NULL,
-    role_id integer NOT NULL
-);
-
-
-ALTER TABLE user_roles OWNER TO gforge;
 
 --
 -- Name: user_session; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
@@ -8744,20 +8438,6 @@ ALTER TABLE ONLY project_tags_join ALTER COLUMN project_tags_join_id SET DEFAULT
 --
 
 ALTER TABLE ONLY recommendations ALTER COLUMN rec_id SET DEFAULT nextval('recommendations_rec_id_seq'::regclass);
-
-
---
--- Name: role_id; Type: DEFAULT; Schema: public; Owner: gforge
---
-
-ALTER TABLE ONLY role ALTER COLUMN role_id SET DEFAULT nextval('role_role_id_seq'::regclass);
-
-
---
--- Name: role_id; Type: DEFAULT; Schema: public; Owner: gforge
---
-
-ALTER TABLE ONLY roles ALTER COLUMN role_id SET DEFAULT nextval('roles_role_id_seq'::regclass);
 
 
 --
@@ -21159,8 +20839,11 @@ SELECT pg_catalog.setval('group_history_pk_seq', 2, true);
 -- Data for Name: group_join_request; Type: TABLE DATA; Schema: public; Owner: gforge
 --
 
-COPY group_join_request (group_id, user_id, comments, request_date) FROM stdin;
-6	102	Fake GroupJoinRequest to store the creator of a project	1442495898
+COPY group_join_request (group_id, user_id, requester_id, comments, request_date, accept_date, reject_date) FROM stdin WITH NULL AS 'null';
+6	102	102	Fake GroupJoinRequest to store the creator of a project	2013-03-21 09:10:59.897666	2013-03-21 09:12:59.897666	null
+6	111	102	Fake GroupJoinRequest to check queries	2015-01-9 06:23:59.444666	2015-01-9 07:23:59.444666	null
+6	111	111	Fake GroupJoinRequest to check queries	2014-12-3 12:04:21.424670	null	null
+4	111	111	Fake GroupJoinRequest to check queries	2016-08-15 16:44:25.134681	null	null
 \.
 
 
@@ -21615,35 +21298,35 @@ SELECT pg_catalog.setval('people_skill_year_pk_seq', 5, true);
 -- Data for Name: pfo_role; Type: TABLE DATA; Schema: public; Owner: gforge
 --
 
-COPY pfo_role (role_id, role_name, role_class, home_group_id, is_public, old_role_id) FROM stdin;
-1	Anonymous	2	\N	t	0
-2	LoggedIn	3	\N	t	0
-3	Forge administrators	1	\N	f	0
-4	News moderators	1	\N	f	0
-5	Stats administrators	1	\N	f	0
-6	Default	1	1	f	1
-7	Admin	1	2	f	2
-8	Senior Developer	1	2	f	3
-9	Junior Developer	1	2	f	4
-10	Doc Writer	1	2	f	5
-11	Support Tech	1	2	f	6
-12	Admin	1	3	f	7
-13	Senior Developer	1	3	f	8
-14	Junior Developer	1	3	f	9
-15	Doc Writer	1	3	f	10
-16	Support Tech	1	3	f	11
-17	Admin	1	4	f	12
-18	Senior Developer	1	4	f	13
-19	Junior Developer	1	4	f	14
-20	Doc Writer	1	4	f	15
-21	Support Tech	1	4	f	16
-22	Admin	1	1	f	17
-23	Senior Developer	1	1	f	18
-24	Junior Developer	1	1	f	19
-25	Doc Writer	1	1	f	20
-26	Support Tech	1	1	f	21
-27	Project Member	1	6	f	0
-28	Admin	1	6	f	0
+COPY pfo_role (role_id, role_name, role_class, home_group_id, is_public) FROM stdin;
+1	Anonymous	2	\N	t
+2	LoggedIn	3	\N	t
+3	Forge administrators	1	\N	f
+4	News moderators	1	\N	f
+5	Stats administrators	1	\N	f
+6	Default	1	1	f
+7	Admin	1	2	f
+8	Senior Developer	1	2	f
+9	Junior Developer	1	2	f
+10	Doc Writer	1	2	f
+11	Support Tech	1	2	f
+12	Admin	1	3	f
+13	Senior Developer	1	3	f
+14	Junior Developer	1	3	f
+15	Doc Writer	1	3	f
+16	Support Tech	1	3	f
+17	Admin	1	4	f
+18	Senior Developer	1	4	f
+19	Junior Developer	1	4	f
+20	Doc Writer	1	4	f
+21	Support Tech	1	4	f
+22	Admin	1	1	f
+23	Senior Developer	1	1	f
+24	Junior Developer	1	1	f
+25	Doc Writer	1	1	f
+26	Support Tech	1	1	f
+27	Project Member	1	6	f
+28	Admin	1	6	f
 \.
 
 
@@ -21677,140 +21360,12 @@ SELECT pg_catalog.setval('pfo_role_seq', 28, true);
 --
 
 COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
-6	project_read	1	1
-7	project_read	2	1
-7	project_admin	2	1
-7	tracker_admin	2	1
-7	pm_admin	2	1
-7	forum_admin	2	1
-7	docman	2	4
-7	scm	2	2
-7	frs	2	3
-8	project_read	2	1
-8	tracker_admin	2	1
-8	pm_admin	2	1
-8	forum_admin	2	1
-8	docman	2	4
-8	scm	2	2
-8	frs	2	3
-9	project_read	2	1
-9	docman	2	1
-9	scm	2	2
-9	frs	2	1
-10	project_read	2	1
-10	docman	2	4
-10	scm	2	1
-10	frs	2	1
-11	project_read	2	1
-11	docman	2	4
-11	scm	2	1
-11	frs	2	1
-12	project_read	3	1
-12	project_admin	3	1
-12	tracker_admin	3	1
-12	pm_admin	3	1
-12	forum_admin	3	1
-12	docman	3	4
-12	scm	3	2
-12	frs	3	3
-13	project_read	3	1
-13	tracker_admin	3	1
-13	pm_admin	3	1
-13	forum_admin	3	1
-13	docman	3	4
-13	scm	3	2
-13	frs	3	3
-14	project_read	3	1
-14	docman	3	1
-14	scm	3	2
-14	frs	3	1
-15	project_read	3	1
-15	docman	3	4
-15	scm	3	1
-15	frs	3	1
-16	project_read	3	1
-16	docman	3	4
-16	scm	3	1
-16	frs	3	1
-17	project_read	4	1
-17	project_admin	4	1
-17	tracker_admin	4	1
-17	pm_admin	4	1
-17	forum_admin	4	1
-17	docman	4	4
-17	scm	4	2
-17	frs	4	3
-18	project_read	4	1
-18	tracker_admin	4	1
-18	pm_admin	4	1
-18	forum_admin	4	1
-18	docman	4	4
-18	scm	4	2
-18	frs	4	3
-19	project_read	4	1
-19	docman	4	1
-19	scm	4	2
-19	frs	4	1
-20	project_read	4	1
-20	docman	4	4
-20	scm	4	1
-20	frs	4	1
-21	project_read	4	1
-21	docman	4	4
-21	scm	4	1
-21	frs	4	1
-22	project_read	1	1
-22	project_admin	1	1
-22	tracker_admin	1	1
-22	tracker	100	5
-22	pm_admin	1	1
-22	pm	1	5
-22	forum_admin	1	1
-22	docman	1	4
-22	scm	1	2
-22	frs	1	3
-23	project_read	1	1
-23	tracker_admin	1	1
-23	tracker	100	7
-23	pm_admin	1	1
-23	pm	1	7
-23	forum_admin	1	1
-23	docman	1	4
-23	scm	1	2
-23	frs	1	3
-24	project_read	1	1
-24	tracker	100	3
-24	pm	1	3
-24	docman	1	1
-24	scm	1	2
-24	frs	1	1
-25	project_read	1	1
-25	tracker	100	1
-25	pm	1	1
-25	docman	1	4
-25	scm	1	1
-25	frs	1	1
-26	project_read	1	1
-26	tracker	100	7
-26	pm	1	1
-26	docman	1	4
-26	scm	1	1
-26	frs	1	1
 1	project_read	5	1
 1	new_tracker	5	1
 1	new_pm	5	1
 1	new_forum	5	1
 1	frs	5	1
-2	project_read	5	1
-2	new_tracker	5	1
-2	new_pm	5	1
-2	new_forum	5	1
-2	frs	5	1
 1	scm	5	1
-2	scm	5	1
-3	forge_admin	-1	1
-4	approve_news	-1	1
-5	forge_stats	-1	2
 1	project_admin	5	0
 1	docman	5	0
 1	tracker_admin	5	0
@@ -21821,6 +21376,12 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 1	approve_projects	-1	0
 1	approve_news	-1	0
 1	forge_stats	-1	0
+2	project_read	5	1
+2	new_tracker	5	1
+2	new_pm	5	1
+2	new_forum	5	1
+2	frs	5	1
+2	scm	5	1
 2	project_admin	5	0
 2	docman	5	0
 2	tracker_admin	5	0
@@ -21831,15 +21392,19 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 2	approve_projects	-1	0
 2	approve_news	-1	0
 2	forge_stats	-1	0
+3	forge_admin	-1	1
 3	approve_projects	-1	0
 3	approve_news	-1	0
 3	forge_stats	-1	0
+4	approve_news	-1	1
 4	forge_admin	-1	0
 4	approve_projects	-1	0
 4	forge_stats	-1	0
+5	forge_stats	-1	2
 5	forge_admin	-1	0
 5	approve_projects	-1	0
 5	approve_news	-1	0
+6	project_read	1	1
 6	project_admin	1	0
 6	frs	1	0
 6	scm	1	0
@@ -21855,6 +21420,14 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 6	approve_projects	-1	0
 6	approve_news	-1	0
 6	forge_stats	-1	0
+7	project_read	2	1
+7	project_admin	2	1
+7	tracker_admin	2	1
+7	pm_admin	2	1
+7	forum_admin	2	1
+7	docman	2	4
+7	scm	2	2
+7	frs	2	3
 7	new_tracker	2	7
 7	new_forum	2	3
 7	new_pm	2	7
@@ -21863,6 +21436,13 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 7	approve_projects	-1	0
 7	approve_news	-1	0
 7	forge_stats	-1	0
+8	project_read	2	1
+8	tracker_admin	2	1
+8	pm_admin	2	1
+8	forum_admin	2	1
+8	docman	2	4
+8	scm	2	2
+8	frs	2	3
 8	project_admin	2	0
 8	new_tracker	2	7
 8	new_forum	2	3
@@ -21872,6 +21452,10 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 8	approve_projects	-1	0
 8	approve_news	-1	0
 8	forge_stats	-1	0
+9	project_read	2	1
+9	docman	2	1
+9	scm	2	2
+9	frs	2	1
 9	project_admin	2	0
 9	tracker_admin	2	0
 9	new_tracker	2	3
@@ -21884,6 +21468,10 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 9	approve_projects	-1	0
 9	approve_news	-1	0
 9	forge_stats	-1	0
+10	project_read	2	1
+10	docman	2	4
+10	scm	2	1
+10	frs	2	1
 10	project_admin	2	0
 10	tracker_admin	2	0
 10	new_tracker	2	1
@@ -21896,6 +21484,10 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 10	approve_projects	-1	0
 10	approve_news	-1	0
 10	forge_stats	-1	0
+11	project_read	2	1
+11	docman	2	4
+11	scm	2	1
+11	frs	2	1
 11	project_admin	2	0
 11	tracker_admin	2	1
 11	new_tracker	2	3
@@ -21908,6 +21500,14 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 11	approve_projects	-1	0
 11	approve_news	-1	0
 11	forge_stats	-1	0
+12	project_read	3	1
+12	project_admin	3	1
+12	tracker_admin	3	1
+12	pm_admin	3	1
+12	forum_admin	3	1
+12	docman	3	4
+12	scm	3	2
+12	frs	3	3
 12	new_tracker	3	7
 12	new_forum	3	3
 12	new_pm	3	7
@@ -21916,6 +21516,13 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 12	approve_projects	-1	0
 12	approve_news	-1	0
 12	forge_stats	-1	0
+13	project_read	3	1
+13	tracker_admin	3	1
+13	pm_admin	3	1
+13	forum_admin	3	1
+13	docman	3	4
+13	scm	3	2
+13	frs	3	3
 13	project_admin	3	0
 13	new_tracker	3	7
 13	new_forum	3	3
@@ -21925,6 +21532,10 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 13	approve_projects	-1	0
 13	approve_news	-1	0
 13	forge_stats	-1	0
+14	project_read	3	1
+14	docman	3	1
+14	scm	3	2
+14	frs	3	1
 14	project_admin	3	0
 14	tracker_admin	3	0
 14	new_tracker	3	3
@@ -21937,6 +21548,10 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 14	approve_projects	-1	0
 14	approve_news	-1	0
 14	forge_stats	-1	0
+15	project_read	3	1
+15	docman	3	4
+15	scm	3	1
+15	frs	3	1
 15	project_admin	3	0
 15	tracker_admin	3	0
 15	new_tracker	3	1
@@ -21949,6 +21564,10 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 15	approve_projects	-1	0
 15	approve_news	-1	0
 15	forge_stats	-1	0
+16	project_read	3	1
+16	docman	3	4
+16	scm	3	1
+16	frs	3	1
 16	project_admin	3	0
 16	tracker_admin	3	1
 16	new_tracker	3	3
@@ -21961,6 +21580,14 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 16	approve_projects	-1	0
 16	approve_news	-1	0
 16	forge_stats	-1	0
+17	project_read	4	1
+17	project_admin	4	1
+17	tracker_admin	4	1
+17	pm_admin	4	1
+17	forum_admin	4	1
+17	docman	4	4
+17	scm	4	2
+17	frs	4	3
 17	new_tracker	4	7
 17	new_forum	4	3
 17	new_pm	4	7
@@ -21969,6 +21596,13 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 17	approve_projects	-1	0
 17	approve_news	-1	0
 17	forge_stats	-1	0
+18	project_read	4	1
+18	tracker_admin	4	1
+18	pm_admin	4	1
+18	forum_admin	4	1
+18	docman	4	4
+18	scm	4	2
+18	frs	4	3
 18	project_admin	4	0
 18	new_tracker	4	7
 18	new_forum	4	3
@@ -21978,6 +21612,10 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 18	approve_projects	-1	0
 18	approve_news	-1	0
 18	forge_stats	-1	0
+19	project_read	4	1
+19	docman	4	1
+19	scm	4	2
+19	frs	4	1
 19	project_admin	4	0
 19	tracker_admin	4	0
 19	new_tracker	4	3
@@ -21990,6 +21628,10 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 19	approve_projects	-1	0
 19	approve_news	-1	0
 19	forge_stats	-1	0
+20	project_read	4	1
+20	docman	4	4
+20	scm	4	1
+20	frs	4	1
 20	project_admin	4	0
 20	tracker_admin	4	0
 20	new_tracker	4	1
@@ -22002,6 +21644,10 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 20	approve_projects	-1	0
 20	approve_news	-1	0
 20	forge_stats	-1	0
+21	project_read	4	1
+21	docman	4	4
+21	scm	4	1
+21	frs	4	1
 21	project_admin	4	0
 21	tracker_admin	4	1
 21	new_tracker	4	3
@@ -22014,6 +21660,16 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 21	approve_projects	-1	0
 21	approve_news	-1	0
 21	forge_stats	-1	0
+22	project_read	1	1
+22	project_admin	1	1
+22	tracker_admin	1	1
+22	tracker	100	5
+22	pm_admin	1	1
+22	pm	1	5
+22	forum_admin	1	1
+22	docman	1	4
+22	scm	1	2
+22	frs	1	3
 22	new_tracker	1	7
 22	new_forum	1	3
 22	new_pm	1	7
@@ -22022,6 +21678,15 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 22	approve_projects	-1	0
 22	approve_news	-1	0
 22	forge_stats	-1	0
+23	project_read	1	1
+23	tracker_admin	1	1
+23	tracker	100	7
+23	pm_admin	1	1
+23	pm	1	7
+23	forum_admin	1	1
+23	docman	1	4
+23	scm	1	2
+23	frs	1	3
 23	project_admin	1	0
 23	new_tracker	1	7
 23	new_forum	1	3
@@ -22031,6 +21696,12 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 23	approve_projects	-1	0
 23	approve_news	-1	0
 23	forge_stats	-1	0
+24	project_read	1	1
+24	tracker	100	3
+24	pm	1	3
+24	docman	1	1
+24	scm	1	2
+24	frs	1	1
 24	project_admin	1	0
 24	tracker_admin	1	0
 24	new_tracker	1	3
@@ -22043,6 +21714,12 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 24	approve_projects	-1	0
 24	approve_news	-1	0
 24	forge_stats	-1	0
+25	project_read	1	1
+25	tracker	100	1
+25	pm	1	1
+25	docman	1	4
+25	scm	1	1
+25	frs	1	1
 25	project_admin	1	0
 25	tracker_admin	1	0
 25	new_tracker	1	1
@@ -22055,6 +21732,12 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 25	approve_projects	-1	0
 25	approve_news	-1	0
 25	forge_stats	-1	0
+26	project_read	1	1
+26	tracker	100	7
+26	pm	1	1
+26	docman	1	4
+26	scm	1	1
+26	frs	1	1
 26	project_admin	1	0
 26	tracker_admin	1	1
 26	new_tracker	1	3
@@ -22100,17 +21783,6 @@ COPY pfo_role_setting (role_id, section_name, ref_id, perm_val) FROM stdin;
 28	approve_news	-1	0
 28	forge_stats	-1	0
 \.
-
-
---
--- Data for Name: pfo_user_role; Type: TABLE DATA; Schema: public; Owner: gforge
---
-
-COPY pfo_user_role (user_id, role_id) FROM stdin;
-102	3
-102	28
-\.
-
 
 --
 -- Name: plugin_cvstracker_artifact_seq; Type: SEQUENCE SET; Schema: public; Owner: gforge
@@ -22652,231 +22324,6 @@ COPY rep_users_cum_weekly (week, total) FROM stdin;
 --
 
 SELECT pg_catalog.setval('revision_rev_id_seq', 1, false);
-
-
---
--- Data for Name: role; Type: TABLE DATA; Schema: public; Owner: gforge
---
-
-COPY role (role_id, group_id, role_name) FROM stdin;
-1	1	Default
-2	2	Admin
-3	2	Senior Developer
-4	2	Junior Developer
-5	2	Doc Writer
-6	2	Support Tech
-7	3	Admin
-8	3	Senior Developer
-9	3	Junior Developer
-10	3	Doc Writer
-11	3	Support Tech
-12	4	Admin
-13	4	Senior Developer
-14	4	Junior Developer
-15	4	Doc Writer
-16	4	Support Tech
-17	1	Admin
-18	1	Senior Developer
-19	1	Junior Developer
-20	1	Doc Writer
-21	1	Support Tech
-\.
-
-
---
--- Data for Name: role_project_refs; Type: TABLE DATA; Schema: public; Owner: gforge
---
-
-COPY role_project_refs (role_id, group_id) FROM stdin;
-1	5
-2	5
-\.
-
-
---
--- Name: role_role_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gforge
---
-
-SELECT pg_catalog.setval('role_role_id_seq', 21, true);
-
-
---
--- Data for Name: role_setting; Type: TABLE DATA; Schema: public; Owner: gforge
---
-
-COPY role_setting (role_id, section_name, ref_id, value) FROM stdin;
-2	projectadmin	0	A
-2	frs	0	1
-2	scm	0	1
-2	docman	0	1
-2	forumadmin	0	2
-2	trackeradmin	0	2
-2	pmadmin	0	2
-3	projectadmin	0	0
-3	frs	0	1
-3	scm	0	1
-3	docman	0	1
-3	forumadmin	0	2
-3	trackeradmin	0	2
-3	pmadmin	0	2
-4	projectadmin	0	0
-4	frs	0	0
-4	scm	0	1
-4	docman	0	0
-4	forumadmin	0	0
-4	trackeradmin	0	0
-4	pmadmin	0	0
-5	projectadmin	0	0
-5	frs	0	0
-5	scm	0	0
-5	docman	0	1
-5	forumadmin	0	0
-5	trackeradmin	0	0
-5	pmadmin	0	0
-6	projectadmin	0	0
-6	frs	0	0
-6	scm	0	0
-6	docman	0	1
-6	forumadmin	0	0
-6	trackeradmin	0	0
-6	pmadmin	0	0
-7	projectadmin	0	A
-7	frs	0	1
-7	scm	0	1
-7	docman	0	1
-7	forumadmin	0	2
-7	trackeradmin	0	2
-7	pmadmin	0	2
-8	projectadmin	0	0
-8	frs	0	1
-8	scm	0	1
-8	docman	0	1
-8	forumadmin	0	2
-8	trackeradmin	0	2
-8	pmadmin	0	2
-9	projectadmin	0	0
-9	frs	0	0
-9	scm	0	1
-9	docman	0	0
-9	forumadmin	0	0
-9	trackeradmin	0	0
-9	pmadmin	0	0
-10	projectadmin	0	0
-10	frs	0	0
-10	scm	0	0
-10	docman	0	1
-10	forumadmin	0	0
-10	trackeradmin	0	0
-10	pmadmin	0	0
-11	projectadmin	0	0
-11	frs	0	0
-11	scm	0	0
-11	docman	0	1
-11	forumadmin	0	0
-11	trackeradmin	0	0
-11	pmadmin	0	0
-12	projectadmin	0	A
-12	frs	0	1
-12	scm	0	1
-12	docman	0	1
-12	forumadmin	0	2
-12	trackeradmin	0	2
-12	pmadmin	0	2
-13	projectadmin	0	0
-13	frs	0	1
-13	scm	0	1
-13	docman	0	1
-13	forumadmin	0	2
-13	trackeradmin	0	2
-13	pmadmin	0	2
-14	projectadmin	0	0
-14	frs	0	0
-14	scm	0	1
-14	docman	0	0
-14	forumadmin	0	0
-14	trackeradmin	0	0
-14	pmadmin	0	0
-15	projectadmin	0	0
-15	frs	0	0
-15	scm	0	0
-15	docman	0	1
-15	forumadmin	0	0
-15	trackeradmin	0	0
-15	pmadmin	0	0
-16	projectadmin	0	0
-16	frs	0	0
-16	scm	0	0
-16	docman	0	1
-16	forumadmin	0	0
-16	trackeradmin	0	0
-16	pmadmin	0	0
-17	projectadmin	0	A
-17	frs	0	1
-17	scm	0	1
-17	docman	0	1
-17	forumadmin	0	2
-17	trackeradmin	0	2
-17	tracker	100	3
-17	pmadmin	0	2
-17	pm	1	3
-18	projectadmin	0	0
-18	frs	0	1
-18	scm	0	1
-18	docman	0	1
-18	forumadmin	0	2
-18	trackeradmin	0	2
-18	tracker	100	2
-18	pmadmin	0	2
-18	pm	1	2
-19	projectadmin	0	0
-19	frs	0	0
-19	scm	0	1
-19	docman	0	0
-19	forumadmin	0	0
-19	trackeradmin	0	0
-19	tracker	100	1
-19	pmadmin	0	0
-19	pm	1	1
-20	projectadmin	0	0
-20	frs	0	0
-20	scm	0	0
-20	docman	0	1
-20	forumadmin	0	0
-20	trackeradmin	0	0
-20	tracker	100	0
-20	pmadmin	0	0
-20	pm	1	0
-21	projectadmin	0	0
-21	frs	0	0
-21	scm	0	0
-21	docman	0	1
-21	forumadmin	0	0
-21	trackeradmin	0	0
-21	tracker	100	2
-21	pmadmin	0	0
-21	pm	1	0
-\.
-
-
---
--- Data for Name: roles; Type: TABLE DATA; Schema: public; Owner: gforge
---
-
-COPY roles (role_id, name, description, key) FROM stdin;
-1	Admin	Has access to all tools of the project	project_admin
-2	Project Member	Has basic access to project, but cannot access any tools	project_member
-3	Forum Administrator	Moderates comments on the forum	forum_mod
-4	Admin	Has access to all tools of the project	project_admin
-5	Project Member	Has basic access to project, but cannot access any tools	project_member
-6	Forum Administrator	Moderates comments on the forum	forum_mod
-\.
-
-
---
--- Name: roles_role_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gforge
---
-
-SELECT pg_catalog.setval('roles_role_id_seq', 6, true);
 
 
 --
@@ -23874,20 +23321,37 @@ SELECT pg_catalog.setval('user_diary_pk_seq', 1, false);
 
 
 --
--- Data for Name: user_group; Type: TABLE DATA; Schema: public; Owner: gforge
+-- Data for Name: pfo_user_role; Type: TABLE DATA; Schema: public; Owner: gforge
+--
+--
+--COPY pfo_user_role (user_group_id, user_id, group_id, admin_flags, forum_flags, project_flags, doc_flags, cvs_flags, member_role, release_flags, artifact_flags, role_id) FROM stdin;
+--2	102	1	A               	0	2	0	1	100	0	\N	1
+--3	102	2	A               	0	2	0	1	100	0	\N	3
+--5	102	6	A               	0	2	0	1	100	0	\N	28
+--6	111	6	                	0	2	0	1	100	0	\N	27
+--\.
 --
 
-COPY user_group (user_group_id, user_id, group_id, admin_flags, forum_flags, project_flags, doc_flags, cvs_flags, member_role, release_flags, artifact_flags, role_id) FROM stdin;
-2	102	1	A               	0	2	0	1	100	0	\N	1
+--COPY pfo_user_role (user_id, group_id, admin_flags, forum_flags, project_flags, doc_flags, cvs_flags, member_role, release_flags, artifact_flags, role_id) --FROM stdin;
+--102	1	A               	0	2	0	1	100	0	\N	1
+--102	2	A               	0	2	0	1	100	0	\N	3
+--102	6	A               	0	2	0	1	100	0	\N	28
+--111	6	                	0	2	0	1	100	0	\N	27
+--\.
+
+COPY pfo_user_role (user_id, role_id) FROM stdin;
+102	1
+102	3
+102	28
+111	27
 \.
 
-
 --
--- Name: user_group_pk_seq; Type: SEQUENCE SET; Schema: public; Owner: gforge
+-- Name: pfo_user_role_pk_seq; Type: SEQUENCE SET; Schema: public; Owner: gforge
 --
-
-SELECT pg_catalog.setval('user_group_pk_seq', 2, true);
-
+--
+--SELECT pg_catalog.setval('pfo_user_role_pk_seq', 7, true);
+--
 
 --
 -- Data for Name: user_history; Type: TABLE DATA; Schema: public; Owner: gforge
@@ -24008,14 +23472,6 @@ SELECT pg_catalog.setval('user_pubkeys_user_pubkey_id_seq', 1, false);
 --
 
 COPY user_ratings (rated_by, user_id, rate_field, rating) FROM stdin;
-\.
-
-
---
--- Data for Name: user_roles; Type: TABLE DATA; Schema: public; Owner: gforge
---
-
-COPY user_roles (user_id, group_id, role_id) FROM stdin;
 \.
 
 
@@ -24568,7 +24024,7 @@ ALTER TABLE ONLY group_history
 --
 
 ALTER TABLE ONLY group_join_request
-    ADD CONSTRAINT group_join_request_pkey PRIMARY KEY (group_id, user_id);
+    ADD CONSTRAINT group_join_request_pkey PRIMARY KEY (group_id, user_id, requester_id);
 
 
 --
@@ -24756,19 +24212,11 @@ ALTER TABLE ONLY pfo_role
 
 
 --
--- Name: pfo_role_setting_unique; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
---
-
-ALTER TABLE ONLY pfo_role_setting
-    ADD CONSTRAINT pfo_role_setting_unique UNIQUE (role_id, section_name, ref_id);
-
-
---
--- Name: pfo_user_role_unique; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+-- Name: pfo_user_role_pk; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
 --
 
 ALTER TABLE ONLY pfo_user_role
-    ADD CONSTRAINT pfo_user_role_unique UNIQUE (user_id, role_id);
+    ADD CONSTRAINT pfo_user_role_pk PRIMARY KEY (user_id, role_id);
 
 
 --
@@ -25081,14 +24529,6 @@ ALTER TABLE ONLY user_messages
 
 ALTER TABLE ONLY user_pubkeys
     ADD CONSTRAINT pk_user_pubkey_id PRIMARY KEY (user_pubkey_id);
-
-
---
--- Name: pk_user_role_id; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
---
-
-ALTER TABLE ONLY user_roles
-    ADD CONSTRAINT pk_user_role_id PRIMARY KEY (user_id, group_id, role_id);
 
 
 --
@@ -25412,27 +24852,11 @@ ALTER TABLE ONLY rep_users_cum_weekly
 
 
 --
--- Name: role_project_refs_unique; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+-- Name: pfo_role_setting_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
 --
 
-ALTER TABLE ONLY role_project_refs
-    ADD CONSTRAINT role_project_refs_unique UNIQUE (role_id, group_id);
-
-
---
--- Name: role_role_id_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
---
-
-ALTER TABLE ONLY role
-    ADD CONSTRAINT role_role_id_pkey PRIMARY KEY (role_id);
-
-
---
--- Name: role_setting_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
---
-
-ALTER TABLE ONLY role_setting
-    ADD CONSTRAINT role_setting_pkey PRIMARY KEY (role_id, section_name, ref_id);
+ALTER TABLE ONLY pfo_role_setting
+    ADD CONSTRAINT pfo_role_setting_pkey PRIMARY KEY (role_id, section_name, ref_id);
 
 
 --
@@ -25585,14 +25009,6 @@ ALTER TABLE ONLY user_diary_monitor
 
 ALTER TABLE ONLY user_diary
     ADD CONSTRAINT user_diary_pkey PRIMARY KEY (id);
-
-
---
--- Name: user_group_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
---
-
-ALTER TABLE ONLY user_group
-    ADD CONSTRAINT user_group_pkey PRIMARY KEY (group_id, user_id);
 
 
 --
@@ -26241,7 +25657,7 @@ CREATE INDEX reptimetracking_userdate ON rep_time_tracking USING btree (user_id,
 -- Name: role_groupidroleid; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
 --
 
-CREATE UNIQUE INDEX role_groupidroleid ON role USING btree (group_id, role_id);
+CREATE UNIQUE INDEX role_groupidroleid ON pfo_role USING btree (home_group_id, role_id);
 
 
 --
@@ -26515,13 +25931,6 @@ CREATE INDEX user_ratings_user_id ON user_ratings USING btree (user_id);
 --
 
 CREATE INDEX userdiarymon_useridmonitoredid ON user_diary_monitor USING btree (user_id, monitored_user);
-
-
---
--- Name: usergroup_useridgroupid; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
---
-
-CREATE INDEX usergroup_useridgroupid ON user_group USING btree (user_id, group_id);
 
 
 --
@@ -26899,8 +26308,8 @@ CREATE TRIGGER wiki_pages_update_trigger AFTER UPDATE ON wiki_pages FOR EACH ROW
 -- Name: $1; Type: FK CONSTRAINT; Schema: public; Owner: gforge
 --
 
-ALTER TABLE ONLY role
-    ADD CONSTRAINT "$1" FOREIGN KEY (group_id) REFERENCES groups(group_id) ON DELETE CASCADE;
+ALTER TABLE ONLY pfo_role
+    ADD CONSTRAINT "$1" FOREIGN KEY (home_group_id) REFERENCES groups(group_id) ON DELETE CASCADE;
 
 
 --
@@ -26951,6 +26360,13 @@ ALTER TABLE ONLY group_join_request
     ADD CONSTRAINT "$2" FOREIGN KEY (user_id) REFERENCES users(user_id);
 
 --
+-- Name: $3; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY group_join_request
+    ADD CONSTRAINT "$3" FOREIGN KEY (requester_id) REFERENCES users(user_id);
+
+    --
 -- Name: $2; Type: FK CONSTRAINT; Schema: public; Owner: gforge
 --
 
@@ -27718,30 +27134,6 @@ ALTER TABLE ONLY rep_time_tracking
 
 
 --
--- Name: role_project_refs_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: gforge
---
-
-ALTER TABLE ONLY role_project_refs
-    ADD CONSTRAINT role_project_refs_group_id_fkey FOREIGN KEY (group_id) REFERENCES groups(group_id);
-
-
---
--- Name: role_project_refs_role_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: gforge
---
-
-ALTER TABLE ONLY role_project_refs
-    ADD CONSTRAINT role_project_refs_role_id_fkey FOREIGN KEY (role_id) REFERENCES pfo_role(role_id);
-
-
---
--- Name: rolesetting_roleroleid; Type: FK CONSTRAINT; Schema: public; Owner: gforge
---
-
-ALTER TABLE ONLY role_setting
-    ADD CONSTRAINT rolesetting_roleroleid FOREIGN KEY (role_id) REFERENCES role(role_id) ON DELETE CASCADE;
-
-
---
 -- Name: solr_index_event_status_fkey; Type: FK CONSTRAINT; Schema: public; Owner: gforge
 --
 
@@ -27798,22 +27190,6 @@ ALTER TABLE ONLY trove_treesums
 
 
 --
--- Name: user_group_group_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
---
-
-ALTER TABLE ONLY user_group
-    ADD CONSTRAINT user_group_group_id_fk FOREIGN KEY (group_id) REFERENCES groups(group_id) MATCH FULL;
-
-
---
--- Name: user_group_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
---
-
-ALTER TABLE ONLY user_group
-    ADD CONSTRAINT user_group_user_id_fk FOREIGN KEY (user_id) REFERENCES users(user_id) MATCH FULL;
-
-
---
 -- Name: user_plugin_plugin_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
 --
 
@@ -27827,14 +27203,6 @@ ALTER TABLE ONLY user_plugin
 
 ALTER TABLE ONLY user_plugin
     ADD CONSTRAINT user_plugin_user_id_fk FOREIGN KEY (user_id) REFERENCES users(user_id) MATCH FULL;
-
-
---
--- Name: usergroup_roleid; Type: FK CONSTRAINT; Schema: public; Owner: gforge
---
-
-ALTER TABLE ONLY user_group
-    ADD CONSTRAINT usergroup_roleid FOREIGN KEY (role_id) REFERENCES role(role_id) MATCH FULL;
 
 
 --
