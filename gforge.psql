@@ -1602,7 +1602,9 @@ CREATE TABLE common_video_image_type (
     id serial primary key,
     type_desc text
 );
-ALTER TABLE common_video_image_type OWNER TO gforge;
+ALTER TABLE common_video_image_type OWNER TO gforge;  
+INSERT INTO common_video_image_type VALUES (1, 'organization_video');
+INSERT INTO common_video_image_type VALUES (2, 'organization_image');
 
 CREATE TABLE organization_image (
     id serial primary key,
