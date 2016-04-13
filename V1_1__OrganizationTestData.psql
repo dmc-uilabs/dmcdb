@@ -52,4 +52,7 @@ insert into Organization_DMDII_Member (Organization_ID, DMDII_Type_ID, Modificat
 insert into organization (organization_id,name) values (12,'Google');
 insert into organization (organization_id,name) values (13,'Other');
 
+-- add fforgeadmin to General Electric for testing
+insert into organization_user(organization_id, user_id) values (1, 102);
+
 SELECT pg_catalog.setval('organization_organization_id_seq', 14, true);
