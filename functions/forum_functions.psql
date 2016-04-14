@@ -1,0 +1,17 @@
+
+--
+-- Name: forumgrouplist_insert_agg(); Type: FUNCTION; Schema: public; Owner: gforge
+--
+
+CREATE FUNCTION forumgrouplist_insert_agg() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+        INSERT INTO forum_agg_msg_count (group_forum_id,count) 
+                VALUES (NEW.group_forum_id,0);
+        RETURN NEW;
+END;    
+$$;
+
+
+ALTER FUNCTION public.forumgrouplist_insert_agg() OWNER TO gforge;

@@ -1,0 +1,18 @@
+
+ALTER FUNCTION public.site_activity_before_delete() OWNER TO gforge;
+
+--
+-- Name: site_activity_comments_before_delete(); Type: FUNCTION; Schema: public; Owner: gforge
+--
+
+CREATE FUNCTION site_activity_comments_before_delete() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+    BEGIN
+		INSERT INTO deleted_site_activity_comments VALUES(OLD.activity_comment_id, OLD.site_activity_id,OLD.user_id,OLD.time_posted,OLD.comment,EXTRACT(EPOCH FROM now())::integer);
+		RETURN OLD;
+    END;
+$$;
+
+
+ALTER FUNCTION public.site_activity_comments_before_delete() OWNER TO gforge;

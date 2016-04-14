@@ -1,0 +1,42 @@
+
+--
+-- Name: form_keys; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE form_keys (
+    key_id integer NOT NULL,
+    key text NOT NULL,
+    creation_date integer NOT NULL,
+    is_used integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE form_keys OWNER TO gforge;
+
+--
+-- Name: form_keys_key_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE form_keys_key_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE form_keys_key_id_seq OWNER TO gforge;
+
+--
+-- Name: form_keys_key_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE form_keys_key_id_seq OWNED BY form_keys.key_id;
+
+
+--
+-- Name: key_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY form_keys ALTER COLUMN key_id SET DEFAULT nextval('form_keys_key_id_seq'::regclass);
+

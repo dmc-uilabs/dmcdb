@@ -1,0 +1,269 @@
+
+--
+-- Name: doc2_files; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE doc2_files (
+    file_id integer NOT NULL,
+    owner_id integer NOT NULL,
+    filename text NOT NULL,
+    description text NOT NULL,
+    modified_date integer NOT NULL,
+    doc_group_id integer NOT NULL,
+    size integer,
+    group_id integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE doc2_files OWNER TO gforge;
+
+--
+-- Name: TABLE doc2_files; Type: COMMENT; Schema: public; Owner: gforge
+--
+
+COMMENT ON TABLE doc2_files IS 'Stores data for uploaded docs';
+
+
+--
+-- Name: doc2_files_file_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE doc2_files_file_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE doc2_files_file_id_seq OWNER TO gforge;
+
+--
+-- Name: doc2_files_file_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE doc2_files_file_id_seq OWNED BY doc2_files.file_id;
+
+
+--
+-- Name: doc2_groups; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE doc2_groups (
+    doc_group_id integer NOT NULL,
+    group_name text NOT NULL,
+    owner_id integer NOT NULL,
+    description text NOT NULL,
+    parent_group_id integer DEFAULT 0,
+    permission_id integer,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE doc2_groups OWNER TO gforge;
+
+--
+-- Name: TABLE doc2_groups; Type: COMMENT; Schema: public; Owner: gforge
+--
+
+COMMENT ON TABLE doc2_groups IS '"Folders" for documents';
+
+
+--
+-- Name: doc2_groups_doc_group_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE doc2_groups_doc_group_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE doc2_groups_doc_group_id_seq OWNER TO gforge;
+
+--
+-- Name: doc2_groups_doc_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE doc2_groups_doc_group_id_seq OWNED BY doc2_groups.doc_group_id;
+
+
+--
+-- Name: doc_data; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE doc_data (
+    docid integer DEFAULT nextval(('doc_data_pk_seq'::text)::regclass) NOT NULL,
+    stateid integer DEFAULT 0 NOT NULL,
+    title character varying(255) DEFAULT ''::character varying NOT NULL,
+    data text DEFAULT ''::text NOT NULL,
+    updatedate integer DEFAULT 0 NOT NULL,
+    createdate integer DEFAULT 0 NOT NULL,
+    created_by integer DEFAULT 0 NOT NULL,
+    doc_group integer DEFAULT 0 NOT NULL,
+    description text,
+    language_id integer DEFAULT 1 NOT NULL,
+    filename text,
+    filetype text,
+    group_id integer,
+    filesize integer DEFAULT 0 NOT NULL,
+    data_words text DEFAULT ''::text NOT NULL,
+    reserved integer DEFAULT 0,
+    reserved_by integer,
+    locked integer DEFAULT 0,
+    locked_by integer,
+    lockdate integer DEFAULT 0
+);
+
+
+ALTER TABLE doc_data OWNER TO gforge;
+
+--
+-- Name: doc_data_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE doc_data_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE doc_data_pk_seq OWNER TO gforge;
+
+--
+-- Name: doc_groups; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE doc_groups (
+    doc_group integer DEFAULT nextval(('doc_groups_pk_seq'::text)::regclass) NOT NULL,
+    groupname character varying(255) DEFAULT ''::character varying NOT NULL,
+    group_id integer DEFAULT 0 NOT NULL,
+    parent_doc_group integer DEFAULT 0 NOT NULL,
+    stateid integer DEFAULT 1
+);
+
+
+ALTER TABLE doc_groups OWNER TO gforge;
+
+--
+-- Name: doc_groups_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE doc_groups_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE doc_groups_pk_seq OWNER TO gforge;
+
+--
+-- Name: doc_states; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE doc_states (
+    stateid integer DEFAULT nextval(('doc_states_pk_seq'::text)::regclass) NOT NULL,
+    name character varying(255) DEFAULT ''::character varying NOT NULL
+);
+
+
+ALTER TABLE doc_states OWNER TO gforge;
+
+--
+-- Name: doc_states_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE doc_states_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE doc_states_pk_seq OWNER TO gforge;
+
+--
+-- Name: docdata_monitored_docman; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE docdata_monitored_docman (
+    monitor_id integer DEFAULT nextval(('docdata_monitored_docman_pk_seq'::text)::regclass) NOT NULL,
+    doc_id integer DEFAULT 0 NOT NULL,
+    user_id integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE docdata_monitored_docman OWNER TO gforge;
+
+--
+-- Name: docdata_monitored_docman_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE docdata_monitored_docman_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE docdata_monitored_docman_pk_seq OWNER TO gforge;
+
+--
+-- Name: docdata_vw; Type: VIEW; Schema: public; Owner: gforge
+--
+
+CREATE VIEW docdata_vw AS
+SELECT users.user_name, users.realname, users.email, d.group_id, d.docid, d.stateid, d.title, d.updatedate, d.createdate, d.created_by, d.doc_group, d.description, d.filename, d.filetype, d.filesize, d.reserved, d.reserved_by, d.locked, d.locked_by, d.lockdate, doc_states.name AS state_name, doc_groups.groupname AS group_name FROM doc_data d, users, doc_groups, doc_states WHERE (((d.created_by = users.user_id) AND (doc_groups.doc_group = d.doc_group)) AND (doc_states.stateid = d.stateid));
+
+
+ALTER TABLE docdata_vw OWNER TO gforge;
+
+--
+-- Name: docgroup_monitored_docman; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE docgroup_monitored_docman (
+    monitor_id integer DEFAULT nextval(('docgroup_monitored_docman_pk_seq'::text)::regclass) NOT NULL,
+    docgroup_id integer DEFAULT 0 NOT NULL,
+    user_id integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE docgroup_monitored_docman OWNER TO gforge;
+
+--
+-- Name: docgroup_monitored_docman_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE docgroup_monitored_docman_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE docgroup_monitored_docman_pk_seq OWNER TO gforge;
+
+
+--
+-- Name: file_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY doc2_files ALTER COLUMN file_id SET DEFAULT nextval('doc2_files_file_id_seq'::regclass);
+
+
+--
+-- Name: doc_group_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY doc2_groups ALTER COLUMN doc_group_id SET DEFAULT nextval('doc2_groups_doc_group_id_seq'::regclass);
+

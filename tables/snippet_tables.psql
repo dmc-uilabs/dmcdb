@@ -1,0 +1,149 @@
+--
+-- Name: snippet; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE snippet (
+    snippet_id integer DEFAULT nextval(('snippet_pk_seq'::text)::regclass) NOT NULL,
+    created_by integer DEFAULT 0 NOT NULL,
+    name text,
+    description text,
+    type integer DEFAULT 0 NOT NULL,
+    language integer DEFAULT 0 NOT NULL,
+    license text DEFAULT ''::text NOT NULL,
+    category integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE snippet OWNER TO gforge;
+
+--
+-- Name: snippet_package; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE snippet_package (
+    snippet_package_id integer DEFAULT nextval(('snippet_package_pk_seq'::text)::regclass) NOT NULL,
+    created_by integer DEFAULT 0 NOT NULL,
+    name text,
+    description text,
+    category integer DEFAULT 0 NOT NULL,
+    language integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE snippet_package OWNER TO gforge;
+
+--
+-- Name: snippet_package_item; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE snippet_package_item (
+    snippet_package_item_id integer DEFAULT nextval(('snippet_package_item_pk_seq'::text)::regclass) NOT NULL,
+    snippet_package_version_id integer DEFAULT 0 NOT NULL,
+    snippet_version_id integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE snippet_package_item OWNER TO gforge;
+
+--
+-- Name: snippet_package_item_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE snippet_package_item_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE snippet_package_item_pk_seq OWNER TO gforge;
+
+--
+-- Name: snippet_package_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE snippet_package_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE snippet_package_pk_seq OWNER TO gforge;
+
+--
+-- Name: snippet_package_version; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE snippet_package_version (
+    snippet_package_version_id integer DEFAULT nextval(('snippet_package_version_pk_seq'::text)::regclass) NOT NULL,
+    snippet_package_id integer DEFAULT 0 NOT NULL,
+    changes text,
+    version text,
+    submitted_by integer DEFAULT 0 NOT NULL,
+    post_date integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE snippet_package_version OWNER TO gforge;
+
+--
+-- Name: snippet_package_version_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE snippet_package_version_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE snippet_package_version_pk_seq OWNER TO gforge;
+
+--
+-- Name: snippet_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE snippet_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE snippet_pk_seq OWNER TO gforge;
+
+--
+-- Name: snippet_version; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE snippet_version (
+    snippet_version_id integer DEFAULT nextval(('snippet_version_pk_seq'::text)::regclass) NOT NULL,
+    snippet_id integer DEFAULT 0 NOT NULL,
+    changes text,
+    version text,
+    submitted_by integer DEFAULT 0 NOT NULL,
+    post_date integer DEFAULT 0 NOT NULL,
+    code text
+);
+
+
+ALTER TABLE snippet_version OWNER TO gforge;
+
+--
+-- Name: snippet_version_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE snippet_version_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE snippet_version_pk_seq OWNER TO gforge;

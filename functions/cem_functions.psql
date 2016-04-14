@@ -1,0 +1,158 @@
+
+--
+-- Name: cem_delete(); Type: FUNCTION; Schema: public; Owner: gforge
+--
+
+CREATE FUNCTION cem_delete() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+    BEGIN
+PERFORM core_delete( 'components', OLD.cem_id);
+RETURN NEW;
+    END;
+$$;
+
+
+ALTER FUNCTION public.cem_delete() OWNER TO gforge;
+
+--
+-- Name: cem_insert(); Type: FUNCTION; Schema: public; Owner: gforge
+--
+
+CREATE FUNCTION cem_insert() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+    BEGIN
+PERFORM core_insert( 'components', NEW.cem_id);
+RETURN NEW;
+    END;
+$$;
+
+
+ALTER FUNCTION public.cem_insert() OWNER TO gforge;
+
+--
+-- Name: cem_object_git_acl_before_delete(); Type: FUNCTION; Schema: public; Owner: gforge
+--
+
+CREATE FUNCTION cem_object_git_acl_before_delete() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+    BEGIN
+		INSERT INTO deleted_cem_object_git_acl VALUES(OLD.cem_git_acl_id,OLD.cem_id,OLD.user_id,OLD.permissions,EXTRACT(EPOCH FROM now())::integer);
+		RETURN OLD;
+    END;
+$$;
+
+
+ALTER FUNCTION public.cem_object_git_acl_before_delete() OWNER TO gforge;
+
+--
+-- Name: cem_objects_before_delete(); Type: FUNCTION; Schema: public; Owner: gforge
+--
+
+CREATE FUNCTION cem_objects_before_delete() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+    BEGIN
+		INSERT INTO deleted_cem_objects VALUES(OLD.cem_id,OLD.group_id,OLD.name,OLD.parent_cem_id,OLD.last_repo_update,OLD.repo_creation_time,OLD.export_control,OLD.description,EXTRACT(EPOCH FROM now())::integer);
+		RETURN OLD;
+    END;
+$$;
+
+
+ALTER FUNCTION public.cem_objects_before_delete() OWNER TO gforge;
+
+--
+-- Name: cem_service_categories_before_delete(); Type: FUNCTION; Schema: public; Owner: gforge
+--
+
+CREATE FUNCTION cem_service_categories_before_delete() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+    BEGIN
+		INSERT INTO deleted_cem_service_categories VALUES(OLD.cem_service_id,OLD.cem_id,OLD.cat_id,EXTRACT(EPOCH FROM now())::integer);
+		RETURN OLD;
+    END;
+$$;
+
+
+ALTER FUNCTION public.cem_service_categories_before_delete() OWNER TO gforge;
+
+--
+-- Name: cem_service_categories_delete(); Type: FUNCTION; Schema: public; Owner: gforge
+--
+
+CREATE FUNCTION cem_service_categories_delete() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+    DECLARE
+       i_id          INTEGER;
+    BEGIN
+       PERFORM core_update( 'components', OLD.cem_id);
+       FOR i_id IN SELECT interface_id FROM dome_interfaces
+                   WHERE cem_id = OLD.cem_id LOOP
+	   PERFORM core_update( 'services', i_id);
+       END LOOP;
+       RETURN NEW;
+    END;
+$$;
+
+
+ALTER FUNCTION public.cem_service_categories_delete() OWNER TO gforge;
+
+--
+-- Name: cem_service_categories_insert(); Type: FUNCTION; Schema: public; Owner: gforge
+--
+
+CREATE FUNCTION cem_service_categories_insert() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+    DECLARE
+       i_id          INTEGER;
+    BEGIN
+       PERFORM core_update( 'components', NEW.cem_id);
+       FOR i_id IN SELECT interface_id FROM dome_interfaces
+                   WHERE cem_id = NEW.cem_id LOOP
+	   PERFORM core_update( 'services', i_id);
+       END LOOP;
+       RETURN NEW;
+    END;
+$$;
+
+
+ALTER FUNCTION public.cem_service_categories_insert() OWNER TO gforge;
+
+--
+-- Name: cem_tags_join_before_delete(); Type: FUNCTION; Schema: public; Owner: gforge
+--
+
+CREATE FUNCTION cem_tags_join_before_delete() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+    BEGIN
+		INSERT INTO deleted_cem_tags_join VALUES(OLD.join_id,OLD.cem_id,OLD.cem_tag_id,OLD.group_id,EXTRACT(EPOCH FROM now())::integer);
+		RETURN OLD;
+    END;
+$$;
+
+
+ALTER FUNCTION public.cem_tags_join_before_delete() OWNER TO gforge;
+
+--
+-- Name: cem_update(); Type: FUNCTION; Schema: public; Owner: gforge
+--
+
+CREATE FUNCTION cem_update() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+    BEGIN
+   	IF ( NOT NEW.name = OLD.name) THEN
+	   PERFORM core_update( 'components', NEW.cem_id);
+	END IF;
+	RETURN new;
+    END;
+$$;
+
+
+ALTER FUNCTION public.cem_update() OWNER TO gforge;

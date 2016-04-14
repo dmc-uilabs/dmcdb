@@ -1,0 +1,126 @@
+
+--
+-- Name: trove_agg; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE trove_agg (
+    trove_cat_id integer,
+    group_id integer,
+    group_name character varying(40),
+    unix_group_name character varying(30),
+    status character(1),
+    register_time integer,
+    short_description character varying(255),
+    percentile double precision,
+    ranking integer
+);
+
+
+ALTER TABLE trove_agg OWNER TO gforge;
+
+--
+-- Name: trove_cat; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE trove_cat (
+    trove_cat_id integer DEFAULT nextval(('trove_cat_pk_seq'::text)::regclass) NOT NULL,
+    version integer DEFAULT 0 NOT NULL,
+    parent integer DEFAULT 0 NOT NULL,
+    root_parent integer DEFAULT 0 NOT NULL,
+    shortname character varying(80),
+    fullname character varying(80),
+    description character varying(255),
+    count_subcat integer DEFAULT 0 NOT NULL,
+    count_subproj integer DEFAULT 0 NOT NULL,
+    fullpath text DEFAULT ''::text NOT NULL,
+    fullpath_ids text
+);
+
+
+ALTER TABLE trove_cat OWNER TO gforge;
+
+--
+-- Name: trove_cat_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE trove_cat_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE trove_cat_pk_seq OWNER TO gforge;
+
+--
+-- Name: trove_group_link; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE trove_group_link (
+    trove_group_id integer DEFAULT nextval(('trove_group_link_pk_seq'::text)::regclass) NOT NULL,
+    trove_cat_id integer DEFAULT 0 NOT NULL,
+    trove_cat_version integer DEFAULT 0 NOT NULL,
+    group_id integer DEFAULT 0 NOT NULL,
+    trove_cat_root integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE trove_group_link OWNER TO gforge;
+
+--
+-- Name: trove_group_link_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE trove_group_link_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE trove_group_link_pk_seq OWNER TO gforge;
+
+--
+-- Name: trove_treesum_trove_treesum_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE trove_treesum_trove_treesum_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE trove_treesum_trove_treesum_seq OWNER TO gforge;
+
+--
+-- Name: trove_treesums; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE trove_treesums (
+    trove_treesums_id integer DEFAULT nextval(('"trove_treesum_trove_treesum_seq"'::text)::regclass) NOT NULL,
+    trove_cat_id integer DEFAULT 0 NOT NULL,
+    limit_1 integer DEFAULT 0 NOT NULL,
+    subprojects integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE trove_treesums OWNER TO gforge;
+
+--
+-- Name: trove_treesums_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE trove_treesums_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE trove_treesums_pk_seq OWNER TO gforge;
+

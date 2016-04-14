@@ -1,0 +1,1663 @@
+
+
+SET search_path = public, pg_catalog;
+
+--
+-- Name: art_assign_status; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX art_assign_status ON artifact USING btree (assigned_to, status_id);
+
+
+--
+-- Name: art_groupartid; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX art_groupartid ON artifact USING btree (group_artifact_id);
+
+
+--
+-- Name: art_groupartid_artifactid; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX art_groupartid_artifactid ON artifact USING btree (group_artifact_id, artifact_id);
+
+
+--
+-- Name: art_groupartid_assign; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX art_groupartid_assign ON artifact USING btree (group_artifact_id, assigned_to);
+
+
+--
+-- Name: art_groupartid_statusid; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX art_groupartid_statusid ON artifact USING btree (group_artifact_id, status_id);
+
+
+--
+-- Name: art_groupartid_submit; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX art_groupartid_submit ON artifact USING btree (group_artifact_id, submitted_by);
+
+
+--
+-- Name: art_submit_status; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX art_submit_status ON artifact USING btree (submitted_by, status_id);
+
+
+--
+-- Name: artfile_artid_adddate; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX artfile_artid_adddate ON artifact_file USING btree (artifact_id, adddate);
+
+
+--
+-- Name: artgrouplist_groupid_public; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX artgrouplist_groupid_public ON artifact_group_list USING btree (group_id, is_public);
+
+
+--
+-- Name: arthistory_artid_entrydate; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX arthistory_artid_entrydate ON artifact_history USING btree (artifact_id, entrydate);
+
+
+--
+-- Name: artifact_workflow_event_index; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX artifact_workflow_event_index ON artifact_workflow_event USING btree (event_id, group_artifact_id, field_id);
+
+
+--
+-- Name: artifactcannedresponses_groupid; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX artifactcannedresponses_groupid ON artifact_canned_responses USING btree (group_artifact_id);
+
+
+--
+-- Name: artifactextrafielddata_artifactid; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX artifactextrafielddata_artifactid ON artifact_extra_field_data USING btree (artifact_id);
+
+
+--
+-- Name: artifactextrafieldlist_groupartid; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX artifactextrafieldlist_groupartid ON artifact_extra_field_list USING btree (group_artifact_id);
+
+
+--
+-- Name: artifactextrafldlmts_extrafieldid; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX artifactextrafldlmts_extrafieldid ON artifact_extra_field_elements USING btree (extra_field_id);
+
+
+--
+-- Name: artmessage_artid_adddate; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX artmessage_artid_adddate ON artifact_message USING btree (artifact_id, adddate);
+
+
+--
+-- Name: artmonitor_useridartid; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX artmonitor_useridartid ON artifact_monitor USING btree (user_id, artifact_id);
+
+
+--
+-- Name: cronhist_jobrundate; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX cronhist_jobrundate ON cron_history USING btree (job, rundate);
+
+
+--
+-- Name: cronhist_rundate; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX cronhist_rundate ON cron_history USING btree (rundate);
+
+
+--
+-- Name: db_images_group; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX db_images_group ON db_images USING btree (group_id);
+
+
+--
+-- Name: doc_groups_group; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX doc_groups_group ON doc_groups USING btree (group_id);
+
+
+--
+-- Name: docdata_groupid; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX docdata_groupid ON doc_data USING btree (group_id, doc_group);
+
+
+--
+-- Name: docgroups_parentdocgroup; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX docgroups_parentdocgroup ON doc_groups USING btree (parent_doc_group);
+
+
+--
+-- Name: filemodulemonitor_useridfilemoduleid; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX filemodulemonitor_useridfilemoduleid ON filemodule_monitor USING btree (user_id, filemodule_id);
+
+
+--
+-- Name: forum_forumid_isfollto_mostrece; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX forum_forumid_isfollto_mostrece ON forum USING btree (group_forum_id, is_followup_to, most_recent_date);
+
+
+--
+-- Name: forum_forumid_msgid; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX forum_forumid_msgid ON forum USING btree (group_forum_id, msg_id);
+
+
+--
+-- Name: forum_forumid_threadid_mostrece; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX forum_forumid_threadid_mostrece ON forum USING btree (group_forum_id, thread_id, most_recent_date);
+
+
+--
+-- Name: forum_group_forum_id; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX forum_group_forum_id ON forum USING btree (group_forum_id);
+
+
+--
+-- Name: forum_group_list_group_id; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX forum_group_list_group_id ON forum_group_list USING btree (group_id);
+
+
+--
+-- Name: forum_threadid_isfollowupto; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX forum_threadid_isfollowupto ON forum USING btree (thread_id, is_followup_to);
+
+
+--
+-- Name: forummonitoredforums_useridforumid; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX forummonitoredforums_useridforumid ON forum_monitored_forums USING btree (user_id, forum_id);
+
+
+--
+-- Name: frs_file_date; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX frs_file_date ON frs_file USING btree (post_date);
+
+
+--
+-- Name: frs_file_release_id; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX frs_file_release_id ON frs_file USING btree (release_id);
+
+
+--
+-- Name: frs_release_package; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX frs_release_package ON frs_release USING btree (package_id);
+
+
+--
+-- Name: group_history_group_id; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX group_history_group_id ON group_history USING btree (group_id);
+
+
+--
+-- Name: group_unix_uniq; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE UNIQUE INDEX group_unix_uniq ON groups USING btree (unix_group_name);
+
+
+--
+-- Name: groupcvshistory_groupid; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX groupcvshistory_groupid ON group_cvs_history USING btree (group_id);
+
+
+--
+-- Name: groupplugin_groupid; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX groupplugin_groupid ON group_plugin USING btree (group_id);
+
+
+--
+-- Name: groups_public; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX groups_public ON groups USING btree (is_public);
+
+
+--
+-- Name: groups_status; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX groups_status ON groups USING btree (status);
+
+
+--
+-- Name: groups_type; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX groups_type ON groups USING btree (type_id);
+
+
+--
+-- Name: idx_prdb_dbname; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE UNIQUE INDEX idx_prdb_dbname ON prdb_dbs USING btree (dbname);
+
+
+--
+-- Name: idx_vhost_groups; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX idx_vhost_groups ON prweb_vhost USING btree (group_id);
+
+
+--
+-- Name: idx_vhost_hostnames; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE UNIQUE INDEX idx_vhost_hostnames ON prweb_vhost USING btree (vhost_name);
+
+
+--
+-- Name: mail_group_list_group; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX mail_group_list_group ON mail_group_list USING btree (group_id);
+
+
+--
+-- Name: news_approved_date; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX news_approved_date ON news_bytes USING btree (is_approved, post_date);
+
+
+--
+-- Name: news_bytes_approved; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX news_bytes_approved ON news_bytes USING btree (is_approved);
+
+
+--
+-- Name: news_bytes_forum; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX news_bytes_forum ON news_bytes USING btree (forum_id);
+
+
+--
+-- Name: news_bytes_group; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX news_bytes_group ON news_bytes USING btree (group_id);
+
+
+--
+-- Name: news_group_date; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX news_group_date ON news_bytes USING btree (group_id, post_date);
+
+
+--
+-- Name: package_group_id; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX package_group_id ON frs_package USING btree (group_id);
+
+
+--
+-- Name: pages_by_day_day; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX pages_by_day_day ON stats_agg_pages_by_day USING btree (day);
+
+
+--
+-- Name: people_job_group_id; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX people_job_group_id ON people_job USING btree (group_id);
+
+
+--
+-- Name: plugin_cvstracker_group_artifact_id; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX plugin_cvstracker_group_artifact_id ON plugin_cvstracker_data_artifact USING btree (group_artifact_id);
+
+
+--
+-- Name: plugins_plugin_name_key; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE UNIQUE INDEX plugins_plugin_name_key ON plugins USING btree (plugin_name);
+
+
+--
+-- Name: prdbdbs_groupid; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX prdbdbs_groupid ON prdb_dbs USING btree (group_id);
+
+
+--
+-- Name: prdbstates_stateid; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX prdbstates_stateid ON prdb_states USING btree (stateid);
+
+
+--
+-- Name: project_categor_category_id_key; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE UNIQUE INDEX project_categor_category_id_key ON project_category USING btree (category_id);
+
+
+--
+-- Name: project_group_list_group_id; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX project_group_list_group_id ON project_group_list USING btree (group_id);
+
+
+--
+-- Name: project_history_task_id; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX project_history_task_id ON project_history USING btree (project_task_id);
+
+
+--
+-- Name: project_messa_project_messa_key; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE UNIQUE INDEX project_messa_project_messa_key ON project_messages USING btree (project_message_id);
+
+
+--
+-- Name: project_metric_group; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX project_metric_group ON project_metric USING btree (group_id);
+
+
+--
+-- Name: project_metric_weekly_group; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX project_metric_weekly_group ON project_weekly_metric USING btree (group_id);
+
+
+--
+-- Name: projectassigned_assignedtotaskid; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX projectassigned_assignedtotaskid ON project_assigned_to USING btree (assigned_to_id, project_task_id);
+
+
+--
+-- Name: projectcategory_groupprojectid; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX projectcategory_groupprojectid ON project_category USING btree (group_project_id);
+
+
+--
+-- Name: projectdep_isdepon_projtaskid; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX projectdep_isdepon_projtaskid ON project_dependencies USING btree (is_dependent_on_task_id, project_task_id);
+
+
+--
+-- Name: projectmsgs_projtaskidpostdate; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX projectmsgs_projtaskidpostdate ON project_messages USING btree (project_task_id, postdate);
+
+
+--
+-- Name: projecttask_projid_status; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX projecttask_projid_status ON project_task USING btree (group_project_id, status_id);
+
+
+--
+-- Name: projecttaskartifact_artidprojtaskid; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX projecttaskartifact_artidprojtaskid ON project_task_artifact USING btree (artifact_id, project_task_id);
+
+
+--
+-- Name: projectweeklymetric_ranking; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX projectweeklymetric_ranking ON project_weekly_metric USING btree (ranking);
+
+
+--
+-- Name: repgroupactdaily_day; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX repgroupactdaily_day ON rep_group_act_daily USING btree (day);
+
+
+--
+-- Name: repgroupactmonthly_month; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX repgroupactmonthly_month ON rep_group_act_monthly USING btree (month);
+
+
+--
+-- Name: repgroupactweekly_week; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX repgroupactweekly_week ON rep_group_act_weekly USING btree (week);
+
+
+--
+-- Name: reptimetracking_userdate; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX reptimetracking_userdate ON rep_time_tracking USING btree (user_id, week);
+
+
+--
+-- Name: role_groupidroleid; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE UNIQUE INDEX role_groupidroleid ON pfo_role USING btree (home_group_id, role_id);
+
+
+--
+-- Name: session_time; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX session_time ON user_session USING btree ("time");
+
+
+--
+-- Name: session_user_id; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX session_user_id ON user_session USING btree (user_id);
+
+
+--
+-- Name: snippet_category; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX snippet_category ON snippet USING btree (category);
+
+
+--
+-- Name: snippet_language; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX snippet_language ON snippet USING btree (language);
+
+
+--
+-- Name: snippet_package_category; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX snippet_package_category ON snippet_package USING btree (category);
+
+
+--
+-- Name: snippet_package_item_pkg_ver; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX snippet_package_item_pkg_ver ON snippet_package_item USING btree (snippet_package_version_id);
+
+
+--
+-- Name: snippet_package_language; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX snippet_package_language ON snippet_package USING btree (language);
+
+
+--
+-- Name: snippet_package_version_pkg_id; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX snippet_package_version_pkg_id ON snippet_package_version USING btree (snippet_package_id);
+
+
+--
+-- Name: snippet_version_snippet_id; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX snippet_version_snippet_id ON snippet_version USING btree (snippet_id);
+
+
+--
+-- Name: statscvsgroup_month_day_group; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE UNIQUE INDEX statscvsgroup_month_day_group ON stats_cvs_group USING btree (month, day, group_id);
+
+
+--
+-- Name: statslogobygroup_month_day_grou; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE UNIQUE INDEX statslogobygroup_month_day_grou ON stats_agg_logo_by_group USING btree (month, day, group_id);
+
+
+--
+-- Name: statsproject_month_day_group; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE UNIQUE INDEX statsproject_month_day_group ON stats_project USING btree (month, day, group_id);
+
+
+--
+-- Name: statsprojectdev_month_day_group; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE UNIQUE INDEX statsprojectdev_month_day_group ON stats_project_developers USING btree (month, day, group_id);
+
+
+--
+-- Name: statsprojectmetric_month_day_gr; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE UNIQUE INDEX statsprojectmetric_month_day_gr ON stats_project_metric USING btree (month, day, group_id);
+
+
+--
+-- Name: statsprojectmonths_groupid; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX statsprojectmonths_groupid ON stats_project_months USING btree (group_id);
+
+
+--
+-- Name: statsprojectmonths_groupid_mont; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX statsprojectmonths_groupid_mont ON stats_project_months USING btree (group_id, month);
+
+
+--
+-- Name: statssite_month_day; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE UNIQUE INDEX statssite_month_day ON stats_site USING btree (month, day);
+
+
+--
+-- Name: statssitebygroup_month_day_grou; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE UNIQUE INDEX statssitebygroup_month_day_grou ON stats_agg_site_by_group USING btree (month, day, group_id);
+
+
+--
+-- Name: statssitemonths_month; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX statssitemonths_month ON stats_site_months USING btree (month);
+
+
+--
+-- Name: statssitepagesbyday_month_day; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX statssitepagesbyday_month_day ON stats_site_pages_by_day USING btree (month, day);
+
+
+--
+-- Name: statssubdpages_month_day_group; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE UNIQUE INDEX statssubdpages_month_day_group ON stats_subd_pages USING btree (month, day, group_id);
+
+
+--
+-- Name: supportedlanguage_code; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE UNIQUE INDEX supportedlanguage_code ON supported_languages USING btree (language_code);
+
+
+--
+-- Name: survey_questions_group; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX survey_questions_group ON survey_questions USING btree (group_id);
+
+
+--
+-- Name: survey_rating_aggregate_type_id; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX survey_rating_aggregate_type_id ON survey_rating_aggregate USING btree (type, id);
+
+
+--
+-- Name: survey_rating_responses_type_id; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX survey_rating_responses_type_id ON survey_rating_response USING btree (type, id);
+
+
+--
+-- Name: survey_rating_responses_user_ty; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX survey_rating_responses_user_ty ON survey_rating_response USING btree (user_id, type, id);
+
+
+--
+-- Name: survey_responses_group_id; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX survey_responses_group_id ON survey_responses USING btree (group_id);
+
+
+--
+-- Name: survey_responses_survey_questio; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX survey_responses_survey_questio ON survey_responses USING btree (survey_id, question_id);
+
+
+--
+-- Name: survey_responses_user_survey_qu; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX survey_responses_user_survey_qu ON survey_responses USING btree (user_id, survey_id, question_id);
+
+
+--
+-- Name: surveys_group; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX surveys_group ON surveys USING btree (group_id);
+
+
+--
+-- Name: troveagg_trovecatid_ranking; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX troveagg_trovecatid_ranking ON trove_agg USING btree (trove_cat_id, ranking);
+
+
+--
+-- Name: trovecat_parentid; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX trovecat_parentid ON trove_cat USING btree (parent);
+
+
+--
+-- Name: trovegrouplink_groupidcatid; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX trovegrouplink_groupidcatid ON trove_group_link USING btree (group_id, trove_cat_id);
+
+
+
+--
+-- Name: $1; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY project_task_external_order
+    ADD CONSTRAINT "$1" FOREIGN KEY (project_task_id) REFERENCES project_task(project_task_id) MATCH FULL ON DELETE CASCADE;
+
+
+--
+-- Name: $1; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY group_join_request
+    ADD CONSTRAINT "$1" FOREIGN KEY (group_id) REFERENCES groups(group_id) ON DELETE CASCADE;
+
+
+--
+-- Name: $1; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY artifact_type_monitor
+    ADD CONSTRAINT "$1" FOREIGN KEY (group_artifact_id) REFERENCES artifact_group_list(group_artifact_id) ON DELETE CASCADE;
+
+
+--
+-- Name: $1; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY plugin_cvstracker_data_master
+    ADD CONSTRAINT "$1" FOREIGN KEY (holder_id) REFERENCES plugin_cvstracker_data_artifact(id);
+
+
+--
+-- Name: $1; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY forum_attachment
+    ADD CONSTRAINT "$1" FOREIGN KEY (msg_id) REFERENCES forum(msg_id) ON DELETE CASCADE;
+
+
+--
+-- Name: $2; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY group_join_request
+    ADD CONSTRAINT "$2" FOREIGN KEY (user_id) REFERENCES users(user_id);
+
+--
+-- Name: $3; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY group_join_request
+    ADD CONSTRAINT "$3" FOREIGN KEY (requester_id) REFERENCES users(user_id);
+
+    --
+-- Name: $2; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY onboarding_status
+    ADD CONSTRAINT "$2" FOREIGN KEY (user_id) REFERENCES users(user_id);
+
+--
+-- Name: $2; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY artifact_type_monitor
+    ADD CONSTRAINT "$2" FOREIGN KEY (user_id) REFERENCES users(user_id);
+
+
+--
+-- Name: $2; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY plugin_cvstracker_data_master
+    ADD CONSTRAINT "$2" FOREIGN KEY (author) REFERENCES users(user_name);
+
+
+--
+-- Name: $2; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY forum_attachment
+    ADD CONSTRAINT "$2" FOREIGN KEY (userid) REFERENCES users(user_id) ON DELETE SET DEFAULT;
+
+
+--
+-- Name: artifact_assignedto_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY artifact
+    ADD CONSTRAINT artifact_assignedto_fk FOREIGN KEY (assigned_to) REFERENCES users(user_id) MATCH FULL;
+
+
+--
+-- Name: artifact_groupartifactid_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY artifact
+    ADD CONSTRAINT artifact_groupartifactid_fk FOREIGN KEY (group_artifact_id) REFERENCES artifact_group_list(group_artifact_id) MATCH FULL;
+
+
+--
+-- Name: artifact_statusid_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY artifact
+    ADD CONSTRAINT artifact_statusid_fk FOREIGN KEY (status_id) REFERENCES artifact_status(id) MATCH FULL;
+
+
+--
+-- Name: artifact_submittedby_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY artifact
+    ADD CONSTRAINT artifact_submittedby_fk FOREIGN KEY (submitted_by) REFERENCES users(user_id) MATCH FULL;
+
+
+--
+-- Name: artifact_workflow_event_group_artifact_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY artifact_workflow_event
+    ADD CONSTRAINT artifact_workflow_event_group_artifact_id_fkey FOREIGN KEY (group_artifact_id, field_id) REFERENCES artifact_extra_field_list(group_artifact_id, extra_field_id) ON DELETE CASCADE;
+
+
+--
+-- Name: artifact_workflow_notify_event_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY artifact_workflow_notify
+    ADD CONSTRAINT artifact_workflow_notify_event_id_fkey FOREIGN KEY (event_id) REFERENCES artifact_workflow_event(event_id) ON DELETE CASCADE;
+
+
+--
+-- Name: artifact_workflow_roles_event_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY artifact_workflow_roles
+    ADD CONSTRAINT artifact_workflow_roles_event_id_fkey FOREIGN KEY (event_id) REFERENCES artifact_workflow_event(event_id) ON DELETE CASCADE;
+
+
+--
+-- Name: artifactfile_artifactid_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY artifact_file
+    ADD CONSTRAINT artifactfile_artifactid_fk FOREIGN KEY (artifact_id) REFERENCES artifact(artifact_id) MATCH FULL;
+
+
+--
+-- Name: artifactfile_submittedby_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY artifact_file
+    ADD CONSTRAINT artifactfile_submittedby_fk FOREIGN KEY (submitted_by) REFERENCES users(user_id) MATCH FULL;
+
+
+--
+-- Name: artifactgroup_groupid_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY artifact_group_list
+    ADD CONSTRAINT artifactgroup_groupid_fk FOREIGN KEY (group_id) REFERENCES groups(group_id) MATCH FULL;
+
+
+--
+-- Name: artifacthistory_artifactid_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY artifact_history
+    ADD CONSTRAINT artifacthistory_artifactid_fk FOREIGN KEY (artifact_id) REFERENCES artifact(artifact_id) MATCH FULL;
+
+
+--
+-- Name: artifacthistory_modby_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY artifact_history
+    ADD CONSTRAINT artifacthistory_modby_fk FOREIGN KEY (mod_by) REFERENCES users(user_id) MATCH FULL;
+
+
+--
+-- Name: artifactmessage_artifactid_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY artifact_message
+    ADD CONSTRAINT artifactmessage_artifactid_fk FOREIGN KEY (artifact_id) REFERENCES artifact(artifact_id) MATCH FULL;
+
+
+--
+-- Name: artifactmessage_submittedby_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY artifact_message
+    ADD CONSTRAINT artifactmessage_submittedby_fk FOREIGN KEY (submitted_by) REFERENCES users(user_id) MATCH FULL;
+
+
+--
+-- Name: artifactmonitor_artifactid_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY artifact_monitor
+    ADD CONSTRAINT artifactmonitor_artifactid_fk FOREIGN KEY (artifact_id) REFERENCES artifact(artifact_id) MATCH FULL;
+
+
+--
+-- Name: artquery_groupartid_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY artifact_query
+    ADD CONSTRAINT artquery_groupartid_fk FOREIGN KEY (group_artifact_id) REFERENCES artifact_group_list(group_artifact_id) ON DELETE CASCADE;
+
+
+--
+-- Name: artqueryelmnt_artqueryid; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY artifact_query_fields
+    ADD CONSTRAINT artqueryelmnt_artqueryid FOREIGN KEY (artifact_query_id) REFERENCES artifact_query(artifact_query_id) ON DELETE CASCADE;
+
+
+--
+-- Name: docdata_docgroupid; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY doc_data
+    ADD CONSTRAINT docdata_docgroupid FOREIGN KEY (doc_group) REFERENCES doc_groups(doc_group);
+
+
+--
+-- Name: docdata_groupid; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY doc_data
+    ADD CONSTRAINT docdata_groupid FOREIGN KEY (group_id) REFERENCES groups(group_id) ON DELETE CASCADE;
+
+
+--
+-- Name: docdata_languageid_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY doc_data
+    ADD CONSTRAINT docdata_languageid_fk FOREIGN KEY (language_id) REFERENCES supported_languages(language_id) MATCH FULL;
+
+
+--
+-- Name: docdata_stateid; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY doc_data
+    ADD CONSTRAINT docdata_stateid FOREIGN KEY (stateid) REFERENCES doc_states(stateid);
+
+
+--
+-- Name: docgroups_groupid; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY doc_groups
+    ADD CONSTRAINT docgroups_groupid FOREIGN KEY (group_id) REFERENCES groups(group_id) ON DELETE CASCADE;
+
+
+--
+-- Name: fk_assignee_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY site_activity
+    ADD CONSTRAINT fk_assignee_id FOREIGN KEY (assigned_to_id) REFERENCES users(user_id);
+
+
+--
+-- Name: fk_badge_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY user_badges
+    ADD CONSTRAINT fk_badge_id FOREIGN KEY (badge_id) REFERENCES badges(badge_id);
+
+
+--
+-- Name: fk_cat_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY cem_service_categories
+    ADD CONSTRAINT fk_cat_id FOREIGN KEY (cat_id) REFERENCES service_categories(cat_id);
+
+
+--
+-- Name: fk_cem_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY cem_object_git_acl
+    ADD CONSTRAINT fk_cem_id FOREIGN KEY (cem_id) REFERENCES cem_objects(cem_id);
+
+
+--
+-- Name: fk_cem_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY cem_tags_join
+    ADD CONSTRAINT fk_cem_id FOREIGN KEY (cem_id) REFERENCES cem_objects(cem_id);
+
+
+--
+-- Name: fk_cem_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY dome_interfaces
+    ADD CONSTRAINT fk_cem_id FOREIGN KEY (cem_id) REFERENCES cem_objects(cem_id);
+
+
+--
+-- Name: fk_cem_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY cem_service_categories
+    ADD CONSTRAINT fk_cem_id FOREIGN KEY (cem_id) REFERENCES cem_objects(cem_id);
+
+
+--
+-- Name: fk_cem_tag_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY cem_tags_join
+    ADD CONSTRAINT fk_cem_tag_id FOREIGN KEY (cem_tag_id) REFERENCES cem_tags(cem_tag_id);
+
+
+--
+-- Name: fk_deleted_cem_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY deleted_cem_service_categories
+    ADD CONSTRAINT fk_deleted_cem_id FOREIGN KEY (cem_id) REFERENCES deleted_cem_objects(cem_id);
+
+
+--
+-- Name: fk_deleted_cem_tag_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY deleted_cem_tags_join
+    ADD CONSTRAINT fk_deleted_cem_tag_id FOREIGN KEY (cem_tag_id) REFERENCES cem_tags(cem_tag_id);
+
+
+--
+-- Name: fk_group_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY forums
+    ADD CONSTRAINT fk_group_id FOREIGN KEY (group_id) REFERENCES groups(group_id);
+
+
+--
+-- Name: fk_group_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY wiki_pages
+    ADD CONSTRAINT fk_group_id FOREIGN KEY (group_id) REFERENCES groups(group_id);
+
+
+--
+-- Name: fk_group_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY cem_objects
+    ADD CONSTRAINT fk_group_id FOREIGN KEY (group_id) REFERENCES groups(group_id);
+
+
+--
+-- Name: fk_group_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY cem_tags_join
+    ADD CONSTRAINT fk_group_id FOREIGN KEY (group_id) REFERENCES groups(group_id);
+
+
+--
+-- Name: fk_group_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY service_subscriptions
+    ADD CONSTRAINT fk_group_id FOREIGN KEY (group_id) REFERENCES groups(group_id);
+
+
+--
+-- Name: fk_interface_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY cem_runnables_running
+    ADD CONSTRAINT fk_interface_id FOREIGN KEY (interface_id) REFERENCES dome_interfaces(interface_id);
+
+
+--
+-- Name: fk_interface_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY runnable_runtimes
+    ADD CONSTRAINT fk_interface_id FOREIGN KEY (interface_id) REFERENCES dome_interfaces(interface_id);
+
+
+--
+-- Name: fk_interface_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY service_subscriptions
+    ADD CONSTRAINT fk_interface_id FOREIGN KEY (interface_id) REFERENCES dome_interfaces(interface_id);
+
+
+--
+-- Name: fk_owner_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY cem_runnables_running
+    ADD CONSTRAINT fk_owner_id FOREIGN KEY (owner_id) REFERENCES users(user_id);
+
+
+--
+-- Name: fk_ref_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY cem_runnables
+    ADD CONSTRAINT fk_ref_id FOREIGN KEY (ref_id) REFERENCES dome_interfaces(interface_id);
+
+
+--
+-- Name: fk_run_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY runnable_runtimes
+    ADD CONSTRAINT fk_run_id FOREIGN KEY (run_id) REFERENCES cem_runnables_running(running_id);
+
+
+--
+-- Name: fk_running_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY cem_runnable_messages
+    ADD CONSTRAINT fk_running_id FOREIGN KEY (running_id) REFERENCES cem_runnables_running(running_id);
+
+
+--
+-- Name: fk_server_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY dome_interfaces
+    ADD CONSTRAINT fk_server_id FOREIGN KEY (server_id) REFERENCES servers(server_id);
+
+
+--
+-- Name: fk_skill_keyword_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY user_skills_keywords_join
+    ADD CONSTRAINT fk_skill_keyword_id FOREIGN KEY (skill_keyword_id) REFERENCES skill_keywords(skill_keyword_id);
+
+
+--
+-- Name: fk_user_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY forum_topics
+    ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(user_id);
+
+
+--
+-- Name: fk_user_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY user_postcounts
+    ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(user_id);
+
+
+--
+-- Name: fk_user_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY wiki_pages
+    ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(user_id);
+
+
+--
+-- Name: fk_user_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY user_skills
+    ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(user_id);
+
+
+--
+-- Name: fk_user_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY cem_object_git_acl
+    ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(user_id);
+
+
+--
+-- Name: fk_user_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY servers
+    ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(user_id);
+
+
+--
+-- Name: fk_user_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY site_activity
+    ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(user_id);
+
+
+--
+-- Name: fk_user_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY user_pubkeys
+    ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(user_id);
+
+
+--
+-- Name: fk_user_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY user_badges
+    ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(user_id);
+
+
+--
+-- Name: fk_user_skill_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY user_skills_keywords_join
+    ADD CONSTRAINT fk_user_skill_id FOREIGN KEY (user_skill_id) REFERENCES user_skills(user_skill_id);
+
+
+--
+-- Name: forum_group_forum_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY forum
+    ADD CONSTRAINT forum_group_forum_id_fk FOREIGN KEY (group_forum_id) REFERENCES forum_group_list(group_forum_id) MATCH FULL;
+
+
+--
+-- Name: forum_group_list_group_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY forum_group_list
+    ADD CONSTRAINT forum_group_list_group_id_fk FOREIGN KEY (group_id) REFERENCES groups(group_id) MATCH FULL;
+
+
+--
+-- Name: forum_groupforumid; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY forum
+    ADD CONSTRAINT forum_groupforumid FOREIGN KEY (group_forum_id) REFERENCES forum_group_list(group_forum_id) MATCH FULL ON DELETE CASCADE;
+
+
+--
+-- Name: forum_pending_attachment_msg_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY forum_pending_attachment
+    ADD CONSTRAINT forum_pending_attachment_msg_id_fkey FOREIGN KEY (msg_id) REFERENCES forum_pending_messages(msg_id) ON DELETE CASCADE;
+
+
+--
+-- Name: forum_pending_attachment_userid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY forum_pending_attachment
+    ADD CONSTRAINT forum_pending_attachment_userid_fkey FOREIGN KEY (userid) REFERENCES users(user_id) ON DELETE SET DEFAULT;
+
+
+--
+-- Name: forum_pending_messages_group_forum_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY forum_pending_messages
+    ADD CONSTRAINT forum_pending_messages_group_forum_id_fkey FOREIGN KEY (group_forum_id) REFERENCES forum_group_list(group_forum_id) ON DELETE CASCADE;
+
+
+--
+-- Name: forum_posted_by_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY forum
+    ADD CONSTRAINT forum_posted_by_fk FOREIGN KEY (posted_by) REFERENCES users(user_id) MATCH FULL;
+
+
+--
+-- Name: forum_userid; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY forum
+    ADD CONSTRAINT forum_userid FOREIGN KEY (posted_by) REFERENCES users(user_id) MATCH FULL;
+
+
+--
+-- Name: forumgrouplist_groupid; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY forum_group_list
+    ADD CONSTRAINT forumgrouplist_groupid FOREIGN KEY (group_id) REFERENCES groups(group_id) MATCH FULL ON DELETE CASCADE;
+
+
+--
+-- Name: frsfile_processorid_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY frs_file
+    ADD CONSTRAINT frsfile_processorid_fk FOREIGN KEY (processor_id) REFERENCES frs_processor(processor_id) MATCH FULL;
+
+
+--
+-- Name: frsfile_releaseid_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY frs_file
+    ADD CONSTRAINT frsfile_releaseid_fk FOREIGN KEY (release_id) REFERENCES frs_release(release_id) MATCH FULL;
+
+
+--
+-- Name: frsfile_typeid_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY frs_file
+    ADD CONSTRAINT frsfile_typeid_fk FOREIGN KEY (type_id) REFERENCES frs_filetype(type_id) MATCH FULL;
+
+
+--
+-- Name: frspackage_groupid_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY frs_package
+    ADD CONSTRAINT frspackage_groupid_fk FOREIGN KEY (group_id) REFERENCES groups(group_id) MATCH FULL;
+
+
+--
+-- Name: frspackage_statusid_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY frs_package
+    ADD CONSTRAINT frspackage_statusid_fk FOREIGN KEY (status_id) REFERENCES frs_status(status_id) MATCH FULL;
+
+
+--
+-- Name: frsrelease_packageid_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY frs_release
+    ADD CONSTRAINT frsrelease_packageid_fk FOREIGN KEY (package_id) REFERENCES frs_package(package_id) MATCH FULL;
+
+
+--
+-- Name: frsrelease_releasedby_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY frs_release
+    ADD CONSTRAINT frsrelease_releasedby_fk FOREIGN KEY (released_by) REFERENCES users(user_id) MATCH FULL;
+
+
+--
+-- Name: frsrelease_statusid_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY frs_release
+    ADD CONSTRAINT frsrelease_statusid_fk FOREIGN KEY (status_id) REFERENCES frs_status(status_id) MATCH FULL;
+
+
+--
+-- Name: group_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY group_activity_monitor
+    ADD CONSTRAINT group_id FOREIGN KEY (group_id) REFERENCES groups(group_id) ON DELETE CASCADE;
+
+
+--
+-- Name: group_plugin_group_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY group_plugin
+    ADD CONSTRAINT group_plugin_group_id_fk FOREIGN KEY (group_id) REFERENCES groups(group_id) MATCH FULL;
+
+
+--
+-- Name: group_plugin_plugin_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY group_plugin
+    ADD CONSTRAINT group_plugin_plugin_id_fk FOREIGN KEY (plugin_id) REFERENCES plugins(plugin_id) MATCH FULL;
+
+
+--
+-- Name: mail_group_list_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY mail_group_list
+    ADD CONSTRAINT mail_group_list_group_id_fkey FOREIGN KEY (group_id) REFERENCES groups(group_id) ON DELETE CASCADE;
+
+
+--
+-- Name: pfo_role_role_class_fkey; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY pfo_role
+    ADD CONSTRAINT pfo_role_role_class_fkey FOREIGN KEY (role_class) REFERENCES pfo_role_class(class_id);
+
+
+--
+-- Name: pfo_role_setting_role_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY pfo_role_setting
+    ADD CONSTRAINT pfo_role_setting_role_id_fkey FOREIGN KEY (role_id) REFERENCES pfo_role(role_id);
+
+
+--
+-- Name: pfo_user_role_role_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY pfo_user_role
+    ADD CONSTRAINT pfo_user_role_role_id_fkey FOREIGN KEY (role_id) REFERENCES pfo_role(role_id);
+
+
+--
+-- Name: pfo_user_role_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY pfo_user_role
+    ADD CONSTRAINT pfo_user_role_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(user_id);
+
+
+--
+-- Name: projcat_projgroupid_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY project_category
+    ADD CONSTRAINT projcat_projgroupid_fk FOREIGN KEY (group_project_id) REFERENCES project_group_list(group_project_id) ON DELETE CASCADE;
+
+
+--
+-- Name: project_group_list_group_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY project_group_list
+    ADD CONSTRAINT project_group_list_group_id_fk FOREIGN KEY (group_id) REFERENCES groups(group_id) MATCH FULL;
+
+
+--
+-- Name: project_messages_posted_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY project_messages
+    ADD CONSTRAINT project_messages_posted_by_fkey FOREIGN KEY (posted_by) REFERENCES users(user_id);
+
+
+--
+-- Name: project_messages_project_task_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY project_messages
+    ADD CONSTRAINT project_messages_project_task_id_fkey FOREIGN KEY (project_task_id) REFERENCES project_task(project_task_id) ON DELETE CASCADE;
+
+
+--
+-- Name: project_task_category_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY project_task
+    ADD CONSTRAINT project_task_category_id_fkey FOREIGN KEY (category_id) REFERENCES project_category(category_id);
+
+
+--
+-- Name: project_task_created_by_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY project_task
+    ADD CONSTRAINT project_task_created_by_fk FOREIGN KEY (created_by) REFERENCES users(user_id) MATCH FULL;
+
+
+--
+-- Name: project_task_status_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY project_task
+    ADD CONSTRAINT project_task_status_id_fk FOREIGN KEY (status_id) REFERENCES project_status(status_id) MATCH FULL;
+
+
+--
+-- Name: projecttask_groupprojectid_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY project_task
+    ADD CONSTRAINT projecttask_groupprojectid_fk FOREIGN KEY (group_project_id) REFERENCES project_group_list(group_project_id) ON DELETE CASCADE;
+
+
+--
+-- Name: projtaskartifact_artifactid_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY project_task_artifact
+    ADD CONSTRAINT projtaskartifact_artifactid_fk FOREIGN KEY (artifact_id) REFERENCES artifact(artifact_id) ON DELETE CASCADE;
+
+
+--
+-- Name: projtaskartifact_projtaskid_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY project_task_artifact
+    ADD CONSTRAINT projtaskartifact_projtaskid_fk FOREIGN KEY (project_task_id) REFERENCES project_task(project_task_id) ON DELETE CASCADE;
+
+
+--
+-- Name: reptimetrk_timecode; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY rep_time_tracking
+    ADD CONSTRAINT reptimetrk_timecode FOREIGN KEY (time_code) REFERENCES rep_time_category(time_code);
+
+
+--
+-- Name: solr_index_event_status_fkey; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY solr_index_event
+    ADD CONSTRAINT solr_index_event_status_fkey FOREIGN KEY (status) REFERENCES solr_index_event_status(status);
+
+
+--
+-- Name: solr_index_event_update_type_fkey; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY solr_index_event
+    ADD CONSTRAINT solr_index_event_update_type_fkey FOREIGN KEY (update_type) REFERENCES solr_index_event_type(status);
+
+
+--
+-- Name: tgl_cat_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY trove_group_link
+    ADD CONSTRAINT tgl_cat_id_fk FOREIGN KEY (trove_cat_id) REFERENCES trove_cat(trove_cat_id) MATCH FULL;
+
+
+--
+-- Name: tgl_group_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY trove_group_link
+    ADD CONSTRAINT tgl_group_id_fk FOREIGN KEY (group_id) REFERENCES groups(group_id) MATCH FULL;
+
+
+--
+-- Name: trove_agg_cat_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY trove_agg
+    ADD CONSTRAINT trove_agg_cat_id_fk FOREIGN KEY (trove_cat_id) REFERENCES trove_cat(trove_cat_id) MATCH FULL;
+
+
+--
+-- Name: trove_agg_group_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY trove_agg
+    ADD CONSTRAINT trove_agg_group_id_fk FOREIGN KEY (group_id) REFERENCES groups(group_id) MATCH FULL;
+
+
+--
+-- Name: trove_treesums_cat_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY trove_treesums
+    ADD CONSTRAINT trove_treesums_cat_id_fk FOREIGN KEY (trove_cat_id) REFERENCES trove_cat(trove_cat_id) MATCH FULL;
+
+
+--
+-- Name: user_plugin_plugin_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY user_plugin
+    ADD CONSTRAINT user_plugin_plugin_id_fk FOREIGN KEY (plugin_id) REFERENCES plugins(plugin_id) MATCH FULL;
+
+
+--
+-- Name: user_plugin_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY user_plugin
+    ADD CONSTRAINT user_plugin_user_id_fk FOREIGN KEY (user_id) REFERENCES users(user_id) MATCH FULL;
+
+
+--
+-- Name: userid_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY group_activity_monitor
+    ADD CONSTRAINT userid_fk FOREIGN KEY (user_id) REFERENCES users(user_id);
+
+
+

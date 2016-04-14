@@ -1,0 +1,13 @@
+
+--
+-- Data for Name: badges; Type: TABLE DATA; Schema: public; Owner: gforge
+--
+
+COPY badges (badge_id, filename, description, title) FROM stdin;
+\.
+
+--
+-- Name: badges_badge_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gforge
+--
+
+SELECT pg_catalog.setval('badges_badge_id_seq', 1, false);

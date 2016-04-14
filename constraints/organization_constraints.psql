@@ -1,0 +1,88 @@
+ALTER TABLE only organization
+  ADD CONSTRAINT organization_addressid_fkey FOREIGN KEY (addressid)
+      REFERENCES common_address (id) ON DELETE CASCADE;
+
+ALTER TABLE only organization      
+  ADD CONSTRAINT organization_feature_image_fkey FOREIGN KEY (feature_image)
+      REFERENCES common_image (id) ON DELETE CASCADE;
+
+ALTER TABLE only organization_user      
+  ADD CONSTRAINT organization_user_organization_id_fkey FOREIGN KEY (organization_id)
+      REFERENCES organization (organization_id) ON DELETE CASCADE;
+
+ALTER TABLE only organization_user
+  ADD CONSTRAINT organization_user_user_id_fkey FOREIGN KEY (user_id)
+      REFERENCES users (user_id) ON DELETE CASCADE;
+
+ALTER TABLE only organization_admin
+  ADD CONSTRAINT organization_admin_organization_id_fkey FOREIGN KEY (organization_id)
+      REFERENCES organization (organization_id) ON DELETE CASCADE;
+
+ALTER TABLE only organization_admin
+  ADD CONSTRAINT organization_admin_organization_user_id_fkey FOREIGN KEY (organization_user_id)
+      REFERENCES organization_user (id) ON DELETE CASCADE;
+
+ALTER TABLE only organization_customer
+  ADD CONSTRAINT organization_customer_organization_id_fkey FOREIGN KEY (organization_id)
+      REFERENCES organization (organization_id) ON DELETE CASCADE;
+
+ALTER TABLE only organization_image
+  ADD CONSTRAINT organization_image_image_id_fkey FOREIGN KEY (image_id)
+      REFERENCES common_image (id) ON DELETE CASCADE;
+
+ALTER TABLE only organization_image
+  ADD CONSTRAINT organization_image_image_type_fkey FOREIGN KEY (image_type)
+      REFERENCES common_video_image_type (id) ON DELETE CASCADE;
+
+ALTER TABLE only organization_image
+  ADD CONSTRAINT organization_image_organization_id_fkey FOREIGN KEY (organization_id)
+      REFERENCES organization (organization_id) ON DELETE CASCADE;
+
+ALTER TABLE only organization_video
+  ADD CONSTRAINT organization_video_organization_id_fkey FOREIGN KEY (organization_id)
+      REFERENCES organization (organization_id) ON DELETE CASCADE;
+
+ALTER TABLE only organization_video
+  ADD CONSTRAINT organization_video_video_id_fkey FOREIGN KEY (video_id)
+      REFERENCES common_video (id) ON DELETE CASCADE;
+
+ALTER TABLE only organization_video
+  ADD CONSTRAINT organization_video_video_type_fkey FOREIGN KEY (video_type)
+      REFERENCES common_video_image_type (id) ON DELETE CASCADE;
+
+ALTER TABLE only organization_contact
+  ADD CONSTRAINT organization_contact_contact_type_id_fkey FOREIGN KEY (contact_type_id)
+      REFERENCES organization_contact_type (id) ON DELETE CASCADE;
+
+ALTER TABLE only organization_contact
+  ADD CONSTRAINT organization_contact_organization_id_fkey FOREIGN KEY (organization_id)
+      REFERENCES organization (organization_id) ON DELETE CASCADE;
+
+ALTER TABLE only organization_skill
+  ADD CONSTRAINT organization_skill_organization_id_fkey FOREIGN KEY (organization_id)
+      REFERENCES organization (organization_id) ON DELETE CASCADE;
+
+ALTER TABLE only organization_review
+  ADD CONSTRAINT organization_review_organization_id_fkey FOREIGN KEY (organization_id)
+      REFERENCES organization (organization_id) ON DELETE CASCADE;
+
+ALTER TABLE only organization_dmdii_member
+  ADD CONSTRAINT organization_dmdii_member_dmdii_type_id_fkey FOREIGN KEY (dmdii_type_id)
+      REFERENCES organization_dmdii_type (id) ON DELETE CASCADE;
+
+ALTER TABLE only organization_dmdii_member
+  ADD CONSTRAINT organization_dmdii_member_organization_id_fkey FOREIGN KEY (organization_id)
+      REFERENCES organization (organization_id) ON DELETE CASCADE;
+
+ALTER TABLE only organization_profile_change
+  ADD CONSTRAINT organization_profile_change_change_type_id_fkey FOREIGN KEY (change_type_id)
+      REFERENCES organization_profile_change_type (id) ON DELETE CASCADE;
+
+ALTER TABLE only organization_profile_change
+  ADD CONSTRAINT organization_profile_change_organization_id_fkey FOREIGN KEY (organization_id)
+      REFERENCES organization (organization_id) ON DELETE CASCADE;
+
+ALTER TABLE only organization_profile_change
+  ADD CONSTRAINT organization_profile_change_user_id_fkey FOREIGN KEY (user_id)
+      REFERENCES users (user_id) ON DELETE CASCADE;
+

@@ -1,0 +1,8 @@
+ALTER TABLE only common_review
+  ADD CONSTRAINT common_review_review_type_id_fkey FOREIGN KEY (review_type_id)
+      REFERENCES common_review_type (id) ON DELETE CASCADE;
+
+ALTER TABLE only common_review
+  ADD CONSTRAINT common_review_reviewer_fkey FOREIGN KEY (reviewer)
+      REFERENCES users (user_id) ON DELETE CASCADE;
+

@@ -1,0 +1,55 @@
+
+CREATE FUNCTION group_insert() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+   BEGIN
+	PERFORM core_insert( 'projects', NEW.group_id);
+	RETURN NEW;
+   END;
+$$;
+
+
+ALTER FUNCTION public.group_insert() OWNER TO gforge;
+
+--
+-- Name: group_update(); Type: FUNCTION; Schema: public; Owner: gforge
+--
+
+CREATE FUNCTION group_update() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+   DECLARE cid  INTEGER;
+           sid  INTEGER;
+           uid  INTEGER;
+	   wid  INTEGER;
+   BEGIN
+       IF( NOT NEW.group_name = OLD.GROUP_NAME
+           OR NOT NEW.is_public = OLD.is_public
+	   OR NOT NEW.short_description = OLD.short_description
+	   OR NOT NEW.homepage = OLD.homepage) THEN
+       	   PERFORM core_update( 'projects', NEW.group_id);
+	   -- loop over affected components, services
+	   FOR cid IN SELECT cem_id FROM cem_objects c
+                      WHERE NEW.group_id = c.group_id LOOP
+	       PERFORM core_update( 'components', cid);
+	       FOR sid IN SELECT interface_id FROM dome_interfaces
+                          WHERE cem_id = cid LOOP
+		   PERFORM core_update( 'services', sid);
+	       END LOOP;
+	   END LOOP;
+	   -- loop over affected resources (wiki pages)
+	   FOR wid IN SELECT page_id FROM wiki_pages wp
+	       	     WHERE NEW.group_id = wp.group_id LOOP
+	       PERFORM core_update( 'wiki', wid);
+	   END LOOP;
+	   -- loop over affected users
+	   FOR uid IN SELECT user_id FROM pfo_user_role ur, pfo_role r WHERE r.home_group_id = NEW.group_id AND ur.role_id = r.role_id LOOP
+	       PERFORM core_update( 'users', uid);
+	   END LOOP;
+       END IF;
+       RETURN NEW;
+   END;
+$$;
+
+
+ALTER FUNCTION public.group_update() OWNER TO gforge;

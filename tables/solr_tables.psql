@@ -1,0 +1,38 @@
+
+--
+-- Name: solr_index_event; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE solr_index_event (
+    core character varying(128) NOT NULL,
+    id integer NOT NULL,
+    update_type character(10),
+    status character(10),
+    modified timestamp without time zone,
+    event_xml text
+);
+
+
+ALTER TABLE solr_index_event OWNER TO gforge;
+
+--
+-- Name: solr_index_event_status; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE solr_index_event_status (
+    status character(10) NOT NULL
+);
+
+
+ALTER TABLE solr_index_event_status OWNER TO gforge;
+
+--
+-- Name: solr_index_event_type; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE solr_index_event_type (
+    status character(10) NOT NULL
+);
+
+
+ALTER TABLE solr_index_event_type OWNER TO gforge;

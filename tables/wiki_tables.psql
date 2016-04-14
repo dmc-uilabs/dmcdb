@@ -1,0 +1,99 @@
+
+--
+-- Name: wiki_categories; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE wiki_categories (
+    cat_id integer NOT NULL,
+    name text NOT NULL
+);
+
+
+ALTER TABLE wiki_categories OWNER TO gforge;
+
+--
+-- Name: wiki_categories_cat_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE wiki_categories_cat_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE wiki_categories_cat_id_seq OWNER TO gforge;
+
+--
+-- Name: wiki_categories_cat_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE wiki_categories_cat_id_seq OWNED BY wiki_categories.cat_id;
+
+
+--
+-- Name: wiki_pages; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE wiki_pages (
+    page_id integer NOT NULL,
+    group_id integer NOT NULL,
+    user_id integer NOT NULL,
+    name text NOT NULL,
+    contents text NOT NULL,
+    creation_time integer NOT NULL,
+    modified_time integer DEFAULT 0,
+    modified_user_id integer DEFAULT 0
+);
+
+
+ALTER TABLE wiki_pages OWNER TO gforge;
+
+--
+-- Name: wiki_pages_page_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE wiki_pages_page_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE wiki_pages_page_id_seq OWNER TO gforge;
+
+--
+-- Name: wiki_pages_page_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE wiki_pages_page_id_seq OWNED BY wiki_pages.page_id;
+
+
+--
+-- Name: wiki_pages_wiki_categories_join; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE wiki_pages_wiki_categories_join (
+    cat_id integer NOT NULL,
+    page_id integer NOT NULL
+);
+
+
+ALTER TABLE wiki_pages_wiki_categories_join OWNER TO gforge;
+
+
+--
+-- Name: cat_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY wiki_categories ALTER COLUMN cat_id SET DEFAULT nextval('wiki_categories_cat_id_seq'::regclass);
+
+
+--
+-- Name: page_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY wiki_pages ALTER COLUMN page_id SET DEFAULT nextval('wiki_pages_page_id_seq'::regclass);
+

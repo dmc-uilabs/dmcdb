@@ -1,0 +1,22 @@
+
+--
+-- Name: add_type_mapping(character varying, character varying); Type: FUNCTION; Schema: sqlj; Owner: postgres
+--
+
+CREATE FUNCTION add_type_mapping(character varying, character varying) RETURNS void
+    LANGUAGE java SECURITY DEFINER
+    AS $$org.postgresql.pljava.management.Commands.addTypeMapping$$;
+
+
+ALTER FUNCTION sqlj.add_type_mapping(character varying, character varying) OWNER TO postgres;
+
+--
+-- Name: drop_type_mapping(character varying); Type: FUNCTION; Schema: sqlj; Owner: postgres
+--
+
+CREATE FUNCTION drop_type_mapping(character varying) RETURNS void
+    LANGUAGE java SECURITY DEFINER
+    AS $$org.postgresql.pljava.management.Commands.dropTypeMapping$$;
+
+
+ALTER FUNCTION sqlj.drop_type_mapping(character varying) OWNER TO postgres;

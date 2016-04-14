@@ -1,0 +1,658 @@
+
+--
+-- Name: rep_group_act_daily; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE rep_group_act_daily (
+    group_id integer NOT NULL,
+    day integer NOT NULL,
+    tracker_opened integer NOT NULL,
+    tracker_closed integer NOT NULL,
+    forum integer NOT NULL,
+    docs integer NOT NULL,
+    downloads integer NOT NULL,
+    cvs_commits integer NOT NULL,
+    tasks_opened integer NOT NULL,
+    tasks_closed integer NOT NULL
+);
+
+
+ALTER TABLE rep_group_act_daily OWNER TO gforge;
+
+--
+-- Name: rep_group_act_monthly; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE rep_group_act_monthly (
+    group_id integer NOT NULL,
+    month integer NOT NULL,
+    tracker_opened integer NOT NULL,
+    tracker_closed integer NOT NULL,
+    forum integer NOT NULL,
+    docs integer NOT NULL,
+    downloads integer NOT NULL,
+    cvs_commits integer NOT NULL,
+    tasks_opened integer NOT NULL,
+    tasks_closed integer NOT NULL
+);
+
+
+ALTER TABLE rep_group_act_monthly OWNER TO gforge;
+
+--
+-- Name: rep_group_act_oa_vw; Type: VIEW; Schema: public; Owner: gforge
+--
+
+CREATE VIEW rep_group_act_oa_vw AS
+SELECT rep_group_act_monthly.group_id, sum(rep_group_act_monthly.tracker_opened) AS tracker_opened, sum(rep_group_act_monthly.tracker_closed) AS tracker_closed, sum(rep_group_act_monthly.forum) AS forum, sum(rep_group_act_monthly.docs) AS docs, sum(rep_group_act_monthly.downloads) AS downloads, sum(rep_group_act_monthly.cvs_commits) AS cvs_commits, sum(rep_group_act_monthly.tasks_opened) AS tasks_opened, sum(rep_group_act_monthly.tasks_closed) AS tasks_closed FROM rep_group_act_monthly GROUP BY rep_group_act_monthly.group_id;
+
+
+ALTER TABLE rep_group_act_oa_vw OWNER TO gforge;
+
+--
+-- Name: rep_group_act_weekly; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE rep_group_act_weekly (
+    group_id integer NOT NULL,
+    week integer NOT NULL,
+    tracker_opened integer NOT NULL,
+    tracker_closed integer NOT NULL,
+    forum integer NOT NULL,
+    docs integer NOT NULL,
+    downloads integer NOT NULL,
+    cvs_commits integer NOT NULL,
+    tasks_opened integer NOT NULL,
+    tasks_closed integer NOT NULL
+);
+
+
+ALTER TABLE rep_group_act_weekly OWNER TO gforge;
+
+--
+-- Name: rep_groups_added_daily; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE rep_groups_added_daily (
+    day integer NOT NULL,
+    added integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE rep_groups_added_daily OWNER TO gforge;
+
+--
+-- Name: rep_groups_added_monthly; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE rep_groups_added_monthly (
+    month integer NOT NULL,
+    added integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE rep_groups_added_monthly OWNER TO gforge;
+
+--
+-- Name: rep_groups_added_weekly; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE rep_groups_added_weekly (
+    week integer NOT NULL,
+    added integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE rep_groups_added_weekly OWNER TO gforge;
+
+--
+-- Name: rep_groups_cum_daily; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE rep_groups_cum_daily (
+    day integer NOT NULL,
+    total integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE rep_groups_cum_daily OWNER TO gforge;
+
+--
+-- Name: rep_groups_cum_monthly; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE rep_groups_cum_monthly (
+    month integer NOT NULL,
+    total integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE rep_groups_cum_monthly OWNER TO gforge;
+
+--
+-- Name: rep_groups_cum_weekly; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE rep_groups_cum_weekly (
+    week integer NOT NULL,
+    total integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE rep_groups_cum_weekly OWNER TO gforge;
+
+--
+-- Name: rep_site_act_daily_vw; Type: VIEW; Schema: public; Owner: gforge
+--
+
+CREATE VIEW rep_site_act_daily_vw AS
+SELECT rep_group_act_daily.day, sum(rep_group_act_daily.tracker_opened) AS tracker_opened, sum(rep_group_act_daily.tracker_closed) AS tracker_closed, sum(rep_group_act_daily.forum) AS forum, sum(rep_group_act_daily.docs) AS docs, sum(rep_group_act_daily.downloads) AS downloads, sum(rep_group_act_daily.cvs_commits) AS cvs_commits, sum(rep_group_act_daily.tasks_opened) AS tasks_opened, sum(rep_group_act_daily.tasks_closed) AS tasks_closed FROM rep_group_act_daily GROUP BY rep_group_act_daily.day;
+
+
+ALTER TABLE rep_site_act_daily_vw OWNER TO gforge;
+
+--
+-- Name: rep_site_act_monthly_vw; Type: VIEW; Schema: public; Owner: gforge
+--
+
+CREATE VIEW rep_site_act_monthly_vw AS
+SELECT rep_group_act_monthly.month, sum(rep_group_act_monthly.tracker_opened) AS tracker_opened, sum(rep_group_act_monthly.tracker_closed) AS tracker_closed, sum(rep_group_act_monthly.forum) AS forum, sum(rep_group_act_monthly.docs) AS docs, sum(rep_group_act_monthly.downloads) AS downloads, sum(rep_group_act_monthly.cvs_commits) AS cvs_commits, sum(rep_group_act_monthly.tasks_opened) AS tasks_opened, sum(rep_group_act_monthly.tasks_closed) AS tasks_closed FROM rep_group_act_monthly GROUP BY rep_group_act_monthly.month;
+
+
+ALTER TABLE rep_site_act_monthly_vw OWNER TO gforge;
+
+--
+-- Name: rep_site_act_weekly_vw; Type: VIEW; Schema: public; Owner: gforge
+--
+
+CREATE VIEW rep_site_act_weekly_vw AS
+SELECT rep_group_act_weekly.week, sum(rep_group_act_weekly.tracker_opened) AS tracker_opened, sum(rep_group_act_weekly.tracker_closed) AS tracker_closed, sum(rep_group_act_weekly.forum) AS forum, sum(rep_group_act_weekly.docs) AS docs, sum(rep_group_act_weekly.downloads) AS downloads, sum(rep_group_act_weekly.cvs_commits) AS cvs_commits, sum(rep_group_act_weekly.tasks_opened) AS tasks_opened, sum(rep_group_act_weekly.tasks_closed) AS tasks_closed FROM rep_group_act_weekly GROUP BY rep_group_act_weekly.week;
+
+
+ALTER TABLE rep_site_act_weekly_vw OWNER TO gforge;
+
+--
+-- Name: rep_time_category; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE rep_time_category (
+    time_code integer DEFAULT nextval(('rep_time_category_time_code_seq'::text)::regclass),
+    category_name text
+);
+
+
+ALTER TABLE rep_time_category OWNER TO gforge;
+
+--
+-- Name: rep_time_category_time_code_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE rep_time_category_time_code_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE rep_time_category_time_code_seq OWNER TO gforge;
+
+--
+-- Name: rep_time_tracking; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE rep_time_tracking (
+    week integer NOT NULL,
+    report_date integer NOT NULL,
+    user_id integer NOT NULL,
+    project_task_id integer NOT NULL,
+    time_code integer NOT NULL,
+    hours double precision NOT NULL
+);
+
+
+ALTER TABLE rep_time_tracking OWNER TO gforge;
+
+--
+-- Name: rep_user_act_daily; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE rep_user_act_daily (
+    user_id integer NOT NULL,
+    day integer NOT NULL,
+    tracker_opened integer NOT NULL,
+    tracker_closed integer NOT NULL,
+    forum integer NOT NULL,
+    docs integer NOT NULL,
+    cvs_commits integer NOT NULL,
+    tasks_opened integer NOT NULL,
+    tasks_closed integer NOT NULL
+);
+
+
+ALTER TABLE rep_user_act_daily OWNER TO gforge;
+
+--
+-- Name: rep_user_act_monthly; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE rep_user_act_monthly (
+    user_id integer NOT NULL,
+    month integer NOT NULL,
+    tracker_opened integer NOT NULL,
+    tracker_closed integer NOT NULL,
+    forum integer NOT NULL,
+    docs integer NOT NULL,
+    cvs_commits integer NOT NULL,
+    tasks_opened integer NOT NULL,
+    tasks_closed integer NOT NULL
+);
+
+
+ALTER TABLE rep_user_act_monthly OWNER TO gforge;
+
+--
+-- Name: rep_user_act_oa_vw; Type: VIEW; Schema: public; Owner: gforge
+--
+
+CREATE VIEW rep_user_act_oa_vw AS
+SELECT rep_user_act_monthly.user_id, sum(rep_user_act_monthly.tracker_opened) AS tracker_opened, sum(rep_user_act_monthly.tracker_closed) AS tracker_closed, sum(rep_user_act_monthly.forum) AS forum, sum(rep_user_act_monthly.docs) AS docs, sum(rep_user_act_monthly.cvs_commits) AS cvs_commits, sum(rep_user_act_monthly.tasks_opened) AS tasks_opened, sum(rep_user_act_monthly.tasks_closed) AS tasks_closed FROM rep_user_act_monthly GROUP BY rep_user_act_monthly.user_id;
+
+
+ALTER TABLE rep_user_act_oa_vw OWNER TO gforge;
+
+--
+-- Name: rep_user_act_weekly; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE rep_user_act_weekly (
+    user_id integer NOT NULL,
+    week integer NOT NULL,
+    tracker_opened integer NOT NULL,
+    tracker_closed integer NOT NULL,
+    forum integer NOT NULL,
+    docs integer NOT NULL,
+    cvs_commits integer NOT NULL,
+    tasks_opened integer NOT NULL,
+    tasks_closed integer NOT NULL
+);
+
+
+ALTER TABLE rep_user_act_weekly OWNER TO gforge;
+
+--
+-- Name: rep_users_added_daily; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE rep_users_added_daily (
+    day integer NOT NULL,
+    added integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE rep_users_added_daily OWNER TO gforge;
+
+--
+-- Name: rep_users_added_monthly; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE rep_users_added_monthly (
+    month integer NOT NULL,
+    added integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE rep_users_added_monthly OWNER TO gforge;
+
+--
+-- Name: rep_users_added_weekly; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE rep_users_added_weekly (
+    week integer NOT NULL,
+    added integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE rep_users_added_weekly OWNER TO gforge;
+
+--
+-- Name: rep_users_cum_daily; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE rep_users_cum_daily (
+    day integer NOT NULL,
+    total integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE rep_users_cum_daily OWNER TO gforge;
+
+--
+-- Name: rep_users_cum_monthly; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE rep_users_cum_monthly (
+    month integer NOT NULL,
+    total integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE rep_users_cum_monthly OWNER TO gforge;
+
+--
+-- Name: rep_users_cum_weekly; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE rep_users_cum_weekly (
+    week integer NOT NULL,
+    total integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE rep_users_cum_weekly OWNER TO gforge;
+
+
+--
+-- Name: stats_agg_logo_by_day; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE stats_agg_logo_by_day (
+    day integer,
+    count integer
+);
+
+
+ALTER TABLE stats_agg_logo_by_day OWNER TO gforge;
+
+--
+-- Name: stats_agg_logo_by_group; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE stats_agg_logo_by_group (
+    month integer,
+    day integer,
+    group_id integer,
+    count integer
+);
+
+
+ALTER TABLE stats_agg_logo_by_group OWNER TO gforge;
+
+--
+-- Name: stats_agg_pages_by_day; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE stats_agg_pages_by_day (
+    day integer DEFAULT 0 NOT NULL,
+    count integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE stats_agg_pages_by_day OWNER TO gforge;
+
+--
+-- Name: stats_agg_site_by_group; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE stats_agg_site_by_group (
+    month integer,
+    day integer,
+    group_id integer,
+    count integer
+);
+
+
+ALTER TABLE stats_agg_site_by_group OWNER TO gforge;
+
+--
+-- Name: stats_cvs_group; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE stats_cvs_group (
+    month integer DEFAULT 0 NOT NULL,
+    day integer DEFAULT 0 NOT NULL,
+    group_id integer DEFAULT 0 NOT NULL,
+    checkouts integer DEFAULT 0 NOT NULL,
+    commits integer DEFAULT 0 NOT NULL,
+    adds integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE stats_cvs_group OWNER TO gforge;
+
+--
+-- Name: stats_cvs_user; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE stats_cvs_user (
+    month integer DEFAULT 0 NOT NULL,
+    day integer DEFAULT 0 NOT NULL,
+    group_id integer DEFAULT 0 NOT NULL,
+    user_id integer DEFAULT 0 NOT NULL,
+    checkouts integer DEFAULT 0 NOT NULL,
+    commits integer DEFAULT 0 NOT NULL,
+    adds integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE stats_cvs_user OWNER TO gforge;
+
+--
+-- Name: stats_project; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE stats_project (
+    month integer DEFAULT 0 NOT NULL,
+    day integer DEFAULT 0 NOT NULL,
+    group_id integer DEFAULT 0 NOT NULL,
+    file_releases integer DEFAULT 0,
+    msg_posted integer DEFAULT 0,
+    msg_uniq_auth integer DEFAULT 0,
+    bugs_opened integer DEFAULT 0,
+    bugs_closed integer DEFAULT 0,
+    support_opened integer DEFAULT 0,
+    support_closed integer DEFAULT 0,
+    patches_opened integer DEFAULT 0,
+    patches_closed integer DEFAULT 0,
+    artifacts_opened integer DEFAULT 0,
+    artifacts_closed integer DEFAULT 0,
+    tasks_opened integer DEFAULT 0,
+    tasks_closed integer DEFAULT 0,
+    help_requests integer DEFAULT 0
+);
+
+
+ALTER TABLE stats_project OWNER TO gforge;
+
+--
+-- Name: stats_project_months; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE stats_project_months (
+    month integer,
+    group_id integer,
+    developers integer,
+    group_ranking integer,
+    group_metric double precision,
+    logo_showings integer,
+    downloads integer,
+    site_views integer,
+    subdomain_views integer,
+    page_views integer,
+    file_releases integer,
+    msg_posted integer,
+    msg_uniq_auth integer,
+    bugs_opened integer,
+    bugs_closed integer,
+    support_opened integer,
+    support_closed integer,
+    patches_opened integer,
+    patches_closed integer,
+    artifacts_opened integer,
+    artifacts_closed integer,
+    tasks_opened integer,
+    tasks_closed integer,
+    help_requests integer,
+    cvs_checkouts integer,
+    cvs_commits integer,
+    cvs_adds integer
+);
+
+
+ALTER TABLE stats_project_months OWNER TO gforge;
+
+--
+-- Name: stats_project_all_vw; Type: VIEW; Schema: public; Owner: gforge
+--
+
+CREATE VIEW stats_project_all_vw AS
+SELECT stats_project_months.group_id, int4(avg(stats_project_months.developers)) AS developers, int4(avg(stats_project_months.group_ranking)) AS group_ranking, avg(stats_project_months.group_metric) AS group_metric, sum(stats_project_months.logo_showings) AS logo_showings, sum(stats_project_months.downloads) AS downloads, sum(stats_project_months.site_views) AS site_views, sum(stats_project_months.subdomain_views) AS subdomain_views, sum(stats_project_months.page_views) AS page_views, sum(stats_project_months.file_releases) AS file_releases, sum(stats_project_months.msg_posted) AS msg_posted, int4(avg(stats_project_months.msg_uniq_auth)) AS msg_uniq_auth, sum(stats_project_months.bugs_opened) AS bugs_opened, sum(stats_project_months.bugs_closed) AS bugs_closed, sum(stats_project_months.support_opened) AS support_opened, sum(stats_project_months.support_closed) AS support_closed, sum(stats_project_months.patches_opened) AS patches_opened, sum(stats_project_months.patches_closed) AS patches_closed, sum(stats_project_months.artifacts_opened) AS artifacts_opened, sum(stats_project_months.artifacts_closed) AS artifacts_closed, sum(stats_project_months.tasks_opened) AS tasks_opened, sum(stats_project_months.tasks_closed) AS tasks_closed, sum(stats_project_months.help_requests) AS help_requests, sum(stats_project_months.cvs_checkouts) AS cvs_checkouts, sum(stats_project_months.cvs_commits) AS cvs_commits, sum(stats_project_months.cvs_adds) AS cvs_adds FROM stats_project_months GROUP BY stats_project_months.group_id;
+
+
+ALTER TABLE stats_project_all_vw OWNER TO gforge;
+
+--
+-- Name: stats_project_developers; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE stats_project_developers (
+    month integer DEFAULT 0 NOT NULL,
+    day integer DEFAULT 0 NOT NULL,
+    group_id integer DEFAULT 0 NOT NULL,
+    developers integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE stats_project_developers OWNER TO gforge;
+
+--
+-- Name: stats_project_metric; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE stats_project_metric (
+    month integer DEFAULT 0 NOT NULL,
+    day integer DEFAULT 0 NOT NULL,
+    ranking integer DEFAULT 0 NOT NULL,
+    percentile double precision DEFAULT 0 NOT NULL,
+    group_id integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE stats_project_metric OWNER TO gforge;
+
+--
+-- Name: stats_subd_pages; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE stats_subd_pages (
+    month integer DEFAULT 0 NOT NULL,
+    day integer DEFAULT 0 NOT NULL,
+    group_id integer DEFAULT 0 NOT NULL,
+    pages integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE stats_subd_pages OWNER TO gforge;
+
+--
+-- Name: stats_project_vw; Type: VIEW; Schema: public; Owner: gforge
+--
+
+CREATE VIEW stats_project_vw AS
+SELECT spd.group_id, spd.month, spd.day, spd.developers, spm.ranking AS group_ranking, spm.percentile AS group_metric, salbg.count AS logo_showings, fdga.downloads, sasbg.count AS site_views, ssp.pages AS subdomain_views, (CASE WHEN (sasbg.count IS NOT NULL) THEN sasbg.count WHEN (0 IS NOT NULL) THEN 0 ELSE NULL::integer END + CASE WHEN (ssp.pages IS NOT NULL) THEN ssp.pages WHEN (0 IS NOT NULL) THEN 0 ELSE NULL::integer END) AS page_views, sp.file_releases, sp.msg_posted, sp.msg_uniq_auth, sp.bugs_opened, sp.bugs_closed, sp.support_opened, sp.support_closed, sp.patches_opened, sp.patches_closed, sp.artifacts_opened, sp.artifacts_closed, sp.tasks_opened, sp.tasks_closed, sp.help_requests, scg.checkouts AS cvs_checkouts, scg.commits AS cvs_commits, scg.adds AS cvs_adds FROM (((((((stats_project_developers spd LEFT JOIN stats_project sp USING (month, day, group_id)) LEFT JOIN stats_project_metric spm USING (month, day, group_id)) LEFT JOIN stats_cvs_group scg USING (month, day, group_id)) LEFT JOIN stats_agg_site_by_group sasbg USING (month, day, group_id)) LEFT JOIN stats_agg_logo_by_group salbg USING (month, day, group_id)) LEFT JOIN stats_subd_pages ssp USING (month, day, group_id)) LEFT JOIN frs_dlstats_group_vw fdga USING (month, day, group_id));
+
+
+ALTER TABLE stats_project_vw OWNER TO gforge;
+
+--
+-- Name: stats_site; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE stats_site (
+    month integer,
+    day integer,
+    uniq_users integer,
+    sessions integer,
+    total_users integer,
+    new_users integer,
+    new_projects integer
+);
+
+
+ALTER TABLE stats_site OWNER TO gforge;
+
+--
+-- Name: stats_site_months; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE stats_site_months (
+    month integer,
+    site_page_views integer,
+    downloads integer,
+    subdomain_views integer,
+    msg_posted integer,
+    bugs_opened integer,
+    bugs_closed integer,
+    support_opened integer,
+    support_closed integer,
+    patches_opened integer,
+    patches_closed integer,
+    artifacts_opened integer,
+    artifacts_closed integer,
+    tasks_opened integer,
+    tasks_closed integer,
+    help_requests integer,
+    cvs_checkouts integer,
+    cvs_commits integer,
+    cvs_adds integer
+);
+
+
+ALTER TABLE stats_site_months OWNER TO gforge;
+
+--
+-- Name: stats_site_all_vw; Type: VIEW; Schema: public; Owner: gforge
+--
+
+CREATE VIEW stats_site_all_vw AS
+SELECT sum(stats_site_months.site_page_views) AS site_page_views, sum(stats_site_months.downloads) AS downloads, sum(stats_site_months.subdomain_views) AS subdomain_views, sum(stats_site_months.msg_posted) AS msg_posted, sum(stats_site_months.bugs_opened) AS bugs_opened, sum(stats_site_months.bugs_closed) AS bugs_closed, sum(stats_site_months.support_opened) AS support_opened, sum(stats_site_months.support_closed) AS support_closed, sum(stats_site_months.patches_opened) AS patches_opened, sum(stats_site_months.patches_closed) AS patches_closed, sum(stats_site_months.artifacts_opened) AS artifacts_opened, sum(stats_site_months.artifacts_closed) AS artifacts_closed, sum(stats_site_months.tasks_opened) AS tasks_opened, sum(stats_site_months.tasks_closed) AS tasks_closed, sum(stats_site_months.help_requests) AS help_requests, sum(stats_site_months.cvs_checkouts) AS cvs_checkouts, sum(stats_site_months.cvs_commits) AS cvs_commits, sum(stats_site_months.cvs_adds) AS cvs_adds FROM stats_site_months;
+
+
+ALTER TABLE stats_site_all_vw OWNER TO gforge;
+
+--
+-- Name: stats_site_pages_by_day; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE stats_site_pages_by_day (
+    month integer,
+    day integer,
+    site_page_views integer
+);
+
+
+ALTER TABLE stats_site_pages_by_day OWNER TO gforge;
+
+--
+-- Name: stats_site_pages_by_month; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE stats_site_pages_by_month (
+    month integer,
+    site_page_views integer
+);
+
+
+ALTER TABLE stats_site_pages_by_month OWNER TO gforge;
+
+--
+-- Name: stats_site_vw; Type: VIEW; Schema: public; Owner: gforge
+--
+
+CREATE VIEW stats_site_vw AS
+SELECT p.month, p.day, sspbd.site_page_views, sum(p.downloads) AS downloads, sum(p.subdomain_views) AS subdomain_views, sum(p.msg_posted) AS msg_posted, sum(p.bugs_opened) AS bugs_opened, sum(p.bugs_closed) AS bugs_closed, sum(p.support_opened) AS support_opened, sum(p.support_closed) AS support_closed, sum(p.patches_opened) AS patches_opened, sum(p.patches_closed) AS patches_closed, sum(p.artifacts_opened) AS artifacts_opened, sum(p.artifacts_closed) AS artifacts_closed, sum(p.tasks_opened) AS tasks_opened, sum(p.tasks_closed) AS tasks_closed, sum(p.help_requests) AS help_requests, sum(p.cvs_checkouts) AS cvs_checkouts, sum(p.cvs_commits) AS cvs_commits, sum(p.cvs_adds) AS cvs_adds FROM stats_project_vw p, stats_site_pages_by_day sspbd WHERE ((p.month = sspbd.month) AND (p.day = sspbd.day)) GROUP BY p.month, p.day, sspbd.site_page_views;
+
+
+ALTER TABLE stats_site_vw OWNER TO gforge;
+

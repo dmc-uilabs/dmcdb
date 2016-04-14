@@ -1,0 +1,43 @@
+
+--
+-- Name: recommendations; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE recommendations (
+    rec_id integer NOT NULL,
+    user_id integer,
+    type_id integer,
+    object_id integer,
+    rvalue boolean
+);
+
+
+ALTER TABLE recommendations OWNER TO gforge;
+
+--
+-- Name: recommendations_rec_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE recommendations_rec_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE recommendations_rec_id_seq OWNER TO gforge;
+
+--
+-- Name: recommendations_rec_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE recommendations_rec_id_seq OWNED BY recommendations.rec_id;
+
+
+--
+-- Name: rec_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY recommendations ALTER COLUMN rec_id SET DEFAULT nextval('recommendations_rec_id_seq'::regclass);
+

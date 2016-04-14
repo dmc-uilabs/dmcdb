@@ -1,0 +1,66 @@
+
+--
+-- Name: community_forum_sections; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE community_forum_sections (
+    section_name text NOT NULL,
+    section_id integer NOT NULL
+);
+
+
+ALTER TABLE community_forum_sections OWNER TO gforge;
+
+--
+-- Name: TABLE community_forum_sections; Type: COMMENT; Schema: public; Owner: gforge
+--
+
+COMMENT ON TABLE community_forum_sections IS 'Sections that forums go under';
+
+
+--
+-- Name: community_forum_sections_join; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE community_forum_sections_join (
+    section_id integer NOT NULL,
+    forum_id integer NOT NULL
+);
+
+
+ALTER TABLE community_forum_sections_join OWNER TO gforge;
+
+--
+-- Name: TABLE community_forum_sections_join; Type: COMMENT; Schema: public; Owner: gforge
+--
+
+COMMENT ON TABLE community_forum_sections_join IS 'Joins community forums to sections';
+
+
+--
+-- Name: community_forum_sections_section_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE community_forum_sections_section_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE community_forum_sections_section_id_seq OWNER TO gforge;
+
+--
+-- Name: community_forum_sections_section_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE community_forum_sections_section_id_seq OWNED BY community_forum_sections.section_id;
+
+
+--
+-- Name: section_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY community_forum_sections ALTER COLUMN section_id SET DEFAULT nextval('community_forum_sections_section_id_seq'::regclass);
+

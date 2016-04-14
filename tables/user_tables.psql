@@ -1,0 +1,791 @@
+
+--
+-- Tables for user profile review.
+--
+
+create table user_review(
+   id serial primary key,
+   user_id integer,
+   reply boolean,
+   review_id integer,
+   status boolean,
+   date text,
+   rating integer,
+   user_rating_review text,
+   likes integer,
+   dislikes integer,
+   comments text
+);
+ALTER TABLE user_review OWNER TO gforge;
+
+--
+-- End user profile tables.
+--
+
+
+
+--
+-- Name: people_skill; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE people_skill (
+    skill_id integer DEFAULT nextval(('people_skill_pk_seq'::text)::regclass) NOT NULL,
+    name text
+);
+
+
+ALTER TABLE people_skill OWNER TO gforge;
+
+--
+-- Name: people_skill_inventory; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE people_skill_inventory (
+    skill_inventory_id integer DEFAULT nextval(('people_skill_inventory_pk_seq'::text)::regclass) NOT NULL,
+    user_id integer DEFAULT 0 NOT NULL,
+    skill_id integer DEFAULT 0 NOT NULL,
+    skill_level_id integer DEFAULT 0 NOT NULL,
+    skill_year_id integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE people_skill_inventory OWNER TO gforge;
+
+--
+-- Name: people_skill_inventory_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE people_skill_inventory_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE people_skill_inventory_pk_seq OWNER TO gforge;
+
+--
+-- Name: people_skill_level; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE people_skill_level (
+    skill_level_id integer DEFAULT nextval(('people_skill_level_pk_seq'::text)::regclass) NOT NULL,
+    name text
+);
+
+
+ALTER TABLE people_skill_level OWNER TO gforge;
+
+--
+-- Name: people_skill_level_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE people_skill_level_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE people_skill_level_pk_seq OWNER TO gforge;
+
+--
+-- Name: people_skill_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE people_skill_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE people_skill_pk_seq OWNER TO gforge;
+
+--
+-- Name: people_skill_year; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE people_skill_year (
+    skill_year_id integer DEFAULT nextval(('people_skill_year_pk_seq'::text)::regclass) NOT NULL,
+    name text
+);
+
+
+ALTER TABLE people_skill_year OWNER TO gforge;
+
+--
+-- Name: people_skill_year_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE people_skill_year_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE people_skill_year_pk_seq OWNER TO gforge;
+
+--
+-- Name: pfo_role_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE pfo_role_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE pfo_role_seq OWNER TO gforge;
+
+--
+-- Name: pfo_role; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE pfo_role (
+    role_id integer DEFAULT nextval('pfo_role_seq'::regclass) NOT NULL,
+    role_name text DEFAULT ''::text NOT NULL,
+    role_class integer DEFAULT 1 NOT NULL,
+    home_group_id integer,
+    is_public boolean DEFAULT false NOT NULL
+);
+
+
+ALTER TABLE pfo_role OWNER TO gforge;
+
+--
+-- Name: pfo_role_class_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE pfo_role_class_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE pfo_role_class_seq OWNER TO gforge;
+
+--
+-- Name: pfo_role_class; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE pfo_role_class (
+    class_id integer DEFAULT nextval('pfo_role_class_seq'::regclass) NOT NULL,
+    class_name text DEFAULT ''::text NOT NULL
+);
+
+
+ALTER TABLE pfo_role_class OWNER TO gforge;
+
+--
+-- Name: pfo_role_setting; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE pfo_role_setting (
+    role_id integer DEFAULT 0 NOT NULL,
+    section_name text DEFAULT ''::text NOT NULL,
+    ref_id integer DEFAULT 0 NOT NULL,
+    perm_val integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE pfo_role_setting OWNER TO gforge;
+
+
+--
+-- Name: skill_keywords; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE skill_keywords (
+    skill_keyword_name text NOT NULL,
+    skill_keyword_id integer NOT NULL
+);
+
+
+ALTER TABLE skill_keywords OWNER TO gforge;
+
+--
+-- Name: skill_keywords_skill_keyword_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE skill_keywords_skill_keyword_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE skill_keywords_skill_keyword_id_seq OWNER TO gforge;
+
+--
+-- Name: skill_keywords_skill_keyword_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE skill_keywords_skill_keyword_id_seq OWNED BY skill_keywords.skill_keyword_id;
+
+
+--
+-- Name: skills_data_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE skills_data_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE skills_data_pk_seq OWNER TO gforge;
+
+--
+-- Name: skills_data_types_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE skills_data_types_pk_seq
+    START WITH 0
+    INCREMENT BY 1
+    MINVALUE 0
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE skills_data_types_pk_seq OWNER TO gforge;
+
+
+--
+-- Name: user_bookmarks; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE user_bookmarks (
+    bookmark_id integer DEFAULT nextval(('user_bookmarks_pk_seq'::text)::regclass) NOT NULL,
+    user_id integer DEFAULT 0 NOT NULL,
+    bookmark_url text,
+    bookmark_title text
+);
+
+
+ALTER TABLE user_bookmarks OWNER TO gforge;
+
+--
+-- Name: user_bookmarks_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE user_bookmarks_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE user_bookmarks_pk_seq OWNER TO gforge;
+
+--
+-- Name: user_diary; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE user_diary (
+    id integer DEFAULT nextval(('user_diary_pk_seq'::text)::regclass) NOT NULL,
+    user_id integer DEFAULT 0 NOT NULL,
+    date_posted integer DEFAULT 0 NOT NULL,
+    summary text,
+    details text,
+    is_public integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE user_diary OWNER TO gforge;
+
+--
+-- Name: user_diary_monitor; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE user_diary_monitor (
+    monitor_id integer DEFAULT nextval(('user_diary_monitor_pk_seq'::text)::regclass) NOT NULL,
+    monitored_user integer DEFAULT 0 NOT NULL,
+    user_id integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE user_diary_monitor OWNER TO gforge;
+
+--
+-- Name: user_diary_monitor_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE user_diary_monitor_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE user_diary_monitor_pk_seq OWNER TO gforge;
+
+--
+-- Name: user_diary_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE user_diary_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE user_diary_pk_seq OWNER TO gforge;
+
+--
+-- Name: pfo_user_role; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+-- old with user_group_id as pk instead of combination user_id, group_id
+--CREATE TABLE pfo_user_role (
+--    user_group_id integer DEFAULT nextval(('pfo_user_role_pk_seq'::text)::regclass) NOT NULL,
+--    user_id integer DEFAULT 0 NOT NULL,
+--    group_id integer DEFAULT 0 NOT NULL,
+--    admin_flags character(16) DEFAULT ''::bpchar NOT NULL,
+--    forum_flags integer DEFAULT 0 NOT NULL,
+--    project_flags integer DEFAULT 2 NOT NULL,
+--    doc_flags integer DEFAULT 0 NOT NULL,
+--    cvs_flags integer DEFAULT 1 NOT NULL,
+--    member_role integer DEFAULT 100 NOT NULL,
+--    release_flags integer DEFAULT 0 NOT NULL,
+--    artifact_flags integer,
+--    role_id integer DEFAULT 1
+--);
+
+CREATE TABLE pfo_user_role (
+    user_id integer DEFAULT 0 NOT NULL,
+    role_id integer DEFAULT 1
+);
+
+
+ALTER TABLE pfo_user_role OWNER TO gforge;
+
+--
+-- Name: pfo_user_role_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+--CREATE SEQUENCE pfo_user_role_pk_seq
+--    START WITH 1
+--    INCREMENT BY 1
+--    NO MINVALUE
+--    MAXVALUE 2147483647
+--    CACHE 1;
+
+
+--ALTER TABLE pfo_user_role_pk_seq OWNER TO gforge;
+
+--
+-- Name: user_history; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE user_history (
+    user_history_id integer DEFAULT nextval(('user_history_pk_seq'::text)::regclass) NOT NULL,
+    user_id integer DEFAULT 0 NOT NULL,
+    field_name text DEFAULT ''::text NOT NULL,
+    old_value text DEFAULT ''::text NOT NULL,
+    mod_by integer DEFAULT 0 NOT NULL,
+    adddate integer
+);
+
+
+ALTER TABLE user_history OWNER TO gforge;
+
+--
+-- Name: user_history_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE user_history_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE user_history_pk_seq OWNER TO gforge;
+
+--
+-- Name: user_messages; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE user_messages (
+    message_id integer NOT NULL,
+    parent_message_id integer DEFAULT 0,
+    from_user_id integer,
+    to_user_id integer,
+    time_sent integer,
+    message_body text,
+    read boolean DEFAULT false,
+    subject text NOT NULL
+);
+
+
+ALTER TABLE user_messages OWNER TO gforge;
+
+--
+-- Name: user_messages_message_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE user_messages_message_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE user_messages_message_id_seq OWNER TO gforge;
+
+--
+-- Name: user_messages_message_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE user_messages_message_id_seq OWNED BY user_messages.message_id;
+
+--
+-- Name: message_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY user_messages ALTER COLUMN message_id SET DEFAULT nextval('user_messages_message_id_seq'::regclass);
+
+
+--
+-- Name: user_metric; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE user_metric (
+    ranking integer DEFAULT nextval(('user_metric_pk_seq'::text)::regclass) NOT NULL,
+    user_id integer DEFAULT 0 NOT NULL,
+    times_ranked integer DEFAULT 0 NOT NULL,
+    avg_raters_importance double precision DEFAULT (0)::double precision NOT NULL,
+    avg_rating double precision DEFAULT (0)::double precision NOT NULL,
+    metric double precision DEFAULT (0)::double precision NOT NULL,
+    percentile double precision DEFAULT (0)::double precision NOT NULL,
+    importance_factor double precision DEFAULT (0)::double precision NOT NULL
+);
+
+
+ALTER TABLE user_metric OWNER TO gforge;
+
+--
+-- Name: user_metric0; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE user_metric0 (
+    ranking integer DEFAULT nextval(('user_metric0_pk_seq'::text)::regclass) NOT NULL,
+    user_id integer DEFAULT 0 NOT NULL,
+    times_ranked integer DEFAULT 0 NOT NULL,
+    avg_raters_importance double precision DEFAULT (0)::double precision NOT NULL,
+    avg_rating double precision DEFAULT (0)::double precision NOT NULL,
+    metric double precision DEFAULT (0)::double precision NOT NULL,
+    percentile double precision DEFAULT (0)::double precision NOT NULL,
+    importance_factor double precision DEFAULT (0)::double precision NOT NULL
+);
+
+
+ALTER TABLE user_metric0 OWNER TO gforge;
+
+--
+-- Name: user_metric0_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE user_metric0_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE user_metric0_pk_seq OWNER TO gforge;
+
+--
+-- Name: user_metric_history; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE user_metric_history (
+    month integer NOT NULL,
+    day integer NOT NULL,
+    user_id integer NOT NULL,
+    ranking integer NOT NULL,
+    metric double precision NOT NULL
+);
+
+
+ALTER TABLE user_metric_history OWNER TO gforge;
+
+--
+-- Name: user_metric_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE user_metric_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE user_metric_pk_seq OWNER TO gforge;
+
+--
+-- Name: user_plugin; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE user_plugin (
+    user_plugin_id integer DEFAULT nextval(('user_plugin_pk_seq'::text)::regclass) NOT NULL,
+    user_id integer NOT NULL,
+    plugin_id integer NOT NULL
+);
+
+
+ALTER TABLE user_plugin OWNER TO gforge;
+
+--
+-- Name: user_plugin_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE user_plugin_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE user_plugin_pk_seq OWNER TO gforge;
+
+--
+-- Name: user_postcounts; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE user_postcounts (
+    user_id integer NOT NULL,
+    postcount integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE user_postcounts OWNER TO gforge;
+
+--
+-- Name: user_preferences; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE user_preferences (
+    user_id integer DEFAULT 0 NOT NULL,
+    preference_name character varying(40) NOT NULL,
+    dead1 character varying(20),
+    set_date integer DEFAULT 0 NOT NULL,
+    preference_value text
+);
+
+
+ALTER TABLE user_preferences OWNER TO gforge;
+
+--
+-- Name: user_pubkeys; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE user_pubkeys (
+    user_pubkey_id integer NOT NULL,
+    user_id integer NOT NULL,
+    pubkey text NOT NULL,
+    title text
+);
+
+
+ALTER TABLE user_pubkeys OWNER TO gforge;
+
+--
+-- Name: TABLE user_pubkeys; Type: COMMENT; Schema: public; Owner: gforge
+--
+
+COMMENT ON TABLE user_pubkeys IS 'Contains user public keys for Git access';
+
+
+--
+-- Name: user_pubkeys_user_pubkey_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE user_pubkeys_user_pubkey_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE user_pubkeys_user_pubkey_id_seq OWNER TO gforge;
+
+--
+-- Name: user_pubkeys_user_pubkey_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE user_pubkeys_user_pubkey_id_seq OWNED BY user_pubkeys.user_pubkey_id;
+
+
+--
+-- Name: user_ratings; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE user_ratings (
+    rated_by integer DEFAULT 0 NOT NULL,
+    user_id integer DEFAULT 0 NOT NULL,
+    rate_field integer DEFAULT 0 NOT NULL,
+    rating integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE user_ratings OWNER TO gforge;
+
+--
+-- Name: user_session; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE user_session (
+    user_id integer DEFAULT 0 NOT NULL,
+    session_hash character(32) DEFAULT ''::bpchar NOT NULL,
+    ip_addr character varying(39) DEFAULT ''::bpchar NOT NULL,
+    "time" integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE user_session OWNER TO gforge;
+
+--
+-- Name: user_skills; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE user_skills (
+    user_skill_id integer NOT NULL,
+    user_skill_name text NOT NULL,
+    user_id integer NOT NULL,
+    experience_level integer NOT NULL
+);
+
+
+ALTER TABLE user_skills OWNER TO gforge;
+
+--
+-- Name: user_skills_keywords_join; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE user_skills_keywords_join (
+    user_skill_id integer NOT NULL,
+    skill_keyword_id integer NOT NULL
+);
+
+
+ALTER TABLE user_skills_keywords_join OWNER TO gforge;
+
+--
+-- Name: user_skills_user_skill_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE user_skills_user_skill_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE user_skills_user_skill_id_seq OWNER TO gforge;
+
+--
+-- Name: user_skills_user_skill_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE user_skills_user_skill_id_seq OWNED BY user_skills.user_skill_id;
+
+
+--
+-- Name: user_type; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE user_type (
+    type_id integer NOT NULL,
+    type_name text
+);
+
+
+ALTER TABLE user_type OWNER TO gforge;
+
+--
+-- Name: user_type_type_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE user_type_type_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE user_type_type_id_seq OWNER TO gforge;
+
+--
+-- Name: user_type_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE user_type_type_id_seq OWNED BY user_type.type_id;
+
+--
+-- Name: users_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE users_pk_seq
+   START WITH 1
+   INCREMENT BY 1
+   NO MINVALUE
+   MAXVALUE 2147483647
+   CACHE 1;
+
+
+ALTER SEQUENCE users_pk_seq OWNER TO gforge;
+
+
+--
+-- Name: skill_keyword_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY skill_keywords ALTER COLUMN skill_keyword_id SET DEFAULT nextval('skill_keywords_skill_keyword_id_seq'::regclass);
+
+
+--
+-- Name: user_pubkey_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY user_pubkeys ALTER COLUMN user_pubkey_id SET DEFAULT nextval('user_pubkeys_user_pubkey_id_seq'::regclass);
+
+
+--
+-- Name: user_skill_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY user_skills ALTER COLUMN user_skill_id SET DEFAULT nextval('user_skills_user_skill_id_seq'::regclass);
+
+
+--
+-- Name: type_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY user_type ALTER COLUMN type_id SET DEFAULT nextval('user_type_type_id_seq'::regclass);
+

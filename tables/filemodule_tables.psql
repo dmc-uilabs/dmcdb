@@ -1,0 +1,26 @@
+--
+-- Name: filemodule_monitor; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE filemodule_monitor (
+    id integer DEFAULT nextval(('filemodule_monitor_pk_seq'::text)::regclass) NOT NULL,
+    filemodule_id integer DEFAULT 0 NOT NULL,
+    user_id integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE filemodule_monitor OWNER TO gforge;
+
+--
+-- Name: filemodule_monitor_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE filemodule_monitor_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE filemodule_monitor_pk_seq OWNER TO gforge;
