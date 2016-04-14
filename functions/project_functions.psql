@@ -1,0 +1,230 @@
+
+--
+-- Name: project_sums(); Type: FUNCTION; Schema: public; Owner: gforge
+--
+
+CREATE FUNCTION project_sums() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+	DECLARE
+		num integer;
+		curr_group integer;
+		found integer;
+	BEGIN
+		---
+		--- Get number of things this group has now
+		---
+		IF TG_ARGV[0]='surv' THEN
+			IF TG_OP='DELETE' THEN
+				SELECT INTO num count(*) FROM surveys WHERE OLD.group_id=group_id AND is_active=1;
+				curr_group := OLD.group_id;
+			ELSE
+				SELECT INTO num count(*) FROM surveys WHERE NEW.group_id=group_id AND is_active=1;
+				curr_group := NEW.group_id;
+			END IF;
+		END IF;
+		IF TG_ARGV[0]='mail' THEN
+			IF TG_OP='DELETE' THEN
+				SELECT INTO num count(*) FROM mail_group_list WHERE OLD.group_id=group_id AND is_public=1;
+				curr_group := OLD.group_id;
+			ELSE
+				SELECT INTO num count(*) FROM mail_group_list WHERE NEW.group_id=group_id AND is_public=1;
+				curr_group := NEW.group_id;
+			END IF;
+		END IF;
+		IF TG_ARGV[0]='fmsg' THEN
+			IF TG_OP='DELETE' THEN
+				SELECT INTO curr_group group_id FROM forum_group_list WHERE OLD.group_forum_id=group_forum_id;
+				SELECT INTO num count(*) FROM forum, forum_group_list WHERE forum.group_forum_id=forum_group_list.group_forum_id AND forum_group_list.is_public=1 AND forum_group_list.group_id=curr_group;
+			ELSE
+				SELECT INTO curr_group group_id FROM forum_group_list WHERE NEW.group_forum_id=group_forum_id;
+				SELECT INTO num count(*) FROM forum, forum_group_list WHERE forum.group_forum_id=forum_group_list.group_forum_id AND forum_group_list.is_public=1 AND forum_group_list.group_id=curr_group;
+			END IF;
+		END IF;
+		IF TG_ARGV[0]='fora' THEN
+			IF TG_OP='DELETE' THEN
+				SELECT INTO num count(*) FROM forum_group_list WHERE OLD.group_id=group_id AND is_public=1;
+				curr_group = OLD.group_id;
+				--- also need to update message count
+				DELETE FROM project_sums_agg WHERE group_id=OLD.group_id AND type='fmsg';
+				INSERT INTO project_sums_agg
+					SELECT OLD.group_id,'fmsg'::text AS type, count(forum.msg_id) AS count
+					FROM forum, forum_group_list
+					WHERE forum.group_forum_id=forum_group_list.group_forum_id AND forum_group_list.is_public=1 AND forum_group_list.group_id=OLD.group_id GROUP BY group_id,type;
+			ELSE
+				SELECT INTO num count(*) FROM forum_group_list WHERE NEW.group_id=group_id AND is_public=1;
+				curr_group = NEW.group_id;
+			END IF;
+		END IF;
+		---
+		--- See if this group already has a row in project_sums_agg for these things
+		---
+		SELECT INTO found count(group_id) FROM project_sums_agg WHERE curr_group=group_id AND type=TG_ARGV[0];
+
+		IF found=0 THEN
+			---
+			--- Create row for this group
+			---
+			INSERT INTO project_sums_agg
+				VALUES (curr_group, TG_ARGV[0], num);
+		ELSE
+			---
+			--- Update count
+			---
+			UPDATE project_sums_agg SET count=num
+			WHERE curr_group=group_id AND type=TG_ARGV[0];
+		END IF;
+
+		IF TG_OP='DELETE' THEN
+			RETURN OLD;
+		ELSE
+			RETURN NEW;
+		END IF;
+	END;
+$$;
+
+
+ALTER FUNCTION public.project_sums() OWNER TO gforge;
+
+--
+-- Name: project_tags_join_delete(); Type: FUNCTION; Schema: public; Owner: gforge
+--
+
+CREATE FUNCTION project_tags_join_delete() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+   BEGIN
+       PERFORM core_delete( 'projects', OLD.group_id);
+       RETURN NEW;
+   END;
+$$;
+
+
+ALTER FUNCTION public.project_tags_join_delete() OWNER TO gforge;
+
+--
+-- Name: project_tags_join_insert(); Type: FUNCTION; Schema: public; Owner: gforge
+--
+
+CREATE FUNCTION project_tags_join_insert() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+   BEGIN
+       PERFORM core_insert( 'projects', NEW.group_id);
+       RETURN NEW;
+   END;
+$$;
+
+
+ALTER FUNCTION public.project_tags_join_insert() OWNER TO gforge;
+
+--
+-- Name: projectgroup_update_agg(); Type: FUNCTION; Schema: public; Owner: gforge
+--
+
+CREATE FUNCTION projectgroup_update_agg() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    --
+    -- see if they are moving to a new subproject
+    -- if so, its a more complex operation
+    --
+    IF NEW.group_project_id <> OLD.group_project_id THEN
+        --
+        -- transferred tasks always have a status of 1
+        -- so we will increment the new subprojects sums
+        --
+        IF OLD.status_id=3 THEN
+            -- No need to decrement counters on old tracker
+        ELSE
+            IF OLD.status_id=2 THEN
+                UPDATE project_counts_agg SET count=count-1
+                    WHERE group_project_id=OLD.group_project_id;
+            ELSE
+                IF OLD.status_id=1 THEN
+                    UPDATE project_counts_agg SET count=count-1,open_count=open_count-1
+                        WHERE group_project_id=OLD.group_project_id;
+                END IF;
+            END IF;
+        END IF;
+
+        IF NEW.status_id=3 THEN
+            --DO NOTHING
+        ELSE
+            IF NEW.status_id=2 THEN
+                    UPDATE project_counts_agg SET count=count+1
+                        WHERE group_project_id=NEW.group_project_id;
+            ELSE
+                IF NEW.status_id=1 THEN
+                    UPDATE project_counts_agg SET count=count+1, open_count=open_count+1
+                        WHERE group_project_id=NEW.group_project_id;
+                END IF;
+            END IF;
+        END IF;
+    ELSE
+        --
+        -- just need to evaluate the status flag and
+        -- increment/decrement the counter as necessary
+        --
+        IF NEW.status_id <> OLD.status_id THEN
+            IF NEW.status_id = 1 THEN
+                IF OLD.status_id=2 THEN
+                    UPDATE project_counts_agg SET open_count=open_count+1
+                        WHERE group_project_id=NEW.group_project_id;
+                ELSE
+                    IF OLD.status_id=3 THEN
+                        UPDATE project_counts_agg SET open_count=open_count+1, count=count+1
+                            WHERE group_project_id=NEW.group_project_id;
+                    END IF;
+                END IF;
+            ELSE
+                IF NEW.status_id = 2 THEN
+                    IF OLD.status_id=1 THEN
+                        UPDATE project_counts_agg SET open_count=open_count-1
+                            WHERE group_project_id=NEW.group_project_id;
+                    ELSE
+                        IF OLD.status_id=3 THEN
+                            UPDATE project_counts_agg SET count=count+1
+                                WHERE group_project_id=NEW.group_project_id;
+                        END IF;
+                    END IF;
+                ELSE
+                    IF NEW.status_id = 3 THEN
+                        IF OLD.status_id=2 THEN
+                            UPDATE project_counts_agg SET count=count-1
+                                WHERE group_project_id=NEW.group_project_id;
+                        ELSE
+                            IF OLD.status_id=1 THEN
+                                UPDATE project_counts_agg SET open_count=open_count-1,count=count-1
+                                    WHERE group_project_id=NEW.group_project_id;
+                            END IF;
+                        END IF;
+                    END IF;
+                END IF;
+            END IF;
+        END IF;
+    END IF;
+    RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.projectgroup_update_agg() OWNER TO gforge;
+
+--
+-- Name: projectgrouplist_insert_agg(); Type: FUNCTION; Schema: public; Owner: gforge
+--
+
+CREATE FUNCTION projectgrouplist_insert_agg() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    INSERT INTO project_counts_agg (group_project_id,count,open_count)
+        VALUES (NEW.group_project_id,0,0);
+        RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.projectgrouplist_insert_agg() OWNER TO gforge;

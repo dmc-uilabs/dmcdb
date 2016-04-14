@@ -1,0 +1,79 @@
+
+--
+-- Name: core_delete(character varying, integer); Type: FUNCTION; Schema: public; Owner: gforge
+--
+
+CREATE FUNCTION core_delete(core_name character varying, unique_id integer) RETURNS boolean
+    LANGUAGE plpgsql
+    AS $$
+       BEGIN
+	    PERFORM core_operation( 'DELETE    ', core_name, unique_id);
+	    RETURN true;
+       END;
+$$;
+
+
+ALTER FUNCTION public.core_delete(core_name character varying, unique_id integer) OWNER TO gforge;
+
+--
+-- Name: core_insert(character varying, integer); Type: FUNCTION; Schema: public; Owner: gforge
+--
+
+CREATE FUNCTION core_insert(core_name character varying, unique_id integer) RETURNS boolean
+    LANGUAGE plpgsql
+    AS $$
+       BEGIN
+	    PERFORM core_operation( 'ADD       ', core_name, unique_id);
+	    RETURN true;
+       END;
+$$;
+
+
+ALTER FUNCTION public.core_insert(core_name character varying, unique_id integer) OWNER TO gforge;
+
+--
+-- Name: core_operation(character varying, character varying, integer); Type: FUNCTION; Schema: public; Owner: gforge
+--
+
+CREATE FUNCTION core_operation(operation character varying, core_name character varying, unique_id integer) RETURNS boolean
+    LANGUAGE plpgsql
+    AS $$
+       DECLARE
+	   res INTEGER;
+       BEGIN
+	   SELECT INTO res 1 FROM solr_index_event
+	       WHERE core_name = core AND unique_id = id FOR UPDATE;
+	   IF ( res IS NULL ) THEN
+	       INSERT INTO solr_index_event
+	    	   ( core, id, update_type, status, modified)
+	       VALUES
+		   ( core_name, unique_id, operation, 'NEW       ', now());
+	   ELSE
+	       UPDATE solr_index_event
+	       SET update_type = operation,
+		   status = 'NEW       ',
+		   modified = now()
+	       WHERE core_name = core AND unique_id = id;
+	   END IF;
+	   RETURN true;
+       END;
+$$;
+
+
+ALTER FUNCTION public.core_operation(operation character varying, core_name character varying, unique_id integer) OWNER TO gforge;
+
+--
+-- Name: core_update(character varying, integer); Type: FUNCTION; Schema: public; Owner: gforge
+--
+
+CREATE FUNCTION core_update(core_name character varying, unique_id integer) RETURNS boolean
+    LANGUAGE plpgsql
+    AS $$
+       BEGIN
+	    PERFORM core_operation( 'UPDATE    ', core_name, unique_id);
+	    RETURN true;
+       END;
+$$;
+
+
+ALTER FUNCTION public.core_update(core_name character varying, unique_id integer) OWNER TO gforge;

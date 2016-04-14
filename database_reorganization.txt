@@ -1,0 +1,42 @@
+
+Original - >27K Lines (including spaces, comments).
+
+2 schemas: public and sqlj
+
+sqlj has 4 tables, 3 sequences:
+    classpath_entry
+    jar_entry
+    jar_repository
+    typemap_entry
+    
+public has 249 tables, 184 sequences, 7 functions, 37 trigger functions 32 views
+
+items need to be created in a particular sequence - so that references can be satisfied.
+
+"main" script can be implemented as individual pieces like this:
+
+BEGIN;
+\i tables/common_shared_tables.psql
+\i tables/user_info_tables.psql
+\i tables/badges.tables.psql
+COMMIT;
+
+
+DB Best Practices
+
+http://stackoverflow.com/questions/4994/how-should-i-organize-my-master-ddl-script
+    Summary:
+    Break script into parts (possibly in separate scripts):
+
+        table creation
+        add indexes
+        add triggers
+        add constraints
+        Each script would get called by the master script.
+
+http://martinfowler.com/articles/evodb.html
+
+
+Language handlers
+http://www.postgresql.org/docs/8.3/static/plhandler.html
+Based on this there should be a file called pljava that is the compiled version of the language handler.

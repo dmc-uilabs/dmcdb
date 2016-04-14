@@ -1,0 +1,1417 @@
+
+SET search_path = public, pg_catalog;
+
+--
+-- Name: artifact_counts_agg_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY artifact_counts_agg
+    ADD CONSTRAINT artifact_counts_agg_pkey PRIMARY KEY (group_artifact_id);
+
+
+--
+-- Name: artifact_extra_field_data_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY artifact_extra_field_data
+    ADD CONSTRAINT artifact_extra_field_data_pkey PRIMARY KEY (data_id);
+
+
+--
+-- Name: artifact_extra_field_elements_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY artifact_extra_field_elements
+    ADD CONSTRAINT artifact_extra_field_elements_pkey PRIMARY KEY (element_id);
+
+
+--
+-- Name: artifact_extra_field_list_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY artifact_extra_field_list
+    ADD CONSTRAINT artifact_extra_field_list_pkey PRIMARY KEY (extra_field_id);
+
+
+--
+-- Name: artifact_extra_field_list_unique; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY artifact_extra_field_list
+    ADD CONSTRAINT artifact_extra_field_list_unique UNIQUE (group_artifact_id, extra_field_id);
+
+
+--
+-- Name: artifact_file_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY artifact_file
+    ADD CONSTRAINT artifact_file_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: artifact_group_list_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY artifact_group_list
+    ADD CONSTRAINT artifact_group_list_pkey PRIMARY KEY (group_artifact_id);
+
+
+--
+-- Name: artifact_history_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY artifact_history
+    ADD CONSTRAINT artifact_history_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: artifact_message_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY artifact_message
+    ADD CONSTRAINT artifact_message_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: artifact_monitor_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY artifact_monitor
+    ADD CONSTRAINT artifact_monitor_pkey PRIMARY KEY (artifact_id, user_id);
+
+
+--
+-- Name: artifact_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY artifact
+    ADD CONSTRAINT artifact_pkey PRIMARY KEY (artifact_id);
+
+
+--
+-- Name: artifact_query_elements_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY artifact_query_fields
+    ADD CONSTRAINT artifact_query_elements_pkey PRIMARY KEY (artifact_query_id, query_field_type, query_field_id);
+
+
+--
+-- Name: artifact_query_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY artifact_query
+    ADD CONSTRAINT artifact_query_pkey PRIMARY KEY (artifact_query_id);
+
+
+--
+-- Name: artifact_status_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY artifact_status
+    ADD CONSTRAINT artifact_status_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: artifact_type_monitor_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY artifact_type_monitor
+    ADD CONSTRAINT artifact_type_monitor_pkey PRIMARY KEY (group_artifact_id, user_id);
+
+
+--
+-- Name: artifact_workflow_event_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY artifact_workflow_event
+    ADD CONSTRAINT artifact_workflow_event_pkey PRIMARY KEY (event_id);
+
+
+--
+-- Name: artifact_workflow_notify_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY artifact_workflow_notify
+    ADD CONSTRAINT artifact_workflow_notify_pkey PRIMARY KEY (event_id, role_id);
+
+
+--
+-- Name: artifact_workflow_roles_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY artifact_workflow_roles
+    ADD CONSTRAINT artifact_workflow_roles_pkey PRIMARY KEY (event_id, role_id);
+
+
+--
+-- Name: canned_responses_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY canned_responses
+    ADD CONSTRAINT canned_responses_pkey PRIMARY KEY (response_id);
+
+
+--
+-- Name: country_code_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY country_code
+    ADD CONSTRAINT country_code_pkey PRIMARY KEY (ccode);
+
+
+--
+-- Name: db_images_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY db_images
+    ADD CONSTRAINT db_images_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: doc_data_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY doc_data
+    ADD CONSTRAINT doc_data_pkey PRIMARY KEY (docid);
+
+
+--
+-- Name: doc_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY doc_groups
+    ADD CONSTRAINT doc_groups_pkey PRIMARY KEY (doc_group);
+
+
+--
+-- Name: doc_states_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY doc_states
+    ADD CONSTRAINT doc_states_pkey PRIMARY KEY (stateid);
+
+
+--
+-- Name: filemodule_monitor_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY filemodule_monitor
+    ADD CONSTRAINT filemodule_monitor_pkey PRIMARY KEY (filemodule_id, user_id);
+
+
+--
+-- Name: form_keys_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY form_keys
+    ADD CONSTRAINT form_keys_pkey PRIMARY KEY (key_id);
+
+
+--
+-- Name: forum_agg_msg_count_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY forum_agg_msg_count
+    ADD CONSTRAINT forum_agg_msg_count_pkey PRIMARY KEY (group_forum_id);
+
+
+--
+-- Name: forum_attachment_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY forum_attachment
+    ADD CONSTRAINT forum_attachment_pkey PRIMARY KEY (attachmentid);
+
+
+--
+-- Name: forum_group_list_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY forum_group_list
+    ADD CONSTRAINT forum_group_list_pkey PRIMARY KEY (group_forum_id);
+
+
+--
+-- Name: forum_monitored_forums_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY forum_monitored_forums
+    ADD CONSTRAINT forum_monitored_forums_pkey PRIMARY KEY (forum_id, user_id);
+
+
+--
+-- Name: forum_pending_attachment_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY forum_pending_attachment
+    ADD CONSTRAINT forum_pending_attachment_pkey PRIMARY KEY (attachmentid);
+
+
+--
+-- Name: forum_pending_messages_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY forum_pending_messages
+    ADD CONSTRAINT forum_pending_messages_pkey PRIMARY KEY (msg_id);
+
+
+--
+-- Name: forum_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY forum
+    ADD CONSTRAINT forum_pkey PRIMARY KEY (msg_id);
+
+
+--
+-- Name: forum_saved_place_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY forum_saved_place
+    ADD CONSTRAINT forum_saved_place_pkey PRIMARY KEY (user_id, forum_id);
+
+
+--
+-- Name: frs_dlstats_filetotal_agg_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY frs_dlstats_filetotal_agg
+    ADD CONSTRAINT frs_dlstats_filetotal_agg_pkey PRIMARY KEY (file_id);
+
+
+--
+-- Name: frs_file_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY frs_file
+    ADD CONSTRAINT frs_file_pkey PRIMARY KEY (file_id);
+
+
+--
+-- Name: frs_filetype_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY frs_filetype
+    ADD CONSTRAINT frs_filetype_pkey PRIMARY KEY (type_id);
+
+
+--
+-- Name: frs_package_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY frs_package
+    ADD CONSTRAINT frs_package_pkey PRIMARY KEY (package_id);
+
+
+--
+-- Name: frs_processor_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY frs_processor
+    ADD CONSTRAINT frs_processor_pkey PRIMARY KEY (processor_id);
+
+
+--
+-- Name: frs_release_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY frs_release
+    ADD CONSTRAINT frs_release_pkey PRIMARY KEY (release_id);
+
+
+--
+-- Name: frs_status_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY frs_status
+    ADD CONSTRAINT frs_status_pkey PRIMARY KEY (status_id);
+
+
+--
+-- Name: group_activity_monitor_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY group_activity_monitor
+    ADD CONSTRAINT group_activity_monitor_pkey PRIMARY KEY (group_id, user_id);
+
+
+--
+-- Name: group_history_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY group_history
+    ADD CONSTRAINT group_history_pkey PRIMARY KEY (group_history_id);
+
+
+--
+-- Name: group_join_request_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY group_join_request
+    ADD CONSTRAINT group_join_request_pkey PRIMARY KEY (group_id, user_id, requester_id);
+
+
+--
+-- Name: group_plugin_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY group_plugin
+    ADD CONSTRAINT group_plugin_pkey PRIMARY KEY (group_plugin_id);
+
+
+--
+-- Name: groups_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY groups
+    ADD CONSTRAINT groups_pkey PRIMARY KEY (group_id);
+
+
+--
+-- Name: key; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY form_keys
+    ADD CONSTRAINT key UNIQUE (key);
+
+
+--
+-- Name: layouts_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY layouts
+    ADD CONSTRAINT layouts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: layouts_rows_columns_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY layouts_rows_columns
+    ADD CONSTRAINT layouts_rows_columns_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: layouts_rows_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY layouts_rows
+    ADD CONSTRAINT layouts_rows_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: licenses_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY licenses
+    ADD CONSTRAINT licenses_pkey PRIMARY KEY (license_id);
+
+
+--
+-- Name: mail_group_list_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY mail_group_list
+    ADD CONSTRAINT mail_group_list_pkey PRIMARY KEY (group_list_id);
+
+
+--
+-- Name: massmail_queue_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY massmail_queue
+    ADD CONSTRAINT massmail_queue_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: news_bytes_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY news_bytes
+    ADD CONSTRAINT news_bytes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: owner_layouts_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY owner_layouts
+    ADD CONSTRAINT owner_layouts_pkey PRIMARY KEY (owner_id, owner_type, layout_id);
+
+
+--
+-- Name: people_job_category_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY people_job_category
+    ADD CONSTRAINT people_job_category_pkey PRIMARY KEY (category_id);
+
+
+--
+-- Name: people_job_inventory_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY people_job_inventory
+    ADD CONSTRAINT people_job_inventory_pkey PRIMARY KEY (job_inventory_id);
+
+
+--
+-- Name: people_job_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY people_job
+    ADD CONSTRAINT people_job_pkey PRIMARY KEY (job_id);
+
+
+--
+-- Name: people_job_status_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY people_job_status
+    ADD CONSTRAINT people_job_status_pkey PRIMARY KEY (status_id);
+
+
+--
+-- Name: people_skill_inventory_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY people_skill_inventory
+    ADD CONSTRAINT people_skill_inventory_pkey PRIMARY KEY (skill_inventory_id);
+
+
+--
+-- Name: people_skill_level_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY people_skill_level
+    ADD CONSTRAINT people_skill_level_pkey PRIMARY KEY (skill_level_id);
+
+
+--
+-- Name: people_skill_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY people_skill
+    ADD CONSTRAINT people_skill_pkey PRIMARY KEY (skill_id);
+
+
+--
+-- Name: people_skill_year_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY people_skill_year
+    ADD CONSTRAINT people_skill_year_pkey PRIMARY KEY (skill_year_id);
+
+
+--
+-- Name: pfo_role_class_name_unique; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY pfo_role_class
+    ADD CONSTRAINT pfo_role_class_name_unique UNIQUE (class_name);
+
+
+--
+-- Name: pfo_role_class_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY pfo_role_class
+    ADD CONSTRAINT pfo_role_class_pkey PRIMARY KEY (class_id);
+
+
+--
+-- Name: pfo_role_name_unique; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY pfo_role
+    ADD CONSTRAINT pfo_role_name_unique UNIQUE (role_id, role_name);
+
+
+--
+-- Name: pfo_role_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY pfo_role
+    ADD CONSTRAINT pfo_role_pkey PRIMARY KEY (role_id);
+
+
+--
+-- Name: pfo_user_role_pk; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY pfo_user_role
+    ADD CONSTRAINT pfo_user_role_pk PRIMARY KEY (user_id, role_id);
+
+
+--
+-- Name: pk_activity_comment_id; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY site_activity_comments
+    ADD CONSTRAINT pk_activity_comment_id PRIMARY KEY (activity_comment_id);
+
+
+--
+-- Name: pk_activity_id; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY site_activity
+    ADD CONSTRAINT pk_activity_id PRIMARY KEY (activity_id);
+
+
+--
+-- Name: pk_badge_id; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY badges
+    ADD CONSTRAINT pk_badge_id PRIMARY KEY (badge_id);
+
+
+--
+-- Name: pk_cat_id; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY service_categories
+    ADD CONSTRAINT pk_cat_id PRIMARY KEY (cat_id);
+
+
+--
+-- Name: pk_cem_acl_id; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY cem_object_git_acl
+    ADD CONSTRAINT pk_cem_acl_id PRIMARY KEY (cem_git_acl_id);
+
+
+--
+-- Name: pk_cem_children; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY cem_children
+    ADD CONSTRAINT pk_cem_children PRIMARY KEY (cem_id, child_id);
+
+
+--
+-- Name: pk_cem_id; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY cem_objects
+    ADD CONSTRAINT pk_cem_id PRIMARY KEY (cem_id);
+
+
+--
+-- Name: pk_cem_parents; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY cem_parents
+    ADD CONSTRAINT pk_cem_parents PRIMARY KEY (cem_id, parent_id);
+
+
+--
+-- Name: pk_cem_service_id; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY cem_service_categories
+    ADD CONSTRAINT pk_cem_service_id PRIMARY KEY (cem_service_id);
+
+
+--
+-- Name: pk_cem_tag_id; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY cem_tags
+    ADD CONSTRAINT pk_cem_tag_id PRIMARY KEY (cem_tag_id);
+
+
+--
+-- Name: pk_deleted_cem_git_acl; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY deleted_cem_object_git_acl
+    ADD CONSTRAINT pk_deleted_cem_git_acl PRIMARY KEY (cem_git_acl_id);
+
+
+--
+-- Name: pk_deleted_cem_objects; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY deleted_cem_objects
+    ADD CONSTRAINT pk_deleted_cem_objects PRIMARY KEY (cem_id);
+
+
+--
+-- Name: pk_deleted_cem_service_id; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY deleted_cem_service_categories
+    ADD CONSTRAINT pk_deleted_cem_service_id PRIMARY KEY (cem_service_id);
+
+
+--
+-- Name: pk_deleted_cem_tags_join; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY deleted_cem_tags_join
+    ADD CONSTRAINT pk_deleted_cem_tags_join PRIMARY KEY (join_id);
+
+
+--
+-- Name: pk_deleted_dome_interfaces; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY deleted_dome_interfaces
+    ADD CONSTRAINT pk_deleted_dome_interfaces PRIMARY KEY (interface_id);
+
+
+--
+-- Name: pk_deleted_site_activity; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY deleted_site_activity
+    ADD CONSTRAINT pk_deleted_site_activity PRIMARY KEY (activity_id);
+
+
+--
+-- Name: pk_deleted_site_activity_comments; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY deleted_site_activity_comments
+    ADD CONSTRAINT pk_deleted_site_activity_comments PRIMARY KEY (activity_comment_id);
+
+
+--
+-- Name: pk_doc_group_id; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY doc2_groups
+    ADD CONSTRAINT pk_doc_group_id PRIMARY KEY (doc_group_id);
+
+
+--
+-- Name: pk_file_id; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY doc2_files
+    ADD CONSTRAINT pk_file_id PRIMARY KEY (file_id);
+
+
+--
+-- Name: pk_forum_id; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY forums
+    ADD CONSTRAINT pk_forum_id PRIMARY KEY (forum_id);
+
+
+--
+-- Name: pk_gateway_id; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY cell_gateways
+    ADD CONSTRAINT pk_gateway_id PRIMARY KEY (gateway_id);
+
+
+--
+-- Name: pk_interface_id; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY dome_interfaces
+    ADD CONSTRAINT pk_interface_id PRIMARY KEY (interface_id);
+
+
+--
+-- Name: pk_join_id; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY cem_tags_join
+    ADD CONSTRAINT pk_join_id PRIMARY KEY (join_id);
+
+
+--
+-- Name: pk_message_id; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY cem_runnable_messages
+    ADD CONSTRAINT pk_message_id PRIMARY KEY (message_id);
+
+
+--
+-- Name: pk_page_id; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY wiki_pages
+    ADD CONSTRAINT pk_page_id PRIMARY KEY (page_id);
+
+
+--
+-- Name: pk_project_tags_join; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY project_tags_join
+    ADD CONSTRAINT pk_project_tags_join PRIMARY KEY (project_tags_join_id);
+
+
+--
+-- Name: pk_runnable_id; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY cem_runnables
+    ADD CONSTRAINT pk_runnable_id PRIMARY KEY (runnable_id);
+
+
+--
+-- Name: pk_running_id; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY cem_runnables_running
+    ADD CONSTRAINT pk_running_id PRIMARY KEY (running_id);
+
+
+--
+-- Name: pk_runtime_id; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY runnable_runtimes
+    ADD CONSTRAINT pk_runtime_id PRIMARY KEY (runtime_id);
+
+
+--
+-- Name: pk_server_id; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY servers
+    ADD CONSTRAINT pk_server_id PRIMARY KEY (server_id);
+
+
+--
+-- Name: pk_service_subscription_id; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY service_subscriptions
+    ADD CONSTRAINT pk_service_subscription_id PRIMARY KEY (group_id, interface_id);
+
+
+--
+-- Name: pk_skill_keyword_id; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY skill_keywords
+    ADD CONSTRAINT pk_skill_keyword_id PRIMARY KEY (skill_keyword_id);
+
+
+--
+-- Name: pk_subscription_id; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY channel_subscriptions
+    ADD CONSTRAINT pk_subscription_id PRIMARY KEY (subscription_id);
+
+
+--
+-- Name: pk_tag_id; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY project_tags
+    ADD CONSTRAINT pk_tag_id PRIMARY KEY (tag_id);
+
+
+--
+-- Name: pk_topic_id; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY forum_topics
+    ADD CONSTRAINT pk_topic_id PRIMARY KEY (topic_id);
+
+
+--
+-- Name: pk_user_badges; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY user_badges
+    ADD CONSTRAINT pk_user_badges PRIMARY KEY (user_id, badge_id);
+
+
+--
+-- Name: pk_user_id; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY user_postcounts
+    ADD CONSTRAINT pk_user_id PRIMARY KEY (user_id);
+
+
+--
+-- Name: pk_user_message_id; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY user_messages
+    ADD CONSTRAINT pk_user_message_id PRIMARY KEY (message_id);
+
+
+--
+-- Name: pk_user_pubkey_id; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY user_pubkeys
+    ADD CONSTRAINT pk_user_pubkey_id PRIMARY KEY (user_pubkey_id);
+
+
+--
+-- Name: pk_user_skill_id; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY user_skills
+    ADD CONSTRAINT pk_user_skill_id PRIMARY KEY (user_skill_id);
+
+
+--
+-- Name: pk_user_skills_keywords_join; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY user_skills_keywords_join
+    ADD CONSTRAINT pk_user_skills_keywords_join PRIMARY KEY (user_skill_id, skill_keyword_id);
+
+
+--
+-- Name: pk_wiki_cat_id; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY wiki_categories
+    ADD CONSTRAINT pk_wiki_cat_id PRIMARY KEY (cat_id);
+
+
+--
+-- Name: plugin_cvstracker_artifact_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY plugin_cvstracker_data_artifact
+    ADD CONSTRAINT plugin_cvstracker_artifact_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: plugin_cvstracker_master_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY plugin_cvstracker_data_master
+    ADD CONSTRAINT plugin_cvstracker_master_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: plugins_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY plugins
+    ADD CONSTRAINT plugins_pkey PRIMARY KEY (plugin_id);
+
+
+--
+-- Name: prdb_dbs_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY prdb_dbs
+    ADD CONSTRAINT prdb_dbs_pkey PRIMARY KEY (dbid);
+
+
+--
+-- Name: prdb_types_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY prdb_types
+    ADD CONSTRAINT prdb_types_pkey PRIMARY KEY (dbtypeid);
+
+
+--
+-- Name: project_assigned_to_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY project_assigned_to
+    ADD CONSTRAINT project_assigned_to_pkey PRIMARY KEY (project_task_id, assigned_to_id);
+
+
+--
+-- Name: project_counts_agg_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY project_counts_agg
+    ADD CONSTRAINT project_counts_agg_pkey PRIMARY KEY (group_project_id);
+
+
+--
+-- Name: project_dependencies_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY project_dependencies
+    ADD CONSTRAINT project_dependencies_pkey PRIMARY KEY (project_task_id, is_dependent_on_task_id);
+
+
+--
+-- Name: project_group_list_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY project_group_list
+    ADD CONSTRAINT project_group_list_pkey PRIMARY KEY (group_project_id);
+
+
+--
+-- Name: project_history_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY project_history
+    ADD CONSTRAINT project_history_pkey PRIMARY KEY (project_history_id);
+
+
+--
+-- Name: project_metric_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY project_metric
+    ADD CONSTRAINT project_metric_pkey PRIMARY KEY (ranking);
+
+
+--
+-- Name: project_metric_tmp1_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY project_metric_tmp1
+    ADD CONSTRAINT project_metric_tmp1_pkey PRIMARY KEY (ranking);
+
+
+--
+-- Name: project_status_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY project_status
+    ADD CONSTRAINT project_status_pkey PRIMARY KEY (status_id);
+
+
+--
+-- Name: project_sums_agg_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY project_sums_agg
+    ADD CONSTRAINT project_sums_agg_pkey PRIMARY KEY (group_id, type);
+
+
+--
+-- Name: project_task_artifact_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY project_task_artifact
+    ADD CONSTRAINT project_task_artifact_pkey PRIMARY KEY (project_task_id, artifact_id);
+
+
+--
+-- Name: project_task_external_order_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY project_task_external_order
+    ADD CONSTRAINT project_task_external_order_pkey PRIMARY KEY (project_task_id);
+
+
+--
+-- Name: project_task_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY project_task
+    ADD CONSTRAINT project_task_pkey PRIMARY KEY (project_task_id);
+
+
+--
+-- Name: prweb_vhost_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY prweb_vhost
+    ADD CONSTRAINT prweb_vhost_pkey PRIMARY KEY (vhostid);
+
+
+--
+-- Name: rep_group_act_daily_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY rep_group_act_daily
+    ADD CONSTRAINT rep_group_act_daily_pkey PRIMARY KEY (group_id, day);
+
+
+--
+-- Name: rep_group_act_monthly_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY rep_group_act_monthly
+    ADD CONSTRAINT rep_group_act_monthly_pkey PRIMARY KEY (group_id, month);
+
+
+--
+-- Name: rep_group_act_weekly_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY rep_group_act_weekly
+    ADD CONSTRAINT rep_group_act_weekly_pkey PRIMARY KEY (group_id, week);
+
+
+--
+-- Name: rep_groups_added_daily_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY rep_groups_added_daily
+    ADD CONSTRAINT rep_groups_added_daily_pkey PRIMARY KEY (day);
+
+
+--
+-- Name: rep_groups_added_monthly_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY rep_groups_added_monthly
+    ADD CONSTRAINT rep_groups_added_monthly_pkey PRIMARY KEY (month);
+
+
+--
+-- Name: rep_groups_added_weekly_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY rep_groups_added_weekly
+    ADD CONSTRAINT rep_groups_added_weekly_pkey PRIMARY KEY (week);
+
+
+--
+-- Name: rep_groups_cum_daily_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY rep_groups_cum_daily
+    ADD CONSTRAINT rep_groups_cum_daily_pkey PRIMARY KEY (day);
+
+
+--
+-- Name: rep_groups_cum_monthly_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY rep_groups_cum_monthly
+    ADD CONSTRAINT rep_groups_cum_monthly_pkey PRIMARY KEY (month);
+
+
+--
+-- Name: rep_groups_cum_weekly_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY rep_groups_cum_weekly
+    ADD CONSTRAINT rep_groups_cum_weekly_pkey PRIMARY KEY (week);
+
+
+--
+-- Name: rep_time_category_time_code_key; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY rep_time_category
+    ADD CONSTRAINT rep_time_category_time_code_key UNIQUE (time_code);
+
+
+--
+-- Name: rep_user_act_daily_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY rep_user_act_daily
+    ADD CONSTRAINT rep_user_act_daily_pkey PRIMARY KEY (user_id, day);
+
+
+--
+-- Name: rep_user_act_monthly_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY rep_user_act_monthly
+    ADD CONSTRAINT rep_user_act_monthly_pkey PRIMARY KEY (user_id, month);
+
+
+--
+-- Name: rep_user_act_weekly_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY rep_user_act_weekly
+    ADD CONSTRAINT rep_user_act_weekly_pkey PRIMARY KEY (user_id, week);
+
+
+--
+-- Name: rep_users_added_daily_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY rep_users_added_daily
+    ADD CONSTRAINT rep_users_added_daily_pkey PRIMARY KEY (day);
+
+
+--
+-- Name: rep_users_added_monthly_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY rep_users_added_monthly
+    ADD CONSTRAINT rep_users_added_monthly_pkey PRIMARY KEY (month);
+
+
+--
+-- Name: rep_users_added_weekly_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY rep_users_added_weekly
+    ADD CONSTRAINT rep_users_added_weekly_pkey PRIMARY KEY (week);
+
+
+--
+-- Name: rep_users_cum_daily_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY rep_users_cum_daily
+    ADD CONSTRAINT rep_users_cum_daily_pkey PRIMARY KEY (day);
+
+
+--
+-- Name: rep_users_cum_monthly_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY rep_users_cum_monthly
+    ADD CONSTRAINT rep_users_cum_monthly_pkey PRIMARY KEY (month);
+
+
+--
+-- Name: rep_users_cum_weekly_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY rep_users_cum_weekly
+    ADD CONSTRAINT rep_users_cum_weekly_pkey PRIMARY KEY (week);
+
+
+--
+-- Name: pfo_role_setting_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY pfo_role_setting
+    ADD CONSTRAINT pfo_role_setting_pkey PRIMARY KEY (role_id, section_name, ref_id);
+
+
+--
+-- Name: session_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY user_session
+    ADD CONSTRAINT session_pkey PRIMARY KEY (session_hash);
+
+
+--
+-- Name: snippet_package_item_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY snippet_package_item
+    ADD CONSTRAINT snippet_package_item_pkey PRIMARY KEY (snippet_package_item_id);
+
+
+--
+-- Name: snippet_package_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY snippet_package
+    ADD CONSTRAINT snippet_package_pkey PRIMARY KEY (snippet_package_id);
+
+
+--
+-- Name: snippet_package_version_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY snippet_package_version
+    ADD CONSTRAINT snippet_package_version_pkey PRIMARY KEY (snippet_package_version_id);
+
+
+--
+-- Name: snippet_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY snippet
+    ADD CONSTRAINT snippet_pkey PRIMARY KEY (snippet_id);
+
+
+--
+-- Name: snippet_version_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY snippet_version
+    ADD CONSTRAINT snippet_version_pkey PRIMARY KEY (snippet_version_id);
+
+
+--
+-- Name: solr_index_event_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY solr_index_event
+    ADD CONSTRAINT solr_index_event_pkey PRIMARY KEY (core, id);
+
+
+--
+-- Name: solr_index_event_status_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY solr_index_event_status
+    ADD CONSTRAINT solr_index_event_status_pkey PRIMARY KEY (status);
+
+
+--
+-- Name: solr_index_event_type_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY solr_index_event_type
+    ADD CONSTRAINT solr_index_event_type_pkey PRIMARY KEY (status);
+
+
+--
+-- Name: supported_languages_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY supported_languages
+    ADD CONSTRAINT supported_languages_pkey PRIMARY KEY (language_id);
+
+
+--
+-- Name: survey_question_types_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY survey_question_types
+    ADD CONSTRAINT survey_question_types_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: survey_questions_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY survey_questions
+    ADD CONSTRAINT survey_questions_pkey PRIMARY KEY (question_id);
+
+
+--
+-- Name: surveys_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY surveys
+    ADD CONSTRAINT surveys_pkey PRIMARY KEY (survey_id);
+
+
+--
+-- Name: trove_cat_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY trove_cat
+    ADD CONSTRAINT trove_cat_pkey PRIMARY KEY (trove_cat_id);
+
+
+--
+-- Name: trove_group_link_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY trove_group_link
+    ADD CONSTRAINT trove_group_link_pkey PRIMARY KEY (trove_cat_id, group_id, trove_cat_version);
+
+
+--
+-- Name: trove_treesums_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY trove_treesums
+    ADD CONSTRAINT trove_treesums_pkey PRIMARY KEY (trove_cat_id);
+
+
+--
+-- Name: user_bookmarks_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY user_bookmarks
+    ADD CONSTRAINT user_bookmarks_pkey PRIMARY KEY (bookmark_id);
+
+
+--
+-- Name: user_diary_monitor_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY user_diary_monitor
+    ADD CONSTRAINT user_diary_monitor_pkey PRIMARY KEY (monitored_user, user_id);
+
+
+--
+-- Name: user_diary_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY user_diary
+    ADD CONSTRAINT user_diary_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_history_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY user_history
+    ADD CONSTRAINT user_history_pkey PRIMARY KEY (user_history_id);
+
+
+--
+-- Name: user_metric0_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY user_metric0
+    ADD CONSTRAINT user_metric0_pkey PRIMARY KEY (ranking);
+
+
+--
+-- Name: user_metric_history_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY user_metric_history
+    ADD CONSTRAINT user_metric_history_pkey PRIMARY KEY (month, day, user_id);
+
+
+--
+-- Name: user_metric_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY user_metric
+    ADD CONSTRAINT user_metric_pkey PRIMARY KEY (ranking);
+
+
+--
+-- Name: user_plugin_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY user_plugin
+    ADD CONSTRAINT user_plugin_pkey PRIMARY KEY (user_id, plugin_id);
+
+
+--
+-- Name: user_preferences_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY user_preferences
+    ADD CONSTRAINT user_preferences_pkey PRIMARY KEY (user_id, preference_name);
+
+
+--
+-- Name: user_ratings_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY user_ratings
+    ADD CONSTRAINT user_ratings_pkey PRIMARY KEY (rated_by, user_id, rate_field);
+
+
+--
+-- Name: user_type_type_id_key; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY user_type
+    ADD CONSTRAINT user_type_type_id_key UNIQUE (type_id);
+
+
+--
+-- Name: widget_rss_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
+--
+
+ALTER TABLE ONLY widget_rss
+    ADD CONSTRAINT widget_rss_pkey PRIMARY KEY (id);
+
+--
+-- Name: themes_theme_id_key; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE UNIQUE INDEX themes_theme_id_key ON themes USING btree (theme_id);
+
+

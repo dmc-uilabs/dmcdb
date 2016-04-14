@@ -1,0 +1,21 @@
+
+--
+-- Name: activity_log; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE activity_log (
+    day integer DEFAULT 0 NOT NULL,
+    hour integer DEFAULT 0 NOT NULL,
+    group_id integer DEFAULT 0 NOT NULL,
+    browser character varying(8) DEFAULT 'OTHER'::character varying NOT NULL,
+    ver double precision DEFAULT (0)::double precision NOT NULL,
+    platform character varying(8) DEFAULT 'OTHER'::character varying NOT NULL,
+    "time" integer DEFAULT 0 NOT NULL,
+    page text,
+    type integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE activity_log OWNER TO gforge;
+
+

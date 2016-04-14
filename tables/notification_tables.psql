@@ -1,0 +1,176 @@
+--
+-- Tables for tracking notification
+--
+
+create table notification_action
+(
+   id serial primary key,
+   action text
+);
+ALTER TABLE notification_action OWNER TO gforge;
+
+create table notification_object_type
+(
+	id serial primary key,
+	object_name text
+);
+ALTER TABLE notification_object_type OWNER TO gforge;
+
+create table notification_type
+(
+	id serial primary key,
+	notification_object_type_id integer,
+	action_id integer,
+	notification_type text
+);
+ALTER TABLE notification_type OWNER TO gforge;
+
+create table notification
+(
+	id serial primary key,
+	notification_type_id integer,
+	object_id integer,
+	origination_user_id integer,
+	detail_link text,
+	notification_time timestamp
+);
+ALTER TABLE notification OWNER TO gforge;
+
+create table notification_consumption
+(
+	id serial primary key,
+	notificaition_id integer,
+	user_id integer,
+	consumption_time timestamp
+);
+ALTER TABLE notification_consumption OWNER TO gforge;
+
+create table notification_additional_info
+(
+	id serial primary key,
+	notificaiton_id integer,
+	addition_info_order integer,
+	information text,
+	note text
+);
+ALTER TABLE notification_additional_info OWNER TO gforge;
+
+
+CREATE TABLE deleted_mailing_lists (
+    mailing_list_name character varying(30),
+    delete_date integer,
+    isdeleted integer
+);
+
+
+ALTER TABLE deleted_mailing_lists OWNER TO gforge;
+
+
+--
+-- Name: mail_group_list; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE mail_group_list (
+    group_list_id integer DEFAULT nextval(('mail_group_list_pk_seq'::text)::regclass) NOT NULL,
+    group_id integer DEFAULT 0 NOT NULL,
+    list_name text,
+    is_public integer DEFAULT 0 NOT NULL,
+    password character varying(16),
+    list_admin integer DEFAULT 0 NOT NULL,
+    status integer DEFAULT 0 NOT NULL,
+    description text
+);
+
+
+ALTER TABLE mail_group_list OWNER TO gforge;
+
+--
+-- Name: mail_group_list_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE mail_group_list_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE mail_group_list_pk_seq OWNER TO gforge;
+
+--
+-- Name: massmail_queue; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE massmail_queue (
+    id integer DEFAULT nextval(('"massmail_queue_id_seq"'::text)::regclass) NOT NULL,
+    type character varying(8) NOT NULL,
+    subject text NOT NULL,
+    message text NOT NULL,
+    queued_date integer NOT NULL,
+    last_userid integer DEFAULT 0 NOT NULL,
+    failed_date integer DEFAULT 0 NOT NULL,
+    finished_date integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE massmail_queue OWNER TO gforge;
+
+--
+-- Name: massmail_queue_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE massmail_queue_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE massmail_queue_id_seq OWNER TO gforge;
+
+--
+-- Name: mta_lists; Type: VIEW; Schema: public; Owner: gforge
+--
+
+CREATE VIEW mta_lists AS
+SELECT mail_group_list.list_name, ('|/var/lib/mailman/mail/mailman post '::text || mail_group_list.list_name) AS post_address, ('|/var/lib/mailman/mail/mailman admin '::text || mail_group_list.list_name) AS admin_address, ('|/var/lib/mailman/mail/mailman bounces '::text || mail_group_list.list_name) AS bounces_address, ('|/var/lib/mailman/mail/mailman confirm '::text || mail_group_list.list_name) AS confirm_address, ('|/var/lib/mailman/mail/mailman join '::text || mail_group_list.list_name) AS join_address, ('|/var/lib/mailman/mail/mailman leave '::text || mail_group_list.list_name) AS leave_address, ('|/var/lib/mailman/mail/mailman owner '::text || mail_group_list.list_name) AS owner_address, ('|/var/lib/mailman/mail/mailman request '::text || mail_group_list.list_name) AS request_address, ('|/var/lib/mailman/mail/mailman subscribe '::text || mail_group_list.list_name) AS subscribe_address, ('|/var/lib/mailman/mail/mailman unsubscribe '::text || mail_group_list.list_name) AS unsubscribe_address FROM mail_group_list WHERE ((mail_group_list.status = 3) OR (mail_group_list.status = 4));
+
+
+ALTER TABLE mta_lists OWNER TO gforge;
+
+
+--
+-- Name: news_bytes; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE news_bytes (
+    id integer DEFAULT nextval(('news_bytes_pk_seq'::text)::regclass) NOT NULL,
+    group_id integer DEFAULT 0 NOT NULL,
+    submitted_by integer DEFAULT 0 NOT NULL,
+    is_approved integer DEFAULT 0 NOT NULL,
+    post_date integer DEFAULT 0 NOT NULL,
+    forum_id integer DEFAULT 0 NOT NULL,
+    summary text,
+    details text
+);
+
+
+ALTER TABLE news_bytes OWNER TO gforge;
+
+--
+-- Name: news_bytes_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE news_bytes_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE news_bytes_pk_seq OWNER TO gforge;
+
+

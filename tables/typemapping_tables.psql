@@ -1,0 +1,40 @@
+
+--
+-- Name: typemap_entry; Type: TABLE; Schema: sqlj; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE typemap_entry (
+    mapid integer NOT NULL,
+    javaname character varying(200) NOT NULL,
+    sqlname name NOT NULL
+);
+
+
+ALTER TABLE typemap_entry OWNER TO postgres;
+
+--
+-- Name: typemap_entry_mapid_seq; Type: SEQUENCE; Schema: sqlj; Owner: postgres
+--
+
+CREATE SEQUENCE typemap_entry_mapid_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE typemap_entry_mapid_seq OWNER TO postgres;
+
+--
+-- Name: typemap_entry_mapid_seq; Type: SEQUENCE OWNED BY; Schema: sqlj; Owner: postgres
+--
+
+ALTER SEQUENCE typemap_entry_mapid_seq OWNED BY typemap_entry.mapid;
+
+
+--
+-- Name: mapid; Type: DEFAULT; Schema: sqlj; Owner: postgres
+--
+
+ALTER TABLE ONLY typemap_entry ALTER COLUMN mapid SET DEFAULT nextval('typemap_entry_mapid_seq'::regclass);

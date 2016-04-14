@@ -1,0 +1,344 @@
+
+--
+-- Name: artifact_delete_agg; Type: RULE; Schema: public; Owner: gforge
+--
+
+CREATE RULE artifact_delete_agg AS ON DELETE TO artifact DO UPDATE artifact_counts_agg SET count = (artifact_counts_agg.count - 1), open_count = CASE WHEN (old.status_id = 1) THEN (artifact_counts_agg.open_count - 1) ELSE artifact_counts_agg.open_count END WHERE (artifact_counts_agg.group_artifact_id = old.group_artifact_id);
+
+
+--
+-- Name: artifact_insert_agg; Type: RULE; Schema: public; Owner: gforge
+--
+
+CREATE RULE artifact_insert_agg AS ON INSERT TO artifact DO UPDATE artifact_counts_agg SET count = (artifact_counts_agg.count + 1), open_count = (artifact_counts_agg.open_count + 1) WHERE (artifact_counts_agg.group_artifact_id = new.group_artifact_id);
+
+
+--
+-- Name: forum_delete_agg; Type: RULE; Schema: public; Owner: gforge
+--
+
+CREATE RULE forum_delete_agg AS ON DELETE TO forum DO UPDATE forum_agg_msg_count SET count = (forum_agg_msg_count.count - 1) WHERE (forum_agg_msg_count.group_forum_id = old.group_forum_id);
+
+
+--
+-- Name: forum_insert_agg; Type: RULE; Schema: public; Owner: gforge
+--
+
+CREATE RULE forum_insert_agg AS ON INSERT TO forum DO UPDATE forum_agg_msg_count SET count = (forum_agg_msg_count.count + 1) WHERE (forum_agg_msg_count.group_forum_id = new.group_forum_id);
+
+
+--
+-- Name: frs_dlstats_file_rule; Type: RULE; Schema: public; Owner: gforge
+--
+
+CREATE RULE frs_dlstats_file_rule AS ON INSERT TO frs_dlstats_file DO UPDATE frs_dlstats_filetotal_agg SET downloads = (frs_dlstats_filetotal_agg.downloads + 1) WHERE (frs_dlstats_filetotal_agg.file_id = new.file_id);
+
+
+--
+-- Name: groupactivity_userdelete_rule; Type: RULE; Schema: public; Owner: gforge
+--
+
+CREATE RULE groupactivity_userdelete_rule AS ON UPDATE TO users DO DELETE FROM group_activity_monitor WHERE (group_activity_monitor.user_id = CASE WHEN (new.status = 'D'::bpchar) THEN new.user_id ELSE 0 END);
+
+
+--
+-- Name: projecttask_delete_agg; Type: RULE; Schema: public; Owner: gforge
+--
+
+CREATE RULE projecttask_delete_agg AS ON DELETE TO project_task DO UPDATE project_counts_agg SET count = (project_counts_agg.count - 1), open_count = CASE WHEN (old.status_id = 1) THEN (project_counts_agg.open_count - 1) ELSE project_counts_agg.open_count END WHERE (project_counts_agg.group_project_id = old.group_project_id);
+
+
+--
+-- Name: projecttask_insert_agg; Type: RULE; Schema: public; Owner: gforge
+--
+
+CREATE RULE projecttask_insert_agg AS ON INSERT TO project_task DO UPDATE project_counts_agg SET count = (project_counts_agg.count + 1), open_count = (project_counts_agg.open_count + 1) WHERE (project_counts_agg.group_project_id = new.group_project_id);
+
+
+--
+-- Name: artifact_update_last_modified_date; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER artifact_update_last_modified_date BEFORE INSERT OR UPDATE ON artifact FOR EACH ROW EXECUTE PROCEDURE update_last_modified_date();
+
+
+--
+-- Name: artifactgroup_update_trig; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER artifactgroup_update_trig AFTER UPDATE ON artifact FOR EACH ROW EXECUTE PROCEDURE artifactgroup_update_agg();
+
+
+--
+-- Name: artifactgrouplist_insert_trig; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER artifactgrouplist_insert_trig AFTER INSERT ON artifact_group_list FOR EACH ROW EXECUTE PROCEDURE artifactgrouplist_insert_agg();
+
+
+--
+-- Name: cem_delete_trigger; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER cem_delete_trigger AFTER DELETE ON cem_objects FOR EACH ROW EXECUTE PROCEDURE cem_delete();
+
+
+--
+-- Name: cem_insert_trigger; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER cem_insert_trigger AFTER INSERT ON cem_objects FOR EACH ROW EXECUTE PROCEDURE cem_insert();
+
+
+--
+-- Name: cem_object_git_acl_before_delete_trigger; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER cem_object_git_acl_before_delete_trigger BEFORE DELETE ON cem_object_git_acl FOR EACH ROW EXECUTE PROCEDURE cem_object_git_acl_before_delete();
+
+
+--
+-- Name: cem_objects_before_delete_trigger; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER cem_objects_before_delete_trigger BEFORE DELETE ON cem_objects FOR EACH ROW EXECUTE PROCEDURE cem_objects_before_delete();
+
+
+--
+-- Name: cem_service_categories_before_delete_trigger; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER cem_service_categories_before_delete_trigger BEFORE DELETE ON cem_service_categories FOR EACH ROW EXECUTE PROCEDURE cem_service_categories_before_delete();
+
+
+--
+-- Name: cem_service_categories_delete_trigger; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER cem_service_categories_delete_trigger AFTER DELETE ON cem_service_categories FOR EACH ROW EXECUTE PROCEDURE cem_service_categories_delete();
+
+
+--
+-- Name: cem_service_categories_insert_trigger; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER cem_service_categories_insert_trigger AFTER INSERT ON cem_service_categories FOR EACH ROW EXECUTE PROCEDURE cem_service_categories_insert();
+
+
+--
+-- Name: cem_tags_join_before_delete_trigger; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER cem_tags_join_before_delete_trigger BEFORE DELETE ON cem_tags_join FOR EACH ROW EXECUTE PROCEDURE cem_tags_join_before_delete();
+
+
+--
+-- Name: cem_update_trigger; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER cem_update_trigger AFTER UPDATE ON cem_objects FOR EACH ROW EXECUTE PROCEDURE cem_update();
+
+
+--
+-- Name: dome_interfaces_before_delete_trigger; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER dome_interfaces_before_delete_trigger BEFORE DELETE ON dome_interfaces FOR EACH ROW EXECUTE PROCEDURE dome_interfaces_before_delete();
+
+
+--
+-- Name: fmsg_agg_trig; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER fmsg_agg_trig AFTER INSERT OR DELETE OR UPDATE ON forum FOR EACH ROW EXECUTE PROCEDURE project_sums('fmsg');
+
+
+--
+-- Name: fora_agg_trig; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER fora_agg_trig AFTER INSERT OR DELETE OR UPDATE ON forum_group_list FOR EACH ROW EXECUTE PROCEDURE project_sums('fora');
+
+
+--
+-- Name: forumgrouplist_insert_trig; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER forumgrouplist_insert_trig AFTER INSERT ON forum_group_list FOR EACH ROW EXECUTE PROCEDURE forumgrouplist_insert_agg();
+
+
+--
+-- Name: frs_file_insert_trig; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER frs_file_insert_trig AFTER INSERT ON frs_file FOR EACH ROW EXECUTE PROCEDURE frs_dlstats_filetotal_insert_ag();
+
+
+--
+-- Name: group_insert_trigger; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER group_insert_trigger AFTER INSERT ON groups FOR EACH ROW EXECUTE PROCEDURE group_insert();
+
+
+--
+-- Name: group_update_trigger; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER group_update_trigger AFTER UPDATE ON groups FOR EACH ROW EXECUTE PROCEDURE group_update();
+
+
+--
+-- Name: mail_agg_trig; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER mail_agg_trig AFTER INSERT OR DELETE OR UPDATE ON mail_group_list FOR EACH ROW EXECUTE PROCEDURE project_sums('mail');
+
+
+--
+-- Name: project_tags_join_delete_trigger; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER project_tags_join_delete_trigger AFTER DELETE ON project_tags_join FOR EACH ROW EXECUTE PROCEDURE project_tags_join_delete();
+
+
+--
+-- Name: project_tags_join_insert_trigger; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER project_tags_join_insert_trigger AFTER INSERT ON project_tags_join FOR EACH ROW EXECUTE PROCEDURE project_tags_join_insert();
+
+
+--
+-- Name: project_task_update_last_modified_date; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER project_task_update_last_modified_date BEFORE INSERT OR UPDATE ON project_task FOR EACH ROW EXECUTE PROCEDURE update_last_modified_date();
+
+
+--
+-- Name: projectgroup_update_trig; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER projectgroup_update_trig AFTER UPDATE ON project_task FOR EACH ROW EXECUTE PROCEDURE projectgroup_update_agg();
+
+
+--
+-- Name: projectgrouplist_insert_trig; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER projectgrouplist_insert_trig AFTER INSERT ON project_group_list FOR EACH ROW EXECUTE PROCEDURE projectgrouplist_insert_agg();
+
+
+--
+-- Name: projectmessage_ts_update; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER projectmessage_ts_update AFTER INSERT OR DELETE OR UPDATE ON project_messages FOR EACH ROW EXECUTE PROCEDURE update_vectors('project_messages');
+
+
+--
+-- Name: service_delete_trigger; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER service_delete_trigger AFTER DELETE ON dome_interfaces FOR EACH ROW EXECUTE PROCEDURE service_delete();
+
+
+--
+-- Name: service_insert_trigger; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER service_insert_trigger AFTER INSERT ON dome_interfaces FOR EACH ROW EXECUTE PROCEDURE service_insert();
+
+
+--
+-- Name: service_update_trigger; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER service_update_trigger AFTER UPDATE ON dome_interfaces FOR EACH ROW EXECUTE PROCEDURE service_update();
+
+
+--
+-- Name: site_activity_before_delete_trigger; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER site_activity_before_delete_trigger BEFORE DELETE ON site_activity FOR EACH ROW EXECUTE PROCEDURE site_activity_before_delete();
+
+
+--
+-- Name: site_activity_comments_before_delete_trigger; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER site_activity_comments_before_delete_trigger BEFORE DELETE ON site_activity_comments FOR EACH ROW EXECUTE PROCEDURE site_activity_comments_before_delete();
+
+
+--
+-- Name: solr_index_event_insert_trigger; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+--CREATE TRIGGER solr_index_event_insert_trigger AFTER INSERT ON solr_index_event FOR EACH ROW EXECUTE PROCEDURE solr_index_event_process();
+
+
+--
+-- Name: surveys_agg_trig; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER surveys_agg_trig AFTER INSERT OR DELETE OR UPDATE ON surveys FOR EACH ROW EXECUTE PROCEDURE project_sums('surv');
+
+
+--
+-- Name: user_delete_trigger; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER user_delete_trigger AFTER DELETE ON users FOR EACH ROW EXECUTE PROCEDURE user_delete();
+
+
+--
+-- Name: user_insert_trigger; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER user_insert_trigger AFTER INSERT ON users FOR EACH ROW EXECUTE PROCEDURE user_insert();
+
+
+--
+-- Name: user_skills_delete_trigger; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER user_skills_delete_trigger AFTER DELETE ON user_skills FOR EACH ROW EXECUTE PROCEDURE user_skills_delete();
+
+
+--
+-- Name: user_skills_insert_trigger; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER user_skills_insert_trigger AFTER INSERT ON user_skills FOR EACH ROW EXECUTE PROCEDURE user_skills_insert();
+
+
+--
+-- Name: user_update_trigger; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER user_update_trigger AFTER UPDATE ON users FOR EACH ROW EXECUTE PROCEDURE user_update();
+
+
+--
+-- Name: wiki_pages_delete_trigger; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER wiki_pages_delete_trigger AFTER DELETE ON wiki_pages FOR EACH ROW EXECUTE PROCEDURE wiki_pages_delete();
+
+
+--
+-- Name: wiki_pages_insert_trigger; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER wiki_pages_insert_trigger AFTER INSERT ON wiki_pages FOR EACH ROW EXECUTE PROCEDURE wiki_pages_insert();
+
+
+--
+-- Name: wiki_pages_update_trigger; Type: TRIGGER; Schema: public; Owner: gforge
+--
+
+CREATE TRIGGER wiki_pages_update_trigger AFTER UPDATE ON wiki_pages FOR EACH ROW EXECUTE PROCEDURE wiki_pages_update();
+
+

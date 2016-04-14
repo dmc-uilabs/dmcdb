@@ -1,0 +1,51 @@
+
+--
+-- Name: channel_subscriptions; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE channel_subscriptions (
+    subscription_id integer NOT NULL,
+    user_id integer NOT NULL,
+    type_id integer NOT NULL,
+    ref_id integer NOT NULL
+);
+
+
+ALTER TABLE channel_subscriptions OWNER TO gforge;
+
+--
+-- Name: COLUMN channel_subscriptions.type_id; Type: COMMENT; Schema: public; Owner: gforge
+--
+
+COMMENT ON COLUMN channel_subscriptions.type_id IS '1=user
+2=project';
+
+
+--
+-- Name: channel_subscriptions_subscription_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE channel_subscriptions_subscription_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE channel_subscriptions_subscription_id_seq OWNER TO gforge;
+
+--
+-- Name: channel_subscriptions_subscription_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE channel_subscriptions_subscription_id_seq OWNED BY channel_subscriptions.subscription_id;
+
+
+
+--
+-- Name: subscription_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY channel_subscriptions ALTER COLUMN subscription_id SET DEFAULT nextval('channel_subscriptions_subscription_id_seq'::regclass);
+

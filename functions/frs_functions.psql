@@ -1,0 +1,20 @@
+
+--
+-- Name: frs_dlstats_filetotal_insert_ag(); Type: FUNCTION; Schema: public; Owner: gforge
+--
+
+CREATE FUNCTION frs_dlstats_filetotal_insert_ag() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+	INSERT INTO frs_dlstats_filetotal_agg (file_id, downloads) VALUES (NEW.file_id, 0);
+	RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.frs_dlstats_filetotal_insert_ag() OWNER TO gforge;
+
+--
+-- Name: group_insert(); Type: FUNCTION; Schema: public; Owner: gforge
+--

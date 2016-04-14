@@ -1,0 +1,788 @@
+CREATE TABLE deleted_groups (
+    unix_group_name character varying(30),
+    delete_date integer,
+    isdeleted integer
+);
+
+
+ALTER TABLE deleted_groups OWNER TO gforge;
+
+--
+-- Name: deleted_mailing_lists; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+--
+-- Name: group_activity_monitor; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE group_activity_monitor (
+    group_id integer NOT NULL,
+    user_id integer NOT NULL,
+    filter text
+);
+
+
+ALTER TABLE group_activity_monitor OWNER TO gforge;
+
+--
+-- Name: group_cvs_history; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE group_cvs_history (
+    id integer DEFAULT nextval(('"group_cvs_history_id_seq"'::text)::regclass) NOT NULL,
+    group_id integer DEFAULT 0 NOT NULL,
+    user_name character varying(80) DEFAULT ''::character varying NOT NULL,
+    cvs_commits integer DEFAULT 0 NOT NULL,
+    cvs_commits_wk integer DEFAULT 0 NOT NULL,
+    cvs_adds integer DEFAULT 0 NOT NULL,
+    cvs_adds_wk integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE group_cvs_history OWNER TO gforge;
+
+--
+-- Name: group_cvs_history_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE group_cvs_history_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE group_cvs_history_id_seq OWNER TO gforge;
+
+--
+-- Name: group_history; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE group_history (
+    group_history_id integer DEFAULT nextval(('group_history_pk_seq'::text)::regclass) NOT NULL,
+    group_id integer DEFAULT 0 NOT NULL,
+    field_name text DEFAULT ''::text NOT NULL,
+    old_value text DEFAULT ''::text NOT NULL,
+    mod_by integer DEFAULT 0 NOT NULL,
+    adddate integer
+);
+
+
+ALTER TABLE group_history OWNER TO gforge;
+
+--
+-- Name: group_history_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE group_history_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE group_history_pk_seq OWNER TO gforge;
+
+--
+-- Name: group_join_request; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE group_join_request (
+    group_id integer NOT NULL,
+    user_id integer NOT NULL,
+    requester_id integer NOT NULL,
+    comments text,
+    request_date timestamp,
+    accept_date timestamp,
+    reject_date timestamp
+);
+
+
+ALTER TABLE group_join_request OWNER TO gforge;
+
+--
+-- Name: group_plugin; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE group_plugin (
+    group_plugin_id integer DEFAULT nextval(('group_plugin_pk_seq'::text)::regclass) NOT NULL,
+    group_id integer,
+    plugin_id integer
+);
+
+
+ALTER TABLE group_plugin OWNER TO gforge;
+
+--
+-- Name: group_plugin_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE group_plugin_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE group_plugin_pk_seq OWNER TO gforge;
+
+--
+-- Name: groups; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE groups (
+    group_id integer DEFAULT nextval(('groups_pk_seq'::text)::regclass) NOT NULL,
+    group_name character varying(40),
+    homepage character varying(128),
+    is_public integer DEFAULT 0 NOT NULL,
+    status character(1) DEFAULT 'A'::bpchar NOT NULL,
+    unix_group_name character varying(30) DEFAULT ''::character varying NOT NULL,
+    unix_box character varying(20) DEFAULT 'shell1'::character varying NOT NULL,
+    http_domain character varying(80),
+    short_description character varying(255),
+    register_purpose text,
+    license_other text,
+    register_time integer DEFAULT 0 NOT NULL,
+    rand_hash text,
+    use_mail integer DEFAULT 1 NOT NULL,
+    use_survey integer DEFAULT 1 NOT NULL,
+    use_forum integer DEFAULT 1 NOT NULL,
+    use_pm integer DEFAULT 1 NOT NULL,
+    use_scm integer DEFAULT 1 NOT NULL,
+    use_news integer DEFAULT 1 NOT NULL,
+    type_id integer DEFAULT 1 NOT NULL,
+    use_docman integer DEFAULT 1 NOT NULL,
+    new_doc_address text DEFAULT ''::text NOT NULL,
+    send_all_docs integer DEFAULT 0 NOT NULL,
+    use_pm_depend_box integer DEFAULT 1 NOT NULL,
+    use_ftp integer DEFAULT 1,
+    use_tracker integer DEFAULT 1,
+    use_frs integer DEFAULT 1,
+    use_stats integer DEFAULT 1,
+    enable_pserver integer DEFAULT 1,
+    enable_anonscm integer DEFAULT 1,
+    license integer DEFAULT 100,
+    scm_box text,
+    use_docman_search integer DEFAULT 1,
+    force_docman_reindex integer DEFAULT 0,
+    use_webdav integer DEFAULT 1,
+    use_docman_create_online integer DEFAULT 0,
+    is_template integer DEFAULT 0 NOT NULL,
+    built_from_template integer DEFAULT 0 NOT NULL,
+    export_control boolean DEFAULT false,
+    gallery_folder integer DEFAULT 0 NOT NULL,
+    profile_image integer DEFAULT 0 NOT NULL,
+    user_id integer,
+	due_date timestamp
+);
+
+
+ALTER TABLE groups OWNER TO gforge;
+
+--
+-- Name: groups_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE groups_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE groups_pk_seq OWNER TO gforge;
+
+--
+-- Name: nss_groups; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE nss_groups (
+    user_id integer,
+    group_id integer,
+    name character varying(30),
+    gid integer
+);
+
+
+ALTER TABLE nss_groups OWNER TO gforge;
+
+--
+-- Name: nss_passwd; Type: VIEW; Schema: public; Owner: gforge
+--
+
+CREATE VIEW nss_passwd AS
+SELECT users.unix_uid AS uid, users.unix_gid AS gid, users.user_name AS login, users.unix_pw AS passwd, users.realname AS gecos, users.shell, users.user_name AS homedir, users.status FROM users WHERE (users.unix_status = 'A'::bpchar);
+
+
+ALTER TABLE nss_passwd OWNER TO gforge;
+
+--
+-- Name: nss_shadow; Type: VIEW; Schema: public; Owner: gforge
+--
+
+CREATE VIEW nss_shadow AS
+SELECT users.user_name AS login, users.unix_pw AS passwd, 'n'::bpchar AS expired, 'n'::bpchar AS pwchange FROM users WHERE (users.unix_status = 'A'::bpchar);
+
+
+ALTER TABLE nss_shadow OWNER TO gforge;
+
+--
+-- Name: nss_usergroups; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE nss_usergroups (
+    uid integer,
+    gid integer,
+    user_id integer,
+    group_id integer,
+    user_name text,
+    unix_group_name character varying
+);
+
+
+ALTER TABLE nss_usergroups OWNER TO gforge;
+
+
+--
+-- Name: project_assigned_to; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE project_assigned_to (
+    project_assigned_id integer DEFAULT nextval(('project_assigned_to_pk_seq'::text)::regclass) NOT NULL,
+    project_task_id integer DEFAULT 0 NOT NULL,
+    assigned_to_id integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE project_assigned_to OWNER TO gforge;
+
+--
+-- Name: project_assigned_to_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE project_assigned_to_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE project_assigned_to_pk_seq OWNER TO gforge;
+
+--
+-- Name: project_categor_category_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE project_categor_category_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE project_categor_category_id_seq OWNER TO gforge;
+
+--
+-- Name: project_category; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE project_category (
+    category_id integer DEFAULT nextval(('"project_categor_category_id_seq"'::text)::regclass) NOT NULL,
+    group_project_id integer,
+    category_name text
+);
+
+
+ALTER TABLE project_category OWNER TO gforge;
+
+--
+-- Name: project_counts_agg; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE project_counts_agg (
+    group_project_id integer NOT NULL,
+    count integer DEFAULT 0 NOT NULL,
+    open_count integer DEFAULT 0
+);
+
+
+ALTER TABLE project_counts_agg OWNER TO gforge;
+
+--
+-- Name: project_dependencies; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE project_dependencies (
+    project_depend_id integer DEFAULT nextval(('project_dependencies_pk_seq'::text)::regclass) NOT NULL,
+    project_task_id integer DEFAULT 0 NOT NULL,
+    is_dependent_on_task_id integer DEFAULT 0 NOT NULL,
+    link_type character(2) DEFAULT 'FS'::bpchar
+);
+
+
+ALTER TABLE project_dependencies OWNER TO gforge;
+
+--
+-- Name: project_task; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE project_task (
+    project_task_id integer DEFAULT nextval(('project_task_pk_seq'::text)::regclass) NOT NULL,
+    group_project_id integer DEFAULT 0 NOT NULL,
+    summary text DEFAULT ''::text NOT NULL,
+    details text DEFAULT ''::text NOT NULL,
+    percent_complete integer DEFAULT 0 NOT NULL,
+    priority integer DEFAULT 3 NOT NULL,
+    hours double precision DEFAULT (0)::double precision NOT NULL,
+    start_date integer DEFAULT 0 NOT NULL,
+    end_date integer DEFAULT 0 NOT NULL,
+    created_by integer DEFAULT 0 NOT NULL,
+    status_id integer DEFAULT 0 NOT NULL,
+    category_id integer,
+    duration integer DEFAULT 0,
+    parent_id integer DEFAULT 0,
+    last_modified_date integer
+);
+
+
+ALTER TABLE project_task OWNER TO gforge;
+
+--
+-- Name: project_depend_vw; Type: VIEW; Schema: public; Owner: gforge
+--
+
+CREATE VIEW project_depend_vw AS
+SELECT pt.project_task_id, pd.is_dependent_on_task_id, pd.link_type, pt.end_date, pt.start_date FROM (project_task pt NATURAL JOIN project_dependencies pd);
+
+
+ALTER TABLE project_depend_vw OWNER TO gforge;
+
+--
+-- Name: project_dependencies_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE project_dependencies_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE project_dependencies_pk_seq OWNER TO gforge;
+
+--
+-- Name: project_dependon_vw; Type: VIEW; Schema: public; Owner: gforge
+--
+
+CREATE VIEW project_dependon_vw AS
+SELECT pd.project_task_id, pd.is_dependent_on_task_id, pd.link_type, pt.end_date, pt.start_date FROM (project_task pt FULL JOIN project_dependencies pd ON ((pd.is_dependent_on_task_id = pt.project_task_id)));
+
+
+ALTER TABLE project_dependon_vw OWNER TO gforge;
+
+--
+-- Name: project_group_list; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE project_group_list (
+    group_project_id integer DEFAULT nextval(('project_group_list_pk_seq'::text)::regclass) NOT NULL,
+    group_id integer DEFAULT 0 NOT NULL,
+    project_name text DEFAULT ''::text NOT NULL,
+    is_public integer DEFAULT 0 NOT NULL,
+    description text,
+    send_all_posts_to text
+);
+
+
+ALTER TABLE project_group_list OWNER TO gforge;
+
+--
+-- Name: project_group_list_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE project_group_list_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE project_group_list_pk_seq OWNER TO gforge;
+
+--
+-- Name: project_group_list_vw; Type: VIEW; Schema: public; Owner: gforge
+--
+
+CREATE VIEW project_group_list_vw AS
+SELECT project_group_list.group_project_id, project_group_list.group_id, project_group_list.project_name, project_group_list.is_public, project_group_list.description, project_group_list.send_all_posts_to, project_counts_agg.count, project_counts_agg.open_count FROM (project_group_list NATURAL JOIN project_counts_agg);
+
+
+ALTER TABLE project_group_list_vw OWNER TO gforge;
+
+--
+-- Name: project_history; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE project_history (
+    project_history_id integer DEFAULT nextval(('project_history_pk_seq'::text)::regclass) NOT NULL,
+    project_task_id integer DEFAULT 0 NOT NULL,
+    field_name text DEFAULT ''::text NOT NULL,
+    old_value text DEFAULT ''::text NOT NULL,
+    mod_by integer DEFAULT 0 NOT NULL,
+    mod_date integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE project_history OWNER TO gforge;
+
+--
+-- Name: project_history_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE project_history_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE project_history_pk_seq OWNER TO gforge;
+
+--
+-- Name: project_history_user_vw; Type: VIEW; Schema: public; Owner: gforge
+--
+
+CREATE VIEW project_history_user_vw AS
+SELECT users.realname, users.email, users.user_name, project_history.project_history_id, project_history.project_task_id, project_history.field_name, project_history.old_value, project_history.mod_by, project_history.mod_date FROM users, project_history WHERE (project_history.mod_by = users.user_id);
+
+
+ALTER TABLE project_history_user_vw OWNER TO gforge;
+
+--
+-- Name: project_messa_project_messa_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE project_messa_project_messa_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE project_messa_project_messa_seq OWNER TO gforge;
+
+--
+-- Name: project_messages; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE project_messages (
+    project_message_id integer DEFAULT nextval(('"project_messa_project_messa_seq"'::text)::regclass) NOT NULL,
+    project_task_id integer NOT NULL,
+    body text,
+    posted_by integer NOT NULL,
+    postdate integer NOT NULL
+);
+
+
+ALTER TABLE project_messages OWNER TO gforge;
+
+--
+-- Name: project_message_user_vw; Type: VIEW; Schema: public; Owner: gforge
+--
+
+CREATE VIEW project_message_user_vw AS
+SELECT users.realname, users.email, users.user_name, project_messages.project_message_id, project_messages.project_task_id, project_messages.body, project_messages.posted_by, project_messages.postdate FROM users, project_messages WHERE (project_messages.posted_by = users.user_id);
+
+
+ALTER TABLE project_message_user_vw OWNER TO gforge;
+
+--
+-- Name: project_messages_idx; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE project_messages_idx (
+    id integer,
+    project_task_id integer,
+    vectors tsvector
+);
+
+
+ALTER TABLE project_messages_idx OWNER TO gforge;
+
+--
+-- Name: project_metric; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE project_metric (
+    ranking integer DEFAULT nextval(('project_metric_pk_seq'::text)::regclass) NOT NULL,
+    percentile double precision,
+    group_id integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE project_metric OWNER TO gforge;
+
+--
+-- Name: project_metric_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE project_metric_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE project_metric_pk_seq OWNER TO gforge;
+
+--
+-- Name: project_metric_tmp1; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE project_metric_tmp1 (
+    ranking integer DEFAULT nextval(('project_metric_tmp1_pk_seq'::text)::regclass) NOT NULL,
+    group_id integer DEFAULT 0 NOT NULL,
+    value double precision
+);
+
+
+ALTER TABLE project_metric_tmp1 OWNER TO gforge;
+
+--
+-- Name: project_metric_tmp1_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE project_metric_tmp1_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE project_metric_tmp1_pk_seq OWNER TO gforge;
+
+--
+-- Name: project_metric_wee_ranking1_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE project_metric_wee_ranking1_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE project_metric_wee_ranking1_seq OWNER TO gforge;
+
+--
+-- Name: project_status; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE project_status (
+    status_id integer DEFAULT nextval(('project_status_pk_seq'::text)::regclass) NOT NULL,
+    status_name text DEFAULT ''::text NOT NULL
+);
+
+
+ALTER TABLE project_status OWNER TO gforge;
+
+--
+-- Name: project_status_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE project_status_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE project_status_pk_seq OWNER TO gforge;
+
+--
+-- Name: project_sums_agg; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE project_sums_agg (
+    group_id integer DEFAULT 0 NOT NULL,
+    type character(4) NOT NULL,
+    count integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE project_sums_agg OWNER TO gforge;
+
+SET default_with_oids = true;
+
+--
+-- Name: project_tags; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE project_tags (
+    tag_id integer NOT NULL,
+    tag_name text NOT NULL
+);
+
+
+ALTER TABLE project_tags OWNER TO gforge;
+
+SET default_with_oids = false;
+
+--
+-- Name: project_tags_join; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE project_tags_join (
+    project_tags_join_id integer NOT NULL,
+    group_id integer NOT NULL,
+    tag_id integer NOT NULL
+);
+
+
+ALTER TABLE project_tags_join OWNER TO gforge;
+
+--
+-- Name: project_tags_join_project_tags_join_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE project_tags_join_project_tags_join_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE project_tags_join_project_tags_join_id_seq OWNER TO gforge;
+
+--
+-- Name: project_tags_join_project_tags_join_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE project_tags_join_project_tags_join_id_seq OWNED BY project_tags_join.project_tags_join_id;
+
+
+--
+-- Name: project_tags_tag_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE project_tags_tag_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE project_tags_tag_id_seq OWNER TO gforge;
+
+--
+-- Name: project_tags_tag_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE project_tags_tag_id_seq OWNED BY project_tags.tag_id;
+
+
+--
+-- Name: project_task_artifact; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE project_task_artifact (
+    project_task_id integer NOT NULL,
+    artifact_id integer NOT NULL
+);
+
+
+ALTER TABLE project_task_artifact OWNER TO gforge;
+
+--
+-- Name: project_task_external_order; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE project_task_external_order (
+    project_task_id integer NOT NULL,
+    external_id integer NOT NULL
+);
+
+
+ALTER TABLE project_task_external_order OWNER TO gforge;
+
+--
+-- Name: project_task_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE project_task_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE project_task_pk_seq OWNER TO gforge;
+
+--
+-- Name: project_task_vw; Type: VIEW; Schema: public; Owner: gforge
+--
+
+CREATE VIEW project_task_vw AS
+SELECT project_task.project_task_id, project_task.group_project_id, project_task.summary, project_task.details, project_task.percent_complete, project_task.priority, project_task.hours, project_task.start_date, project_task.end_date, project_task.created_by, project_task.status_id, project_task.category_id, project_task.duration, project_task.parent_id, project_task.last_modified_date, project_category.category_name, project_status.status_name, users.user_name, users.realname FROM (((project_task FULL JOIN project_category ON ((project_category.category_id = project_task.category_id))) FULL JOIN users ON ((users.user_id = project_task.created_by))) NATURAL JOIN project_status);
+
+
+ALTER TABLE project_task_vw OWNER TO gforge;
+
+--
+-- Name: project_weekly_metric; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE project_weekly_metric (
+    ranking integer DEFAULT nextval(('project_weekly_metric_pk_seq'::text)::regclass) NOT NULL,
+    percentile double precision,
+    group_id integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE project_weekly_metric OWNER TO gforge;
+
+--
+-- Name: project_weekly_metric_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE project_weekly_metric_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE project_weekly_metric_pk_seq OWNER TO gforge;
+
+
+--
+-- Name: tag_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY project_tags ALTER COLUMN tag_id SET DEFAULT nextval('project_tags_tag_id_seq'::regclass);
+
+
+--
+-- Name: project_tags_join_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY project_tags_join ALTER COLUMN project_tags_join_id SET DEFAULT nextval('project_tags_join_project_tags_join_id_seq'::regclass);
+

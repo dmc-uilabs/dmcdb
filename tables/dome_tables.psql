@@ -1,0 +1,425 @@
+
+--
+-- Name: deleted_dome_interfaces; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE deleted_dome_interfaces (
+    interface_id integer NOT NULL,
+    interface_data text NOT NULL,
+    server_id integer NOT NULL,
+    cem_id integer NOT NULL,
+    alias text,
+    description text,
+    deleted_date integer NOT NULL
+);
+
+
+ALTER TABLE deleted_dome_interfaces OWNER TO postgres;
+
+--
+-- Name: TABLE deleted_dome_interfaces; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE deleted_dome_interfaces IS 'Deleted DOME interface data';
+
+
+--
+-- Name: deleted_groups; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+--
+-- Name: dome_interfaces; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE dome_interfaces (
+    interface_id integer NOT NULL,
+    interface_data text NOT NULL,
+    server_id integer NOT NULL,
+    cem_id integer NOT NULL,
+    alias text,
+    description text
+);
+
+
+ALTER TABLE dome_interfaces OWNER TO gforge;
+
+--
+-- Name: TABLE dome_interfaces; Type: COMMENT; Schema: public; Owner: gforge
+--
+
+COMMENT ON TABLE dome_interfaces IS 'Stores DOME interface data';
+
+
+--
+-- Name: dome_interfaces_interface_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE dome_interfaces_interface_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE dome_interfaces_interface_id_seq OWNER TO postgres;
+
+--
+-- Name: dome_interfaces_interface_id_seq1; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE dome_interfaces_interface_id_seq1
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE dome_interfaces_interface_id_seq1 OWNER TO gforge;
+
+--
+-- Name: dome_interfaces_interface_id_seq1; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE dome_interfaces_interface_id_seq1 OWNED BY dome_interfaces.interface_id;
+
+
+
+--
+-- Name: job_job_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE job_job_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE job_job_id_seq OWNER TO postgres;
+
+
+--
+-- Name: people_job; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE people_job (
+    job_id integer DEFAULT nextval(('people_job_pk_seq'::text)::regclass) NOT NULL,
+    group_id integer DEFAULT 0 NOT NULL,
+    created_by integer DEFAULT 0 NOT NULL,
+    title text,
+    description text,
+    post_date integer DEFAULT 0 NOT NULL,
+    status_id integer DEFAULT 0 NOT NULL,
+    category_id integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE people_job OWNER TO gforge;
+
+--
+-- Name: people_job_category; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE people_job_category (
+    category_id integer DEFAULT nextval(('people_job_category_pk_seq'::text)::regclass) NOT NULL,
+    name text,
+    private_flag integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE people_job_category OWNER TO gforge;
+
+--
+-- Name: people_job_category_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE people_job_category_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE people_job_category_pk_seq OWNER TO gforge;
+
+--
+-- Name: people_job_inventory; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE people_job_inventory (
+    job_inventory_id integer DEFAULT nextval(('people_job_inventory_pk_seq'::text)::regclass) NOT NULL,
+    job_id integer DEFAULT 0 NOT NULL,
+    skill_id integer DEFAULT 0 NOT NULL,
+    skill_level_id integer DEFAULT 0 NOT NULL,
+    skill_year_id integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE people_job_inventory OWNER TO gforge;
+
+--
+-- Name: people_job_inventory_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE people_job_inventory_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE people_job_inventory_pk_seq OWNER TO gforge;
+
+--
+-- Name: people_job_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE people_job_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE people_job_pk_seq OWNER TO gforge;
+
+--
+-- Name: people_job_status; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE people_job_status (
+    status_id integer DEFAULT nextval(('people_job_status_pk_seq'::text)::regclass) NOT NULL,
+    name text
+);
+
+
+ALTER TABLE people_job_status OWNER TO gforge;
+
+--
+-- Name: people_job_status_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE people_job_status_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE people_job_status_pk_seq OWNER TO gforge;
+
+
+--
+-- Name: runnable_runtimes; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE runnable_runtimes (
+    runtime_id integer NOT NULL,
+    interface_id integer NOT NULL,
+    runtime integer NOT NULL,
+    date_completed integer NOT NULL,
+    run_id integer NOT NULL
+);
+
+
+ALTER TABLE runnable_runtimes OWNER TO gforge;
+
+--
+-- Name: COLUMN runnable_runtimes.runtime; Type: COMMENT; Schema: public; Owner: gforge
+--
+
+COMMENT ON COLUMN runnable_runtimes.runtime IS 'In milliseconds';
+
+
+--
+-- Name: COLUMN runnable_runtimes.date_completed; Type: COMMENT; Schema: public; Owner: gforge
+--
+
+COMMENT ON COLUMN runnable_runtimes.date_completed IS 'When the test completed';
+
+
+--
+-- Name: runnable_runtimes_runtime_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE runnable_runtimes_runtime_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE runnable_runtimes_runtime_id_seq OWNER TO postgres;
+
+--
+-- Name: runnable_runtimes_runtime_id_seq1; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE runnable_runtimes_runtime_id_seq1
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE runnable_runtimes_runtime_id_seq1 OWNER TO gforge;
+
+--
+-- Name: runnable_runtimes_runtime_id_seq1; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE runnable_runtimes_runtime_id_seq1 OWNED BY runnable_runtimes.runtime_id;
+
+
+--
+-- Name: servers; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE servers (
+    server_id integer NOT NULL,
+    url text NOT NULL,
+    user_id integer NOT NULL,
+    alias text
+);
+
+
+ALTER TABLE servers OWNER TO gforge;
+
+--
+-- Name: servers_server_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE servers_server_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE servers_server_id_seq OWNER TO postgres;
+
+--
+-- Name: servers_server_id_seq1; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE servers_server_id_seq1
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE servers_server_id_seq1 OWNER TO gforge;
+
+--
+-- Name: servers_server_id_seq1; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE servers_server_id_seq1 OWNED BY servers.server_id;
+
+
+--
+-- Name: service_categories; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE service_categories (
+    cat_id integer NOT NULL,
+    parent_id integer DEFAULT 0 NOT NULL,
+    name text NOT NULL
+);
+
+
+ALTER TABLE service_categories OWNER TO gforge;
+
+--
+-- Name: service_categories_cat_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE service_categories_cat_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE service_categories_cat_id_seq OWNER TO postgres;
+
+--
+-- Name: service_categories_cat_id_seq1; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE service_categories_cat_id_seq1
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE service_categories_cat_id_seq1 OWNER TO gforge;
+
+--
+-- Name: service_categories_cat_id_seq1; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE service_categories_cat_id_seq1 OWNED BY service_categories.cat_id;
+
+
+--
+-- Name: service_subscriptions; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE service_subscriptions (
+    group_id integer NOT NULL,
+    interface_id integer NOT NULL
+);
+
+
+ALTER TABLE service_subscriptions OWNER TO gforge;
+
+--
+-- Name: TABLE service_subscriptions; Type: COMMENT; Schema: public; Owner: gforge
+--
+
+COMMENT ON TABLE service_subscriptions IS 'Holds project subscriptions to DOME inerfaces';
+
+
+--
+-- Name: interface_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY dome_interfaces ALTER COLUMN interface_id SET DEFAULT nextval('dome_interfaces_interface_id_seq1'::regclass);
+
+
+--
+-- Name: runtime_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY runnable_runtimes ALTER COLUMN runtime_id SET DEFAULT nextval('runnable_runtimes_runtime_id_seq1'::regclass);
+
+
+--
+-- Name: server_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY servers ALTER COLUMN server_id SET DEFAULT nextval('servers_server_id_seq1'::regclass);
+
+
+--
+-- Name: cat_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY service_categories ALTER COLUMN cat_id SET DEFAULT nextval('service_categories_cat_id_seq1'::regclass);
+

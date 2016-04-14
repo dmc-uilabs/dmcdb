@@ -1,0 +1,348 @@
+
+
+
+--
+-- Name: country_code; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE country_code (
+    country_name character varying(80),
+    ccode character(2) NOT NULL
+);
+
+
+ALTER TABLE country_code OWNER TO gforge;
+
+--
+-- Name: cron_history; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE cron_history (
+    rundate integer NOT NULL,
+    job text,
+    output text
+);
+
+
+ALTER TABLE cron_history OWNER TO gforge;
+
+--
+-- Name: database_changes; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE database_changes (
+    filename text
+);
+
+
+ALTER TABLE database_changes OWNER TO gforge;
+
+--
+-- Name: database_startpoint; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE database_startpoint (
+    db_version character varying(10),
+    db_start_date integer
+);
+
+
+ALTER TABLE database_startpoint OWNER TO gforge;
+
+--
+-- Name: db_images; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE db_images (
+    id integer DEFAULT nextval(('db_images_pk_seq'::text)::regclass) NOT NULL,
+    group_id integer DEFAULT 0 NOT NULL,
+    description text DEFAULT ''::text NOT NULL,
+    bin_data text DEFAULT ''::text NOT NULL,
+    filename text DEFAULT ''::text NOT NULL,
+    filesize integer DEFAULT 0 NOT NULL,
+    filetype text DEFAULT ''::text NOT NULL,
+    width integer DEFAULT 0 NOT NULL,
+    height integer DEFAULT 0 NOT NULL,
+    upload_date integer,
+    version integer
+);
+
+
+ALTER TABLE db_images OWNER TO gforge;
+
+--
+-- Name: db_images_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE db_images_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE db_images_pk_seq OWNER TO gforge;
+
+
+
+--
+-- Name: prdb_dbs; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE prdb_dbs (
+    dbid integer DEFAULT nextval(('"prdb_dbs_dbid_seq"'::text)::regclass) NOT NULL,
+    group_id integer NOT NULL,
+    dbname text NOT NULL,
+    dbusername text NOT NULL,
+    dbuserpass text NOT NULL,
+    requestdate integer NOT NULL,
+    dbtype integer NOT NULL,
+    created_by integer NOT NULL,
+    state integer NOT NULL
+);
+
+
+ALTER TABLE prdb_dbs OWNER TO gforge;
+
+--
+-- Name: prdb_dbs_dbid_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE prdb_dbs_dbid_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE prdb_dbs_dbid_seq OWNER TO gforge;
+
+--
+-- Name: prdb_states; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE prdb_states (
+    stateid integer NOT NULL,
+    statename text
+);
+
+
+ALTER TABLE prdb_states OWNER TO gforge;
+
+--
+-- Name: prdb_types; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE prdb_types (
+    dbtypeid integer NOT NULL,
+    dbservername text NOT NULL,
+    dbsoftware text NOT NULL
+);
+
+
+ALTER TABLE prdb_types OWNER TO gforge;
+
+
+--
+-- Name: prweb_vhost; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE prweb_vhost (
+    vhostid integer DEFAULT nextval(('"prweb_vhost_vhostid_seq"'::text)::regclass) NOT NULL,
+    vhost_name text,
+    docdir text,
+    cgidir text,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE prweb_vhost OWNER TO gforge;
+
+--
+-- Name: prweb_vhost_vhostid_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE prweb_vhost_vhostid_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE prweb_vhost_vhostid_seq OWNER TO gforge;
+
+--
+-- Name: recentchanges_rc_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE recentchanges_rc_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE recentchanges_rc_id_seq OWNER TO postgres;
+
+
+--
+-- Name: revision_rev_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE revision_rev_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE revision_rev_id_seq OWNER TO postgres;
+
+--
+-- Name: supported_langu_language_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE supported_langu_language_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE supported_langu_language_id_seq OWNER TO gforge;
+
+--
+-- Name: supported_languages; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE supported_languages (
+    language_id integer DEFAULT nextval(('"supported_langu_language_id_seq"'::text)::regclass) NOT NULL,
+    name text,
+    filename text,
+    classname text,
+    language_code character(5)
+);
+
+
+ALTER TABLE supported_languages OWNER TO gforge;
+
+--
+-- Name: system_event; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE system_event (
+    id integer DEFAULT nextval(('system_event_pk_seq'::text)::regclass) NOT NULL,
+    type character varying(255),
+    parameters text,
+    priority integer DEFAULT 0 NOT NULL,
+    status integer DEFAULT 1 NOT NULL,
+    log text,
+    create_date integer DEFAULT 0,
+    process_date integer DEFAULT 0,
+    end_date integer DEFAULT 0
+);
+
+
+ALTER TABLE system_event OWNER TO gforge;
+
+--
+-- Name: system_event_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE system_event_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE system_event_pk_seq OWNER TO gforge;
+
+
+--
+-- Name: text_old_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE text_old_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE text_old_id_seq OWNER TO postgres;
+
+
+--
+-- Name: trackbacks_tb_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE trackbacks_tb_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE trackbacks_tb_id_seq OWNER TO postgres;
+
+--
+-- Name: unix_uid_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE unix_uid_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE unix_uid_seq OWNER TO gforge;
+
+
+--
+-- Name: widget_rss; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE widget_rss (
+    id integer DEFAULT nextval(('widget_rss_pk_seq'::text)::regclass) NOT NULL,
+    owner_id integer DEFAULT 0 NOT NULL,
+    owner_type character varying(1) DEFAULT 'u'::character varying NOT NULL,
+    title character varying(255) NOT NULL,
+    url text NOT NULL
+);
+
+
+ALTER TABLE widget_rss OWNER TO gforge;
+
+--
+-- Name: widget_rss_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE widget_rss_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE widget_rss_pk_seq OWNER TO gforge;
+
+
+--
+-- Name: license_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY licenses ALTER COLUMN license_id SET DEFAULT nextval('licenses_license_id_seq'::regclass);
+

@@ -1,0 +1,17 @@
+
+--
+-- Name: dome_interfaces_before_delete(); Type: FUNCTION; Schema: public; Owner: gforge
+--
+
+CREATE FUNCTION dome_interfaces_before_delete() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+    BEGIN
+		INSERT INTO deleted_dome_interfaces VALUES(OLD.interface_id,OLD.interface_data,OLD.server_id,OLD.cem_id,OLD.alias,OLD.description,EXTRACT(EPOCH FROM now())::integer);
+		RETURN OLD;
+    END;
+$$;
+
+
+ALTER FUNCTION public.dome_interfaces_before_delete() OWNER TO gforge;
+

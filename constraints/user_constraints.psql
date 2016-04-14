@@ -1,0 +1,109 @@
+ALTER TABLE only user_review
+  ADD CONSTRAINT user_review_review_id_fkey FOREIGN KEY (review_id)
+      REFERENCES common_review (id) ON DELETE CASCADE;
+
+ALTER TABLE only user_review
+  ADD CONSTRAINT user_review_user_id_fkey FOREIGN KEY (user_id)
+      REFERENCES users (user_id) ON DELETE CASCADE;
+
+
+--
+-- Name: user_bookmark_user_id; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX user_bookmark_user_id ON user_bookmarks USING btree (user_id);
+
+
+--
+-- Name: user_diary_user_date; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX user_diary_user_date ON user_diary USING btree (user_id, date_posted);
+
+
+--
+-- Name: user_metric0_user_id; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX user_metric0_user_id ON user_metric0 USING btree (user_id);
+
+
+--
+-- Name: user_ratings_user_id; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX user_ratings_user_id ON user_ratings USING btree (user_id);
+
+
+--
+-- Name: userdiarymon_useridmonitoredid; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX userdiarymon_useridmonitoredid ON user_diary_monitor USING btree (user_id, monitored_user);
+
+
+--
+-- Name: usermetric_userid; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE UNIQUE INDEX usermetric_userid ON user_metric USING btree (user_id);
+
+
+--
+-- Name: usermetrichistory_useridmonthday; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX usermetrichistory_useridmonthday ON user_metric_history USING btree (user_id, month, day);
+
+
+--
+-- Name: users_namename_uniq; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE UNIQUE INDEX users_namename_uniq ON users USING btree (user_name);
+
+
+--
+-- Name: users_status; Type: INDEX; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE INDEX users_status ON users USING btree (status);
+
+--
+-- Name: $1; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY pfo_role
+    ADD CONSTRAINT "$1" FOREIGN KEY (home_group_id) REFERENCES groups(group_id) ON DELETE CASCADE;
+
+--
+-- Name: users_ccode; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_ccode FOREIGN KEY (ccode) REFERENCES country_code(ccode) MATCH FULL;
+
+
+--
+-- Name: users_languageid_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_languageid_fk FOREIGN KEY (language) REFERENCES supported_languages(language_id) MATCH FULL;
+
+
+--
+-- Name: users_themeid; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_themeid FOREIGN KEY (theme_id) REFERENCES themes(theme_id) MATCH FULL;
+
+
+--
+-- Name: users_typeid; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_typeid FOREIGN KEY (type_id) REFERENCES user_type(type_id) MATCH FULL;
+

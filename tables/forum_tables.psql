@@ -1,0 +1,505 @@
+
+--
+-- Name: forum; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE forum (
+    msg_id integer DEFAULT nextval(('forum_pk_seq'::text)::regclass) NOT NULL,
+    group_forum_id integer DEFAULT 0 NOT NULL,
+    posted_by integer DEFAULT 0 NOT NULL,
+    subject text DEFAULT ''::text NOT NULL,
+    body text DEFAULT ''::text NOT NULL,
+    post_date integer DEFAULT 0 NOT NULL,
+    is_followup_to integer DEFAULT 0 NOT NULL,
+    thread_id integer DEFAULT 0 NOT NULL,
+    has_followups integer DEFAULT 0,
+    most_recent_date integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE forum OWNER TO gforge;
+
+--
+-- Name: forum_group_list; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE forum_group_list (
+    group_forum_id integer DEFAULT nextval(('forum_group_list_pk_seq'::text)::regclass) NOT NULL,
+    group_id integer DEFAULT 0 NOT NULL,
+    forum_name text DEFAULT ''::text NOT NULL,
+    is_public integer DEFAULT 0 NOT NULL,
+    description text,
+    allow_anonymous integer DEFAULT 0 NOT NULL,
+    send_all_posts_to text,
+    moderation_level integer DEFAULT 0
+);
+
+
+ALTER TABLE forum_group_list OWNER TO gforge;
+
+--
+-- Name: forum_agg_msg_count; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE forum_agg_msg_count (
+    group_forum_id integer DEFAULT 0 NOT NULL,
+    count integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE forum_agg_msg_count OWNER TO gforge;
+
+--
+-- Name: forum_attachment; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE forum_attachment (
+    attachmentid integer NOT NULL,
+    userid integer DEFAULT 100 NOT NULL,
+    dateline integer DEFAULT 0 NOT NULL,
+    filename character varying(100) DEFAULT ''::character varying NOT NULL,
+    filedata text NOT NULL,
+    visible smallint DEFAULT (0)::smallint NOT NULL,
+    counter smallint DEFAULT (0)::smallint NOT NULL,
+    filesize integer DEFAULT 0 NOT NULL,
+    msg_id integer DEFAULT 0 NOT NULL,
+    filehash character varying(32) DEFAULT ''::character varying NOT NULL,
+    mimetype text DEFAULT 'application/octet-stream'::text NOT NULL
+);
+
+
+ALTER TABLE forum_attachment OWNER TO gforge;
+
+--
+-- Name: forum_attachment_attachmentid_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE forum_attachment_attachmentid_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE forum_attachment_attachmentid_seq OWNER TO gforge;
+
+--
+-- Name: forum_attachment_attachmentid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE forum_attachment_attachmentid_seq OWNED BY forum_attachment.attachmentid;
+
+
+--
+-- Name: forum_group_list_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE forum_group_list_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE forum_group_list_pk_seq OWNER TO gforge;
+
+--
+-- Name: forum_group_list_vw; Type: VIEW; Schema: public; Owner: gforge
+--
+
+CREATE VIEW forum_group_list_vw AS
+SELECT forum_group_list.group_forum_id, forum_group_list.group_id, forum_group_list.forum_name, forum_group_list.is_public, forum_group_list.description, forum_group_list.allow_anonymous, forum_group_list.send_all_posts_to, forum_group_list.moderation_level, forum_agg_msg_count.count AS total, (SELECT max(forum.post_date) AS recent FROM forum WHERE (forum.group_forum_id = forum_group_list.group_forum_id)) AS recent, (SELECT count(*) AS count FROM (SELECT forum.thread_id FROM forum WHERE (forum.group_forum_id = forum_group_list.group_forum_id) GROUP BY forum.thread_id) tmp) AS threads FROM (forum_group_list LEFT JOIN forum_agg_msg_count USING (group_forum_id));
+
+
+ALTER TABLE forum_group_list_vw OWNER TO gforge;
+
+--
+-- Name: forum_messages; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE forum_messages (
+    message_id integer NOT NULL,
+    user_id integer NOT NULL,
+    body text NOT NULL,
+    time_posted integer NOT NULL,
+    topic_id integer NOT NULL,
+    reply_to integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE forum_messages OWNER TO gforge;
+
+--
+-- Name: forum_messages_message_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE forum_messages_message_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE forum_messages_message_id_seq OWNER TO gforge;
+
+--
+-- Name: forum_messages_message_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE forum_messages_message_id_seq OWNED BY forum_messages.message_id;
+
+
+--
+-- Name: forum_monitored_forums; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE forum_monitored_forums (
+    monitor_id integer DEFAULT nextval(('forum_monitored_forums_pk_seq'::text)::regclass) NOT NULL,
+    forum_id integer DEFAULT 0 NOT NULL,
+    user_id integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE forum_monitored_forums OWNER TO gforge;
+
+--
+-- Name: forum_monitored_forums_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE forum_monitored_forums_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE forum_monitored_forums_pk_seq OWNER TO gforge;
+
+--
+-- Name: forum_pending_attachment; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE forum_pending_attachment (
+    attachmentid integer NOT NULL,
+    userid integer DEFAULT 100 NOT NULL,
+    dateline integer DEFAULT 0 NOT NULL,
+    filename character varying(100) DEFAULT ''::character varying NOT NULL,
+    filedata text NOT NULL,
+    visible smallint DEFAULT (0)::smallint NOT NULL,
+    counter smallint DEFAULT (0)::smallint NOT NULL,
+    filesize integer DEFAULT 0 NOT NULL,
+    msg_id integer DEFAULT 0 NOT NULL,
+    filehash character varying(32) DEFAULT ''::character varying NOT NULL,
+    mimetype text DEFAULT 'application/octet-stream'::text NOT NULL
+);
+
+
+ALTER TABLE forum_pending_attachment OWNER TO gforge;
+
+--
+-- Name: forum_pending_attachment_attachmentid_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE forum_pending_attachment_attachmentid_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE forum_pending_attachment_attachmentid_seq OWNER TO gforge;
+
+--
+-- Name: forum_pending_attachment_attachmentid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE forum_pending_attachment_attachmentid_seq OWNED BY forum_pending_attachment.attachmentid;
+
+
+--
+-- Name: forum_pending_messages; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE forum_pending_messages (
+    msg_id integer NOT NULL,
+    group_forum_id integer DEFAULT 0 NOT NULL,
+    posted_by integer DEFAULT 0 NOT NULL,
+    subject text DEFAULT ''::text NOT NULL,
+    body text DEFAULT ''::text NOT NULL,
+    post_date integer DEFAULT 0 NOT NULL,
+    is_followup_to integer DEFAULT 0 NOT NULL,
+    thread_id integer DEFAULT 0 NOT NULL,
+    has_followups integer DEFAULT 0,
+    most_recent_date integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE forum_pending_messages OWNER TO gforge;
+
+--
+-- Name: forum_pending_messages_msg_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE forum_pending_messages_msg_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE forum_pending_messages_msg_id_seq OWNER TO gforge;
+
+--
+-- Name: forum_pending_messages_msg_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE forum_pending_messages_msg_id_seq OWNED BY forum_pending_messages.msg_id;
+
+
+--
+-- Name: forum_pending_user_vw; Type: VIEW; Schema: public; Owner: gforge
+--
+
+CREATE VIEW forum_pending_user_vw AS
+SELECT forum_pending_messages.msg_id, forum_pending_messages.group_forum_id, forum_pending_messages.posted_by, forum_pending_messages.subject, forum_pending_messages.body, forum_pending_messages.post_date, forum_pending_messages.is_followup_to, forum_pending_messages.thread_id, forum_pending_messages.has_followups, forum_pending_messages.most_recent_date, users.user_name, users.realname FROM forum_pending_messages, users WHERE (forum_pending_messages.posted_by = users.user_id);
+
+
+ALTER TABLE forum_pending_user_vw OWNER TO gforge;
+
+--
+-- Name: forum_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE forum_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE forum_pk_seq OWNER TO gforge;
+
+--
+-- Name: forum_saved_place; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE forum_saved_place (
+    saved_place_id integer DEFAULT nextval(('forum_saved_place_pk_seq'::text)::regclass) NOT NULL,
+    user_id integer DEFAULT 0 NOT NULL,
+    forum_id integer DEFAULT 0 NOT NULL,
+    save_date integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE forum_saved_place OWNER TO gforge;
+
+--
+-- Name: forum_saved_place_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE forum_saved_place_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE forum_saved_place_pk_seq OWNER TO gforge;
+
+--
+-- Name: forum_thread_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE forum_thread_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE forum_thread_seq OWNER TO gforge;
+
+--
+-- Name: forum_topics; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE forum_topics (
+    topic_id integer NOT NULL,
+    title text NOT NULL,
+    user_id integer NOT NULL,
+    time_posted integer NOT NULL,
+    last_activity integer NOT NULL,
+    forum_id integer NOT NULL
+);
+
+
+ALTER TABLE forum_topics OWNER TO gforge;
+
+--
+-- Name: forum_topics_topic_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE forum_topics_topic_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE forum_topics_topic_id_seq OWNER TO gforge;
+
+--
+-- Name: forum_topics_topic_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE forum_topics_topic_id_seq OWNED BY forum_topics.topic_id;
+
+
+--
+-- Name: forum_user_vw; Type: VIEW; Schema: public; Owner: gforge
+--
+
+CREATE VIEW forum_user_vw AS
+SELECT forum.msg_id, forum.group_forum_id, forum.posted_by, forum.subject, forum.body, forum.post_date, forum.is_followup_to, forum.thread_id, forum.has_followups, forum.most_recent_date, users.user_name, users.realname FROM forum, users WHERE (forum.posted_by = users.user_id);
+
+
+ALTER TABLE forum_user_vw OWNER TO gforge;
+
+--
+-- Name: forums; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE forums (
+    forum_id integer NOT NULL,
+    description text,
+    name text,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE forums OWNER TO gforge;
+
+--
+-- Name: forums_forum_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE forums_forum_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE forums_forum_id_seq OWNER TO gforge;
+
+--
+-- Name: forums_forum_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE forums_forum_id_seq OWNED BY forums.forum_id;
+
+
+--
+-- Name: home_comments; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE home_comments (
+    ref_id integer,
+    type_id integer,
+    time_posted integer,
+    user_id integer,
+    comment text,
+    comment_id integer NOT NULL
+);
+
+
+ALTER TABLE home_comments OWNER TO gforge;
+
+--
+-- Name: COLUMN home_comments.type_id; Type: COMMENT; Schema: public; Owner: gforge
+--
+
+COMMENT ON COLUMN home_comments.type_id IS '1=user comment
+2=project comment';
+
+
+--
+-- Name: home_comments_comment_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE home_comments_comment_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE home_comments_comment_id_seq OWNER TO gforge;
+
+--
+-- Name: home_comments_comment_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE home_comments_comment_id_seq OWNED BY home_comments.comment_id;
+
+
+--
+-- Name: attachmentid; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY forum_attachment ALTER COLUMN attachmentid SET DEFAULT nextval('forum_attachment_attachmentid_seq'::regclass);
+
+
+--
+-- Name: message_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY forum_messages ALTER COLUMN message_id SET DEFAULT nextval('forum_messages_message_id_seq'::regclass);
+
+
+--
+-- Name: attachmentid; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY forum_pending_attachment ALTER COLUMN attachmentid SET DEFAULT nextval('forum_pending_attachment_attachmentid_seq'::regclass);
+
+
+--
+-- Name: msg_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY forum_pending_messages ALTER COLUMN msg_id SET DEFAULT nextval('forum_pending_messages_msg_id_seq'::regclass);
+
+
+--
+-- Name: topic_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY forum_topics ALTER COLUMN topic_id SET DEFAULT nextval('forum_topics_topic_id_seq'::regclass);
+
+
+--
+-- Name: forum_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY forums ALTER COLUMN forum_id SET DEFAULT nextval('forums_forum_id_seq'::regclass);
+
+
+--
+-- Name: comment_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY home_comments ALTER COLUMN comment_id SET DEFAULT nextval('home_comments_comment_id_seq'::regclass);
+

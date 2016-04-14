@@ -1,0 +1,15 @@
+
+--
+-- Name: foundry_news_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE foundry_news_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE foundry_news_pk_seq OWNER TO gforge;
+

@@ -1,0 +1,23 @@
+--
+-- Name: ff_string_agg(text); Type: AGGREGATE; Schema: public; Owner: gforge
+--
+
+CREATE AGGREGATE ff_string_agg(text) (
+    SFUNC = ff_string_add,
+    STYPE = text
+);
+
+
+ALTER AGGREGATE public.ff_string_agg(text) OWNER TO gforge;
+
+--
+-- Name: ff_tsvector_agg(tsvector); Type: AGGREGATE; Schema: public; Owner: gforge
+--
+
+CREATE AGGREGATE ff_tsvector_agg(tsvector) (
+    SFUNC = ff_tsvector_add,
+    STYPE = tsvector
+);
+
+
+ALTER AGGREGATE public.ff_tsvector_agg(tsvector) OWNER TO gforge;

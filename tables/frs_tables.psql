@@ -1,0 +1,240 @@
+
+--
+-- Name: frs_package; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE frs_package (
+    package_id integer DEFAULT nextval(('frs_package_pk_seq'::text)::regclass) NOT NULL,
+    group_id integer DEFAULT 0 NOT NULL,
+    name text,
+    status_id integer DEFAULT 0 NOT NULL,
+    is_public integer DEFAULT 1
+);
+
+
+ALTER TABLE frs_package OWNER TO gforge;
+
+--
+-- Name: frs_release; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE frs_release (
+    release_id integer DEFAULT nextval(('frs_release_pk_seq'::text)::regclass) NOT NULL,
+    package_id integer DEFAULT 0 NOT NULL,
+    name text,
+    notes text,
+    changes text,
+    status_id integer DEFAULT 0 NOT NULL,
+    preformatted integer DEFAULT 0 NOT NULL,
+    release_date integer DEFAULT 0 NOT NULL,
+    released_by integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE frs_release OWNER TO gforge;
+
+
+--
+-- Name: frs_dlstats_file; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE frs_dlstats_file (
+    ip_address text,
+    file_id integer,
+    month integer,
+    day integer,
+    user_id integer
+);
+
+
+ALTER TABLE frs_dlstats_file OWNER TO gforge;
+
+--
+-- Name: frs_dlstats_file_agg_vw; Type: VIEW; Schema: public; Owner: gforge
+--
+
+CREATE VIEW frs_dlstats_file_agg_vw AS
+SELECT frs_dlstats_file.month, frs_dlstats_file.day, frs_dlstats_file.file_id, count(*) AS downloads FROM frs_dlstats_file GROUP BY frs_dlstats_file.month, frs_dlstats_file.day, frs_dlstats_file.file_id;
+
+
+ALTER TABLE frs_dlstats_file_agg_vw OWNER TO gforge;
+
+--
+-- Name: frs_dlstats_filetotal_agg; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE frs_dlstats_filetotal_agg (
+    file_id integer NOT NULL,
+    downloads integer
+);
+
+
+ALTER TABLE frs_dlstats_filetotal_agg OWNER TO gforge;
+
+--
+-- Name: frs_file; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE frs_file (
+    file_id integer DEFAULT nextval(('frs_file_pk_seq'::text)::regclass) NOT NULL,
+    filename text,
+    release_id integer DEFAULT 0 NOT NULL,
+    type_id integer DEFAULT 0 NOT NULL,
+    processor_id integer DEFAULT 0 NOT NULL,
+    release_time integer DEFAULT 0 NOT NULL,
+    file_size integer DEFAULT 0 NOT NULL,
+    post_date integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE frs_file OWNER TO gforge;
+
+--
+-- Name: frs_dlstats_group_vw; Type: VIEW; Schema: public; Owner: gforge
+--
+
+CREATE VIEW frs_dlstats_group_vw AS
+SELECT frs_package.group_id, fdfa.month, fdfa.day, sum(fdfa.downloads) AS downloads FROM frs_package, frs_release, frs_file, frs_dlstats_file_agg_vw fdfa WHERE (((frs_package.package_id = frs_release.package_id) AND (frs_release.release_id = frs_file.release_id)) AND (frs_file.file_id = fdfa.file_id)) GROUP BY frs_package.group_id, fdfa.month, fdfa.day;
+
+
+ALTER TABLE frs_dlstats_group_vw OWNER TO gforge;
+
+--
+-- Name: frs_dlstats_grouptotal_vw; Type: VIEW; Schema: public; Owner: gforge
+--
+
+CREATE VIEW frs_dlstats_grouptotal_vw AS
+SELECT frs_package.group_id, sum(frs_dlstats_filetotal_agg.downloads) AS downloads FROM frs_package, frs_release, frs_file, frs_dlstats_filetotal_agg WHERE (((frs_package.package_id = frs_release.package_id) AND (frs_release.release_id = frs_file.release_id)) AND (frs_file.file_id = frs_dlstats_filetotal_agg.file_id)) GROUP BY frs_package.group_id;
+
+
+ALTER TABLE frs_dlstats_grouptotal_vw OWNER TO gforge;
+
+--
+-- Name: frs_file_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE frs_file_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE frs_file_pk_seq OWNER TO gforge;
+
+--
+-- Name: frs_filetype; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE frs_filetype (
+    type_id integer DEFAULT nextval(('frs_filetype_pk_seq'::text)::regclass) NOT NULL,
+    name text
+);
+
+
+ALTER TABLE frs_filetype OWNER TO gforge;
+
+--
+-- Name: frs_processor; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE frs_processor (
+    processor_id integer DEFAULT nextval(('frs_processor_pk_seq'::text)::regclass) NOT NULL,
+    name text
+);
+
+
+ALTER TABLE frs_processor OWNER TO gforge;
+
+--
+-- Name: frs_file_vw; Type: VIEW; Schema: public; Owner: gforge
+--
+
+CREATE VIEW frs_file_vw AS
+SELECT frs_file.file_id, frs_file.filename, frs_file.release_id, frs_file.type_id, frs_file.processor_id, frs_file.release_time, frs_file.file_size, frs_file.post_date, frs_filetype.name AS filetype, frs_processor.name AS processor, frs_dlstats_filetotal_agg.downloads FROM frs_filetype, frs_processor, (frs_file LEFT JOIN frs_dlstats_filetotal_agg ON ((frs_dlstats_filetotal_agg.file_id = frs_file.file_id))) WHERE ((frs_filetype.type_id = frs_file.type_id) AND (frs_processor.processor_id = frs_file.processor_id));
+
+
+ALTER TABLE frs_file_vw OWNER TO gforge;
+
+--
+-- Name: frs_filetype_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE frs_filetype_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE frs_filetype_pk_seq OWNER TO gforge;
+
+--
+-- Name: frs_package_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE frs_package_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE frs_package_pk_seq OWNER TO gforge;
+
+--
+-- Name: frs_processor_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE frs_processor_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE frs_processor_pk_seq OWNER TO gforge;
+
+--
+-- Name: frs_release_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE frs_release_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE frs_release_pk_seq OWNER TO gforge;
+
+--
+-- Name: frs_status; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE frs_status (
+    status_id integer DEFAULT nextval(('frs_status_pk_seq'::text)::regclass) NOT NULL,
+    name text
+);
+
+
+ALTER TABLE frs_status OWNER TO gforge;
+
+--
+-- Name: frs_status_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE frs_status_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE frs_status_pk_seq OWNER TO gforge;

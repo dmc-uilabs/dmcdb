@@ -1,0 +1,25 @@
+--
+-- Name: ff_string_add(text, text); Type: FUNCTION; Schema: public; Owner: gforge
+--
+
+CREATE FUNCTION ff_string_add(t1 text, t2 text) RETURNS text
+    LANGUAGE plpgsql IMMUTABLE STRICT
+    AS $$
+BEGIN
+  RETURN t1 || ' ioM0Thu6_fieldseparator_kaeph9Ee ' || t2 ;END;$$;
+
+
+ALTER FUNCTION public.ff_string_add(t1 text, t2 text) OWNER TO gforge;
+
+--
+-- Name: ff_tsvector_add(tsvector, tsvector); Type: FUNCTION; Schema: public; Owner: gforge
+--
+
+CREATE FUNCTION ff_tsvector_add(v1 tsvector, v2 tsvector) RETURNS tsvector
+    LANGUAGE plpgsql IMMUTABLE STRICT
+    AS $$
+BEGIN
+  RETURN v1 || v2 ;END;$$;
+
+
+ALTER FUNCTION public.ff_tsvector_add(v1 tsvector, v2 tsvector) OWNER TO gforge;

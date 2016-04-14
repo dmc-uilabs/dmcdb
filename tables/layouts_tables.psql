@@ -1,0 +1,117 @@
+
+--
+-- Name: layouts; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE layouts (
+    id integer DEFAULT nextval(('layouts_pk_seq'::text)::regclass) NOT NULL,
+    name character varying(255) DEFAULT ''::character varying NOT NULL,
+    description text NOT NULL,
+    scope character(1) DEFAULT 'S'::bpchar NOT NULL
+);
+
+
+ALTER TABLE layouts OWNER TO gforge;
+
+--
+-- Name: layouts_contents; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE layouts_contents (
+    owner_id integer DEFAULT 0 NOT NULL,
+    owner_type character varying(1) DEFAULT 'u'::character varying NOT NULL,
+    layout_id integer DEFAULT 0 NOT NULL,
+    column_id integer DEFAULT 0 NOT NULL,
+    name character varying(255) DEFAULT ''::character varying NOT NULL,
+    rank integer DEFAULT 0 NOT NULL,
+    is_minimized integer DEFAULT 0 NOT NULL,
+    is_removed integer DEFAULT 0 NOT NULL,
+    display_preferences integer DEFAULT 0 NOT NULL,
+    content_id integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE layouts_contents OWNER TO gforge;
+
+--
+-- Name: layouts_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE layouts_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE layouts_pk_seq OWNER TO gforge;
+
+--
+-- Name: layouts_rows; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE layouts_rows (
+    id integer DEFAULT nextval(('layouts_rows_pk_seq'::text)::regclass) NOT NULL,
+    layout_id integer DEFAULT 0 NOT NULL,
+    rank integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE layouts_rows OWNER TO gforge;
+
+--
+-- Name: layouts_rows_columns; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE layouts_rows_columns (
+    id integer DEFAULT nextval(('layouts_rows_columns_pk_seq'::text)::regclass) NOT NULL,
+    layout_row_id integer DEFAULT 0 NOT NULL,
+    width integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE layouts_rows_columns OWNER TO gforge;
+
+--
+-- Name: layouts_rows_columns_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE layouts_rows_columns_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE layouts_rows_columns_pk_seq OWNER TO gforge;
+
+--
+-- Name: layouts_rows_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE layouts_rows_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE layouts_rows_pk_seq OWNER TO gforge;
+
+
+--
+-- Name: owner_layouts; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE owner_layouts (
+    owner_id integer DEFAULT 0 NOT NULL,
+    owner_type character varying(1) DEFAULT 'u'::character varying NOT NULL,
+    layout_id integer DEFAULT 0 NOT NULL,
+    is_default integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE owner_layouts OWNER TO gforge;

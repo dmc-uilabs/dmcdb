@@ -1,0 +1,87 @@
+--
+-- Name: plugin_cvstracker_data_artifact; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE plugin_cvstracker_data_artifact (
+    id integer DEFAULT nextval(('plugin_cvstracker_artifact_seq'::text)::regclass) NOT NULL,
+    kind integer DEFAULT 0 NOT NULL,
+    group_artifact_id integer,
+    project_task_id integer
+);
+
+
+ALTER TABLE plugin_cvstracker_data_artifact OWNER TO gforge;
+
+--
+-- Name: plugin_cvstracker_data_master; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE plugin_cvstracker_data_master (
+    id integer DEFAULT nextval(('plugin_cvstracker_master_seq'::text)::regclass) NOT NULL,
+    holder_id integer NOT NULL,
+    log_text text DEFAULT ''::text,
+    file text DEFAULT ''::text NOT NULL,
+    prev_version text DEFAULT ''::text,
+    actual_version text DEFAULT ''::text,
+    author text DEFAULT ''::text NOT NULL,
+    cvs_date integer NOT NULL
+);
+
+
+ALTER TABLE plugin_cvstracker_data_master OWNER TO gforge;
+
+
+--
+-- Name: plugin_cvstracker_artifact_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE plugin_cvstracker_artifact_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE plugin_cvstracker_artifact_seq OWNER TO gforge;
+
+--
+-- Name: plugin_cvstracker_master_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE plugin_cvstracker_master_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE plugin_cvstracker_master_seq OWNER TO gforge;
+
+--
+-- Name: plugins; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE plugins (
+    plugin_id integer DEFAULT nextval(('plugins_pk_seq'::text)::regclass) NOT NULL,
+    plugin_name character varying(32) NOT NULL,
+    plugin_desc text
+);
+
+
+ALTER TABLE plugins OWNER TO gforge;
+
+--
+-- Name: plugins_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE plugins_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE plugins_pk_seq OWNER TO gforge;

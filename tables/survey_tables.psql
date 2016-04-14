@@ -1,0 +1,129 @@
+
+--
+-- Name: survey_question_types; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE survey_question_types (
+    id integer DEFAULT nextval(('survey_question_types_pk_seq'::text)::regclass) NOT NULL,
+    type text DEFAULT ''::text NOT NULL
+);
+
+
+ALTER TABLE survey_question_types OWNER TO gforge;
+
+--
+-- Name: survey_question_types_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE survey_question_types_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE survey_question_types_pk_seq OWNER TO gforge;
+
+--
+-- Name: survey_questions; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE survey_questions (
+    question_id integer DEFAULT nextval(('survey_questions_pk_seq'::text)::regclass) NOT NULL,
+    group_id integer DEFAULT 0 NOT NULL,
+    question text DEFAULT ''::text NOT NULL,
+    question_type integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE survey_questions OWNER TO gforge;
+
+--
+-- Name: survey_questions_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE survey_questions_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE survey_questions_pk_seq OWNER TO gforge;
+
+--
+-- Name: survey_rating_aggregate; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE survey_rating_aggregate (
+    type integer DEFAULT 0 NOT NULL,
+    id integer DEFAULT 0 NOT NULL,
+    response double precision DEFAULT (0)::double precision NOT NULL,
+    count integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE survey_rating_aggregate OWNER TO gforge;
+
+--
+-- Name: survey_rating_response; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE survey_rating_response (
+    user_id integer DEFAULT 0 NOT NULL,
+    type integer DEFAULT 0 NOT NULL,
+    id integer DEFAULT 0 NOT NULL,
+    response integer DEFAULT 0 NOT NULL,
+    post_date integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE survey_rating_response OWNER TO gforge;
+
+--
+-- Name: survey_responses; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE survey_responses (
+    user_id integer DEFAULT 0 NOT NULL,
+    group_id integer DEFAULT 0 NOT NULL,
+    survey_id integer DEFAULT 0 NOT NULL,
+    question_id integer DEFAULT 0 NOT NULL,
+    response text DEFAULT ''::text NOT NULL,
+    post_date integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE survey_responses OWNER TO gforge;
+
+--
+-- Name: surveys; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE surveys (
+    survey_id integer DEFAULT nextval(('surveys_pk_seq'::text)::regclass) NOT NULL,
+    group_id integer DEFAULT 0 NOT NULL,
+    survey_title text DEFAULT ''::text NOT NULL,
+    survey_questions text DEFAULT ''::text NOT NULL,
+    is_active integer DEFAULT 1 NOT NULL
+);
+
+
+ALTER TABLE surveys OWNER TO gforge;
+
+--
+-- Name: surveys_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE surveys_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE surveys_pk_seq OWNER TO gforge;
+

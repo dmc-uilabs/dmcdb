@@ -1,0 +1,42 @@
+
+--
+-- Name: themes; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE themes (
+    theme_id integer DEFAULT nextval(('"themes_theme_id_seq"'::text)::regclass) NOT NULL,
+    dirname character varying(80),
+    fullname character varying(80),
+    enabled boolean DEFAULT true
+);
+
+
+ALTER TABLE themes OWNER TO gforge;
+
+--
+-- Name: themes_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE themes_pk_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE themes_pk_seq OWNER TO gforge;
+
+--
+-- Name: themes_theme_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE themes_theme_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE themes_theme_id_seq OWNER TO gforge;
