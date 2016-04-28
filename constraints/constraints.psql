@@ -1165,6 +1165,13 @@ ALTER TABLE ONLY service_subscriptions
 
 
 --
+-- Name: fk_interface_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY dome_interface_path
+    ADD CONSTRAINT fk_interface_id FOREIGN KEY (interface_id) REFERENCES dome_interfaces(interface_id);
+
+--
 -- Name: fk_owner_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
 --
 

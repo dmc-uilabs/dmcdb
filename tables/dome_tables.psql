@@ -1,5 +1,14 @@
 
 --
+-- Name: dome_interface_path; Type: TABLE; Schema: public; Owner: gforge; Tablespace:
+--
+
+CREATE TABLE dome_interface_path (
+    interface_id integer NOT NULL,
+    path integer NOT NULL
+);
+
+--
 -- Name: deleted_dome_interfaces; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -33,11 +42,14 @@ COMMENT ON TABLE deleted_dome_interfaces IS 'Deleted DOME interface data';
 
 CREATE TABLE dome_interfaces (
     interface_id integer NOT NULL,
-    interface_data text NOT NULL,
-    server_id integer NOT NULL,
     cem_id integer NOT NULL,
-    alias text,
-    description text
+    version integer NOT NULL,
+    model_id text NOT NULL,
+    interface_id_str text NOT NULL,
+    type text NOT NULL,
+    name text NOT NULL,
+    service_id integer NOT NULL,
+    server_id integer NOT NULL
 );
 
 
