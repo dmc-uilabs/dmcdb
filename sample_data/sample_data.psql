@@ -1465,8 +1465,8 @@ SELECT pg_catalog.setval('docgroup_monitored_docman_pk_seq', 1, false);
 -- Data for Name: dome_interfaces; Type: TABLE DATA; Schema: public; Owner: gforge
 --
 
-COPY dome_interfaces (interface_id, cem_id, version, model_id, interface_id_str, type, name,  service_id, server_id) FROM stdin;
-1	1	1	995f865e-d90a-1004-8438-64281c6cab63	995f8660-d90a-1004-8438-64281c6cab63	interface	velocity interface	1	1
+COPY dome_interfaces (interface_id, version, model_id, interface_id_str, type, name,  service_id, server_id) FROM stdin;
+1	1	995f865e-d90a-1004-8438-64281c6cab63	995f8660-d90a-1004-8438-64281c6cab63	interface	velocity interface	1	1
 \.
 
 

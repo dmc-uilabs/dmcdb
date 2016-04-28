@@ -42,7 +42,6 @@ COMMENT ON TABLE deleted_dome_interfaces IS 'Deleted DOME interface data';
 
 CREATE TABLE dome_interfaces (
     interface_id integer NOT NULL,
-    cem_id integer NOT NULL,
     version integer NOT NULL,
     model_id text NOT NULL,
     interface_id_str text NOT NULL,
