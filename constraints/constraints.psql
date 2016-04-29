@@ -1064,8 +1064,8 @@ ALTER TABLE ONLY cem_tags_join
 -- Name: fk_cem_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
 --
 
-ALTER TABLE ONLY dome_interfaces
-    ADD CONSTRAINT fk_cem_id FOREIGN KEY (cem_id) REFERENCES cem_objects(cem_id);
+-- ALTER TABLE ONLY dome_interfaces
+--    ADD CONSTRAINT fk_cem_id FOREIGN KEY (cem_id) REFERENCES cem_objects(cem_id);
 
 
 --
@@ -1163,6 +1163,13 @@ ALTER TABLE ONLY runnable_runtimes
 ALTER TABLE ONLY service_subscriptions
     ADD CONSTRAINT fk_interface_id FOREIGN KEY (interface_id) REFERENCES dome_interfaces(interface_id);
 
+
+--
+-- Name: fk_interface_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY dome_interface_path
+    ADD CONSTRAINT fk_interface_id FOREIGN KEY (interface_id) REFERENCES dome_interfaces(interface_id);
 
 --
 -- Name: fk_owner_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge

@@ -1465,8 +1465,8 @@ SELECT pg_catalog.setval('docgroup_monitored_docman_pk_seq', 1, false);
 -- Data for Name: dome_interfaces; Type: TABLE DATA; Schema: public; Owner: gforge
 --
 
-COPY dome_interfaces (interface_id, interface_data, server_id, cem_id, alias, description) FROM stdin;
-1	{"interFace":{"version":1,"modelId":"995f865e-d90a-1004-8438-64281c6cab63","interfaceId":"995f8660-d90a-1004-8438-64281c6cab63","type":"interface","name":"velocity interface","path":[33,34,35]},"inParams":{"timeCopy":{"name":"timeCopy","type":"Real","unit":"second","category":"time","value":2,"parameterid":"0163d124-d8de-1004-8a2f-592d01a9bb93"},"distanceCopy":{"name":"distanceCopy","type":"Real","unit":"centimeter","category":"length","value":3,"parameterid":"0163d123-d8de-1004-8a2f-592d01a9bb93"}},"outParams":{"averageVelocity":{"name":"averageVelocity","type":"Real","unit":"centimeter per second","category":"velocity","value":1.5,"parameterid":"0163d125-d8de-1004-8a2f-592d01a9bb93","instancename":"averageVelocity"}},"modelName":"velocity interface","modelDescription":"","server":{"name":"localhost","port":"7795","user":"ceed","pw":"ceed","space":"USER"}}	1	2		Average velocity of object over time.
+COPY dome_interfaces (interface_id, version, model_id, interface_id_str, type, name,  service_id, server_id) FROM stdin;
+1	1	995f865e-d90a-1004-8438-64281c6cab63	995f8660-d90a-1004-8438-64281c6cab63	interface	velocity interface	1	1
 \.
 
 
