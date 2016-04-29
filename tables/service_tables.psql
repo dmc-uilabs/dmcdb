@@ -1,0 +1,685 @@
+
+CREATE SEQUENCE service_service_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE service_service_id_seq OWNER TO gforge;
+
+-- Table: service
+
+-- DROP TABLE service;
+
+CREATE TABLE service
+(
+  service_id integer NOT NULL DEFAULT nextval('service_service_id_seq'::regclass),
+  organization_id integer,
+  title text,
+  description text,
+  owner_id integer,
+  "releaseDate" date,
+  "serviceType" text,
+  tags text,
+  specifications text,
+  "featureImage" text,
+  "currentStatus" text,
+  project_id integer,
+  "from" text,
+  type text,
+  parent text,
+  published boolean,
+  "averageRun" text,
+  CONSTRAINT service_pkey PRIMARY KEY (service_id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE service
+  OWNER TO gforge;
+
+ALTER TABLE service
+  ADD CONSTRAINT service_organization_id FOREIGN KEY (organization_id)
+      REFERENCES organization (organization_id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE CASCADE;
+
+ALTER TABLE service
+  ADD CONSTRAINT service_owner_id FOREIGN KEY (owner_id)
+      REFERENCES users (user_id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE NO ACTION;
+
+-- ALTER TABLE service
+--   ADD CONSTRAINT service_table_project_id FOREIGN KEY (project_id)
+--       REFERENCES groups (group_id) MATCH SIMPLE
+--       ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+
+
+
+
+
+CREATE SEQUENCE service_history_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE service_history_id_seq OWNER TO gforge;
+
+-- Table: service_history
+
+-- DROP TABLE service_history;
+
+CREATE TABLE service_history
+(
+  id integer NOT NULL DEFAULT nextval('service_history_id_seq'::regclass),
+  service_id integer,
+  title text,
+  date date,
+  user_id integer,
+  link text,
+  section text,
+  period text,
+  CONSTRAINT service_history_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE service_history
+  OWNER TO gforge;
+
+ALTER TABLE service_history
+  ADD CONSTRAINT service_history_service_id FOREIGN KEY (service_id)
+      REFERENCES service (service_id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE CASCADE;
+
+ALTER TABLE service_history
+  ADD CONSTRAINT service_history_user_id FOREIGN KEY (user_id)
+      REFERENCES users (user_id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE NO ACTION;
+
+
+
+
+
+CREATE SEQUENCE service_document_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE service_document_id_seq OWNER TO gforge;
+
+-- Table: service_document
+
+-- DROP TABLE service_document;
+
+CREATE TABLE service_document
+(
+  id integer NOT NULL DEFAULT nextval('service_document_id_seq'::regclass),
+  service_id integer,
+  "service-documentId" text,
+  owner_id integer,
+  title text,
+  modified text,
+  size text,
+  file text,
+  CONSTRAINT service_document_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE service_document
+  OWNER TO gforge;
+
+ALTER TABLE service_document
+  ADD CONSTRAINT service_document_owner_id FOREIGN KEY (owner_id)
+      REFERENCES users (user_id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE NO ACTION;
+
+ALTER TABLE service_document
+  ADD CONSTRAINT service_document_service_id FOREIGN KEY (service_id)
+      REFERENCES service (service_id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+
+
+CREATE SEQUENCE	service_images_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE service_images_id_seq OWNER TO gforge;
+
+-- Table: service_images
+
+-- DROP TABLE service_images;
+
+CREATE TABLE service_images
+(
+  id integer NOT NULL DEFAULT nextval('service_images_id_seq'::regclass),
+  service_id integer,
+  url text,
+  CONSTRAINT service_images_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE service_images
+  OWNER TO gforge;
+
+ALTER TABLE service_images
+  ADD CONSTRAINT service_image_service_id FOREIGN KEY (service_id)
+      REFERENCES service (service_id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+
+
+
+
+CREATE SEQUENCE	service_tag_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE service_tag_id_seq OWNER TO gforge;
+
+-- Table: service_tag
+
+-- DROP TABLE service_tag;
+
+CREATE TABLE service_tag
+(
+  id integer NOT NULL DEFAULT nextval('service_tag_id_seq'::regclass),
+  service_id integer,
+  name text,
+  CONSTRAINT service_tag_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE service_tag
+  OWNER TO gforge;
+
+ALTER TABLE service_tag
+  ADD CONSTRAINT service_tag_service_id FOREIGN KEY (service_id)
+      REFERENCES service (service_id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+
+
+
+
+CREATE SEQUENCE	feature_image_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+ALTER TABLE feature_image_id_seq OWNER TO gforge;
+
+-- Table: feature_image
+
+-- DROP TABLE feature_image;
+
+CREATE TABLE feature_image
+(
+  id integer NOT NULL DEFAULT nextval('feature_image_id_seq'::regclass),
+  thumbnail text,
+  large text,
+  CONSTRAINT feature_image_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE feature_image
+  OWNER TO gforge;
+
+
+
+CREATE SEQUENCE	service_stats_item_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+ALTER TABLE service_stats_item_id_seq OWNER TO gforge;
+
+-- Table: service_stats_item
+
+-- DROP TABLE service_stats_item;
+
+CREATE TABLE service_stats_item
+(
+  id integer NOT NULL DEFAULT nextval('service_stats_item_id_seq'::regclass),
+  today integer,
+  week integer,
+  "all" integer,
+  CONSTRAINT service_stats_item_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE service_stats_item
+  OWNER TO gforge;
+
+
+
+
+CREATE SEQUENCE	service_stats_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+ALTER TABLE service_stats_id_seq OWNER TO gforge;
+
+-- Table: service_stats
+
+-- DROP TABLE service_stats;
+
+CREATE TABLE service_stats
+(
+  id integer NOT NULL DEFAULT nextval('service_stats_id_seq'::regclass),
+  service_id integer,
+  success_rate integer,
+  successful_runs integer,
+  incomplete_runs integer,
+  unavailable_runs integer,
+  runs_by_users integer,
+  unique_users integer,
+  average_time integer,
+  CONSTRAINT service_stats_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE service_stats
+  OWNER TO gforge;
+
+ALTER TABLE service_stats
+  ADD CONSTRAINT service_stats_average_time FOREIGN KEY (average_time)
+      REFERENCES service_stats_item (id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE CASCADE;
+
+ALTER TABLE service_stats
+  ADD CONSTRAINT service_stats_incomplete_runs FOREIGN KEY (incomplete_runs)
+      REFERENCES service_stats_item (id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE CASCADE;
+
+ALTER TABLE service_stats
+  ADD CONSTRAINT service_stats_runs_by_users FOREIGN KEY (runs_by_users)
+      REFERENCES service_stats_item (id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE CASCADE;
+
+ALTER TABLE service_stats
+  ADD CONSTRAINT service_stats_service_id FOREIGN KEY (service_id)
+      REFERENCES service (service_id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE CASCADE;
+
+ALTER TABLE service_stats
+  ADD CONSTRAINT service_stats_success_rate FOREIGN KEY (success_rate)
+      REFERENCES service_stats_item (id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE CASCADE;
+
+ALTER TABLE service_stats
+  ADD CONSTRAINT service_stats_successful_runs FOREIGN KEY (successful_runs)
+      REFERENCES service_stats_item (id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE CASCADE;
+
+ALTER TABLE service_stats
+  ADD CONSTRAINT service_stats_unavailable_runs FOREIGN KEY (unavailable_runs)
+      REFERENCES service_stats_item (id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE CASCADE;
+
+ALTER TABLE service_stats
+  ADD CONSTRAINT service_stats_unique_users FOREIGN KEY (unique_users)
+      REFERENCES service_stats_item (id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+
+
+
+-- Table: service_input_position
+
+-- DROP TABLE service_input_position;
+
+CREATE TABLE service_input_position
+(
+  id integer,
+  name text,
+  "position" integer
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE service_input_position
+  OWNER TO gforge;
+
+
+
+
+
+CREATE SEQUENCE service_inputs_positions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+ALTER TABLE service_inputs_positions_id_seq OWNER TO gforge;
+
+-- Table: service_inputs_positions
+
+-- DROP TABLE service_inputs_positions;
+
+CREATE TABLE service_inputs_positions
+(
+  id integer NOT NULL DEFAULT nextval('service_inputs_positions_id_seq'::regclass),
+  service_id integer,
+  positions integer,
+  CONSTRAINT service_inputs_positions_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE service_inputs_positions
+  OWNER TO gforge;
+
+ALTER TABLE service_inputs_positions
+  ADD CONSTRAINT service_inputs_positions_service_id FOREIGN KEY (service_id)
+      REFERENCES service (service_id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+
+
+
+CREATE SEQUENCE	service_specifications_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+ALTER TABLE service_specifications_id_seq OWNER TO gforge;
+
+-- Table: service_specifications
+
+-- DROP TABLE service_specifications;
+
+CREATE TABLE service_specifications
+(
+  id integer NOT NULL DEFAULT nextval('service_specifications_id_seq'::regclass),
+  service_id integer,
+  input integer,
+  ouput integer,
+  special text,
+  usage_stats text,
+  run_stats text,
+  CONSTRAINT service_specifications_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE service_specifications
+  OWNER TO gforge;
+
+ALTER TABLE service_specifications
+  ADD CONSTRAINT service_specifications_service_id FOREIGN KEY (service_id)
+      REFERENCES service (service_id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+
+
+
+
+CREATE SEQUENCE	shared_service_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+ALTER TABLE shared_service_id_seq OWNER TO gforge;
+
+-- Table: shared_service
+
+-- DROP TABLE shared_service;
+
+CREATE TABLE shared_service
+(
+  id integer NOT NULL DEFAULT nextval('shared_service_id_seq'::regclass),
+  account_id integer,
+  profile_id integer,
+  service_id integer,
+  CONSTRAINT shared_service_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE shared_service
+  OWNER TO gforge;
+
+ALTER TABLE shared_service
+  ADD CONSTRAINT shared_service_account_id FOREIGN KEY (account_id)
+      REFERENCES users (user_id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE NO ACTION;
+
+ALTER TABLE shared_service
+  ADD CONSTRAINT shared_service_profile_id FOREIGN KEY (profile_id)
+      REFERENCES users (user_id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE NO ACTION;
+
+ALTER TABLE shared_service
+  ADD CONSTRAINT shared_service_service_id FOREIGN KEY (service_id)
+      REFERENCES service (service_id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+
+
+
+CREATE SEQUENCE	input_output_parameter_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+ALTER TABLE input_output_parameter_id_seq OWNER TO gforge;
+
+-- Table: input_output_parameter
+
+-- DROP TABLE input_output_parameter;
+
+CREATE TABLE input_output_parameter
+(
+  id integer NOT NULL DEFAULT nextval('input_output_parameter_id_seq'::regclass),
+  name text,
+  type text,
+  unit text,
+  category text,
+  value text,
+  parameter_id text,
+  CONSTRAINT input_output_parameter_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE input_output_parameter
+  OWNER TO gforge;
+
+
+
+
+
+CREATE SEQUENCE input_parameters_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+ALTER TABLE input_parameters_id_seq OWNER TO gforge;
+
+-- Table: input_parameters
+
+-- DROP TABLE input_parameters;
+
+CREATE TABLE input_parameters
+(
+  id integer NOT NULL DEFAULT nextval('input_parameters_id_seq'::regclass),
+  input_parameter integer
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE input_parameters
+  OWNER TO gforge;
+
+ALTER TABLE input_parameters
+  ADD CONSTRAINT input_parameters FOREIGN KEY (input_parameter)
+      REFERENCES input_output_parameter (id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+
+
+
+-- Table: output_parameters
+
+-- DROP TABLE output_parameters;
+
+CREATE TABLE output_parameters
+(
+  id integer,
+  output_parameter integer
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE output_parameters
+  OWNER TO gforge;
+
+ALTER TABLE output_parameters
+  ADD CONSTRAINT output_parameter_output_parameter FOREIGN KEY (output_parameter)
+      REFERENCES input_output_parameter (id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+
+
+
+CREATE SEQUENCE interface_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+ALTER TABLE interface_id_seq OWNER TO gforge;
+
+-- Table: interface
+
+-- DROP TABLE interface;
+
+CREATE TABLE interface
+(
+  id integer NOT NULL DEFAULT nextval('interface_id_seq'::regclass),
+  input_parameters integer NOT NULL,
+  output_parameters integer NOT NULL,
+  CONSTRAINT interface_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE interface
+  OWNER TO gforge;
+
+ALTER TABLE interface
+  ADD CONSTRAINT interface_input_parameters_key UNIQUE (input_parameters);
+
+ALTER TABLE interface
+  ADD CONSTRAINT interface_output_parameters_key UNIQUE (output_parameters);
+
+
+
+
+
+
+CREATE SEQUENCE	 service_run_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+ALTER TABLE service_run_id_seq OWNER TO gforge;
+
+-- Table: service_run
+
+-- DROP TABLE service_run;
+
+CREATE TABLE service_run
+(
+  id integer NOT NULL DEFAULT nextval('service_run_id_seq'::regclass),
+  status integer,
+  account_id integer,
+  run_by integer,
+  service_id integer,
+  percent_complete integer,
+  start_date date,
+  start_time integer,
+  stop_date date,
+  stop_time integer,
+  interface_id integer,
+  CONSTRAINT service_run_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE service_run
+  OWNER TO gforge;
+
+ALTER TABLE service_run
+  ADD CONSTRAINT service_run_account_id FOREIGN KEY (account_id)
+      REFERENCES users (user_id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE NO ACTION;
+
+ALTER TABLE service_run
+  ADD CONSTRAINT service_run_interface_id FOREIGN KEY (interface_id)
+      REFERENCES interface (id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE NO ACTION;
+
+ALTER TABLE service_run
+  ADD CONSTRAINT service_run_run_by FOREIGN KEY (run_by)
+      REFERENCES users (user_id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE NO ACTION;
+
+ALTER TABLE service_run
+  ADD CONSTRAINT service_run_service_id FOREIGN KEY (service_id)
+      REFERENCES service (service_id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE CASCADE;
+

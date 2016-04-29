@@ -26,6 +26,7 @@ SET search_path = public, pg_catalog;
 \i tables/project_tables.psql
 \i tables/recommendations_tables.psql
 \i tables/report_tables.psql
+\i tables/service_tables.psql
 \i tables/site_tables.psql
 \i tables/snippet_tables.psql
 \i tables/solr_tables.psql
