@@ -1072,6 +1072,14 @@ ALTER TABLE ONLY cem_tags_join
 -- Name: fk_cem_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
 --
 
+ALTER TABLE ONLY dome_interfaces
+    ADD CONSTRAINT fk_service_id FOREIGN KEY (service_id) REFERENCES service(service_id);
+
+
+--
+-- Name: fk_cem_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
 ALTER TABLE ONLY cem_service_categories
     ADD CONSTRAINT fk_cem_id FOREIGN KEY (cem_id) REFERENCES cem_objects(cem_id);
 
