@@ -140,10 +140,10 @@ CREATE TRIGGER cem_update_trigger AFTER UPDATE ON cem_objects FOR EACH ROW EXECU
 
 
 --
--- Name: dome_interfaces_before_delete_trigger; Type: TRIGGER; Schema: public; Owner: gforge
+-- Name: service_interface_before_delete_trigger; Type: TRIGGER; Schema: public; Owner: gforge
 --
 
-CREATE TRIGGER dome_interfaces_before_delete_trigger BEFORE DELETE ON dome_interfaces FOR EACH ROW EXECUTE PROCEDURE dome_interfaces_before_delete();
+CREATE TRIGGER service_interface_before_delete_trigger BEFORE DELETE ON service_interface FOR EACH ROW EXECUTE PROCEDURE service_interface_before_delete();
 
 
 --
@@ -241,21 +241,21 @@ CREATE TRIGGER projectmessage_ts_update AFTER INSERT OR DELETE OR UPDATE ON proj
 -- Name: service_delete_trigger; Type: TRIGGER; Schema: public; Owner: gforge
 --
 
-CREATE TRIGGER service_delete_trigger AFTER DELETE ON dome_interfaces FOR EACH ROW EXECUTE PROCEDURE service_delete();
+CREATE TRIGGER service_delete_trigger AFTER DELETE ON service_interface FOR EACH ROW EXECUTE PROCEDURE service_delete();
 
 
 --
 -- Name: service_insert_trigger; Type: TRIGGER; Schema: public; Owner: gforge
 --
 
-CREATE TRIGGER service_insert_trigger AFTER INSERT ON dome_interfaces FOR EACH ROW EXECUTE PROCEDURE service_insert();
+CREATE TRIGGER service_insert_trigger AFTER INSERT ON service_interface FOR EACH ROW EXECUTE PROCEDURE service_insert();
 
 
 --
 -- Name: service_update_trigger; Type: TRIGGER; Schema: public; Owner: gforge
 --
 
-CREATE TRIGGER service_update_trigger AFTER UPDATE ON dome_interfaces FOR EACH ROW EXECUTE PROCEDURE service_update();
+CREATE TRIGGER service_update_trigger AFTER UPDATE ON service_interface FOR EACH ROW EXECUTE PROCEDURE service_update();
 
 
 --

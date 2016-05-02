@@ -1,18 +1,18 @@
 
 --
--- Name: dome_interface_path; Type: TABLE; Schema: public; Owner: gforge; Tablespace:
+-- Name: service_interface_path; Type: TABLE; Schema: public; Owner: gforge; Tablespace:
 --
 
-CREATE TABLE dome_interface_path (
+CREATE TABLE service_interface_path (
     interface_id integer NOT NULL,
     path integer NOT NULL
 );
 
 --
--- Name: deleted_dome_interfaces; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: deleted_service_interface; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
-CREATE TABLE deleted_dome_interfaces (
+CREATE TABLE deleted_service_interface (
     interface_id integer NOT NULL,
     interface_data text NOT NULL,
     server_id integer NOT NULL,
@@ -23,13 +23,13 @@ CREATE TABLE deleted_dome_interfaces (
 );
 
 
-ALTER TABLE deleted_dome_interfaces OWNER TO postgres;
+ALTER TABLE deleted_service_interface OWNER TO postgres;
 
 --
--- Name: TABLE deleted_dome_interfaces; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: TABLE deleted_service_interface; Type: COMMENT; Schema: public; Owner: postgres
 --
 
-COMMENT ON TABLE deleted_dome_interfaces IS 'Deleted DOME interface data';
+COMMENT ON TABLE deleted_service_interface IS 'Deleted DOME interface data';
 
 
 --
@@ -37,11 +37,11 @@ COMMENT ON TABLE deleted_dome_interfaces IS 'Deleted DOME interface data';
 --
 
 --
--- Name: dome_interfaces; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+-- Name: service_interface; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
 --
 
-CREATE TABLE dome_interfaces (
-    interface_id integer NOT NULL,
+CREATE TABLE service_interface (
+    interface_id integer NOT NULL UNIQUE,
     version integer NOT NULL,
     model_id text NOT NULL,
     interface_id_str text NOT NULL,
@@ -52,20 +52,20 @@ CREATE TABLE dome_interfaces (
 );
 
 
-ALTER TABLE dome_interfaces OWNER TO gforge;
+ALTER TABLE service_interface OWNER TO gforge;
 
 --
--- Name: TABLE dome_interfaces; Type: COMMENT; Schema: public; Owner: gforge
+-- Name: TABLE service_interface; Type: COMMENT; Schema: public; Owner: gforge
 --
 
-COMMENT ON TABLE dome_interfaces IS 'Stores DOME interface data';
+COMMENT ON TABLE service_interface IS 'Stores DOME interface data';
 
 
 --
--- Name: dome_interfaces_interface_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: service_interface_interface_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE dome_interfaces_interface_id_seq
+CREATE SEQUENCE service_interface_interface_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -73,13 +73,13 @@ CREATE SEQUENCE dome_interfaces_interface_id_seq
     CACHE 1;
 
 
-ALTER TABLE dome_interfaces_interface_id_seq OWNER TO postgres;
+ALTER TABLE service_interface_interface_id_seq OWNER TO postgres;
 
 --
--- Name: dome_interfaces_interface_id_seq1; Type: SEQUENCE; Schema: public; Owner: gforge
+-- Name: service_interface_interface_id_seq1; Type: SEQUENCE; Schema: public; Owner: gforge
 --
 
-CREATE SEQUENCE dome_interfaces_interface_id_seq1
+CREATE SEQUENCE service_interface_interface_id_seq1
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -87,13 +87,13 @@ CREATE SEQUENCE dome_interfaces_interface_id_seq1
     CACHE 1;
 
 
-ALTER TABLE dome_interfaces_interface_id_seq1 OWNER TO gforge;
+ALTER TABLE service_interface_interface_id_seq1 OWNER TO gforge;
 
 --
--- Name: dome_interfaces_interface_id_seq1; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+-- Name: service_interface_interface_id_seq1; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
 --
 
-ALTER SEQUENCE dome_interfaces_interface_id_seq1 OWNED BY dome_interfaces.interface_id;
+ALTER SEQUENCE service_interface_interface_id_seq1 OWNED BY service_interface.interface_id;
 
 
 
@@ -411,7 +411,7 @@ COMMENT ON TABLE service_subscriptions IS 'Holds project subscriptions to DOME i
 -- Name: interface_id; Type: DEFAULT; Schema: public; Owner: gforge
 --
 
-ALTER TABLE ONLY dome_interfaces ALTER COLUMN interface_id SET DEFAULT nextval('dome_interfaces_interface_id_seq1'::regclass);
+ALTER TABLE ONLY service_interface ALTER COLUMN interface_id SET DEFAULT nextval('service_interface_interface_id_seq1'::regclass);
 
 
 --

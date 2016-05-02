@@ -661,8 +661,8 @@ ALTER TABLE ONLY deleted_cem_tags_join
 -- Name: pk_deleted_dome_interfaces; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
-ALTER TABLE ONLY deleted_dome_interfaces
-    ADD CONSTRAINT pk_deleted_dome_interfaces PRIMARY KEY (interface_id);
+ALTER TABLE ONLY deleted_service_interface
+    ADD CONSTRAINT pk_deleted_service_interface PRIMARY KEY (interface_id);
 
 
 --
@@ -717,7 +717,7 @@ ALTER TABLE ONLY cell_gateways
 -- Name: pk_interface_id; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
 --
 
-ALTER TABLE ONLY dome_interfaces
+ALTER TABLE ONLY service_interface
     ADD CONSTRAINT pk_interface_id PRIMARY KEY (interface_id);
 
 
