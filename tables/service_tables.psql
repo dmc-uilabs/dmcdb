@@ -363,17 +363,17 @@ ALTER TABLE service_interface_parameter_id_seq OWNER TO gforge;
 
 CREATE TABLE service_interface_parameter
 (
-  id integer NOT NULL DEFAULT nextval('service_interface_parameter_id_seq'::regclass),
+  parameter_id integer NOT NULL DEFAULT nextval('service_interface_parameter_id_seq'::regclass),
   interface_id integer,
   name text,
   type text,
   unit text,
   category text,
   default_value text,
-  parameter_id text,
+  parameter_id_txt text,
   parameter_position integer,
   input_parameter boolean,
-  CONSTRAINT service_interface_parameter_pkey PRIMARY KEY (id)
+  CONSTRAINT service_interface_parameter_pkey PRIMARY KEY (parameter_id)
 )
 WITH (
   OIDS=FALSE
@@ -462,41 +462,41 @@ ALTER TABLE service_run
 
 
 
-CREATE SEQUENCE service_run_parameters_id_seq
+CREATE SEQUENCE service_run_parameter_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
     MAXVALUE 2147483647
     CACHE 1;
 
-ALTER TABLE service_run_parameters_id_seq OWNER TO gforge;
+ALTER TABLE service_run_parameter_id_seq OWNER TO gforge;
 
--- Table: service_run_parameters
+-- Table: service_run_parameter
 
--- DROP TABLE service_run_parameters;
+-- DROP TABLE service_run_parameter;
 
-CREATE TABLE service_run_parameters
+CREATE TABLE service_run_parameter
 (
-  id integer NOT NULL DEFAULT nextval('service_run_parameters_id_seq'::regclass),
-  interface_id integer,
+  id integer NOT NULL DEFAULT nextval('service_run_parameter_id_seq'::regclass),
+  parameter_id integer,
   run_id integer, 
   value text,
-  CONSTRAINT service_run_parameters_pkey PRIMARY KEY (id)
+  CONSTRAINT service_run_parameter_pkey PRIMARY KEY (id)
 )
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE service_run_parameters
+ALTER TABLE service_run_parameter
   OWNER TO gforge;
 
-ALTER TABLE service_run_parameters
-  ADD CONSTRAINT service_run_parameters_interface_id FOREIGN KEY (interface_id)
-      REFERENCES service_interface (interface_id) MATCH SIMPLE
+ALTER TABLE service_run_parameter
+  ADD CONSTRAINT service_run_parameter_interface_id FOREIGN KEY (parameter_id)
+      REFERENCES service_interface_parameter (parameter_id) MATCH SIMPLE
       ON UPDATE CASCADE ON DELETE NO ACTION;
 
 
-ALTER TABLE service_run_parameters
-  ADD CONSTRAINT service_run_parameters_run_id FOREIGN KEY (run_id)
+ALTER TABLE service_run_parameter
+  ADD CONSTRAINT service_run_parameter_run_id FOREIGN KEY (run_id)
       REFERENCES service_run (run_id) MATCH SIMPLE
       ON UPDATE CASCADE ON DELETE NO ACTION;
 
