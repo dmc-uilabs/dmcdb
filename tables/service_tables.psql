@@ -373,6 +373,7 @@ CREATE TABLE service_interface_parameter
   parameter_id_txt text,
   parameter_position integer,
   input_parameter boolean,
+  instancename text,
   CONSTRAINT service_interface_parameter_pkey PRIMARY KEY (parameter_id)
 )
 WITH (
@@ -420,10 +421,9 @@ CREATE TABLE service_run
   service_id integer,
   percent_complete integer,
   start_date date,
-  start_time integer,
   stop_date date,
-  stop_time integer,
   interface_id integer,
+  queue_name text,
   CONSTRAINT service_run_pkey PRIMARY KEY (run_id)
 )
 WITH (

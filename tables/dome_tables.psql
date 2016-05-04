@@ -299,7 +299,11 @@ CREATE TABLE servers (
     server_id integer NOT NULL,
     url text NOT NULL,
     user_id integer NOT NULL,
-    alias text
+    alias text,
+    port integer,
+    local_dome_user text,
+    local_dome_user_password text,
+    dome_user_space text
 );
 
 
