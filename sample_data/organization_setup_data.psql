@@ -1,13 +1,13 @@
 -- Membership are defined by referencing: http://dmdii.uilabs.org/membership/become-a-member
-insert into organization_dmdii_type values (1, 'Industry Tier 1');
-insert into organization_dmdii_type values (2, 'Industry Tier 2');
-insert into organization_dmdii_type values (3, 'Industry Tier 3');
-insert into organization_dmdii_type values (4, 'Academic / Non-profit Tier 1');
-insert into organization_dmdii_type values (5, 'Academic / Non-profit Tier 2');
-insert into organization_dmdii_type values (6, 'Academic / Non-profit Tier 3');
-insert into organization_dmdii_type values (7, 'Academic / Non-profit Tier 4');
-insert into organization_dmdii_type values (8, 'U.S. Government');
-insert into organization_dmdii_type values (9, 'State And Local Government');
+insert into organization_dmdii_type (dmdii_member_desc) values ('Industry Tier 1');
+insert into organization_dmdii_type (dmdii_member_desc) values ('Industry Tier 2');
+insert into organization_dmdii_type (dmdii_member_desc) values ('Industry Tier 3');
+insert into organization_dmdii_type (dmdii_member_desc) values ('Academic / Non-profit Tier 1');
+insert into organization_dmdii_type (dmdii_member_desc) values ('Academic / Non-profit Tier 2');
+insert into organization_dmdii_type (dmdii_member_desc) values ('Academic / Non-profit Tier 3');
+insert into organization_dmdii_type (dmdii_member_desc) values ('Academic / Non-profit Tier 4');
+insert into organization_dmdii_type (dmdii_member_desc) values ('U.S. Government');
+insert into organization_dmdii_type (dmdii_member_desc) values ('State And Local Government');
 
 
 -- Case 1:  GGG is an Industry Tier 1 member, assume GGG's organization_id is 1
@@ -40,20 +40,20 @@ insert into organization_dmdii_type values (9, 'State And Local Government');
 --    order by modification_date
 --    limit 1;
 
-insert into organization_profile_change_type values (1, 'create_organization', 'Create an organization');
-insert into organization_profile_change_type values (2, 'update', 'Update an item in organization table');
-insert into organization_profile_change_type values (3, 'add_item', 'Add an item in an organization related table');
-insert into organization_profile_change_type values (4, 'delete_item', 'Delete an item in an organization related table');
+insert into organization_profile_change_type (change_type, description) values ('create_organization', 'Create an organization');
+insert into organization_profile_change_type (change_type, description) values ('update', 'Update an item in organization table');
+insert into organization_profile_change_type (change_type, description) values ('add_item', 'Add an item in an organization related table');
+insert into organization_profile_change_type (change_type, description) values ('delete_item', 'Delete an item in an organization related table');
 
 --
 -- Data for Name: organization_contact_type; Type: TABLE DATA; Schema: public; Owner: gforge
 --
 
-COPY organization_contact_type (id, contact_type) FROM stdin;
-1	ENGINEERING
-2	LEGAL
-3	MARKETING
-4	SOURCING
-5	SUPPORT
-6	RESEARCH AND DEVELOPMENT
+COPY organization_contact_type (contact_type) FROM stdin;
+ENGINEERING
+LEGAL
+MARKETING
+SOURCING
+SUPPORT
+RESEARCH AND DEVELOPMENT
 \.

@@ -58,14 +58,14 @@ SET search_path = public, pg_catalog;
 
 -- normally would insert data after constraints, but we know it is good and
 -- we haven't ordered correctly so that constraints are valid at insertion
-\i sample_data/common_shared_setup_data.psql
-\i sample_data/notification_setup_data.psql
-\i sample_data/organization_setup_data.psql
+--\i sample_data/common_shared_setup_data.psql
+--\i sample_data/notification_setup_data.psql
+--\i sample_data/organization_setup_data.psql
 
-\i sample_data/activity_log_sample_data.psql
-\i sample_data/artifact_sample_data.psql
-\i sample_data/badges_sample_data.psql
-\i sample_data/sample_data.psql
+--\i sample_data/activity_log_sample_data.psql
+--\i sample_data/artifact_sample_data.psql
+--\i sample_data/badges_sample_data.psql
+--\i sample_data/sample_data.psql
 
 \i constraints/primary_key_constraints.psql
 \i constraints/common_constraints.psql

@@ -115,14 +115,14 @@ CREATE TRIGGER cem_service_categories_before_delete_trigger BEFORE DELETE ON cem
 -- Name: cem_service_categories_delete_trigger; Type: TRIGGER; Schema: public; Owner: gforge
 --
 
-CREATE TRIGGER cem_service_categories_delete_trigger AFTER DELETE ON cem_service_categories FOR EACH ROW EXECUTE PROCEDURE cem_service_categories_delete();
+-- CREATE TRIGGER cem_service_categories_delete_trigger AFTER DELETE ON cem_service_categories FOR EACH ROW EXECUTE PROCEDURE cem_service_categories_delete();
 
 
 --
 -- Name: cem_service_categories_insert_trigger; Type: TRIGGER; Schema: public; Owner: gforge
 --
 
-CREATE TRIGGER cem_service_categories_insert_trigger AFTER INSERT ON cem_service_categories FOR EACH ROW EXECUTE PROCEDURE cem_service_categories_insert();
+-- CREATE TRIGGER cem_service_categories_insert_trigger AFTER INSERT ON cem_service_categories FOR EACH ROW EXECUTE PROCEDURE cem_service_categories_insert();
 
 
 --

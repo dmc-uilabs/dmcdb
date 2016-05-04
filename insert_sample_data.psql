@@ -1,0 +1,28 @@
+BEGIN;
+SET search_path = public, pg_catalog;
+
+
+-- load static baseline information
+\i sample_data/static_init.psql
+
+-- load user information
+\i sample_data/sample_users.psql
+
+-- load organizational membership information
+\i sample_data/organization_setup_data.psql
+\i sample_data/V1_1__OrganizationTestData.psql
+
+
+\i sample_data/common_shared_setup_data.psql
+\i sample_data/notification_setup_data.psql
+
+-- load sample groups data
+\i sample_data/sample_groups.psql
+
+\i sample_data/activity_log_sample_data.psql
+\i sample_data/artifact_sample_data.psql
+\i sample_data/badges_sample_data.psql
+\i sample_data/sample_data.psql
+
+
+COMMIT;
