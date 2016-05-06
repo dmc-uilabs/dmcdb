@@ -19,10 +19,15 @@ SET search_path = public, pg_catalog;
 -- load sample groups data
 \i sample_data/sample_groups.psql
 
+
 \i sample_data/activity_log_sample_data.psql
 \i sample_data/artifact_sample_data.psql
 \i sample_data/badges_sample_data.psql
+
+\i sample_data/search_test_data.sql
+
 \i sample_data/sample_data.psql
+
 
 
 COMMIT;
