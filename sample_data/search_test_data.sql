@@ -31,22 +31,26 @@ COPY common_image (id, caption, thumbnail, large_image) FROM stdin;
 --
 
 COPY organization (organization_id, accountid, name, location, description, division, industry, naics_code, rd_focus, customers, awards, tech_expertise, tools_software_equip_mach, post_collaboration, collaboration_interest, past_projects, upcoming_project_interests, addressid, email, phone, website, social_media_linkedin, social_media_twitter, social_medial_inthenews, perfered_comm_method, category_tier, date_joining, reason_joining, feature_image, logo_image, follow, favorates_count, is_owner, owner) FROM stdin;
-1	1	GE Global Research	Niskayuna	GE Global Research is the research and development division of General Electric	\N	R&S	\N	\N	\N	\N	jet engines, software	predix	\N	\N	\N	\N	100	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	100	\N	\N	\N	\N	joeengineer
-75	1075	ACME Incorporated	USA	ACME Machines and Equipment	ACME	industry	\N	\N	ACME customers	ACME awards	machines	electronics, java	\N	\N	\N	\N	1075	\N	\N	\N	\N	\N	\N	\N	30	\N	\N	1075	\N	\N	\N	false	acmeUser
+15	1	GE Global Research	Niskayuna	GE Global Research is the research and development division of General Electric	\N	R&S	\N	\N	\N	\N	jet engines, software	predix	\N	\N	\N	\N	100	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	100	\N	\N	\N	\N	joeengineer
+16	1075	ACME Incorporated	USA	ACME Machines and Equipment	ACME	industry	\N	\N	ACME customers	ACME awards	machines	electronics, java	\N	\N	\N	\N	1075	\N	\N	\N	\N	\N	\N	\N	30	\N	\N	1075	\N	\N	\N	false	acmeUser
 \.
+
+SELECT pg_catalog.setval('organization_organization_id_seq', 17, true);
 
 --
 -- Data for Name: organization_user; Type: TABLE DATA; Schema: public; Owner: gforge
 --
 COPY organization_user (id, user_id, organization_id) FROM stdin;
-2	300	75
-3	550	1
+2	300	16
+3	550	15
 \.
+
+SELECT pg_catalog.setval('organization_user_id_seq', 4, true);
 
 --
 -- Data for Name: organization_dmdii_member; Type: TABLE DATA; Schema: public; Owner: gforge
 --
 
-INSERT into organization_dmdii_member (id, organization_id, dmdii_type_id, modification_date, start_date, expire_date) 
-values (15, 1, 1, to_timestamp('01-01-2016','dd-mm-yyyy'), to_timestamp('01-01-2016','dd-mm-yyyy'), to_timestamp('01-01-2019','dd-mm-yyyy'));
+INSERT into organization_dmdii_member (organization_id, dmdii_type_id, modification_date, start_date, expire_date) 
+values (15, 1, to_timestamp('01-01-2016','dd-mm-yyyy'), to_timestamp('01-01-2016','dd-mm-yyyy'), to_timestamp('01-01-2019','dd-mm-yyyy'));
 
