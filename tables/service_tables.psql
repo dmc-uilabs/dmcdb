@@ -281,7 +281,7 @@ CREATE TABLE service_specifications
   id integer NOT NULL DEFAULT nextval('service_specifications_id_seq'::regclass),
   service_id integer,
   input integer,
-  ouput integer,
+  output integer,
   special text,
   usage_stats text,
   run_stats text,
