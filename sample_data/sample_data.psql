@@ -1297,6 +1297,12 @@ SELECT pg_catalog.setval('service_interface_interface_id_seq1', 1, true);
 
 
 --
+-- Name: service_service_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gforge
+--
+
+SELECT pg_catalog.setval('service_service_id_seq', 2, true);
+
+--
 -- Data for Name: filemodule_monitor; Type: TABLE DATA; Schema: public; Owner: gforge
 --
 
