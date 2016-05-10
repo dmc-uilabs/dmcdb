@@ -1,0 +1,35 @@
+
+
+--
+-- Name: user_type_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gforge
+--
+
+SELECT pg_catalog.setval('user_type_type_id_seq', 2, true);
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: gforge
+--
+
+COPY users (user_id, user_name, email, user_pw, realname, status, shell, unix_pw, unix_status, unix_uid, unix_box, add_date, confirm_hash, mail_siteupdates, mail_va, authorized_keys, email_new, people_view_skills, people_resume, timezone, language, block_ratings, jabber_address, jabber_only, address, phone, fax, title, firstname, lastname, address2, ccode, theme_id, type_id, unix_gid, gateway_id, about_me, export_control, image, last_activity) FROM stdin;
+2	noreply				D	/bin/bash		N	20002	shell1	0	\N	0	0	\N	\N	0		GMT	1	0	\N	\N	\N	\N	\N	\N		\N	\N	US	1	1	20002	0	\N	f	\N	\N
+100	None	noreply@sourceforge.net	*********34343	Nobody	D	/bin/bash		N	20100	shell1	0	\N	0	0	\N	\N	0		GMT	1	0	\N	\N	\N	\N	\N	\N	Nobody	\N	\N	US	1	1	20100	0	\N	f	\N	\N
+103	berlier	change.your.default.password@vf.com	4c1173958a76737d46dfa044a52ad651	berlier test	A	/bin/bash	$1$F8$Zf7Yzm7Zm0kS4HGnnWrCX.	N	0		1442413977	0eddaa2f085811fd	0	0	\N	\N	0		America/New_York	1	0		0					berlier	test		US	1	1	0	0	\N	f	\N	\N
+104	jmekler	change.your.default.password@vf.com	6c569aabbf7775ef8fc570e228c16b98	jmekler test	A	/bin/bash	$1$6L$.WOw.R.ooF3KsVPkyFNXY.	N	0		1442413978	90091d597baed44d	0	0	\N	\N	0		America/New_York	1	0		0					jmekler	test		US	1	1	0	0	\N	f	\N	\N
+105	ariadne	change.your.default.password@vf.com	6c569aabbf7775ef8fc570e228c16b98	ariadne test	A	/bin/bash	$1$f5$iMG11VKWhW/EPo5cHhlCk/	N	0		1442413978	bdc03cdbaf5cf934	0	0	\N	\N	0		America/New_York	1	0		0					ariadne	test		US	1	1	0	0	\N	f	\N	\N
+106	yinam	change.your.default.password@vf.com	6c569aabbf7775ef8fc570e228c16b98	yinam test	A	/bin/bash	$1$hb$V152QZxbINrhD7ErKwMjF0	N	0		1442413978	1c5851a3e0eae6c8	0	0	\N	\N	0		America/New_York	1	0		0					yinam	test		US	1	1	0	0	\N	f	\N	\N
+107	angela	change.your.default.password@vf.com	6c569aabbf7775ef8fc570e228c16b98	angela test	A	/bin/bash	$1$v3$4tfXuugcilJeJgnYUpNAn.	N	0		1442413978	e5545e61b36ae8f5	0	0	\N	\N	0		America/New_York	1	0		0					angela	test		US	1	1	0	0	\N	f	\N	\N
+108	rwelty	change.your.default.password@vf.com	6c569aabbf7775ef8fc570e228c16b98	rwelty test	A	/bin/bash	$1$oz$vMEKkv/.END66QXjTyeVN0	N	0		1442413978	439371368fdf31f2	0	0	\N	\N	0		America/New_York	1	0		0					rwelty	test		US	1	1	0	0	\N	f	\N	\N
+109	caoq	change.your.default.password@vf.com	6c569aabbf7775ef8fc570e228c16b98	caoq test	A	/bin/bash	$1$bo$vitx8XsHeJ.RvthESLMVy1	N	0		1442413978	2d063b2d25c5c68f	0	0	\N	\N	0		America/New_York	1	0		0					caoq	test		US	1	1	0	0	\N	f	\N	\N
+110	achigani	change.your.default.password@vf.com	6c569aabbf7775ef8fc570e228c16b98	achigani test	A	/bin/bash	$1$oj$Ou6NC8d/BdQ4q9NVNfE8R1	N	0		1442413978	f478056b734ea26b	0	0	\N	\N	0		America/New_York	1	0		0					achigani	test		US	1	1	0	0	\N	f	\N	\N
+111	testUser	change.your.default.password@vf.com	6c569aabbf7775ef8fc570e228c16b98	dliscomb test	A	/bin/bash	$1$4P$CufaU1dtBgQr2eYYxLXpx1	N	0		1442413978	b3c0db843beac424	0	0	\N	\N	0		America/New_York	1	0		0					dliscomb	test		US	1	1	0	0	\N	f	\N	\N
+102	fforgeadmin	root@localhost.localdomain	3a925a8af4630a0afc6640389379d9d8	Forge Admin	A	/bin/bash	$1$gc$u/P8wuvtLhm.0oZpDVMjo/	N	0	shell1	0	\N	0	0	\N	\N	0		GMT	1	0	\N	\N	\N	\N	\N	\N	Forge	Admin	\N	US	1	1	0	0	\N	f	\N	1442510998
+\.
+
+
+--
+-- Name: users_pk_seq; Type: SEQUENCE SET; Schema: public; Owner: gforge
+--
+
+SELECT pg_catalog.setval('users_pk_seq', 115, true);
+
+

@@ -96,8 +96,8 @@ ALTER TABLE ONLY users
 -- Name: users_themeid; Type: FK CONSTRAINT; Schema: public; Owner: gforge
 --
 
-ALTER TABLE ONLY users
-    ADD CONSTRAINT users_themeid FOREIGN KEY (theme_id) REFERENCES themes(theme_id) MATCH FULL;
+--ALTER TABLE ONLY users
+--    ADD CONSTRAINT users_themeid FOREIGN KEY (theme_id) REFERENCES themes(theme_id) MATCH FULL;
 
 
 --

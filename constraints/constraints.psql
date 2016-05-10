@@ -1064,8 +1064,16 @@ ALTER TABLE ONLY cem_tags_join
 -- Name: fk_cem_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
 --
 
-ALTER TABLE ONLY dome_interfaces
-    ADD CONSTRAINT fk_cem_id FOREIGN KEY (cem_id) REFERENCES cem_objects(cem_id);
+-- ALTER TABLE ONLY service_interface
+--    ADD CONSTRAINT fk_cem_id FOREIGN KEY (cem_id) REFERENCES cem_objects(cem_id);
+
+
+--
+-- Name: fk_cem_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY service_interface
+    ADD CONSTRAINT fk_service_id FOREIGN KEY (service_id) REFERENCES service(service_id);
 
 
 --
@@ -1145,7 +1153,7 @@ ALTER TABLE ONLY service_subscriptions
 --
 
 ALTER TABLE ONLY cem_runnables_running
-    ADD CONSTRAINT fk_interface_id FOREIGN KEY (interface_id) REFERENCES dome_interfaces(interface_id);
+    ADD CONSTRAINT fk_interface_id FOREIGN KEY (interface_id) REFERENCES service_interface(interface_id);
 
 
 --
@@ -1153,7 +1161,7 @@ ALTER TABLE ONLY cem_runnables_running
 --
 
 ALTER TABLE ONLY runnable_runtimes
-    ADD CONSTRAINT fk_interface_id FOREIGN KEY (interface_id) REFERENCES dome_interfaces(interface_id);
+    ADD CONSTRAINT fk_interface_id FOREIGN KEY (interface_id) REFERENCES service_interface(interface_id);
 
 
 --
@@ -1161,8 +1169,15 @@ ALTER TABLE ONLY runnable_runtimes
 --
 
 ALTER TABLE ONLY service_subscriptions
-    ADD CONSTRAINT fk_interface_id FOREIGN KEY (interface_id) REFERENCES dome_interfaces(interface_id);
+    ADD CONSTRAINT fk_interface_id FOREIGN KEY (interface_id) REFERENCES service_interface(interface_id);
 
+
+--
+-- Name: fk_interface_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY service_interface_path
+    ADD CONSTRAINT fk_interface_id FOREIGN KEY (interface_id) REFERENCES service_interface(interface_id);
 
 --
 -- Name: fk_owner_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
@@ -1177,7 +1192,7 @@ ALTER TABLE ONLY cem_runnables_running
 --
 
 ALTER TABLE ONLY cem_runnables
-    ADD CONSTRAINT fk_ref_id FOREIGN KEY (ref_id) REFERENCES dome_interfaces(interface_id);
+    ADD CONSTRAINT fk_ref_id FOREIGN KEY (ref_id) REFERENCES service_interface(interface_id);
 
 
 --
@@ -1200,7 +1215,7 @@ ALTER TABLE ONLY cem_runnable_messages
 -- Name: fk_server_id; Type: FK CONSTRAINT; Schema: public; Owner: gforge
 --
 
-ALTER TABLE ONLY dome_interfaces
+ALTER TABLE ONLY service_interface
     ADD CONSTRAINT fk_server_id FOREIGN KEY (server_id) REFERENCES servers(server_id);
 
 
