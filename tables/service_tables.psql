@@ -224,6 +224,83 @@ ALTER TABLE service_tag
 
 
 
+CREATE SEQUENCE	services_authors_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE services_authors_id_seq OWNER TO gforge;
+
+-- Table: services_authors
+
+-- DROP TABLE services_authors;
+
+CREATE TABLE services_authors
+(
+  id integer NOT NULL DEFAULT nextval('services_authors_id_seq'::regclass),
+  service_id integer,
+  author_id integer,
+  CONSTRAINT services_authors_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE services_authors
+  OWNER TO gforge;
+
+ALTER TABLE services_authors
+  ADD CONSTRAINT services_authors_service_id FOREIGN KEY (service_id)
+      REFERENCES service (service_id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE CASCADE;
+
+ALTER TABLE services_authors
+  ADD CONSTRAINT services_authors_author_id FOREIGN KEY (author_id)
+      REFERENCES service_author (id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+
+
+
+
+CREATE SEQUENCE	service_author_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1;
+
+
+ALTER TABLE service_author_id_seq OWNER TO gforge;
+
+-- Table: service_author
+
+-- DROP TABLE service_author;
+
+CREATE TABLE service_author
+(
+  id integer NOT NULL DEFAULT nextval('service_author_id_seq'::regclass),
+  profile_id integer,
+  follow boolean,
+  avatar text,
+  CONSTRAINT service_author_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE service_author
+  OWNER TO gforge;
+
+ALTER TABLE service_author
+  ADD CONSTRAINT service_author_profile_id FOREIGN KEY (profile_id)
+      REFERENCES users (user_id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+
 CREATE SEQUENCE	feature_image_id_seq
     START WITH 1
     INCREMENT BY 1
