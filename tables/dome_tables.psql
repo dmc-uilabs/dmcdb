@@ -7,6 +7,8 @@ CREATE TABLE service_interface_path (
     interface_id integer NOT NULL,
     path integer NOT NULL
 );
+ALTER TABLE deleted_service_interface OWNER TO gforge;
+
 
 --
 -- Name: deleted_service_interface; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 

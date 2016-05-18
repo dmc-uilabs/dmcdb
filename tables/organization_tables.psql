@@ -22,7 +22,7 @@ create table organization
 	collaboration_interest text,
 	past_projects text,
     upcoming_project_interests text,
-    addressId integer,
+    addressId integer not null,
     email text,
     phone text,
 	website text,
