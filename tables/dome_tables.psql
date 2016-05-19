@@ -7,7 +7,7 @@ CREATE TABLE service_interface_path (
     interface_id integer NOT NULL,
     path integer NOT NULL
 );
-ALTER TABLE deleted_service_interface OWNER TO gforge;
+ALTER TABLE service_interface_path OWNER TO gforge;
 
 
 --
