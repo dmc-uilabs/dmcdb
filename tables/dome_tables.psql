@@ -15,7 +15,7 @@ ALTER TABLE service_interface_path OWNER TO gforge;
 --
 
 CREATE TABLE deleted_service_interface (
-	interface_id integer NOT NULL UNIQUE,
+	interface_id integer NOT NULL,
     version integer NOT NULL,
     model_id text NOT NULL,
     interface_id_str text NOT NULL,
