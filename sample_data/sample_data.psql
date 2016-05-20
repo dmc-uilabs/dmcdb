@@ -1117,8 +1117,6 @@ COPY deleted_cem_tags_join (join_id, cem_id, cem_tag_id, group_id, deleted_date)
 -- Data for Name: deleted_service_interface; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-
--- COPY deleted_service_interface (interface_id, interface_data, server_id, cem_id, alias, description, deleted_date) FROM stdin;
 COPY deleted_service_interface (interface_id, version, model_id, interface_id_str, type, name, service_id, server_id, deleted_date) FROM stdin;
 \.
 

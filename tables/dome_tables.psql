@@ -24,14 +24,6 @@ CREATE TABLE deleted_service_interface (
     service_id integer NOT NULL,
     server_id integer NOT NULL,
 	deleted_date integer NOT NULL
-
-    /*interface_id integer NOT NULL,
-    interface_data text NOT NULL,
-    server_id integer NOT NULL,
-    cem_id integer NOT NULL,
-    alias text,
-    description text,
-    deleted_date integer NOT NULL*/
 );
 
 
