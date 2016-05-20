@@ -7,7 +7,7 @@ CREATE FUNCTION service_interface_before_delete() RETURNS trigger
     LANGUAGE plpgsql
     AS $$
     BEGIN
-		INSERT INTO deleted_service_interface VALUES(OLD.interface_id,OLD.interface_data,OLD.server_id,OLD.cem_id,OLD.alias,OLD.description,EXTRACT(EPOCH FROM now())::integer);
+		INSERT INTO deleted_service_interface VALUES(OLD.interface_id,OLD.version,OLD.model_id,OLD.interface_id_str,OLD.type,OLD.name,OLD.service_id,OLD.server_id,EXTRACT(EPOCH FROM now())::integer);
 		RETURN OLD;
     END;
 $$;

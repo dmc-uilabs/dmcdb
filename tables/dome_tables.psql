@@ -11,24 +11,26 @@ ALTER TABLE service_interface_path OWNER TO gforge;
 
 
 --
--- Name: deleted_service_interface; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: deleted_service_interface; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
 --
 
 CREATE TABLE deleted_service_interface (
     interface_id integer NOT NULL,
-    interface_data text NOT NULL,
+    version integer NOT NULL,
+    model_id text NOT NULL,
+    interface_id_str text NOT NULL,
+    type text NOT NULL,
+    name text NOT NULL,
+    service_id integer NOT NULL,
     server_id integer NOT NULL,
-    cem_id integer NOT NULL,
-    alias text,
-    description text,
     deleted_date integer NOT NULL
 );
 
 
-ALTER TABLE deleted_service_interface OWNER TO postgres;
+ALTER TABLE deleted_service_interface OWNER TO gforge;
 
 --
--- Name: TABLE deleted_service_interface; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: TABLE deleted_service_interface; Type: COMMENT; Schema: public; Owner: gforge
 --
 
 COMMENT ON TABLE deleted_service_interface IS 'Deleted DOME interface data';
