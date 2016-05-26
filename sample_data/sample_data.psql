@@ -2913,7 +2913,7 @@ COPY project_sums_agg (group_id, type, count) FROM stdin;
 -- Data for Name: project_tags; Type: TABLE DATA; Schema: public; Owner: gforge
 --
 
-COPY project_tags (tag_id, tag_name) FROM stdin;
+COPY project_tags (project_id, tag_id, tag_name) FROM stdin;
 \.
 
 
