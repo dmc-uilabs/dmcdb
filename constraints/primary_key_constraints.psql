@@ -814,7 +814,7 @@ ALTER TABLE ONLY channel_subscriptions
 --
 
 ALTER TABLE ONLY project_tags
-    ADD CONSTRAINT pk_tag_id PRIMARY KEY (tag_id);
+    ADD CONSTRAINT pk_project_tag_id PRIMARY KEY (project_id, tag_id);
 
 
 --
