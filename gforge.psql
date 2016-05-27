@@ -91,4 +91,6 @@ SET search_path = public, pg_catalog;
 
 \i misc/permissions_sqlj.psql
 
+\i tables/dmdii_member_tables.psql
+
 COMMIT;
