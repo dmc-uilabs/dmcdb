@@ -87,7 +87,7 @@ ALTER TABLE dmdii_member_collaboration
   OWNER TO gforge;
 
 
-CREATE TABLE dmdii_member_contact_type
+CREATE TABLE dmdii_member_contact
 (
   id serial NOT NULL,
   organization_dmdii_member_id integer NOT NULL,
