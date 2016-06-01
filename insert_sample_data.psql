@@ -26,8 +26,9 @@ SET search_path = public, pg_catalog;
 
 \i sample_data/search_test_data.sql
 
+\i sample_data/service_run_example.psql
+
 \i sample_data/sample_data.psql
 
-\i sample_data/service_run_example.psql
 
 COMMIT;
