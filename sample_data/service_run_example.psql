@@ -1,5 +1,5 @@
 insert into servers (server_id, url, user_id, port, local_dome_user, local_dome_user_password, dome_user_space)
-	values (3, '52.33.38.232', 111, 7795, 'ceed', 'ceed', 'USER'); 
+	values (3, 'localhost', 111, 7795, 'ceed', 'ceed', 'USER'); 
 
 insert into service (service_id, organization_id, title, owner_id)
 	values (3,1,'Alpha service', 111);
