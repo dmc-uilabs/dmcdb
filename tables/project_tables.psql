@@ -633,6 +633,7 @@ SET default_with_oids = true;
 --
 
 CREATE TABLE project_tags (
+    project_id integer NOT NULL,
     tag_id integer NOT NULL,
     tag_name text NOT NULL
 );
