@@ -1,11 +1,14 @@
 
 --
--- Name: doc2_files; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+-- Name: doc2_files; Type: TABLE; Schema: public; Owner: gforge; Tablespace:
 --
 
 CREATE TABLE doc2_files (
     file_id integer NOT NULL,
     owner_id integer NOT NULL,
+    owner text NOT NULL,
+    expiration_date timestamp with time zone NOT NULL,
+    resource_path text NOT NULL,
     filename text NOT NULL,
     description text NOT NULL,
     modified_date integer NOT NULL,
@@ -46,7 +49,7 @@ ALTER SEQUENCE doc2_files_file_id_seq OWNED BY doc2_files.file_id;
 
 
 --
--- Name: doc2_groups; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+-- Name: doc2_groups; Type: TABLE; Schema: public; Owner: gforge; Tablespace:
 --
 
 CREATE TABLE doc2_groups (
@@ -91,7 +94,7 @@ ALTER SEQUENCE doc2_groups_doc_group_id_seq OWNED BY doc2_groups.doc_group_id;
 
 
 --
--- Name: doc_data; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+-- Name: doc_data; Type: TABLE; Schema: public; Owner: gforge; Tablespace:
 --
 
 CREATE TABLE doc_data (
@@ -135,7 +138,7 @@ CREATE SEQUENCE doc_data_pk_seq
 ALTER TABLE doc_data_pk_seq OWNER TO gforge;
 
 --
--- Name: doc_groups; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+-- Name: doc_groups; Type: TABLE; Schema: public; Owner: gforge; Tablespace:
 --
 
 CREATE TABLE doc_groups (
@@ -164,7 +167,7 @@ CREATE SEQUENCE doc_groups_pk_seq
 ALTER TABLE doc_groups_pk_seq OWNER TO gforge;
 
 --
--- Name: doc_states; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+-- Name: doc_states; Type: TABLE; Schema: public; Owner: gforge; Tablespace:
 --
 
 CREATE TABLE doc_states (
@@ -190,7 +193,7 @@ CREATE SEQUENCE doc_states_pk_seq
 ALTER TABLE doc_states_pk_seq OWNER TO gforge;
 
 --
--- Name: docdata_monitored_docman; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+-- Name: docdata_monitored_docman; Type: TABLE; Schema: public; Owner: gforge; Tablespace:
 --
 
 CREATE TABLE docdata_monitored_docman (
@@ -227,7 +230,7 @@ SELECT users.user_name, users.realname, users.email, d.group_id, d.docid, d.stat
 ALTER TABLE docdata_vw OWNER TO gforge;
 
 --
--- Name: docgroup_monitored_docman; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+-- Name: docgroup_monitored_docman; Type: TABLE; Schema: public; Owner: gforge; Tablespace:
 --
 
 CREATE TABLE docgroup_monitored_docman (
@@ -266,4 +269,3 @@ ALTER TABLE ONLY doc2_files ALTER COLUMN file_id SET DEFAULT nextval('doc2_files
 --
 
 ALTER TABLE ONLY doc2_groups ALTER COLUMN doc_group_id SET DEFAULT nextval('doc2_groups_doc_group_id_seq'::regclass);
-
