@@ -8,7 +8,7 @@ insert into service_interface (interface_id,version, model_id, interface_id_str,
 	values (100,1, 'aff647da-d82f-1004-8e7b-5de38b2eeb0f', 'aff647db-d82f-1004-8e7b-5de38b2eeb0f', 'interface',
 		'Default Interface', 300,300);
 
-insert into service_interface_path values (300,30);
+insert into service_interface_path values (100,30);
 		
 insert into service_specifications (id, service_id, input, output, special, usage_stats, run_stats) values (300, 300, 2, 1, '[]','null','null');
 
