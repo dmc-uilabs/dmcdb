@@ -364,9 +364,9 @@ CREATE TABLE service_specifications
   service_id integer,
   input integer,
   output integer,
-  special text NOT NULL,
-  usage_stats text NOT NULL,
-  run_stats text NOT NULL,
+  special text,
+  usage_stats text,
+  run_stats text,
   CONSTRAINT service_specifications_pkey PRIMARY KEY (id)
 )
 WITH (
