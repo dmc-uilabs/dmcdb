@@ -3228,9 +3228,9 @@ SELECT pg_catalog.setval('runnable_runtimes_runtime_id_seq1', 2, true);
 -- Data for Name: servers; Type: TABLE DATA; Schema: public; Owner: gforge
 --
 
-COPY servers (server_id, url, user_id, alias) FROM stdin;
-1	http://ec2-52-88-73-23.us-west-2.compute.amazonaws.com:8080/DOMEApiServicesV7/	102	baseDOME
-2	http://ec2-52-88-73-23.us-west-2.compute.amazonaws.com:8080/DOMEApiServicesV7/	102	baseDOME
+COPY servers (server_id, url, user_id, alias, status) FROM stdin;
+1	http://ec2-52-88-73-23.us-west-2.compute.amazonaws.com:8080/DOMEApiServicesV7/	102	baseDOME	offline
+2	http://ec2-52-88-73-23.us-west-2.compute.amazonaws.com:8080/DOMEApiServicesV7/	102	baseDOME	offline
 \.
 
 

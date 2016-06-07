@@ -31,7 +31,10 @@ sudo su -c "sudo sed -i -e 's/ident/trust/g' ~postgres/data/pg_hba.conf"
 sudo su -c "echo \"host all gforge 172.0.0.0/8 trust\" >> ~postgres/data/pg_hba.conf"
 sudo su -c "echo \"listen_addresses = '*'\" >> ~postgres/data/postgresql.conf"
 sudo service postgresql94 start
-#sleep 30
+# using sleep to make sure postgres has started, because we started experiencing problems
+# where it was not up yet (after adding activemq service...)
+# using 30 seconds, but might be able to shorten it.
+sleep 30s
 
 psql -U postgres -c "CREATE ROLE gforge NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT LOGIN PASSWORD 'gforge';"
 
