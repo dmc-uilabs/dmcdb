@@ -168,7 +168,48 @@ ALTER TABLE ONLY country_code
 ALTER TABLE ONLY db_images
     ADD CONSTRAINT db_images_pkey PRIMARY KEY (id);
 
+--
+-- Name: dmdii_document_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
 
+ALTER TABLE ONLY dmdii_document
+	ADD CONSTRAINT dmdii_document_pkey PRIMARY KEY (id);
+	
+--
+-- Name: dmdii_project_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ALTER TABLE ONLY dmdii_project
+	ADD CONSTRAINT dmdii_project_id_pkey PRIMARY KEY (id);
+	
+--
+-- Name: dmdii_project_contributing_companies_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ALTER TABLE ONLY dmdii_project_contributing_companies
+	ADD CONSTRAINT dmdii_project_contributing_companies_pkey PRIMARY KEY (dmdii_project_id, organization_dmdii_member_id);
+	
+--
+-- Name: dmdii_project_documents_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ALTER TABLE ONLY dmdii_project_documents
+	ADD CONSTRAINT dmdii_project_documents_pkey PRIMARY KEY (dmdii_project_id, dmdii_document_id);
+	
+--
+-- Name: dmdii_report_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ALTER TABLE ONLY dmdii_report
+	ADD CONSTRAINT dmdii_report_pkey PRIMARY KEY (id);
+	 
+--
+-- Name: dmdii_user_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ALTER TABLE ONLY dmdii_user
+	ADD CONSTRAINT dmdii_user_pkey PRIMARY KEY (id);
+	
 --
 -- Name: doc_data_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace: 
 --
