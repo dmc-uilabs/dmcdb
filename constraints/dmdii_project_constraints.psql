@@ -2,38 +2,43 @@ ALTER TABLE only dmdii_report
   ADD CONSTRAINT dmdii_report_dmdii_project_id_fkey FOREIGN KEY (dmdii_project_id)
       REFERENCES dmdii_project (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
-      
+
 ALTER TABLE only dmdii_project_documents
   ADD CONSTRAINT dmdii_project_document_dmdii_document_id_fkey FOREIGN KEY (dmdii_document_id)
       REFERENCES dmdii_document (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
-      
+
 ALTER TABLE only dmdii_project_documents
   ADD CONSTRAINT dmdii_project_document_dmdii_project_id_fkey FOREIGN KEY (dmdii_project_id)
       REFERENCES dmdii_project (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
-      
-ALTER TABLE only dmdii_project_contributing_companies
+
+ALTER TABLE only dmdii_project_focus_area
   ADD CONSTRAINT dmdii_project_contributing_company_dmdii_project_id_fkey FOREIGN KEY (dmdii_project_id)
       REFERENCES dmdii_project (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
-      
-ALTER TABLE only dmdii_project_contributing_companies
-  ADD CONSTRAINT dmdii_project_contributing_company_organization_dmdii_member_id FOREIGN KEY (organization_dmdii_member_id)
-      REFERENCES organization_dmdii_member (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION;
-      
+
 ALTER TABLE only dmdii_project
   ADD CONSTRAINT dmdii_project_prime_organization_fkey FOREIGN KEY (prime_organization_id)
       REFERENCES organization_dmdii_member (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
-      
+
 ALTER TABLE only dmdii_project
   ADD CONSTRAINT dmdii_project_principal_investigator_fkey FOREIGN KEY (principal_investigator_id)
       REFERENCES dmdii_user (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
-      
+
 ALTER TABLE only dmdii_project
   ADD CONSTRAINT dmdii_project_principal_point_of_contact_fkey FOREIGN KEY (principal_point_of_contact_id)
       REFERENCES dmdii_user (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only dmdii_project
+  ADD CONSTRAINT dmdii_project_focus_area_id_fkey FOREIGN KEY (focus_area_id)
+      REFERENCES dmdii_project_focus_area (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only dmdii_project
+  ADD CONSTRAINT dmdii_project_thrust_id_fkey FOREIGN KEY (thrust_id)
+      REFERENCES dmdii_project_thrust (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;

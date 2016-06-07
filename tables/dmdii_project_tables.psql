@@ -1,6 +1,6 @@
 CREATE TABLE dmdii_report
 (
-  
+
   id serial NOT NULL,
   author text,
   class text,
@@ -35,12 +35,21 @@ CREATE TABLE dmdii_project_documents
 ALTER TABLE dmdii_project_documents
   OWNER TO gforge;
 
-CREATE TABLE dmdii_project_contributing_companies
+CREATE TABLE dmdii_project_focus_area
 (
-  dmdii_project_id integer NOT NULL,
-  organization_dmdii_member_id integer NOT NULL
+  id integer NOT NULL,
+  name text
 );
-ALTER TABLE dmdii_project_contributing_companies
+ALTER TABLE dmdii_project_focus_area
+  OWNER TO gforge;
+
+CREATE TABLE dmdii_project_thrust
+(
+  id integer NOT NULL,
+  name text,
+	code text
+);
+ALTER TABLE dmdii_project_thrust
   OWNER TO gforge;
 
 CREATE TABLE dmdii_project
@@ -48,11 +57,14 @@ CREATE TABLE dmdii_project
   id serial NOT NULL,
   project_status character varying(255),
   awarded_date timestamp without time zone,
+	end_date timestamp without time zone,
   project_title character varying(255),
   project_summary character varying(255),
   principal_point_of_contact_id integer,
   prime_organization_id integer NOT NULL,
-  principal_investigator_id integer
+  principal_investigator_id integer,
+	focus_area_id integer,
+	thrust_id integer
 );
 ALTER TABLE dmdii_project
   OWNER TO gforge;
@@ -65,4 +77,3 @@ CREATE TABLE dmdii_document
 );
 ALTER TABLE dmdii_document
   OWNER TO gforge;
-
