@@ -19,26 +19,6 @@ CREATE TABLE dmdii_contact_type
 ALTER TABLE dmdii_contact_type
   OWNER TO gforge;
 
-
-CREATE TABLE dmdii_contributing_company
-(
-  id integer NOT NULL,
-  name character varying(255) NOT NULL
-);
-ALTER TABLE dmdii_contributing_company
-  OWNER TO gforge;
-
-
-CREATE TABLE dmdii_document
-(
-  id integer NOT NULL,
-  name character varying(255) NOT NULL,
-  url text NOT NULL
-);
-ALTER TABLE dmdii_document
-  OWNER TO gforge;
-
-
 CREATE TABLE dmdii_member_area_of_expertise
 (
   id serial NOT NULL,
@@ -214,67 +194,6 @@ CREATE TABLE dmdii_member_user
 ALTER TABLE dmdii_member_user
   OWNER TO gforge;
 
-
-CREATE TABLE dmdii_project
-(
-  id integer NOT NULL,
-  principal_investigator character varying(255),
-  project_status character varying(255),
-  awarded_date timestamp without time zone,
-  project_title character varying(255),
-  project_summary character varying(255),
-  principal_point_of_contact_id integer,
-  prime_organization_id integer NOT NULL
-);
-ALTER TABLE dmdii_project
-  OWNER TO gforge;
-
-
-CREATE TABLE dmdii_project_contributing_companies
-(
-  dmdii_project_id integer NOT NULL,
-  dmdii_contributing_company_id integer NOT NULL
-);
-ALTER TABLE dmdii_project_contributing_companies
-  OWNER TO gforge;
-
-
-CREATE TABLE dmdii_project_documents
-(
-  dmdii_project_id integer NOT NULL,
-  dmdii_document_id integer NOT NULL
-);
-ALTER TABLE dmdii_project_documents
-  OWNER TO gforge;
-
-
-CREATE TABLE dmdii_project_reports
-(
-  dmdii_project_id integer NOT NULL,
-  dmdii_report_id integer NOT NULL
-);
-ALTER TABLE dmdii_project_reports
-  OWNER TO gforge;
-
-
-CREATE TABLE dmdii_report
-(
-  id integer NOT NULL,
-  author text,
-  class text,
-  dmdii_project_id integer NOT NULL,
-  usg_approval_status integer DEFAULT 0,
-  dmdii_cost_analysis_status integer DEFAULT 0,
-  ec_approval_status integer DEFAULT 0,
-  sow_status integer NOT NULL DEFAULT 0,
-  ip_plan_status integer NOT NULL DEFAULT 0,
-  migs_status integer NOT NULL DEFAULT 0,
-  eaa_status integer NOT NULL DEFAULT 0
-);
-ALTER TABLE dmdii_report
-  OWNER TO gforge;
-
-
 CREATE TABLE dmdii_rnd_focus
 (
   id serial NOT NULL,
@@ -304,16 +223,4 @@ CREATE TABLE dmdii_skill
   CONSTRAINT dmdii_skill_pkey PRIMARY KEY (id)
 );
 ALTER TABLE dmdii_skill
-  OWNER TO gforge;
-
-
-CREATE TABLE dmdii_user
-(
-  id integer NOT NULL,
-  fname character varying(48),
-  lname character varying(48),
-  email text,
-  phone text
-);
-ALTER TABLE dmdii_user
   OWNER TO gforge;
