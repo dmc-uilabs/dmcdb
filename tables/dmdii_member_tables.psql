@@ -3,8 +3,7 @@ CREATE TABLE dmdii_area_of_expertise
   id serial NOT NULL,
   name text,
   description text,
-  link text,
-  CONSTRAINT dmdii_area_of_expertise_pkey PRIMARY KEY (id)
+  link text
 );
 ALTER TABLE dmdii_area_of_expertise
   OWNER TO gforge;
@@ -13,8 +12,7 @@ ALTER TABLE dmdii_area_of_expertise
 CREATE TABLE dmdii_contact_type
 (
   id serial NOT NULL,
-  type text NOT NULL,
-  CONSTRAINT dmdii_contact_type_pkey PRIMARY KEY (id)
+  type text NOT NULL
 );
 ALTER TABLE dmdii_contact_type
   OWNER TO gforge;
@@ -23,14 +21,7 @@ CREATE TABLE dmdii_member_area_of_expertise
 (
   id serial NOT NULL,
   organization_dmdii_member_id integer NOT NULL,
-  dmdii_area_of_expertise_id integer NOT NULL,
-  CONSTRAINT dmdii_member_area_of_expertise_pkey PRIMARY KEY (id),
-  CONSTRAINT dmdii_member_area_of_expertis_organization_dmdii_member_id_fkey FOREIGN KEY (organization_dmdii_member_id)
-      REFERENCES organization_dmdii_member (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT dmdii_member_area_of_expertise_dmdii_area_of_expertise_id_fkey FOREIGN KEY (dmdii_area_of_expertise_id)
-      REFERENCES dmdii_area_of_expertise (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
+  dmdii_area_of_expertise_id integer NOT NULL
 );
 ALTER TABLE dmdii_member_area_of_expertise
   OWNER TO gforge;
@@ -42,11 +33,7 @@ CREATE TABLE dmdii_member_award
   organization_dmdii_member_id integer NOT NULL,
   name text,
   description text,
-  link text,
-  CONSTRAINT dmdii_member_award_pkey PRIMARY KEY (id),
-  CONSTRAINT dmdii_member_award_organization_dmdii_member_id_fkey FOREIGN KEY (organization_dmdii_member_id)
-      REFERENCES organization_dmdii_member (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
+  link text
 );
 ALTER TABLE dmdii_member_award
   OWNER TO gforge;
@@ -57,11 +44,7 @@ CREATE TABLE dmdii_member_collaboration
   id serial NOT NULL,
   organization_dmdii_member_id integer NOT NULL,
   date date,
-  interest text,
-  CONSTRAINT dmdii_member_collaboration_pkey PRIMARY KEY (id),
-  CONSTRAINT dmdii_member_collaboration_organization_dmdii_member_id_fkey FOREIGN KEY (organization_dmdii_member_id)
-      REFERENCES organization_dmdii_member (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
+  interest text
 );
 ALTER TABLE dmdii_member_collaboration
   OWNER TO gforge;
@@ -74,16 +57,9 @@ CREATE TABLE dmdii_member_contact
   dmdii_contact_type_id integer NOT NULL,
   first_name text,
   last_name text,
-  email text,
-  CONSTRAINT dmdii_member_contact_type_pkey PRIMARY KEY (id),
-  CONSTRAINT dmdii_type_fkey FOREIGN KEY (dmdii_contact_type_id)
-      REFERENCES dmdii_contact_type (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT organization_dmdii_member_fkey FOREIGN KEY (organization_dmdii_member_id)
-      REFERENCES organization_dmdii_member (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
+  email text
 );
-ALTER TABLE dmdii_member_contact_type
+ALTER TABLE dmdii_member_contact
   OWNER TO gforge;
 
 
@@ -92,11 +68,7 @@ CREATE TABLE dmdii_member_customer
   id serial NOT NULL,
   organization_dmdii_member_id integer NOT NULL,
   name text,
-  link text,
-  CONSTRAINT dmdii_member_customer_pkey PRIMARY KEY (id),
-  CONSTRAINT dmdii_member_customer_organization_dmdii_member_id_fkey FOREIGN KEY (organization_dmdii_member_id)
-      REFERENCES organization_dmdii_member (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
+  link text
 );
 ALTER TABLE dmdii_member_customer
   OWNER TO gforge;
@@ -108,14 +80,7 @@ CREATE TABLE dmdii_member_finance
   organization_dmdii_member_id integer NOT NULL,
   name text,
   asset_url text,
-  user_id integer,
-  CONSTRAINT dmdii_member_finance_pkey PRIMARY KEY (id),
-  CONSTRAINT dmdii_member_finance_organization_dmdii_member_id_fkey FOREIGN KEY (organization_dmdii_member_id)
-      REFERENCES organization_dmdii_member (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT dmdii_owner_id FOREIGN KEY (user_id)
-      REFERENCES users (user_id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
+  user_id integer
 );
 ALTER TABLE dmdii_member_finance
   OWNER TO gforge;
@@ -127,14 +92,7 @@ CREATE TABLE dmdii_member_institute_involvement
   organization_dmdii_member_id integer NOT NULL,
   static_line_item text,
   date date,
-  user_id integer NOT NULL,
-  CONSTRAINT dmdii_member_institute_involvement_pkey PRIMARY KEY (id),
-  CONSTRAINT dmdii_member_institute_involv_organization_dmdii_member_id_fkey FOREIGN KEY (organization_dmdii_member_id)
-      REFERENCES organization_dmdii_member (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT dmdii_member_institute_involvement_user_id_fkey FOREIGN KEY (user_id)
-      REFERENCES users (user_id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
+  user_id integer NOT NULL
 );
 ALTER TABLE dmdii_member_institute_involvement
   OWNER TO gforge;
@@ -144,14 +102,7 @@ CREATE TABLE dmdii_member_rnd_focus
 (
   id serial NOT NULL,
   organization_dmdii_member_id integer NOT NULL,
-  dmdii_rnd_focus_id integer NOT NULL,
-  CONSTRAINT dmdii_member_rnd_focus_pkey PRIMARY KEY (id),
-  CONSTRAINT dmdii_member_rnd_focus_dmdii_rnd_focus_id_fkey FOREIGN KEY (dmdii_rnd_focus_id)
-      REFERENCES dmdii_rnd_focus (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT dmdii_member_rnd_focus_organization_dmdii_member_id_fkey FOREIGN KEY (organization_dmdii_member_id)
-      REFERENCES organization_dmdii_member (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
+  dmdii_rnd_focus_id integer NOT NULL
 );
 ALTER TABLE dmdii_member_rnd_focus
   OWNER TO gforge;
@@ -161,14 +112,7 @@ CREATE TABLE dmdii_member_skill
 (
   id serial NOT NULL,
   organization_dmdii_member_id integer NOT NULL,
-  dmdii_skill_id integer NOT NULL,
-  CONSTRAINT dmdii_member_skill_pkey PRIMARY KEY (id),
-  CONSTRAINT dmdii_member_skill_dmdii_skill_id_fkey FOREIGN KEY (dmdii_skill_id)
-      REFERENCES dmdii_skill (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT dmdii_member_skill_organization_dmdii_member_id_fkey FOREIGN KEY (organization_dmdii_member_id)
-      REFERENCES organization_dmdii_member (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
+  dmdii_skill_id integer NOT NULL
 );
 ALTER TABLE dmdii_member_skill
   OWNER TO gforge;
@@ -179,17 +123,7 @@ CREATE TABLE dmdii_member_user
   id serial NOT NULL,
   organization_dmdii_member_id integer NOT NULL,
   user_id integer NOT NULL,
-  dmdii_role_id integer,
-  CONSTRAINT dmdii_member_user_pkey PRIMARY KEY (id),
-  CONSTRAINT dmdii_member_user_dmdii_role_id_fkey FOREIGN KEY (dmdii_role_id)
-      REFERENCES dmdii_role (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT dmdii_member_user_organization_dmdii_member_id_fkey FOREIGN KEY (organization_dmdii_member_id)
-      REFERENCES organization_dmdii_member (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT dmdii_member_user_user_id_fkey FOREIGN KEY (user_id)
-      REFERENCES users (user_id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
+  dmdii_role_id integer
 );
 ALTER TABLE dmdii_member_user
   OWNER TO gforge;
@@ -198,8 +132,7 @@ CREATE TABLE dmdii_rnd_focus
 (
   id serial NOT NULL,
   name text,
-  description text,
-  CONSTRAINT dmdii_rnd_focus_pkey PRIMARY KEY (id)
+  description text
 );
 ALTER TABLE dmdii_rnd_focus
   OWNER TO gforge;
@@ -208,8 +141,7 @@ ALTER TABLE dmdii_rnd_focus
 CREATE TABLE dmdii_role
 (
   id serial NOT NULL,
-  role text NOT NULL,
-  CONSTRAINT dmdii_role_pkey PRIMARY KEY (id)
+  role text NOT NULL
 );
 ALTER TABLE dmdii_role
   OWNER TO gforge;
@@ -219,8 +151,7 @@ CREATE TABLE dmdii_skill
 (
   id serial NOT NULL,
   tag_name text,
-  tag_link text,
-  CONSTRAINT dmdii_skill_pkey PRIMARY KEY (id)
+  tag_link text
 );
 ALTER TABLE dmdii_skill
   OWNER TO gforge;

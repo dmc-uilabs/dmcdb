@@ -168,6 +168,54 @@ ALTER TABLE ONLY country_code
 ALTER TABLE ONLY db_images
     ADD CONSTRAINT db_images_pkey PRIMARY KEY (id);
 
+
+-- DMDII member primary keys
+ALTER TABLE ONLY dmdii_area_of_expertise
+    ADD CONSTRAINT dmdii_area_of_expertise_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY dmdii_contact_type
+    ADD CONSTRAINT dmdii_contact_type_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY dmdii_member_area_of_expertise
+    ADD CONSTRAINT dmdii_member_area_of_expertise_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY dmdii_member_award
+    ADD CONSTRAINT dmdii_member_award_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY dmdii_member_collaboration
+    ADD CONSTRAINT dmdii_member_collaboration_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY dmdii_member_contact
+    ADD CONSTRAINT dmdii_member_contact_type_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY dmdii_member_customer
+    ADD CONSTRAINT dmdii_member_customer_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY dmdii_member_finance
+    ADD CONSTRAINT dmdii_member_finance_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY dmdii_member_institute_involvement
+    ADD CONSTRAINT dmdii_member_institute_involvement_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY dmdii_member_rnd_focus
+    ADD CONSTRAINT dmdii_member_rnd_focus_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY dmdii_member_skill
+    ADD CONSTRAINT dmdii_member_skill_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY dmdii_member_user
+    ADD CONSTRAINT dmdii_member_user_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY dmdii_rnd_focus
+    ADD CONSTRAINT dmdii_rnd_focus_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY dmdii_role
+    ADD CONSTRAINT dmdii_role_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY dmdii_skill
+    ADD CONSTRAINT dmdii_skill_pkey PRIMARY KEY (id);
+
+
 --
 -- Name: dmdii_document_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
 --

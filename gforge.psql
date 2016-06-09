@@ -11,7 +11,6 @@ SET search_path = public, pg_catalog;
 \i tables/channel_tables.psql
 \i tables/common_shared_tables.psql
 \i tables/community_forum_tables.psql
-\i tables/dmdii_project_tables.psql
 \i tables/doc_tables.psql
 \i tables/dome_tables.psql
 \i tables/filemodule_tables.psql
