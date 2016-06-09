@@ -170,6 +170,9 @@ ALTER TABLE ONLY db_images
 
 
 -- DMDII member primary keys
+ALTER TABLE ONLY organization_dmdii_type_category
+    ADD CONSTRAINT organization_dmdii_type_category_pkey PRIMARY KEY (id);
+
 ALTER TABLE ONLY dmdii_area_of_expertise
     ADD CONSTRAINT dmdii_area_of_expertise_pkey PRIMARY KEY (id);
 
