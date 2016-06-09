@@ -13,11 +13,6 @@ ALTER TABLE only dmdii_project_documents
       REFERENCES dmdii_project (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE only dmdii_project_focus_area
-  ADD CONSTRAINT dmdii_project_contributing_company_dmdii_project_id_fkey FOREIGN KEY (dmdii_project_id)
-      REFERENCES dmdii_project (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION;
-
 ALTER TABLE only dmdii_project
   ADD CONSTRAINT dmdii_project_prime_organization_fkey FOREIGN KEY (prime_organization_id)
       REFERENCES organization_dmdii_member (id) MATCH SIMPLE
