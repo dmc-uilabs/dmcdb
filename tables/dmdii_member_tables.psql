@@ -92,7 +92,7 @@ CREATE TABLE dmdii_member_institute_involvement
   organization_dmdii_member_id integer NOT NULL,
   static_line_item text,
   date date,
-  user_id integer NOT NULL
+  user_id integer
 );
 ALTER TABLE dmdii_member_institute_involvement
   OWNER TO gforge;
