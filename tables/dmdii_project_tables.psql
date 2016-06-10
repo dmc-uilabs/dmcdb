@@ -52,10 +52,18 @@ CREATE TABLE dmdii_project_thrust
 ALTER TABLE dmdii_project_thrust
   OWNER TO gforge;
 
+CREATE TABLE dmdii_project_status
+(
+	id integer NOT NULL,
+	name text
+);
+ALTER TABLE dmdii_project_status
+	OWNER TO gforge;
+
 CREATE TABLE dmdii_project
 (
   id serial NOT NULL,
-  project_status character varying(255),
+  status_id integer,
   awarded_date timestamp without time zone,
 	end_date timestamp without time zone,
   project_title character varying(255),

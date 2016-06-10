@@ -14,6 +14,11 @@ ALTER TABLE only dmdii_project_documents
       ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 ALTER TABLE only dmdii_project
+  ADD CONSTRAINT dmdii_project_status_id_fkey FOREIGN KEY (status_id)
+      REFERENCES dmdii_project_status (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only dmdii_project
   ADD CONSTRAINT dmdii_project_prime_organization_fkey FOREIGN KEY (prime_organization_id)
       REFERENCES organization_dmdii_member (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;

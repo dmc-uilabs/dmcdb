@@ -241,6 +241,13 @@ ALTER TABLE ONLY dmdii_project_focus_area
 	ADD CONSTRAINT dmdii_project_focus_area_pkey PRIMARY KEY (id);
 
 --
+--Name: dmdii_project_status_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ALTER TABLE ONLY dmdii_project_status
+	ADD CONSTRAINT dmdii_project_status_pkey PRIMARY KEY(id);
+	
+--
 -- Name: dmdii_project_thrust_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
 --
 
