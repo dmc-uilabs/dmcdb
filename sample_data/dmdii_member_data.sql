@@ -1,9 +1,9 @@
-insert into organization_dmdii_type_category (id, category) 
-	values (1, 'Industry');
-insert into organization_dmdii_type_category (id, category) 
-	values (2, 'Academic');
-insert into organization_dmdii_type_category (id, category) 
-	values (3, 'Government');
+-- insert into organization_dmdii_type_category (id, category) 
+-- 	values (1, 'Industry');
+-- insert into organization_dmdii_type_category (id, category) 
+-- 	values (2, 'Academic');
+-- insert into organization_dmdii_type_category (id, category) 
+-- 	values (3, 'Government');
 
 
 insert into dmdii_area_of_expertise (id, name, description, link)
@@ -29,14 +29,14 @@ insert into dmdii_skill (id, tag_name, tag_link)
 	values (2, 'tag2', 'taglink2');
 select * from common_address;
 
-insert into common_address (id, street_address1, street_address2, city, state, country, zip)
-	values (1, '123 street st.', 'Apt 20', 'Ann Arbor', 'MI', 'USA', '48108');
-insert into organization (organization_id, name, description, addressid, email, phone, website, date_joining, reason_joining, logo_image)
-	values (1, 'Test Organiztion', 'this is a test organization', 1, 'test@email.com', '2944567834', 'www.google.com', '05/04/2016', 'reason for joining here', 'link-to-company-logo.png');
-insert into organization_dmdii_type (id, tier, organization_dmdii_type_category_id)
-	values (1, 1, 1);
-insert into organization_dmdii_member (id, organization_id, dmdii_type_id) 
-	values (1, 1, 1);
+-- insert into common_address (id, street_address1, street_address2, city, state, country, zip)
+-- 	values (1, '123 street st.', 'Apt 20', 'Ann Arbor', 'MI', 'USA', '48108');
+-- insert into organization (organization_id, name, description, addressid, email, phone, website, date_joining, reason_joining, logo_image)
+-- 	values (14, 'Test Organiztion', 'this is a test organization', 1, 'test@email.com', '2944567834', 'www.google.com', '05/04/2016', 'reason for joining here', 'link-to-company-logo.png');
+-- insert into organization_dmdii_type (id, tier, organization_dmdii_type_category_id)
+-- 	values (1, 1, 1);
+-- insert into organization_dmdii_member (id, organization_id, dmdii_type_id) 
+-- 	values (1, 14, 1);
 -- areas of expertise
 insert into dmdii_member_area_of_expertise (id, organization_dmdii_member_id, dmdii_area_of_expertise_id)
 	values (1,1,1);

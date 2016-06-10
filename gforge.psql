@@ -90,7 +90,6 @@ SET search_path = public, pg_catalog;
 --\i functions/typemapping_functions.psql
 
 \i sample_data/sample_data_sqlj.psql
-\i sample_data/dmdii_member_data.sql
 
 \i constraints/classpath_constraints.psql
 
