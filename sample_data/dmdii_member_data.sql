@@ -63,10 +63,10 @@ insert into dmdii_member_finance (id, organization_dmdii_member_id, name, asset_
 insert into dmdii_member_finance (id, organization_dmdii_member_id, name, asset_url)
 	values (2, 1, 'finance asset 2', 'asset-url-2');
 -- institute involvement
-insert into dmdii_member_institute_involvement (id, organization_dmdii_member_id, static_line_item, date, user_id)
-	values (1, 1, 'involvement 1', '02/12/2016', 1);
-insert into dmdii_member_institute_involvement (id, organization_dmdii_member_id, static_line_item, date, user_id)
-	values (2, 1, 'involvement 2', '04/12/2016', 1);
+insert into dmdii_member_institute_involvement (id, organization_dmdii_member_id, static_line_item, date)
+	values (1, 1, 'involvement 1', '02/12/2016');
+insert into dmdii_member_institute_involvement (id, organization_dmdii_member_id, static_line_item, date)
+	values (2, 1, 'involvement 2', '04/12/2016');
 -- R&D focus
 insert into dmdii_member_rnd_focus (id, organization_dmdii_member_id, dmdii_rnd_focus_id)
 	values (1, 1, 1);
