@@ -19,6 +19,9 @@ SET search_path = public, pg_catalog;
 -- load sample groups data
 \i sample_data/sample_groups.psql
 
+-- load sample project tags data
+\i sample_data/sample_project_tags.psql
+
 
 \i sample_data/activity_log_sample_data.psql
 \i sample_data/artifact_sample_data.psql
@@ -28,7 +31,8 @@ SET search_path = public, pg_catalog;
 
 \i sample_data/sample_data.psql
 
-
 COMMIT;
+
 SET search_path = public, pg_catalog;
 \i sample_data/service_run_example.psql
+COMMIT;
