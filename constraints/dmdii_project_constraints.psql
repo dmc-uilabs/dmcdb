@@ -25,12 +25,12 @@ ALTER TABLE only dmdii_project
 
 ALTER TABLE only dmdii_project
   ADD CONSTRAINT dmdii_project_principal_investigator_fkey FOREIGN KEY (principal_investigator_id)
-      REFERENCES dmdii_user (id) MATCH SIMPLE
+      REFERENCES users (user_id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 ALTER TABLE only dmdii_project
   ADD CONSTRAINT dmdii_project_principal_point_of_contact_fkey FOREIGN KEY (principal_point_of_contact_id)
-      REFERENCES dmdii_user (id) MATCH SIMPLE
+      REFERENCES users (user_id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 ALTER TABLE only dmdii_project
