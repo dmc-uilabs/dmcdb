@@ -86,3 +86,53 @@ ALTER TABLE only organization_profile_change
   ADD CONSTRAINT organization_profile_change_user_id_fkey FOREIGN KEY (user_id)
       REFERENCES users (user_id) ON DELETE CASCADE;
 
+-------------------------
+-- Organization review --
+-------------------------
+ALTER TABLE only organization_review_new
+  ADD CONSTRAINT organization_review_organization_id_fkey FOREIGN KEY (organization_id)
+      REFERENCES organization (organization_id) ON DELETE CASCADE;
+	  
+ALTER TABLE only organization_review_new
+  ADD CONSTRAINT organization_review_user_id_fkey FOREIGN KEY (user_id)
+      REFERENCES users (user_id) ON DELETE CASCADE;
+
+ALTER TABLE only organization_review_rate
+  ADD CONSTRAINT organization_review_rate_id_fkey FOREIGN KEY (review_id)
+      REFERENCES organization_review_new (id) ON DELETE CASCADE;
+	  
+ALTER TABLE only organization_review_rate      
+  ADD CONSTRAINT organization_review_rate_user_id_fkey FOREIGN KEY (user_id)
+       REFERENCES users (user_id) ON DELETE CASCADE;
+
+ALTER TABLE only organization_review_flag
+  ADD CONSTRAINT organization_review_id_flag_fkey FOREIGN KEY (review_id)
+      REFERENCES organization_review_new (id) ON DELETE CASCADE;
+
+ALTER TABLE only organization_review_flag
+  ADD CONSTRAINT organization_review_flag_user_id_fkey FOREIGN KEY (user_id)
+      REFERENCES users (user_id) ON DELETE CASCADE;
+
+ALTER TABLE only organization_review_reply
+  ADD CONSTRAINT organization_review_reply_id_fkey FOREIGN KEY (review_id)
+      REFERENCES organization_review_new (id) ON DELETE CASCADE;
+
+ALTER TABLE only organization_review_reply
+  ADD CONSTRAINT organization_review_reply_user_id_fkey FOREIGN KEY (user_id)
+      REFERENCES users (user_id) ON DELETE CASCADE;
+	  
+ALTER TABLE only organization_review_reply_rate
+  ADD CONSTRAINT organization_review_reply_rate_id_fkey FOREIGN KEY (review_reply_id)
+      REFERENCES organization_review_reply (id) ON DELETE CASCADE;
+
+ALTER TABLE only organization_review_reply_rate
+  ADD CONSTRAINT organization_review_reply_rate_user_id_fkey FOREIGN KEY (user_id)
+      REFERENCES users (user_id) ON DELETE CASCADE;
+	  
+ALTER TABLE only organization_review_reply_flag
+  ADD CONSTRAINT organization_review_reply_flag_id_fkey FOREIGN KEY (review_reply_id)
+      REFERENCES organization_review_reply (id) ON DELETE CASCADE;
+
+ALTER TABLE only organization_review_reply_flag
+  ADD CONSTRAINT organization_review_reply_flag_user_id_fkey FOREIGN KEY (user_id)
+      REFERENCES users (user_id) ON DELETE CASCADE;	 
