@@ -139,9 +139,19 @@ ALTER TABLE organization_review  OWNER TO gforge;
 CREATE TABLE organization_dmdii_type
 (
 	id serial primary key,
+	organization_dmdii_type_category_id integer,
+	tier integer,
 	dmdii_member_desc text
 );
 ALTER TABLE organization_dmdii_type OWNER TO gforge;
+
+CREATE TABLE organization_dmdii_type_category
+(
+  id serial NOT NULL,
+  category text NOT NULL
+);
+ALTER TABLE organization_dmdii_type_category
+  OWNER TO gforge;
 
 CREATE TABLE organization_dmdii_member
 (

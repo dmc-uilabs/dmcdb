@@ -35,6 +35,8 @@ SET search_path = public, pg_catalog;
 \i tables/trove_tables.psql
 \i tables/user_tables.psql
 \i tables/wiki_tables.psql
+\i tables/dmdii_member_tables.psql
+\i tables/dmdii_project_tables.psql
 
 \i functions/artifact_functions.psql
 \i functions/cem_functions.psql
@@ -69,11 +71,13 @@ SET search_path = public, pg_catalog;
 
 \i constraints/primary_key_constraints.psql
 \i constraints/common_constraints.psql
+\i constraints/dmdii_partner_constraints.psql
 \i constraints/notification_constraints.psql
 \i constraints/organization_constraints.psql
 \i constraints/user_constraints.psql
 \i constraints/constraints.psql
 \i constraints/rules_and_triggers.psql
+\i constraints/dmdii_project_constraints.psql
 
 \i misc/permissions.psql
 

@@ -1,14 +1,34 @@
 -- Membership are defined by referencing: http://dmdii.uilabs.org/membership/become-a-member
-insert into organization_dmdii_type (dmdii_member_desc) values ('Industry Tier 1');
-insert into organization_dmdii_type (dmdii_member_desc) values ('Industry Tier 2');
-insert into organization_dmdii_type (dmdii_member_desc) values ('Industry Tier 3');
-insert into organization_dmdii_type (dmdii_member_desc) values ('Academic / Non-profit Tier 1');
-insert into organization_dmdii_type (dmdii_member_desc) values ('Academic / Non-profit Tier 2');
-insert into organization_dmdii_type (dmdii_member_desc) values ('Academic / Non-profit Tier 3');
-insert into organization_dmdii_type (dmdii_member_desc) values ('Academic / Non-profit Tier 4');
-insert into organization_dmdii_type (dmdii_member_desc) values ('U.S. Government');
-insert into organization_dmdii_type (dmdii_member_desc) values ('State And Local Government');
-
+-- updating dmdii_type to be represented in 2 tables to differentiate type and tier
+insert into organization_dmdii_type_category (id, category) 
+	values (1, 'Industry');
+insert into organization_dmdii_type_category (id, category) 
+	values (2, 'Academic');
+insert into organization_dmdii_type_category (id, category) 
+	values (3, 'U.S. Government');
+insert into organization_dmdii_type_category (id, category) 
+	values (4, 'State And Local Government');
+-- industry tier 1, 2, and 3
+insert into organization_dmdii_type (id, tier, organization_dmdii_type_category_id)
+	values (1, 1, 1);
+insert into organization_dmdii_type (id, tier, organization_dmdii_type_category_id)
+	values (2, 2, 1);
+insert into organization_dmdii_type (id, tier, organization_dmdii_type_category_id)
+	values (3, 3, 1);
+-- academic tier 1, 2, 3, and 4
+insert into organization_dmdii_type (id, tier, organization_dmdii_type_category_id)
+	values (4, 1, 2);
+insert into organization_dmdii_type (id, tier, organization_dmdii_type_category_id)
+	values (5, 2, 2);
+insert into organization_dmdii_type (id, tier, organization_dmdii_type_category_id)
+	values (6, 3, 2);
+insert into organization_dmdii_type (id, tier, organization_dmdii_type_category_id)
+	values (7, 4, 2);
+-- government (us and state)
+insert into organization_dmdii_type (id, organization_dmdii_type_category_id)
+	values (8, 3);
+insert into organization_dmdii_type (id, organization_dmdii_type_category_id)
+	values (9, 4);
 
 -- Case 1:  GGG is an Industry Tier 1 member, assume GGG's organization_id is 1
 -- insert into organization (organization_id, accountid, name) values (1, 123, 'GGG');
