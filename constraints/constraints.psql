@@ -1683,46 +1683,46 @@ ALTER TABLE ONLY group_activity_monitor
 --
 
 ALTER TABLE ONLY individual_discussions
-    ADD CONSTRAINT individualDiscussions_accountId_fk FOREIGN KEY (account_id) REFERENCES users(user_id);
+    ADD CONSTRAINT individualDiscussions_accountId_fk FOREIGN KEY (account_id) REFERENCES users(user_id) ON DELETE CASCADE;
 	
 --
 -- Name: individualDiscussionsComments_accountId_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
 --
 
 ALTER TABLE ONLY individual_discussions_comments
-    ADD CONSTRAINT individualDiscussionsComments_accountId_fk FOREIGN KEY (account_id) REFERENCES users(user_id);
+    ADD CONSTRAINT individualDiscussionsComments_accountId_fk FOREIGN KEY (account_id) REFERENCES users(user_id) ON DELETE CASCADE;
 	
 --
 -- Name: individualDiscussionsComments_individualDiscussionId_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
 --
 
 ALTER TABLE ONLY individual_discussions_comments
-    ADD CONSTRAINT individualDiscussionsComments_individualDiscussionId_fk FOREIGN KEY (individual_discussion_id) REFERENCES individual_discussions(id);
+    ADD CONSTRAINT individualDiscussionsComments_individualDiscussionId_fk FOREIGN KEY (individual_discussion_id) REFERENCES individual_discussions(id) ON DELETE CASCADE;
 
 --
 -- Name: individualDiscussionsCommentsHelpful_accountId_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
 --
 
 ALTER TABLE ONLY individual_discussions_comments_helpful
-    ADD CONSTRAINT individualDiscussionsCommentsHelpful_accountId_fk FOREIGN KEY (account_id) REFERENCES users(user_id);
+    ADD CONSTRAINT individualDiscussionsCommentsHelpful_accountId_fk FOREIGN KEY (account_id) REFERENCES users(user_id) ON DELETE CASCADE;
 	
 --
 -- Name: individualDiscussionsCommentsFlagged_accountId_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
 --
 
 ALTER TABLE ONLY individual_discussions_comments_flagged
-    ADD CONSTRAINT individualDiscussionsCommentsFlagged_accountId_fk FOREIGN KEY (account_id) REFERENCES users(user_id);
+    ADD CONSTRAINT individualDiscussionsCommentsFlagged_accountId_fk FOREIGN KEY (account_id) REFERENCES users(user_id) ON DELETE CASCADE;
 	
 --
 -- Name: individualDiscussionsCommentsHelpful_commentId_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
 --
 
 ALTER TABLE ONLY individual_discussions_comments_helpful
-    ADD CONSTRAINT individualDiscussionsCommentsHelpful_commentId_fk FOREIGN KEY (comment_id) REFERENCES individual_discussions_comments(id);
+    ADD CONSTRAINT individualDiscussionsCommentsHelpful_commentId_fk FOREIGN KEY (comment_id) REFERENCES individual_discussions_comments(id) ON DELETE CASCADE;
 
 --
 -- Name: individualDiscussionsCommentsFlagged_commentId_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
 --
 
 ALTER TABLE ONLY individual_discussions_comments_flagged
-    ADD CONSTRAINT individualDiscussionsCommentsFlagged_commentId_fk FOREIGN KEY (comment_id) REFERENCES individual_discussions_comments(id);
+    ADD CONSTRAINT individualDiscussionsCommentsFlagged_commentId_fk FOREIGN KEY (comment_id) REFERENCES individual_discussions_comments(id) ON DELETE CASCADE;
