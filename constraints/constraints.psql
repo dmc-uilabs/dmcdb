@@ -1673,6 +1673,56 @@ ALTER TABLE ONLY user_plugin
 
 ALTER TABLE ONLY group_activity_monitor
     ADD CONSTRAINT userid_fk FOREIGN KEY (user_id) REFERENCES users(user_id);
+	
+--------------------------
+------ Discussions -------
+--------------------------
+	
+--
+-- Name: individualDiscussions_accountId_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
 
+ALTER TABLE ONLY individual_discussions
+    ADD CONSTRAINT individualDiscussions_accountId_fk FOREIGN KEY (account_id) REFERENCES users(user_id);
+	
+--
+-- Name: individualDiscussionsComments_accountId_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
 
+ALTER TABLE ONLY individual_discussions_comments
+    ADD CONSTRAINT individualDiscussionsComments_accountId_fk FOREIGN KEY (account_id) REFERENCES users(user_id);
+	
+--
+-- Name: individualDiscussionsComments_individualDiscussionId_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
 
+ALTER TABLE ONLY individual_discussions_comments
+    ADD CONSTRAINT individualDiscussionsComments_individualDiscussionId_fk FOREIGN KEY (individual_discussion_id) REFERENCES individual_discussions(id);
+
+--
+-- Name: individualDiscussionsCommentsHelpful_accountId_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY individual_discussions_comments_helpful
+    ADD CONSTRAINT individualDiscussionsCommentsHelpful_accountId_fk FOREIGN KEY (account_id) REFERENCES users(user_id);
+	
+--
+-- Name: individualDiscussionsCommentsFlagged_accountId_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY individual_discussions_comments_flagged
+    ADD CONSTRAINT individualDiscussionsCommentsFlagged_accountId_fk FOREIGN KEY (account_id) REFERENCES users(user_id);
+	
+--
+-- Name: individualDiscussionsCommentsHelpful_commentId_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY individual_discussions_comments_helpful
+    ADD CONSTRAINT individualDiscussionsCommentsHelpful_commentId_fk FOREIGN KEY (comment_id) REFERENCES individual_discussions_comments(id);
+
+--
+-- Name: individualDiscussionsCommentsFlagged_commentId_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY individual_discussions_comments_flagged
+    ADD CONSTRAINT individualDiscussionsCommentsFlagged_commentId_fk FOREIGN KEY (comment_id) REFERENCES individual_discussions_comments(id);
