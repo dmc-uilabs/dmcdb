@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 
 # variables (should come from terraform)
 #user='gforge'
