@@ -1,4 +1,76 @@
 
+--------------------------
+------ Discussions -------
+--------------------------
+
+--
+-- Name: individual_discussions; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE individual_discussions (
+	id serial primary key,
+	title text,
+	created_by text,
+	created_at text,
+	account_id integer,
+	project_id integer
+);
+
+
+ALTER TABLE individual_discussions OWNER TO gforge;
+
+--
+-- Name: individual_discussions_comments; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE individual_discussions_comments (
+	id serial primary key,
+	individual_discussion_id integer,
+	full_name text,
+	account_id  integer,
+	comment_id integer,
+	avatar text,
+	reply boolean,
+	text text,
+	created_at text,
+	likes integer,
+	dislikes integer
+);
+
+
+ALTER TABLE individual_discussions_comments OWNER TO gforge;
+
+--
+-- Name: individual_discussions_comments_helpful; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE individual_discussions_comments_helpful (
+	id serial primary key,
+	account_id integer,
+	comment_id integer,
+	helpful boolean
+);
+
+
+ALTER TABLE individual_discussions_comments_helpful OWNER TO gforge;
+
+--
+-- Name: individual_discussions_comments_flagged; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE individual_discussions_comments_flagged (
+	id serial primary key,
+	account_id integer,
+	comment_id integer
+);
+
+
+ALTER TABLE individual_discussions_comments_flagged OWNER TO gforge;
+
+--------------------------
+---- End Discussions -----
+--------------------------
+
 --
 -- Name: forum; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
 --
