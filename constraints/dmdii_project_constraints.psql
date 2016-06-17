@@ -3,13 +3,8 @@ ALTER TABLE only dmdii_report
       REFERENCES dmdii_project (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE only dmdii_project_documents
-  ADD CONSTRAINT dmdii_project_document_dmdii_document_id_fkey FOREIGN KEY (dmdii_document_id)
-      REFERENCES dmdii_document (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION;
-
-ALTER TABLE only dmdii_project_documents
-  ADD CONSTRAINT dmdii_project_document_dmdii_project_id_fkey FOREIGN KEY (dmdii_project_id)
+ALTER TABLE only dmdii_document
+  ADD CONSTRAINT dmdii_document_dmdii_project_id_fkey FOREIGN KEY (dmdii_project_id)
       REFERENCES dmdii_project (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
 

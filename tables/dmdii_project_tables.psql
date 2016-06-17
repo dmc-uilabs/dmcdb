@@ -26,14 +26,6 @@ CREATE TABLE dmdii_user
 ALTER TABLE dmdii_user
   OWNER TO gforge;
 
-CREATE TABLE dmdii_project_documents
-(
-  dmdii_project_id integer NOT NULL,
-  dmdii_document_id integer NOT NULL
-);
-ALTER TABLE dmdii_project_documents
-  OWNER TO gforge;
-
 CREATE TABLE dmdii_project_focus_area
 (
   id integer NOT NULL,
@@ -80,7 +72,8 @@ CREATE TABLE dmdii_document
 (
   id serial NOT NULL,
   name character varying(255) NOT NULL,
-  url text NOT NULL
+  url text NOT NULL,
+	dmdii_project_id integer NOT NULL
 );
 ALTER TABLE dmdii_document
   OWNER TO gforge;
