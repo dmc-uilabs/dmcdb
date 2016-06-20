@@ -37,3 +37,13 @@ ALTER TABLE only dmdii_project
   ADD CONSTRAINT dmdii_project_thrust_id_fkey FOREIGN KEY (thrust_id)
       REFERENCES dmdii_project_thrust (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only dmdii_project_contributing_companies
+  ADD CONSTRAINT contributing_company_id_fkey FOREIGN KEY (contributing_company_id)
+      REFERENCES organization_dmdii_member (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only dmdii_project_contributing_companies
+  ADD CONSTRAINT dmdii_project_id_fkey FOREIGN KEY (dmdii_project_id)
+      REFERENCES organization_dmdii_member (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
