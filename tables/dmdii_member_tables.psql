@@ -162,8 +162,7 @@ CREATE TABLE dmdii_member_events
   event_title text,
   event_description text,
   event_date date,
-  event_location text,
-  CONSTRAINT dmdii_member_events_pkey PRIMARY KEY (id)
+  event_location text
 );
 ALTER TABLE dmdii_member_events
   OWNER TO gforge;
@@ -173,8 +172,7 @@ CREATE TABLE dmdii_member_news
   id serial NOT NULL,
   news_title text,
   news_content text,
-  date_posted date,
-  CONSTRAINT dmdii_member_news_pkey PRIMARY KEY (id)
+  date_posted date
 );
 ALTER TABLE dmdii_member_news
   OWNER TO gforge;

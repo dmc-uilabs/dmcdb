@@ -84,7 +84,7 @@ CREATE TABLE dmdii_project_news
   news_title text,
   news_content text,
   date_posted date,
-  CONSTRAINT dmdii_project_news_pkey PRIMARY KEY (id)
+  dmdii_project_number text
 );
 ALTER TABLE dmdii_project_news
   OWNER TO gforge;
