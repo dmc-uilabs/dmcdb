@@ -55,3 +55,22 @@ News title 1	This is the content of news item 1	2016-04-26
 News title 2	This is the content of news item 2	2016-05-12
 News title 3	This is the content of news item 3	2016-06-01
 \.
+
+COPY dmdii_project_contributing_company (id, dmdii_project_id, contributing_company_id) FROM stdin;
+1000	1000	1007
+1001	1000	1001
+1002	1001	1000
+1003	1001	1006
+1004	1002	1003
+1005	1002	1004
+1006	1003	1002
+1007	1003	1005
+1008	1004	1000
+1009	1004	1007
+1010	1005	1001
+1011	1005	1006
+1012	1006	1002
+1013	1006	1003
+1014	1007	1004
+1015	1007	1005
+\.
