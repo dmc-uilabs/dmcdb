@@ -49,3 +49,9 @@ COPY dmdii_document (id, name, url, dmdii_project_id) FROM stdin;
 1007	Doc from Project 1006	http://www.google.com	1006
 1008	Doc from Project 1007	http://www.google.com	1007
 \.
+
+COPY dmdii_project_news (news_title, news_content, date_posted) FROM stdin;
+News title 1	This is the content of news item 1	2016-04-26
+News title 2	This is the content of news item 2	2016-05-12
+News title 3	This is the content of news item 3	2016-06-01
+\.
