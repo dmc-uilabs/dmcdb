@@ -15,16 +15,17 @@ CREATE TABLE dmdii_report
 ALTER TABLE dmdii_report
   OWNER TO gforge;
 
-	-- Table: dmdii_project_contributing_companies
+	-- Table: dmdii_project_contributing_company
 
--- DROP TABLE dmdii_project_contributing_companies;
+-- DROP TABLE dmdii_project_contributing_company;
 
-CREATE TABLE dmdii_project_contributing_companies
+CREATE TABLE dmdii_project_contributing_company
 (
+  id serial NOT NULL,
   dmdii_project_id integer NOT NULL,
   contributing_company_id integer NOT NULL
 );
-ALTER TABLE dmdii_project_contributing_companies
+ALTER TABLE dmdii_project_contributing_company
   OWNER TO gforge;
 
 CREATE TABLE dmdii_user
