@@ -84,3 +84,14 @@ CREATE TABLE dmdii_document
 );
 ALTER TABLE dmdii_document
   OWNER TO gforge;
+
+CREATE TABLE dmdii_project_news
+(
+  id serial NOT NULL,
+  news_title text,
+  news_content text,
+  date_posted date,
+  CONSTRAINT dmdii_project_news_pkey PRIMARY KEY (id)
+);
+ALTER TABLE dmdii_project_news
+  OWNER TO gforge;
