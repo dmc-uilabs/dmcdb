@@ -32,3 +32,8 @@ ALTER TABLE only dmdii_project
   ADD CONSTRAINT dmdii_project_thrust_id_fkey FOREIGN KEY (thrust_id)
       REFERENCES dmdii_project_thrust (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only dmdii_project
+  ADD CONSTRAINT principal_investigator_id_fkey FOREIGN KEY (principal_investigator_id)
+      REFERENCES users (user_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
