@@ -15,6 +15,19 @@ CREATE TABLE dmdii_report
 ALTER TABLE dmdii_report
   OWNER TO gforge;
 
+	-- Table: dmdii_project_contributing_company
+
+-- DROP TABLE dmdii_project_contributing_company;
+
+CREATE TABLE dmdii_project_contributing_company
+(
+  id serial NOT NULL,
+  dmdii_project_id integer NOT NULL,
+  contributing_company_id integer NOT NULL
+);
+ALTER TABLE dmdii_project_contributing_company
+  OWNER TO gforge;
+
 CREATE TABLE dmdii_user
 (
   id serial NOT NULL,
@@ -60,10 +73,13 @@ CREATE TABLE dmdii_project
   project_title character varying(255),
   project_summary character varying(255),
   principal_point_of_contact_id integer,
-  prime_organization_id integer NOT NULL,
+  organization_dmdii_member_id integer NOT NULL,
   principal_investigator_id integer,
 	focus_area_id integer,
-	thrust_id integer
+	thrust_id integer,
+  project_root_number integer,
+  project_call_number integer,
+  project_number integer
 );
 ALTER TABLE dmdii_project
   OWNER TO gforge;
@@ -76,4 +92,25 @@ CREATE TABLE dmdii_document
 	dmdii_project_id integer NOT NULL
 );
 ALTER TABLE dmdii_document
+  OWNER TO gforge;
+
+CREATE TABLE dmdii_project_news
+(
+  id serial NOT NULL,
+  news_title text,
+  news_content text,
+  date_posted date,
+  dmdii_project_number text
+);
+ALTER TABLE dmdii_project_news
+  OWNER TO gforge;
+
+CREATE TABLE dmdii_project_events
+(
+  id serial NOT NULL,
+  event_name text,
+  event_description text,
+  event_date date
+);
+ALTER TABLE dmdii_project_news
   OWNER TO gforge;

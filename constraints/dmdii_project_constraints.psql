@@ -14,13 +14,8 @@ ALTER TABLE only dmdii_project
       ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 ALTER TABLE only dmdii_project
-  ADD CONSTRAINT dmdii_project_prime_organization_fkey FOREIGN KEY (prime_organization_id)
+  ADD CONSTRAINT organization_dmdii_member_fkey FOREIGN KEY (organization_dmdii_member_id)
       REFERENCES organization_dmdii_member (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION;
-
-ALTER TABLE only dmdii_project
-  ADD CONSTRAINT dmdii_project_principal_investigator_fkey FOREIGN KEY (principal_investigator_id)
-      REFERENCES users (user_id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 ALTER TABLE only dmdii_project
@@ -36,4 +31,19 @@ ALTER TABLE only dmdii_project
 ALTER TABLE only dmdii_project
   ADD CONSTRAINT dmdii_project_thrust_id_fkey FOREIGN KEY (thrust_id)
       REFERENCES dmdii_project_thrust (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only dmdii_project
+  ADD CONSTRAINT principal_investigator_id_fkey FOREIGN KEY (principal_investigator_id)
+      REFERENCES users (user_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only dmdii_project_contributing_company
+  ADD CONSTRAINT contributing_company_id_fkey FOREIGN KEY (contributing_company_id)
+      REFERENCES organization_dmdii_member (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only dmdii_project_contributing_company
+  ADD CONSTRAINT dmdii_project_id_fkey FOREIGN KEY (dmdii_project_id)
+      REFERENCES dmdii_project (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;

@@ -63,3 +63,18 @@ insert into dmdii_member_skill (organization_dmdii_member_id, dmdii_skill_id)
 insert into dmdii_member_skill (organization_dmdii_member_id, dmdii_skill_id)
 	values (1, 2);
 
+-- Events
+insert into dmdii_member_events (event_title, event_description, event_location, event_date)
+	values ('Event 1', 'This is the description of event 1', '1161 Oak Valley Drive, Ann Arbor, MI', '2016-07-25');
+insert into dmdii_member_events (event_title, event_description, event_location, event_date)
+	values ('Event 2', 'This is the description of event 2', '1161 Oak Valley Drive, Ann Arbor, MI', '2016-08-30');
+insert into dmdii_member_events (event_title, event_description, event_location, event_date)
+	values ('Event 3', 'This is the description of event 3', '1161 Oak Valley Drive, Ann Arbor, MI', '2016-11-13');
+
+-- News
+insert into dmdii_member_news (news_title, news_content, date_posted)
+	values ('News 1', 'This is the body of news 1', '2016-05-24');
+insert into dmdii_member_news (news_title, news_content, date_posted)
+	values ('News 2', 'This is the body of news 2', '2016-05-28');
+insert into dmdii_member_news (news_title, news_content, date_posted)
+	values ('News 3', 'This is the body of news 3', '2016-06-12');
