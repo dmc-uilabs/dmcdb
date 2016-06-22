@@ -155,3 +155,24 @@ CREATE TABLE dmdii_skill
 );
 ALTER TABLE dmdii_skill
   OWNER TO gforge;
+
+CREATE TABLE dmdii_member_events
+(
+  id serial NOT NULL,
+  event_title text,
+  event_description text,
+  event_date date,
+  event_location text
+);
+ALTER TABLE dmdii_member_events
+  OWNER TO gforge;
+
+CREATE TABLE dmdii_member_news
+(
+  id serial NOT NULL,
+  news_title text,
+  news_content text,
+  date_posted date
+);
+ALTER TABLE dmdii_member_news
+  OWNER TO gforge;

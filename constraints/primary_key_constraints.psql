@@ -218,7 +218,17 @@ ALTER TABLE ONLY dmdii_role
 ALTER TABLE ONLY dmdii_skill
     ADD CONSTRAINT dmdii_skill_pkey PRIMARY KEY (id);
 
+ALTER TABLE ONLY dmdii_project_news
+    ADD CONSTRAINT dmdii_project_news_pkey PRIMARY KEY (id);
 
+ALTER TABLE ONLY dmdii_member_news
+    ADD CONSTRAINT dmdii_member_news_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY dmdii_member_events
+    ADD CONSTRAINT dmdii_member_events_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY dmdii_project_events
+    ADD CONSTRAINT dmdii_project_events_pkey PRIMARY KEY (id);
 --
 -- Name: dmdii_document_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
 --
