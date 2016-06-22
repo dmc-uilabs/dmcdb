@@ -40,5 +40,5 @@ ALTER TABLE only dmdii_project_contributing_company
 
 ALTER TABLE only dmdii_project_contributing_company
   ADD CONSTRAINT dmdii_project_id_fkey FOREIGN KEY (dmdii_project_id)
-      REFERENCES organization_dmdii_member (id) MATCH SIMPLE
+      REFERENCES dmdii_project (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
