@@ -261,6 +261,13 @@ ALTER TABLE ONLY dmdii_project_thrust
 ALTER TABLE ONLY dmdii_report
 	ADD CONSTRAINT dmdii_report_pkey PRIMARY KEY (id);
 
+	--
+	-- Name: dmdii_project_contributing_company_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+	--
+
+ALTER TABLE ONLY dmdii_project_contributing_company
+	ADD CONSTRAINT dmdii_project_contributing_company_pkey PRIMARY KEY (id);
+
 --
 -- Name: dmdii_user_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
 --

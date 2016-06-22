@@ -49,3 +49,22 @@ COPY dmdii_document (id, name, url, dmdii_project_id) FROM stdin;
 1007	Doc from Project 1006	http://www.google.com	1006
 1008	Doc from Project 1007	http://www.google.com	1007
 \.
+
+COPY dmdii_project_contributing_company (id, dmdii_project_id, contributing_company_id) FROM stdin;
+1000	1000	1007
+1001	1000	1001
+1002	1001	1000
+1003	1001	1006
+1004	1002	1003
+1005	1002	1004
+1006	1003	1002
+1007	1003	1005
+1008	1004	1000
+1009	1004	1007
+1010	1005	1001
+1011	1005	1006
+1012	1006	1002
+1013	1006	1003
+1014	1007	1004
+1015	1007	1005
+\.
