@@ -8,7 +8,6 @@ insert into dmdii_project_focus_area values (6, 'Other');
 insert into dmdii_project_thrust values (1, 'Advanced Manufacturing Enterprise', 'AME');
 insert into dmdii_project_thrust values (2, 'Intelligent Machining', 'IM');
 insert into dmdii_project_thrust values (3, 'Advanced Analysis', 'AA');
-insert into dmdii_project_thrust values (4, 'Cyber Security', 'CS');
 
 insert into dmdii_project_status values (1, 'pre-awarded');
 insert into dmdii_project_status values (2, 'awarded');
