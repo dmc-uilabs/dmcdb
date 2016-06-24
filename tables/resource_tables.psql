@@ -1,0 +1,276 @@
+  CREATE SEQUENCE	resource_lab_id_seq
+      START WITH 1
+      INCREMENT BY 1
+      NO MINVALUE
+      MAXVALUE 2147483647
+      CACHE 1;
+
+
+  ALTER TABLE resource_lab_id_seq OWNER TO gforge;
+
+  -- Table: resource_labs
+
+  -- DROP TABLE resource_labs;
+
+  CREATE TABLE resource_labs
+  (
+    id integer NOT NULL DEFAULT nextval('resource_lab_id_seq'::regclass),
+    title text,
+    image text,
+    description text,
+    dateCreated text,
+    link text,
+    contact text,
+    highlighted boolean DEFAULT true NOT NULL,
+    CONSTRAINT resource_labs_pkey PRIMARY KEY (id)
+  )
+  WITH (
+    OIDS=FALSE
+  );
+  ALTER TABLE resource_labs
+    OWNER TO gforge;
+
+
+
+  CREATE SEQUENCE	resource_projects_current_id_seq
+      START WITH 1
+      INCREMENT BY 1
+      NO MINVALUE
+      MAXVALUE 2147483647
+      CACHE 1;
+
+  ALTER TABLE resource_projects_current_id_seq OWNER TO gforge;
+
+  -- Table: resource_projects_current
+
+  -- DROP TABLE resource_projects_current;
+
+  CREATE TABLE resource_projects_current
+  (
+    id integer NOT NULL DEFAULT nextval('resource_projects_current_id_seq'::regclass),
+    title text,
+    image text,
+    description text,
+    dateCreated text,
+    link text,
+    contact text,
+    highlighted boolean DEFAULT true NOT NULL,
+    CONSTRAINT resource_projects_current_pkey PRIMARY KEY (id)
+  )
+  WITH (
+    OIDS=FALSE
+  );
+  ALTER TABLE resource_projects_current
+    OWNER TO gforge;
+
+
+
+
+  CREATE SEQUENCE	resource_projects_upcoming_id_seq
+      START WITH 1
+      INCREMENT BY 1
+      NO MINVALUE
+      MAXVALUE 2147483647
+      CACHE 1;
+
+  ALTER TABLE resource_projects_upcoming_id_seq OWNER TO gforge;
+
+  -- Table: resource_projects_upcoming
+
+  -- DROP TABLE resource_projects_upcoming;
+
+  CREATE TABLE resource_projects_upcoming
+  (
+    id integer NOT NULL DEFAULT nextval('resource_projects_upcoming_id_seq'::regclass),
+    title text,
+    image text,
+    description text,
+    dateCreated text,
+    link text,
+    contact text,
+    highlighted boolean DEFAULT true NOT NULL,
+    CONSTRAINT resource_projects_upcoming_pkey PRIMARY KEY (id)
+  )
+  WITH (
+    OIDS=FALSE
+  );
+  ALTER TABLE resource_projects_upcoming
+    OWNER TO gforge;
+
+
+
+
+  CREATE SEQUENCE	resource_workforce_jobs_id_seq
+      START WITH 1
+      INCREMENT BY 1
+      NO MINVALUE
+      MAXVALUE 2147483647
+      CACHE 1;
+
+  ALTER TABLE resource_workforce_jobs_id_seq OWNER TO gforge;
+
+  -- Table: resource_workforce_jobs
+
+  -- DROP TABLE resource_workforce_jobs;
+
+  CREATE TABLE resource_workforce_jobs
+  (
+    id integer NOT NULL DEFAULT nextval('resource_workforce_jobs_id_seq'::regclass),
+    title text,
+    image text,
+    description text,
+    dateCreated text,
+    link text,
+    contact text,
+    highlighted boolean DEFAULT true NOT NULL,
+    CONSTRAINT resource_workforce_jobs_pkey PRIMARY KEY (id)
+  )
+  WITH (
+    OIDS=FALSE
+  );
+  ALTER TABLE resource_workforce_jobs
+    OWNER TO gforge;
+
+
+
+
+
+  CREATE SEQUENCE	resource_workforce_assessments_id_seq
+      START WITH 1
+      INCREMENT BY 1
+      NO MINVALUE
+      MAXVALUE 2147483647
+      CACHE 1;
+
+  ALTER TABLE resource_workforce_assessments_id_seq OWNER TO gforge;
+
+  -- Table: resource_workforce_assessments
+
+  -- DROP TABLE resource_workforce_assessments;
+
+  CREATE TABLE resource_workforce_assessments
+  (
+    id integer NOT NULL DEFAULT nextval('resource_workforce_assessments_id_seq'::regclass),
+    title text,
+    image text,
+    description text,
+    dateCreated text,
+    link text,
+    contact text,
+    highlighted boolean DEFAULT true NOT NULL,
+    CONSTRAINT resource_workforce_assessments_pkey PRIMARY KEY (id)
+  )
+  WITH (
+    OIDS=FALSE
+  );
+  ALTER TABLE resource_workforce_assessments
+    OWNER TO gforge;
+
+
+
+
+
+  CREATE SEQUENCE	resource_workforce_courses_id_seq
+      START WITH 1
+      INCREMENT BY 1
+      NO MINVALUE
+      MAXVALUE 2147483647
+      CACHE 1;
+
+  ALTER TABLE resource_workforce_courses_id_seq OWNER TO gforge;
+
+  -- Table: resource_workforce_courses
+
+  -- DROP TABLE resource_workforce_courses;
+
+  CREATE TABLE resource_workforce_courses
+  (
+    id integer NOT NULL DEFAULT nextval('resource_workforce_courses_id_seq'::regclass),
+    title text,
+    image text,
+    description text,
+    dateCreated text,
+    link text,
+    contact text,
+    highlighted boolean DEFAULT true NOT NULL,
+    CONSTRAINT resource_workforce_courses_pkey PRIMARY KEY (id)
+  )
+  WITH (
+    OIDS=FALSE
+  );
+  ALTER TABLE resource_workforce_courses
+    OWNER TO gforge;
+
+
+
+  CREATE SEQUENCE	resource_bays_id_seq
+      START WITH 1
+      INCREMENT BY 1
+      NO MINVALUE
+      MAXVALUE 2147483647
+      CACHE 1;
+
+  ALTER TABLE resource_bays_id_seq OWNER TO gforge;
+
+  -- Table: resource_bays
+
+  -- DROP TABLE resource_bays;
+
+  CREATE TABLE resource_bays
+  (
+    id integer NOT NULL DEFAULT nextval('resource_bays_id_seq'::regclass),
+    title text,
+    image text,
+    description text,
+    dateCreated text,
+    link text,
+    contact text,
+    highlighted boolean DEFAULT true NOT NULL,
+    CONSTRAINT resource_bays_pkey PRIMARY KEY (id)
+  )
+  WITH (
+    OIDS=FALSE
+  );
+  ALTER TABLE resource_bays
+    OWNER TO gforge;
+
+
+
+
+
+  CREATE SEQUENCE	resource_machines_id_seq
+      START WITH 1
+      INCREMENT BY 1
+      NO MINVALUE
+      MAXVALUE 2147483647
+      CACHE 1;
+
+  ALTER TABLE resource_machines_id_seq OWNER TO gforge;
+
+  -- Table: resource_machines
+
+  -- DROP TABLE resource_machines;
+
+  CREATE TABLE resource_machines
+  (
+    id integer NOT NULL DEFAULT nextval('resource_machines_id_seq'::regclass),
+    bay_id integer,
+    title text,
+    image text,
+    description text,
+    dateCreated text,
+    link text,
+    contact text,
+    highlighted boolean DEFAULT true NOT NULL,
+    CONSTRAINT resource_machines_pkey PRIMARY KEY (id)
+  )
+  WITH (
+    OIDS=FALSE
+  );
+  ALTER TABLE resource_machines
+    OWNER TO gforge;
+
+  ALTER TABLE resource_machines
+    ADD CONSTRAINT resource_machines_bay_id FOREIGN KEY (bay_id)
+        REFERENCES resource_bays (id) MATCH SIMPLE
+        ON UPDATE CASCADE ON DELETE CASCADE;
