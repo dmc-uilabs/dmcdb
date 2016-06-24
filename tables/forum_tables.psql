@@ -13,7 +13,7 @@ CREATE TABLE individual_discussions (
 	created_by text,
 	created_at text,
 	account_id integer,
-	project_id integer
+	project_id text
 );
 
 
