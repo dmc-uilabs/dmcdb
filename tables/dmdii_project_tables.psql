@@ -79,7 +79,9 @@ CREATE TABLE dmdii_project
 	thrust_id integer,
   project_root_number integer,
   project_call_number integer,
-  project_number integer
+  project_number integer,
+	cost_share numeric(12,2),
+	dmdii_funding numeric(12,2)
 );
 ALTER TABLE dmdii_project
   OWNER TO gforge;
