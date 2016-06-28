@@ -226,8 +226,8 @@ COPY individual_discussions (id, title, created_by, created_at, account_id, proj
 COPY individual_discussions_comments (id, individual_discussion_id, full_name, account_id, comment_id, avatar, reply, text, created_at, likes, dislikes) FROM stdin;
 1	1	Joe	550	0	avatar	false	text	123	30	5
 2	1	Joe	550	0	avatar	false	text2	123	56	2
-3	1	Joe	550	1	avatar	false	text	123	1	8
-4	1	Joe	550	1	avatar	false	text2	123	36	57
+3	1	Joe	550	1	avatar	false	text3	123	1	8
+4	1	Joe	550	1	avatar	false	text4	123	36	57
 5	2	Joe	550	0	avatar	false	hi	123	567	0
 \.
 
