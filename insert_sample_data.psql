@@ -24,6 +24,10 @@ SET search_path = public, pg_catalog;
 -- load sample project tags data
 \i sample_data/sample_project_tags.psql
 
+-- load Resource Data
+\i sample_data/resource_data.psql
+
+
 
 \i sample_data/activity_log_sample_data.psql
 \i sample_data/artifact_sample_data.psql

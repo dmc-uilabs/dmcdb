@@ -37,6 +37,8 @@ SET search_path = public, pg_catalog;
 \i tables/wiki_tables.psql
 \i tables/dmdii_member_tables.psql
 \i tables/dmdii_project_tables.psql
+\i tables/resource_tables.psql
+
 
 \i functions/artifact_functions.psql
 \i functions/cem_functions.psql
