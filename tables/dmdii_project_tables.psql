@@ -91,7 +91,11 @@ CREATE TABLE dmdii_document
   id serial NOT NULL,
   name character varying(255) NOT NULL,
   url text NOT NULL,
-	dmdii_project_id integer NOT NULL
+	dmdii_project_id integer NOT NULL,
+	owner_id integer NOT NULL,
+	modified timestamp without time zone,
+	expires timestamp without time zone,
+	is_deleted boolean DEFAULT false
 );
 ALTER TABLE dmdii_document
   OWNER TO gforge;
