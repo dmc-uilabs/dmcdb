@@ -15,6 +15,9 @@ SET search_path = public, pg_catalog;
 \i sample_data/dmdii_setup_data.psql
 \i sample_data/dmdii_project_sample_data.psql
 
+-- load Resource Data
+\i sample_data/resource_data.psql
+
 \i sample_data/common_shared_setup_data.psql
 \i sample_data/notification_setup_data.psql
 
@@ -23,10 +26,6 @@ SET search_path = public, pg_catalog;
 
 -- load sample project tags data
 \i sample_data/sample_project_tags.psql
-
--- load Resource Data
-\i sample_data/resource_data.psql
-
 
 
 \i sample_data/activity_log_sample_data.psql
