@@ -162,6 +162,14 @@ ALTER TABLE ONLY country_code
 
 
 --
+-- Name: community_event_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ALTER TABLE ONLY community_event
+  ADD CONSTRAINT community_event_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: db_images_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
 --
 
