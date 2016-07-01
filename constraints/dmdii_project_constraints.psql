@@ -8,6 +8,11 @@ ALTER TABLE only dmdii_document
       REFERENCES dmdii_project (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
 
+ALTER TABLE only dmdii_document
+  ADD CONSTRAINT dmdii_document_owner_id_fkey FOREIGN KEY (owner_id)
+      REFERENCES users (user_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
 ALTER TABLE only dmdii_project
   ADD CONSTRAINT dmdii_project_status_id_fkey FOREIGN KEY (status_id)
       REFERENCES dmdii_project_status (id) MATCH SIMPLE
