@@ -240,9 +240,20 @@ COPY individual_discussions_comments_helpful (id, account_id, comment_id, helpfu
 2	550	1	FALSE
 \.
 
+--
+-- Data for Name: individual_discussions_tags; Type: TABLE DATA; Schema: public; Owner: gforge
+--
+
+COPY individual_discussions_tags (id, individual_discussion_id, name) FROM stdin;
+1	1	tag
+2	1	tag1
+3	2	tag
+\.
+
 SELECT pg_catalog.setval('individual_discussions_comments_id_seq', 5);
 SELECT pg_catalog.setval('individual_discussions_id_seq', 4);
 SELECT pg_catalog.setval('individual_discussions_comments_helpful_id_seq', 2);
+SELECT pg_catalog.setval('individual_discussions_tags_id_seq', 3);
 
 
 --

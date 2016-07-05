@@ -67,6 +67,18 @@ CREATE TABLE individual_discussions_comments_flagged (
 
 ALTER TABLE individual_discussions_comments_flagged OWNER TO gforge;
 
+--
+-- Name: individual_discussions_tags; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE individual_discussions_tags (
+	id serial primary key,
+	individual_discussion_id integer,
+	name text
+);
+
+ALTER TABLE individual_discussions_tags OWNER TO gforge;
+
 --------------------------
 ---- End Discussions -----
 --------------------------

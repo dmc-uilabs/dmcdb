@@ -1733,3 +1733,10 @@ ALTER TABLE ONLY individual_discussions_comments_helpful
 
 ALTER TABLE ONLY individual_discussions_comments_flagged
     ADD CONSTRAINT individualDiscussionsCommentsFlagged_commentId_fk FOREIGN KEY (comment_id) REFERENCES individual_discussions_comments(id) ON DELETE CASCADE;
+
+--
+-- Name: individualDiscussionsTags_individualDiscussionId_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY individual_discussions_tags
+    ADD CONSTRAINT individualDiscussionsTags_individualDiscussionId_fk FOREIGN KEY (individual_discussion_id) REFERENCES individual_discussions(id) ON DELETE CASCADE;
