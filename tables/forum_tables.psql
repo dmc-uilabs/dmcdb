@@ -79,6 +79,18 @@ CREATE TABLE individual_discussions_tags (
 
 ALTER TABLE individual_discussions_tags OWNER TO gforge;
 
+--
+-- Name: individual_discussions_following; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE individual_discussions_following (
+	id serial primary key,
+	individual_discussion_id integer,
+	account_id integer
+);
+
+ALTER TABLE individual_discussions_following OWNER TO gforge;
+
 --------------------------
 ---- End Discussions -----
 --------------------------

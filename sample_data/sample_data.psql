@@ -250,11 +250,21 @@ COPY individual_discussions_tags (id, individual_discussion_id, name) FROM stdin
 3	2	tag
 \.
 
+--
+-- Data for Name: individual_discussions_following; Type: TABLE DATA; Schema: public; Owner: gforge
+--
+
+COPY individual_discussions_following (id, individual_discussion_id, account_id) FROM stdin;
+1	1	550
+2	1	102
+3	2	550
+\.
+
 SELECT pg_catalog.setval('individual_discussions_comments_id_seq', 5);
 SELECT pg_catalog.setval('individual_discussions_id_seq', 4);
 SELECT pg_catalog.setval('individual_discussions_comments_helpful_id_seq', 2);
 SELECT pg_catalog.setval('individual_discussions_tags_id_seq', 3);
-
+SELECT pg_catalog.setval('individual_discussions_following_id_seq', 3);
 
 --
 -- Name: service_categories_cat_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
