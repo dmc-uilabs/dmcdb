@@ -61,7 +61,9 @@ ALTER TABLE individual_discussions_comments_helpful OWNER TO gforge;
 CREATE TABLE individual_discussions_comments_flagged (
 	id serial primary key,
 	account_id integer,
-	comment_id integer
+	comment_id integer,
+	reason text,
+	comment text
 );
 
 
