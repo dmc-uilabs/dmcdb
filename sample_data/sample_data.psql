@@ -215,8 +215,8 @@ COPY individual_discussions (id, title, created_by, created_at, account_id) FROM
 \.
 
 COPY individual_discussions (id, title, created_by, created_at, account_id, project_id) FROM stdin;
-3	For Project	Google	12345	550	12
-4	For Project	Goggles	12345	550	14
+3	For Project	Google	12345	550	2
+4	For Project	Goggles	12345	550	4
 \.
 
 --
@@ -226,13 +226,23 @@ COPY individual_discussions (id, title, created_by, created_at, account_id, proj
 COPY individual_discussions_comments (id, individual_discussion_id, full_name, account_id, comment_id, avatar, reply, text, created_at, likes, dislikes) FROM stdin;
 1	1	Joe	550	0	avatar	false	text	123	30	5
 2	1	Joe	550	0	avatar	false	text2	123	56	2
-3	1	Joe	550	1	avatar	false	text	123	1	8
-4	1	Joe	550	1	avatar	false	text2	123	36	57
+3	1	Joe	550	1	avatar	false	text3	123	1	8
+4	1	Joe	550	1	avatar	false	text4	123	36	57
 5	2	Joe	550	0	avatar	false	hi	123	567	0
+\.
+
+--
+-- Data for Name: individual_discussions_comments_helpful; Type: TABLE DATA; Schema: public; Owner: gforge
+--
+
+COPY individual_discussions_comments_helpful (id, account_id, comment_id, helpful) FROM stdin;
+1	550	2	TRUE
+2	550	1	FALSE
 \.
 
 SELECT pg_catalog.setval('individual_discussions_comments_id_seq', 5);
 SELECT pg_catalog.setval('individual_discussions_id_seq', 4);
+SELECT pg_catalog.setval('individual_discussions_comments_helpful_id_seq', 2);
 
 
 --

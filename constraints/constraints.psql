@@ -1686,6 +1686,13 @@ ALTER TABLE ONLY individual_discussions
     ADD CONSTRAINT individualDiscussions_accountId_fk FOREIGN KEY (account_id) REFERENCES users(user_id) ON DELETE CASCADE;
 	
 --
+-- Name: individualDiscussions_projectId_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY individual_discussions
+    ADD CONSTRAINT individualDiscussions_projectId_fk FOREIGN KEY (project_id) REFERENCES groups(group_id) ON DELETE CASCADE;
+	
+--
 -- Name: individualDiscussionsComments_accountId_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
 --
 

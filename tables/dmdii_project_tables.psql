@@ -79,7 +79,9 @@ CREATE TABLE dmdii_project
 	thrust_id integer,
   project_root_number integer,
   project_call_number integer,
-  project_number integer
+  project_number integer,
+	cost_share numeric(12,2),
+	dmdii_funding numeric(12,2)
 );
 ALTER TABLE dmdii_project
   OWNER TO gforge;
@@ -89,7 +91,11 @@ CREATE TABLE dmdii_document
   id serial NOT NULL,
   name character varying(255) NOT NULL,
   url text NOT NULL,
-	dmdii_project_id integer NOT NULL
+	dmdii_project_id integer NOT NULL,
+	owner_id integer NOT NULL,
+	modified timestamp without time zone,
+	expires timestamp without time zone,
+	is_deleted boolean DEFAULT false
 );
 ALTER TABLE dmdii_document
   OWNER TO gforge;
@@ -112,5 +118,5 @@ CREATE TABLE dmdii_project_events
   event_description text,
   event_date date
 );
-ALTER TABLE dmdii_project_news
+ALTER TABLE dmdii_project_events
   OWNER TO gforge;
