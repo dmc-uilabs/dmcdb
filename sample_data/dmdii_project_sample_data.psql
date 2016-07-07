@@ -56,6 +56,12 @@ News title 2	This is the content of news item 2	2016-05-12
 News title 3	This is the content of news item 3	2016-06-01
 \.
 
+COPY dmdii_project_events (event_name, event_description, event_date) FROM stdin;
+Event 1	This is the description of event 1	2016-07-25
+Event 2	This is the description of event 2	2016-08-30
+Event 3	This is the description of event 3	2016-11-13
+\.
+
 COPY dmdii_project_contributing_company (id, dmdii_project_id, contributing_company_id) FROM stdin;
 1000	1000	1007
 1001	1000	1001

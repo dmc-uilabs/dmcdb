@@ -118,5 +118,5 @@ CREATE TABLE dmdii_project_events
   event_description text,
   event_date date
 );
-ALTER TABLE dmdii_project_news
+ALTER TABLE dmdii_project_events
   OWNER TO gforge;
