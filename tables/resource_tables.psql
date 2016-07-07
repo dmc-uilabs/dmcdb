@@ -91,7 +91,7 @@
 
   CREATE TABLE resource_machines
   (
-    id integer NOT NULL,
+    id serial NOT NULL,
     bay_id integer NOT NULL,
     title text,
     image text,
