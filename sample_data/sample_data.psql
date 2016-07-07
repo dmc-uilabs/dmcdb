@@ -265,7 +265,7 @@ COPY individual_discussions_following (id, individual_discussion_id, account_id)
 --
 
 COPY individual_discussions_comments_flagged (id, account_id, comment_id, reason, comment) FROM stdin;
-1	550	1	Bad	Inappropiate
+1	550	1	Bad	Inappropriate
 2	550	2	Off-Topic	Doesn't make sense
 \.
 
