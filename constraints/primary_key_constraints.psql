@@ -1314,21 +1314,21 @@ ALTER TABLE ONLY resource_labs
 --
 
 ALTER TABLE ONLY resource_projects
-    ADD CONSTRAINT resource_projects_pkey PRIMARY KEY (id);
+   ADD CONSTRAINT resource_projects_pkey PRIMARY KEY (id);
 
 
 --
 -- Name: resource_workforce_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
 --
 
-ALTER TABLE ONLY resource_workforce_jobs
+ ALTER TABLE ONLY resource_workforce_jobs
     ADD CONSTRAINT resource_workforce_jobs_pkey PRIMARY KEY (id);
 
 --
 -- Name: resource_workforce_assessments_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
 --
 
-ALTER TABLE ONLY resource_workforce_assessments
+ ALTER TABLE ONLY resource_workforce_assessments
     ADD CONSTRAINT resource_workforce_assessments_pkey PRIMARY KEY (id);
 
 
@@ -1336,7 +1336,7 @@ ALTER TABLE ONLY resource_workforce_assessments
 -- Name: resource_workforce_courses_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
 --
 
-ALTER TABLE ONLY resource_workforce_courses
+ ALTER TABLE ONLY resource_workforce_courses
     ADD CONSTRAINT resource_workforce_courses_pkey PRIMARY KEY (id);
 
 
@@ -1344,7 +1344,7 @@ ALTER TABLE ONLY resource_workforce_courses
 -- Name: resource_bays_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
 --
 
-ALTER TABLE ONLY resource_bays
+ ALTER TABLE ONLY resource_bays
     ADD CONSTRAINT resource_bays_pkey PRIMARY KEY (id);
 
 
@@ -1352,7 +1352,7 @@ ALTER TABLE ONLY resource_bays
 -- Name: resource_machines_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
 --
 
-ALTER TABLE ONLY resource_machines
+ ALTER TABLE ONLY resource_machines
     ADD CONSTRAINT resource_machines_pkey PRIMARY KEY (id);
 
 

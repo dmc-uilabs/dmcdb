@@ -1,30 +1,32 @@
-insert into resource_labs values (1, 'This', 'is', 'sample', 'data', 'created', 'now', true);
-insert into resource_labs values (2, 'This', 'is', 'test', 'data', 'created', 'today', true);
-insert into resource_labs values (3, 'This', 'is', 'fake', 'data', 'created', 'yesterday', true);
+insert into resource_labs (title, image, description, date_created, link,contact, highlighted)  values ('This', 'is', 'sample', 'data', 'created', 'now', true);
+insert into resource_labs (title, image, description, date_created, link,contact, highlighted)  values ('This', 'is', 'test', 'data', 'created', 'today', true);
+insert into resource_labs (title, image, description, date_created, link,contact, highlighted)  values ('This', 'is', 'fake', 'data', 'created', 'yesterday', true);
 
-insert into resource_projects values (1, 'This', 'is', 'sample', 'data', 'created', 'now', true, true);
-insert into resource_projects values (2, 'This', 'is', 'test', 'data', 'created', 'today', true, true);
-insert into resource_projects values (3, 'This', 'is', 'fake', 'data', 'created', 'yesterday', true, true);
+insert into resource_projects (title, image, description, date_created, link,contact, current, highlighted) values ('This', 'is', 'sample', 'data', 'created', 'now', true, true);
+insert into resource_projects (title, image, description, date_created, link,contact, current, highlighted) values ('This', 'is', 'test', 'data', 'created', 'today', true, true);
+insert into resource_projects (title, image, description, date_created, link,contact, current, highlighted) values ('This', 'is', 'fake', 'data', 'created', 'yesterday', true, true);
 
-insert into resource_workforce_jobs values (1, 'This', 'is', 'sample', 'data', 'created', 'now', true);
-insert into resource_workforce_jobs values (2, 'This', 'is', 'test', 'data', 'created', 'today', true);
-insert into resource_workforce_jobs values (3, 'This', 'is', 'fake', 'data', 'created', 'yesterday', true);
+insert into resource_workforce_jobs (title, image, description, date_created, link,contact, highlighted) values ('This', 'is', 'sample', 'data', 'created', 'now', true);
+insert into resource_workforce_jobs (title, image, description, date_created, link,contact, highlighted) values ('This', 'is', 'test', 'data', 'created', 'today', true);
+insert into resource_workforce_jobs (title, image, description, date_created, link,contact, highlighted) values ('This', 'is', 'fake', 'data', 'created', 'yesterday', true);
 
-insert into resource_workforce_assessments values (1, 'This', 'is', 'sample', 'data', 'created', 'now', true);
-insert into resource_workforce_assessments values (2, 'This', 'is', 'test', 'data', 'created', 'today', true);
-insert into resource_workforce_assessments values (3, 'This', 'is', 'fake', 'data', 'created', 'yesterday', true);
+insert into resource_workforce_assessments (title, image, description, date_created, link,contact, highlighted) values ('This', 'is', 'sample', 'data', 'created', 'now', true);
+insert into resource_workforce_assessments (title, image, description, date_created, link,contact, highlighted) values ('This', 'is', 'test', 'data', 'created', 'today', true);
+insert into resource_workforce_assessments (title, image, description, date_created, link,contact, highlighted) values ('This', 'is', 'fake', 'data', 'created', 'yesterday', true);
 
-insert into resource_workforce_courses values (1, 'This', 'is', 'sample', 'data', 'created', 'now', true);
-insert into resource_workforce_courses values (2, 'This', 'is', 'test', 'data', 'created', 'today', true);
-insert into resource_workforce_courses values (3, 'This', 'is', 'fake', 'data', 'created', 'yesterday', true);
+insert into resource_workforce_courses (title, image, description, date_created, link,contact, highlighted) values ('This', 'is', 'sample', 'data', 'created', 'now', true);
+insert into resource_workforce_courses (title, image, description, date_created, link,contact, highlighted) values ('This', 'is', 'test', 'data', 'created', 'today', true);
+insert into resource_workforce_courses (title, image, description, date_created, link,contact, highlighted) values ('This', 'is', 'fake', 'data', 'created', 'yesterday', true);
+insert into resource_workforce_courses (title, image, description, date_created, link,contact, highlighted) values ('This', 'is', 'fake', 'data', 'created', 'future', true);
 
-insert into resource_bays values (1, 'This', 'is', 'sample', 'data', 'created', 'now', true);
-insert into resource_bays values (2, 'This', 'is', 'test', 'data', 'created', 'today', true);
-insert into resource_bays values (3, 'This', 'is', 'fake', 'data', 'created', 'yesterday', true);
 
-insert into resource_machines values (1, 1, 'This', 'is', 'Machine', '1', 'bay', '1', true);
-insert into resource_machines values (2, 1, 'This', 'is', 'Machine', '2', 'bay', '1', true);
-insert into resource_machines values (3, 1, 'This', 'is', 'Machine', '3', 'bay', '1', true);
-insert into resource_machines values (4, 2, 'This', 'is', 'Machine', '4', 'bay', '2', true);
-insert into resource_machines values (5, 2, 'This', 'is', 'Machine', '5', 'bay', '2', true);
-insert into resource_machines values (6, 3, 'This', 'is', 'Machine', '6', 'bay', '3', true)
+insert into resource_bays (title, image, description, date_created, link,contact, highlighted) values  ('This', 'is', 'sample', 'data', 'created', 'now', true);
+insert into resource_bays (title, image, description, date_created, link,contact, highlighted) values  ('This', 'is', 'test', 'data', 'created', 'today', true);
+insert into resource_bays (title, image, description, date_created, link,contact, highlighted) values  ('This', 'is', 'fake', 'data', 'created', 'yesterday', true);
+
+insert into resource_machines (bay_id, title, image, description, date_created, link,contact, highlighted) values  (1, 'This', 'is', 'Machine', '1', 'bay', '1', true);
+insert into resource_machines (bay_id, title, image, description, date_created, link,contact, highlighted) values (1, 'This', 'is', 'Machine', '2', 'bay', '1', true);
+insert into resource_machines (bay_id, title, image, description, date_created, link,contact, highlighted) values (1, 'This', 'is', 'Machine', '3', 'bay', '1', true);
+insert into resource_machines (bay_id, title, image, description, date_created, link,contact, highlighted) values (2, 'This', 'is', 'Machine', '4', 'bay', '2', true);
+insert into resource_machines (bay_id, title, image, description, date_created, link,contact, highlighted) values (2, 'This', 'is', 'Machine', '5', 'bay', '2', true);
+insert into resource_machines (bay_id, title, image, description, date_created, link,contact, highlighted) values (3, 'This', 'is', 'Machine', '6', 'bay', '3', true)
