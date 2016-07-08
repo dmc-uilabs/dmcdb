@@ -2,7 +2,7 @@ CREATE TABLE community_event
 (
   id serial NOT NULL,
   title text,
-  on_date text,
+  on_date date,
   start_time text,
   end_time text,
   address text,
