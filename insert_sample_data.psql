@@ -18,6 +18,8 @@ SET search_path = public, pg_catalog;
 --load Community event data
 \i sample_data/community_event_sample_data.psql
 
+-- load Resource Data
+\i sample_data/resource_data.psql
 
 \i sample_data/common_shared_setup_data.psql
 \i sample_data/notification_setup_data.psql
