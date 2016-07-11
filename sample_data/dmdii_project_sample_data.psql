@@ -38,16 +38,16 @@ COPY dmdii_project (id, status_id, awarded_date, end_date, project_title, projec
 1007	3	2015-07-01 00:00:00	2016-03-30 00:00:00	Green Phaser	test summary	1002	1007	1001	1	2	2016	3	1	56000	3500
 \.
 
-COPY dmdii_document (id, name, url, dmdii_project_id, owner_id, modified, expires, is_deleted) FROM stdin;
-1000	Doc from Project 1000	http://www.google.com	1000	1000	2016-05-02 00:00:00	2020-05-03 00:00:00	false
-1001	PDF from Project 1000	http://www.google.com	1000	1001	2016-04-01 00:00:00	2025-01-01 00:00:00	false
-1002	Doc from Project 1001	http://www.google.com	1001	1002	2015-12-23 00:00:00	2020-12-24 00:00:00	true
-1003	Doc from Project 1002	http://www.google.com	1002	1000	2015-11-11 00:00:00	2017-11-12 00:00:00	false
-1004	Doc from Project 1003	http://www.google.com	1003	1001	2015-05-05 00:00:00	2020-05-06 00:00:00	false
-1005	Doc from Project 1004	http://www.google.com	1004	1002	2015-01-01 00:00:00	2021-01-02 00:00:00	false
-1006	Doc from Project 1005	http://www.google.com	1005	1000	2014-12-24 00:00:00	2025-12-25 00:00:00	false
-1007	Doc from Project 1006	http://www.google.com	1006	1001	2014-11-23 00:00:00	2020-11-25 00:00:00	false
-1008	Doc from Project 1007	http://www.google.com	1007	1002	2014-08-31 00:00:00	2020-09-01 00:00:00	true
+COPY dmdii_document (id, name, url, path, dmdii_project_id, owner_id, modified, expires, is_deleted) FROM stdin;
+1000	Doc from Project 1000	www.google.com	http://www.google.com	1000	1000	2016-05-02 00:00:00	2020-05-03 00:00:00-4	false
+1001	PDF from Project 1000	www.google.com	http://www.google.com	1000	1001	2016-04-01 00:00:00	2025-01-01 00:00:00-4	false
+1002	Doc from Project 1001	www.google.com	http://www.google.com	1001	1002	2015-12-23 00:00:00	2020-12-24 00:00:00-4	true
+1003	Doc from Project 1002	www.google.com	http://www.google.com	1002	1000	2015-11-11 00:00:00	2017-11-12 00:00:00-5	false
+1004	Doc from Project 1003	www.google.com	http://www.google.com	1003	1001	2015-05-05 00:00:00	2020-05-06 00:00:00-5	false
+1005	Doc from Project 1004	www.google.com	http://www.google.com	1004	1002	2015-01-01 00:00:00	2021-01-02 00:00:00-6	false
+1006	Doc from Project 1005	www.google.com	http://www.google.com	1005	1000	2014-12-24 00:00:00	2025-12-25 00:00:00-6	false
+1007	Doc from Project 1006	www.google.com	http://www.google.com	1006	1001	2014-11-23 00:00:00	2020-11-25 00:00:00-7	false
+1008	Doc from Project 1007	www.google.com	http://www.google.com	1007	1002	2014-08-31 00:00:00	2020-09-01 00:00:00-7	true
 \.
 
 COPY dmdii_project_news (news_title, news_content, date_posted) FROM stdin;
