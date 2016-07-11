@@ -1,0 +1,122 @@
+CREATE TABLE dmdii_report
+(
+  id serial NOT NULL,
+  author text,
+  class text,
+  dmdii_project_id integer NOT NULL,
+  usg_approval_status integer DEFAULT 0,
+  dmdii_cost_analysis_status integer DEFAULT 0,
+  ec_approval_status integer DEFAULT 0,
+  sow_status integer NOT NULL DEFAULT 0,
+  ip_plan_status integer NOT NULL DEFAULT 0,
+  migs_status integer NOT NULL DEFAULT 0,
+  eaa_status integer NOT NULL DEFAULT 0
+);
+ALTER TABLE dmdii_report
+  OWNER TO gforge;
+
+	-- Table: dmdii_project_contributing_company
+
+-- DROP TABLE dmdii_project_contributing_company;
+
+CREATE TABLE dmdii_project_contributing_company
+(
+  id serial NOT NULL,
+  dmdii_project_id integer NOT NULL,
+  contributing_company_id integer NOT NULL
+);
+ALTER TABLE dmdii_project_contributing_company
+  OWNER TO gforge;
+
+CREATE TABLE dmdii_user
+(
+  id serial NOT NULL,
+  fname character varying(48),
+  lname character varying(48),
+  email text,
+  phone text
+);
+ALTER TABLE dmdii_user
+  OWNER TO gforge;
+
+CREATE TABLE dmdii_project_focus_area
+(
+  id integer NOT NULL,
+  name text
+);
+ALTER TABLE dmdii_project_focus_area
+  OWNER TO gforge;
+
+CREATE TABLE dmdii_project_thrust
+(
+  id integer NOT NULL,
+  name text,
+	code text
+);
+ALTER TABLE dmdii_project_thrust
+  OWNER TO gforge;
+
+CREATE TABLE dmdii_project_status
+(
+	id integer NOT NULL,
+	name text
+);
+ALTER TABLE dmdii_project_status
+	OWNER TO gforge;
+
+CREATE TABLE dmdii_project
+(
+  id serial NOT NULL,
+  status_id integer,
+  awarded_date timestamp without time zone,
+	end_date timestamp without time zone,
+  project_title character varying(255),
+  project_summary character varying(255),
+  principal_point_of_contact_id integer,
+  organization_dmdii_member_id integer NOT NULL,
+  principal_investigator_id integer,
+	focus_area_id integer,
+	thrust_id integer,
+  project_root_number integer,
+  project_call_number integer,
+  project_number integer,
+	cost_share numeric(12,2),
+	dmdii_funding numeric(12,2)
+);
+ALTER TABLE dmdii_project
+  OWNER TO gforge;
+
+CREATE TABLE dmdii_document
+(
+  id serial NOT NULL,
+  name character varying(255) NOT NULL,
+  url text NOT NULL,
+	dmdii_project_id integer NOT NULL,
+	owner_id integer NOT NULL,
+	modified timestamp without time zone,
+	expires timestamp without time zone,
+	is_deleted boolean DEFAULT false
+);
+ALTER TABLE dmdii_document
+  OWNER TO gforge;
+
+CREATE TABLE dmdii_project_news
+(
+  id serial NOT NULL,
+  news_title text,
+  news_content text,
+  date_posted date,
+  dmdii_project_number text
+);
+ALTER TABLE dmdii_project_news
+  OWNER TO gforge;
+
+CREATE TABLE dmdii_project_events
+(
+  id serial NOT NULL,
+  event_name text,
+  event_description text,
+  event_date date
+);
+ALTER TABLE dmdii_project_events
+  OWNER TO gforge;

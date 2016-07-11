@@ -1,0 +1,4 @@
+ALTER TABLE only resource_machines
+  ADD CONSTRAINT resource_machines_bay_id FOREIGN KEY (bay_id)
+      REFERENCES resource_bays (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;

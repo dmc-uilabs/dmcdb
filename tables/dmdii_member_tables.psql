@@ -1,0 +1,178 @@
+CREATE TABLE dmdii_area_of_expertise
+(
+  id serial NOT NULL,
+  name text,
+  description text,
+  link text
+);
+ALTER TABLE dmdii_area_of_expertise
+  OWNER TO gforge;
+
+
+CREATE TABLE dmdii_contact_type
+(
+  id serial NOT NULL,
+  type text NOT NULL
+);
+ALTER TABLE dmdii_contact_type
+  OWNER TO gforge;
+
+CREATE TABLE dmdii_member_area_of_expertise
+(
+  id serial NOT NULL,
+  organization_dmdii_member_id integer NOT NULL,
+  dmdii_area_of_expertise_id integer NOT NULL
+);
+ALTER TABLE dmdii_member_area_of_expertise
+  OWNER TO gforge;
+
+
+CREATE TABLE dmdii_member_award
+(
+  id serial NOT NULL,
+  organization_dmdii_member_id integer NOT NULL,
+  name text,
+  description text,
+  link text
+);
+ALTER TABLE dmdii_member_award
+  OWNER TO gforge;
+
+
+CREATE TABLE dmdii_member_collaboration
+(
+  id serial NOT NULL,
+  organization_dmdii_member_id integer NOT NULL,
+  date date,
+  interest text
+);
+ALTER TABLE dmdii_member_collaboration
+  OWNER TO gforge;
+
+
+CREATE TABLE dmdii_member_contact
+(
+  id serial NOT NULL,
+  organization_dmdii_member_id integer NOT NULL,
+  dmdii_contact_type_id integer NOT NULL,
+  first_name text,
+  last_name text,
+  email text
+);
+ALTER TABLE dmdii_member_contact
+  OWNER TO gforge;
+
+
+CREATE TABLE dmdii_member_customer
+(
+  id serial NOT NULL,
+  organization_dmdii_member_id integer NOT NULL,
+  name text,
+  link text
+);
+ALTER TABLE dmdii_member_customer
+  OWNER TO gforge;
+
+
+CREATE TABLE dmdii_member_finance
+(
+  id serial NOT NULL,
+  organization_dmdii_member_id integer NOT NULL,
+  name text,
+  asset_url text,
+  user_id integer
+);
+ALTER TABLE dmdii_member_finance
+  OWNER TO gforge;
+
+
+CREATE TABLE dmdii_member_institute_involvement
+(
+  id serial NOT NULL,
+  organization_dmdii_member_id integer NOT NULL,
+  static_line_item text,
+  date date,
+  user_id integer
+);
+ALTER TABLE dmdii_member_institute_involvement
+  OWNER TO gforge;
+
+
+CREATE TABLE dmdii_member_rnd_focus
+(
+  id serial NOT NULL,
+  organization_dmdii_member_id integer NOT NULL,
+  dmdii_rnd_focus_id integer NOT NULL
+);
+ALTER TABLE dmdii_member_rnd_focus
+  OWNER TO gforge;
+
+
+CREATE TABLE dmdii_member_skill
+(
+  id serial NOT NULL,
+  organization_dmdii_member_id integer NOT NULL,
+  dmdii_skill_id integer NOT NULL
+);
+ALTER TABLE dmdii_member_skill
+  OWNER TO gforge;
+
+
+CREATE TABLE dmdii_member_user
+(
+  id serial NOT NULL,
+  organization_dmdii_member_id integer NOT NULL,
+  user_id integer NOT NULL,
+  dmdii_role_id integer
+);
+ALTER TABLE dmdii_member_user
+  OWNER TO gforge;
+
+CREATE TABLE dmdii_rnd_focus
+(
+  id serial NOT NULL,
+  name text,
+  description text
+);
+ALTER TABLE dmdii_rnd_focus
+  OWNER TO gforge;
+
+
+CREATE TABLE dmdii_role
+(
+  id serial NOT NULL,
+  role text NOT NULL
+);
+ALTER TABLE dmdii_role
+  OWNER TO gforge;
+
+
+CREATE TABLE dmdii_skill
+(
+  id serial NOT NULL,
+  tag_name text,
+  tag_link text
+);
+ALTER TABLE dmdii_skill
+  OWNER TO gforge;
+
+CREATE TABLE dmdii_member_events
+(
+  id serial NOT NULL,
+  event_title text,
+  event_description text,
+  event_date date,
+  event_location text
+);
+ALTER TABLE dmdii_member_events
+  OWNER TO gforge;
+
+CREATE TABLE dmdii_member_news
+(
+  id serial NOT NULL,
+  news_title text,
+  news_content text,
+  date_posted date
+);
+ALTER TABLE dmdii_member_news
+  OWNER TO gforge;

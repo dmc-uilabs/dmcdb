@@ -1,0 +1,105 @@
+  CREATE TABLE resource_labs
+  (
+    id serial NOT NULL,
+    title text,
+    image text,
+    description text,
+    date_created text,
+    link text,
+    contact text,
+    highlighted boolean
+  );
+  ALTER TABLE resource_labs
+    OWNER TO gforge;
+
+
+  CREATE TABLE resource_projects
+  (
+    id serial NOT NULL,
+    title text,
+    image text,
+    description text,
+    date_created text,
+    link text,
+    contact text,
+    current boolean,
+    highlighted boolean
+  );
+  ALTER TABLE resource_projects
+    OWNER TO gforge;
+
+
+  CREATE TABLE resource_workforce_jobs
+  (
+    id serial NOT NULL,
+    title text,
+    image text,
+    description text,
+    date_created text,
+    link text,
+    contact text,
+    highlighted boolean
+  );
+  ALTER TABLE resource_workforce_jobs
+    OWNER TO gforge;
+
+
+  CREATE TABLE resource_workforce_assessments
+  (
+    id serial NOT NULL,
+    title text,
+    image text,
+    description text,
+    date_created text,
+    link text,
+    contact text,
+    highlighted boolean
+  );
+  ALTER TABLE resource_workforce_assessments
+    OWNER TO gforge;
+
+
+  CREATE TABLE resource_workforce_courses
+  (
+    id serial NOT NULL,
+    title text,
+    image text,
+    description text,
+    date_created text,
+    link text,
+    contact text,
+    highlighted boolean
+  );
+  ALTER TABLE resource_workforce_courses
+    OWNER TO gforge;
+
+
+  CREATE TABLE resource_bays
+  (
+    id serial NOT NULL,
+    title text,
+    image text,
+    description text,
+    date_created text,
+    link text,
+    contact text,
+    highlighted boolean
+  );
+  ALTER TABLE resource_bays
+    OWNER TO gforge;
+
+
+  CREATE TABLE resource_machines
+  (
+    id serial NOT NULL,
+    bay_id integer NOT NULL,
+    title text,
+    image text,
+    description text,
+    date_created text,
+    link text,
+    contact text,
+    highlighted boolean
+  );
+  ALTER TABLE resource_machines
+    OWNER TO gforge;
