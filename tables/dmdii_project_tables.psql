@@ -121,3 +121,13 @@ CREATE TABLE dmdii_project_events
 );
 ALTER TABLE dmdii_project_events
   OWNER TO gforge;
+
+CREATE TABLE dmdii_quick_link
+(
+  id serial NOT NULL,
+  text text,
+	link text,
+	dmdii_document_id integer
+);
+ALTER TABLE dmdii_quick_link
+  OWNER TO gforge;
