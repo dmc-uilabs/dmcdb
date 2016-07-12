@@ -40,3 +40,7 @@ SET search_path = public, pg_catalog;
 \i sample_data/sample_data.psql
 
 COMMIT;
+
+SET search_path = public, pg_catalog;
+\i sample_data/service_run_example.psql
+COMMIT;
