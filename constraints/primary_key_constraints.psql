@@ -190,6 +190,9 @@ ALTER TABLE ONLY dmdii_contact_type
 ALTER TABLE ONLY dmdii_member_area_of_expertise
     ADD CONSTRAINT dmdii_member_area_of_expertise_pkey PRIMARY KEY (id);
 
+ALTER TABLE ONLY dmdii_member_desired_area_of_expertise
+    ADD CONSTRAINT dmdii_member_desired_area_of_expertise_pkey PRIMARY KEY (id);
+
 ALTER TABLE ONLY dmdii_member_award
     ADD CONSTRAINT dmdii_member_award_pkey PRIMARY KEY (id);
 
@@ -208,17 +211,11 @@ ALTER TABLE ONLY dmdii_member_finance
 ALTER TABLE ONLY dmdii_member_institute_involvement
     ADD CONSTRAINT dmdii_member_institute_involvement_pkey PRIMARY KEY (id);
 
-ALTER TABLE ONLY dmdii_member_rnd_focus
-    ADD CONSTRAINT dmdii_member_rnd_focus_pkey PRIMARY KEY (id);
-
 ALTER TABLE ONLY dmdii_member_skill
     ADD CONSTRAINT dmdii_member_skill_pkey PRIMARY KEY (id);
 
 ALTER TABLE ONLY dmdii_member_user
     ADD CONSTRAINT dmdii_member_user_pkey PRIMARY KEY (id);
-
-ALTER TABLE ONLY dmdii_rnd_focus
-    ADD CONSTRAINT dmdii_rnd_focus_pkey PRIMARY KEY (id);
 
 ALTER TABLE ONLY dmdii_role
     ADD CONSTRAINT dmdii_role_pkey PRIMARY KEY (id);
