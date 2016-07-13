@@ -48,6 +48,8 @@ COPY dmdii_document (id, name, url, path, dmdii_project_id, owner_id, modified, 
 1006	Doc from Project 1005	www.google.com	http://www.google.com	1005	1000	2014-12-24 00:00:00	2025-12-25 00:00:00-6	false
 1007	Doc from Project 1006	www.google.com	http://www.google.com	1006	1001	2014-11-23 00:00:00	2020-11-25 00:00:00-7	false
 1008	Doc from Project 1007	www.google.com	http://www.google.com	1007	1002	2014-08-31 00:00:00	2020-09-01 00:00:00-7	true
+1009	Image File Name	www.yahoo.com	http://www.yahoo.com	\N	1000	2016-07-01 00:00:00	2020-10-30 00:00:00	false
+1010	Quick Link File	www.google.com	http://www.google.com	\N	1001	2016-06-01 00:00:00	2020-12-31 00:00:00	false
 \.
 
 COPY dmdii_project_news (news_title, news_content, date_posted) FROM stdin;
@@ -79,4 +81,10 @@ COPY dmdii_project_contributing_company (id, dmdii_project_id, contributing_comp
 1013	1006	1003
 1014	1007	1004
 1015	1007	1005
+\.
+
+COPY dmdii_quick_link (text, link, dmdii_document_id, created) FROM stdin;
+Quick Link Text	\N	\N	2016-04-01
+\N	http://www.quicklinkurl.com	\N	2016-5-31
+\N	\N	1010	2016-07-04
 \.

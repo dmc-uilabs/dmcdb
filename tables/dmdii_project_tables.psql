@@ -127,7 +127,8 @@ CREATE TABLE dmdii_quick_link
   id serial NOT NULL,
   text text,
 	link text,
-	dmdii_document_id integer
+	dmdii_document_id integer,
+	created date
 );
 ALTER TABLE dmdii_quick_link
   OWNER TO gforge;
