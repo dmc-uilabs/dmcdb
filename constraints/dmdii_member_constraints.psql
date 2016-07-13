@@ -8,6 +8,16 @@ ALTER TABLE only dmdii_member_area_of_expertise
       ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 
+ALTER TABLE only dmdii_member_desired_area_of_expertise
+  ADD CONSTRAINT dmdii_member_desired_area_of_expertise_member_fkey FOREIGN KEY (organization_dmdii_member_id)
+      REFERENCES organization_dmdii_member (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE only dmdii_member_desired_area_of_expertise
+  ADD CONSTRAINT dmdii_member_desired_area_of_expertise_aoe_fkey FOREIGN KEY (dmdii_area_of_expertise_id)
+      REFERENCES dmdii_area_of_expertise (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+
 ALTER TABLE only dmdii_member_award
   ADD CONSTRAINT dmdii_member_award_organization_dmdii_member_id_fkey FOREIGN KEY (organization_dmdii_member_id)
       REFERENCES organization_dmdii_member (id) MATCH SIMPLE
@@ -53,16 +63,6 @@ ALTER TABLE only dmdii_member_institute_involvement
 ALTER TABLE only dmdii_member_institute_involvement
   ADD CONSTRAINT dmdii_member_institute_involvement_user_id_fkey FOREIGN KEY (user_id)
       REFERENCES users (user_id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION;
-
-
-ALTER TABLE only dmdii_member_rnd_focus
-  ADD CONSTRAINT dmdii_member_rnd_focus_dmdii_rnd_focus_id_fkey FOREIGN KEY (dmdii_rnd_focus_id)
-      REFERENCES dmdii_rnd_focus (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION;
-ALTER TABLE only dmdii_member_rnd_focus
-  ADD CONSTRAINT dmdii_member_rnd_focus_organization_dmdii_member_id_fkey FOREIGN KEY (organization_dmdii_member_id)
-      REFERENCES organization_dmdii_member (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 
