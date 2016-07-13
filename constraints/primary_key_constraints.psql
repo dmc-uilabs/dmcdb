@@ -237,6 +237,7 @@ ALTER TABLE ONLY dmdii_member_events
 
 ALTER TABLE ONLY dmdii_project_events
     ADD CONSTRAINT dmdii_project_events_pkey PRIMARY KEY (id);
+
 --
 -- Name: dmdii_document_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
 --
@@ -292,6 +293,13 @@ ALTER TABLE ONLY dmdii_project_contributing_company
 
 ALTER TABLE ONLY dmdii_user
 	ADD CONSTRAINT dmdii_user_pkey PRIMARY KEY (id);
+
+--
+-- Name: dmdii_quick_link_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ALTER TABLE ONLY dmdii_quick_link
+	ADD CONSTRAINT dmdii_quick_link_pkey PRIMARY KEY (id);
 
 --
 -- Name: doc_data_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
