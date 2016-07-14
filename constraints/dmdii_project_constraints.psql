@@ -57,3 +57,18 @@ ALTER TABLE only dmdii_quick_link
   ADD CONSTRAINT dmdii_quick_link_dmdii_document_id_fkey FOREIGN KEY (dmdii_document_id)
       REFERENCES dmdii_document (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only user_role_assignment
+  ADD CONSTRAINT user_role_assignment_organization_id_fkey FOREIGN KEY (organization_id)
+      REFERENCES organization (organization_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only user_role_assignment
+  ADD CONSTRAINT user_role_assignment_user_id_fkey FOREIGN KEY (user_id)
+      REFERENCES users (user_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only user_role_assignment
+  ADD CONSTRAINT user_role_assignment_role_id_fkey FOREIGN KEY (role_id)
+      REFERENCES role (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;

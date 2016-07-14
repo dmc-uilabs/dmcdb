@@ -302,6 +302,20 @@ ALTER TABLE ONLY dmdii_quick_link
 	ADD CONSTRAINT dmdii_quick_link_pkey PRIMARY KEY (id);
 
 --
+-- Name: role_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ALTER TABLE ONLY role
+	ADD CONSTRAINT role_pkey PRIMARY KEY (id);
+
+--
+-- Name: user_role_assignment_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ALTER TABLE ONLY user_role_assignment
+	ADD CONSTRAINT user_role_assignment_pkey PRIMARY KEY (id);
+
+--
 -- Name: doc_data_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
 --
 
