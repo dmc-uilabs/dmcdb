@@ -243,6 +243,20 @@ ALTER TABLE ONLY dmdii_document
 	ADD CONSTRAINT dmdii_document_pkey PRIMARY KEY (id);
 
 --
+-- Name: dmdii_document_tag_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ALTER TABLE ONLY dmdii_document_tag
+    ADD CONSTRAINT dmdii_document_tag_pkey PRIMARY KEY (id);
+
+--
+-- Name: dmdii_document_tag_join_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ALTER TABLE ONLY dmdii_document_tag_join
+    ADD CONSTRAINT dmdii_document_tag_join_pkey PRIMARY KEY (id);
+
+--
 -- Name: dmdii_project_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
 --
 

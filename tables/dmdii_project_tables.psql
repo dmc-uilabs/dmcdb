@@ -91,14 +91,31 @@ CREATE TABLE dmdii_document
   id serial NOT NULL,
   name character varying(255) NOT NULL,
   url text NOT NULL,
-	path text NOT NULL,
-	dmdii_project_id integer,
-	owner_id integer NOT NULL,
-	modified timestamp with time zone,
-	expires timestamp with time zone,
-	is_deleted boolean DEFAULT false
+  path text NOT NULL,
+  dmdii_project_id integer,
+  owner_id integer NOT NULL,
+  modified timestamp with time zone,
+  expires timestamp with time zone,
+  is_deleted boolean DEFAULT false
 );
 ALTER TABLE dmdii_document
+  OWNER TO gforge;
+
+CREATE TABLE dmdii_document_tag
+(
+  id serial NOT NULL,
+  tag_name text NOT NULL
+);
+ALTER TABLE dmdii_document_tag
+  OWNER TO gforge;
+
+CREATE TABLE dmdii_document_tag_join
+(
+  id serial NOT NULL,
+  dmdii_document_id integer NOT NULL,
+  dmdii_document_tag_id integer NOT NULL
+);
+ALTER TABLE dmdii_document_tag_join
   OWNER TO gforge;
 
 CREATE TABLE dmdii_project_news
