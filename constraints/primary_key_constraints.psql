@@ -220,9 +220,6 @@ ALTER TABLE ONLY dmdii_member_user
 ALTER TABLE ONLY dmdii_rnd_focus
     ADD CONSTRAINT dmdii_rnd_focus_pkey PRIMARY KEY (id);
 
-ALTER TABLE ONLY dmdii_role
-    ADD CONSTRAINT dmdii_role_pkey PRIMARY KEY (id);
-
 ALTER TABLE ONLY dmdii_skill
     ADD CONSTRAINT dmdii_skill_pkey PRIMARY KEY (id);
 
