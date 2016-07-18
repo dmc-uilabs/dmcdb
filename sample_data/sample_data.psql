@@ -3014,9 +3014,8 @@ SELECT pg_catalog.setval('project_tags_tag_id_seq', 1, false);
 -- Data for Name: project_task; Type: TABLE DATA; Schema: public; Owner: gforge
 --
 
-COPY project_task (project_task_id, group_project_id, summary, details, percent_complete, priority, hours, start_date, end_date, created_by, status_id, category_id, duration, parent_id, last_modified_date) FROM stdin;
-1	1			0	0	0	0	0	100	1	100	0	0	1108701981
-\.
+INSERT into project_task (project_task_id, group_project_id, summary, details, percent_complete, priority, hours, start_date, end_date, created_by, status_id, category_id, duration, parent_id, last_modified_date) values
+(1, 1, 'sample', 'sample details', 0, 0, 0, timestamp 'epoch', timestamp 'epoch', 100, 1, 100, 0, 0, 1108701981);
 
 
 --
