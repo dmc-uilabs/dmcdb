@@ -1,0 +1,49 @@
+ALTER TABLE only dmdii_report
+  ADD CONSTRAINT dmdii_report_dmdii_project_id_fkey FOREIGN KEY (dmdii_project_id)
+      REFERENCES dmdii_project (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only dmdii_document
+  ADD CONSTRAINT dmdii_document_dmdii_project_id_fkey FOREIGN KEY (dmdii_project_id)
+      REFERENCES dmdii_project (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only dmdii_project
+  ADD CONSTRAINT dmdii_project_status_id_fkey FOREIGN KEY (status_id)
+      REFERENCES dmdii_project_status (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only dmdii_project
+  ADD CONSTRAINT organization_dmdii_member_fkey FOREIGN KEY (organization_dmdii_member_id)
+      REFERENCES organization_dmdii_member (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only dmdii_project
+  ADD CONSTRAINT dmdii_project_principal_point_of_contact_fkey FOREIGN KEY (principal_point_of_contact_id)
+      REFERENCES users (user_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only dmdii_project
+  ADD CONSTRAINT dmdii_project_focus_area_id_fkey FOREIGN KEY (focus_area_id)
+      REFERENCES dmdii_project_focus_area (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only dmdii_project
+  ADD CONSTRAINT dmdii_project_thrust_id_fkey FOREIGN KEY (thrust_id)
+      REFERENCES dmdii_project_thrust (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only dmdii_project
+  ADD CONSTRAINT principal_investigator_id_fkey FOREIGN KEY (principal_investigator_id)
+      REFERENCES users (user_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only dmdii_project_contributing_company
+  ADD CONSTRAINT contributing_company_id_fkey FOREIGN KEY (contributing_company_id)
+      REFERENCES organization_dmdii_member (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only dmdii_project_contributing_company
+  ADD CONSTRAINT dmdii_project_id_fkey FOREIGN KEY (dmdii_project_id)
+      REFERENCES dmdii_project (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;

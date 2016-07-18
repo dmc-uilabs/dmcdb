@@ -1,0 +1,90 @@
+ALTER TABLE only dmdii_member_area_of_expertise
+  ADD CONSTRAINT dmdii_member_area_of_expertis_organization_dmdii_member_id_fkey FOREIGN KEY (organization_dmdii_member_id)
+      REFERENCES organization_dmdii_member (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE only dmdii_member_area_of_expertise
+  ADD CONSTRAINT dmdii_member_area_of_expertise_dmdii_area_of_expertise_id_fkey FOREIGN KEY (dmdii_area_of_expertise_id)
+      REFERENCES dmdii_area_of_expertise (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+
+ALTER TABLE only dmdii_member_award
+  ADD CONSTRAINT dmdii_member_award_organization_dmdii_member_id_fkey FOREIGN KEY (organization_dmdii_member_id)
+      REFERENCES organization_dmdii_member (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+
+ALTER TABLE only dmdii_member_collaboration
+  ADD CONSTRAINT dmdii_member_collaboration_organization_dmdii_member_id_fkey FOREIGN KEY (organization_dmdii_member_id)
+      REFERENCES organization_dmdii_member (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+
+ALTER TABLE only dmdii_member_contact
+  ADD CONSTRAINT dmdii_type_fkey FOREIGN KEY (dmdii_contact_type_id)
+      REFERENCES dmdii_contact_type (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE only dmdii_member_contact
+  ADD CONSTRAINT organization_dmdii_member_fkey FOREIGN KEY (organization_dmdii_member_id)
+      REFERENCES organization_dmdii_member (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+
+ALTER TABLE only dmdii_member_customer
+  ADD CONSTRAINT dmdii_member_customer_organization_dmdii_member_id_fkey FOREIGN KEY (organization_dmdii_member_id)
+      REFERENCES organization_dmdii_member (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+
+ALTER TABLE only dmdii_member_finance
+  ADD CONSTRAINT dmdii_member_finance_organization_dmdii_member_id_fkey FOREIGN KEY (organization_dmdii_member_id)
+      REFERENCES organization_dmdii_member (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE only dmdii_member_finance
+  ADD CONSTRAINT dmdii_owner_id FOREIGN KEY (user_id)
+      REFERENCES users (user_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+
+ALTER TABLE only dmdii_member_institute_involvement
+  ADD CONSTRAINT dmdii_member_institute_involv_organization_dmdii_member_id_fkey FOREIGN KEY (organization_dmdii_member_id)
+      REFERENCES organization_dmdii_member (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE only dmdii_member_institute_involvement
+  ADD CONSTRAINT dmdii_member_institute_involvement_user_id_fkey FOREIGN KEY (user_id)
+      REFERENCES users (user_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+
+ALTER TABLE only dmdii_member_rnd_focus
+  ADD CONSTRAINT dmdii_member_rnd_focus_dmdii_rnd_focus_id_fkey FOREIGN KEY (dmdii_rnd_focus_id)
+      REFERENCES dmdii_rnd_focus (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE only dmdii_member_rnd_focus
+  ADD CONSTRAINT dmdii_member_rnd_focus_organization_dmdii_member_id_fkey FOREIGN KEY (organization_dmdii_member_id)
+      REFERENCES organization_dmdii_member (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+
+ALTER TABLE only dmdii_member_skill
+  ADD CONSTRAINT dmdii_member_skill_dmdii_skill_id_fkey FOREIGN KEY (dmdii_skill_id)
+      REFERENCES dmdii_skill (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE only dmdii_member_skill
+  ADD CONSTRAINT dmdii_member_skill_organization_dmdii_member_id_fkey FOREIGN KEY (organization_dmdii_member_id)
+      REFERENCES organization_dmdii_member (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+
+ALTER TABLE only dmdii_member_user
+  ADD CONSTRAINT dmdii_member_user_dmdii_role_id_fkey FOREIGN KEY (dmdii_role_id)
+      REFERENCES dmdii_role (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE only dmdii_member_user
+  ADD CONSTRAINT dmdii_member_user_organization_dmdii_member_id_fkey FOREIGN KEY (organization_dmdii_member_id)
+      REFERENCES organization_dmdii_member (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE only dmdii_member_user
+  ADD CONSTRAINT dmdii_member_user_user_id_fkey FOREIGN KEY (user_id)
+      REFERENCES users (user_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
