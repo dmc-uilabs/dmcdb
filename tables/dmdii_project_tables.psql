@@ -149,3 +149,21 @@ CREATE TABLE dmdii_quick_link
 );
 ALTER TABLE dmdii_quick_link
   OWNER TO gforge;
+
+CREATE TABLE role
+(
+  id serial NOT NULL,
+  role text
+);
+ALTER TABLE role
+  OWNER TO gforge;
+
+CREATE TABLE user_role_assignment
+(
+  id serial NOT NULL,
+  organization_id integer,
+	user_id integer NOT NULL,
+	role_id integer NOT NULL
+);
+ALTER TABLE user_role_assignment
+  OWNER TO gforge;

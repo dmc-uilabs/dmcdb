@@ -74,12 +74,7 @@ ALTER TABLE only dmdii_member_skill
   ADD CONSTRAINT dmdii_member_skill_organization_dmdii_member_id_fkey FOREIGN KEY (organization_dmdii_member_id)
       REFERENCES organization_dmdii_member (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
-
-
-ALTER TABLE only dmdii_member_user
-  ADD CONSTRAINT dmdii_member_user_dmdii_role_id_fkey FOREIGN KEY (dmdii_role_id)
-      REFERENCES dmdii_role (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION;
+			
 ALTER TABLE only dmdii_member_user
   ADD CONSTRAINT dmdii_member_user_organization_dmdii_member_id_fkey FOREIGN KEY (organization_dmdii_member_id)
       REFERENCES organization_dmdii_member (id) MATCH SIMPLE

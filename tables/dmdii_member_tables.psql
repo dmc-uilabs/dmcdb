@@ -133,7 +133,6 @@ CREATE TABLE dmdii_role
 ALTER TABLE dmdii_role
   OWNER TO gforge;
 
-
 CREATE TABLE dmdii_skill
 (
   id serial NOT NULL,
