@@ -3,6 +3,7 @@ cat << EOM
 USAGE: 
 
 Enter the EPPN of the user you want to make a superadmin.
+./create_superuser.sh some_eppn
 
 EOM
 exit 1
