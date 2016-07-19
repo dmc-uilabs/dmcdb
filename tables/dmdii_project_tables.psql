@@ -91,7 +91,12 @@ CREATE TABLE dmdii_document
   id serial NOT NULL,
   name character varying(255) NOT NULL,
   url text NOT NULL,
-	dmdii_project_id integer NOT NULL
+	path text NOT NULL,
+	dmdii_project_id integer,
+	owner_id integer NOT NULL,
+	modified timestamp with time zone,
+	expires timestamp with time zone,
+	is_deleted boolean DEFAULT false
 );
 ALTER TABLE dmdii_document
   OWNER TO gforge;
@@ -114,5 +119,34 @@ CREATE TABLE dmdii_project_events
   event_description text,
   event_date date
 );
-ALTER TABLE dmdii_project_news
+ALTER TABLE dmdii_project_events
+  OWNER TO gforge;
+
+CREATE TABLE dmdii_quick_link
+(
+  id serial NOT NULL,
+  text text,
+	link text,
+	dmdii_document_id integer,
+	created date
+);
+ALTER TABLE dmdii_quick_link
+  OWNER TO gforge;
+
+CREATE TABLE role
+(
+  id serial NOT NULL,
+  role text
+);
+ALTER TABLE role
+  OWNER TO gforge;
+
+CREATE TABLE user_role_assignment
+(
+  id serial NOT NULL,
+  organization_id integer,
+	user_id integer NOT NULL,
+	role_id integer NOT NULL
+);
+ALTER TABLE user_role_assignment
   OWNER TO gforge;

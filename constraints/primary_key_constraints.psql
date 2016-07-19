@@ -162,6 +162,14 @@ ALTER TABLE ONLY country_code
 
 
 --
+-- Name: community_event_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ALTER TABLE ONLY community_event
+  ADD CONSTRAINT community_event_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: db_images_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
 --
 
@@ -212,9 +220,6 @@ ALTER TABLE ONLY dmdii_member_user
 ALTER TABLE ONLY dmdii_rnd_focus
     ADD CONSTRAINT dmdii_rnd_focus_pkey PRIMARY KEY (id);
 
-ALTER TABLE ONLY dmdii_role
-    ADD CONSTRAINT dmdii_role_pkey PRIMARY KEY (id);
-
 ALTER TABLE ONLY dmdii_skill
     ADD CONSTRAINT dmdii_skill_pkey PRIMARY KEY (id);
 
@@ -229,6 +234,7 @@ ALTER TABLE ONLY dmdii_member_events
 
 ALTER TABLE ONLY dmdii_project_events
     ADD CONSTRAINT dmdii_project_events_pkey PRIMARY KEY (id);
+
 --
 -- Name: dmdii_document_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
 --
@@ -284,6 +290,27 @@ ALTER TABLE ONLY dmdii_project_contributing_company
 
 ALTER TABLE ONLY dmdii_user
 	ADD CONSTRAINT dmdii_user_pkey PRIMARY KEY (id);
+
+--
+-- Name: dmdii_quick_link_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ALTER TABLE ONLY dmdii_quick_link
+	ADD CONSTRAINT dmdii_quick_link_pkey PRIMARY KEY (id);
+
+--
+-- Name: role_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ALTER TABLE ONLY role
+	ADD CONSTRAINT role_pkey PRIMARY KEY (id);
+
+--
+-- Name: user_role_assignment_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ALTER TABLE ONLY user_role_assignment
+	ADD CONSTRAINT user_role_assignment_pkey PRIMARY KEY (id);
 
 --
 -- Name: doc_data_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
@@ -1291,6 +1318,61 @@ ALTER TABLE ONLY rep_users_cum_monthly
 
 ALTER TABLE ONLY rep_users_cum_weekly
     ADD CONSTRAINT rep_users_cum_weekly_pkey PRIMARY KEY (week);
+
+
+--
+-- Name: resource_labs_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ALTER TABLE ONLY resource_labs
+    ADD CONSTRAINT resource_labs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: resource_projects_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ALTER TABLE ONLY resource_projects
+   ADD CONSTRAINT resource_projects_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: resource_workforce_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ ALTER TABLE ONLY resource_workforce_jobs
+    ADD CONSTRAINT resource_workforce_jobs_pkey PRIMARY KEY (id);
+
+--
+-- Name: resource_workforce_assessments_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ ALTER TABLE ONLY resource_workforce_assessments
+    ADD CONSTRAINT resource_workforce_assessments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: resource_workforce_courses_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ ALTER TABLE ONLY resource_workforce_courses
+    ADD CONSTRAINT resource_workforce_courses_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: resource_bays_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ ALTER TABLE ONLY resource_bays
+    ADD CONSTRAINT resource_bays_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: resource_machines_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ ALTER TABLE ONLY resource_machines
+    ADD CONSTRAINT resource_machines_pkey PRIMARY KEY (id);
 
 
 --

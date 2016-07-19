@@ -12,3 +12,8 @@ insert into dmdii_project_thrust values (3, 'Advanced Analysis', 'AA');
 insert into dmdii_project_status values (1, 'pre-awarded');
 insert into dmdii_project_status values (2, 'awarded');
 insert into dmdii_project_status values (3, 'completed');
+
+insert into role values (1, 'SUPERADMIN');
+insert into role values (2, 'ADMIN');
+insert into role values (3, 'VIP');
+insert into role values (4, 'MEMBER');

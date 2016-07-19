@@ -137,16 +137,6 @@ CREATE TABLE dmdii_rnd_focus
 ALTER TABLE dmdii_rnd_focus
   OWNER TO gforge;
 
-
-CREATE TABLE dmdii_role
-(
-  id serial NOT NULL,
-  role text NOT NULL
-);
-ALTER TABLE dmdii_role
-  OWNER TO gforge;
-
-
 CREATE TABLE dmdii_skill
 (
   id serial NOT NULL,
