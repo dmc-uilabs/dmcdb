@@ -1611,3 +1611,31 @@ ALTER TABLE ONLY widget_rss
 --
 
 CREATE UNIQUE INDEX themes_theme_id_key ON themes USING btree (theme_id);
+
+--
+-- Name: user_contact_info_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ALTER TABLE ONLY user_contact_info
+    ADD CONSTRAINT user_contact_info_pkey PRIMARY KEY (id);
+
+--
+-- Name: user_public_contact_info_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ALTER TABLE ONLY user_public_contact_info
+    ADD CONSTRAINT user_public_contact_info_pkey PRIMARY KEY (id);
+
+--
+-- Name: user_private_contact_info_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ALTER TABLE ONLY user_private_contact_info
+    ADD CONSTRAINT user_private_contact_info_pkey PRIMARY KEY (id);
+
+--
+-- Name: user_member_portal_contact_info_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ALTER TABLE ONLY user_member_portal_contact_info
+    ADD CONSTRAINT user_member_portal_contact_info_pkey PRIMARY KEY (id);

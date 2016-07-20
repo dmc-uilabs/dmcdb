@@ -8,6 +8,7 @@ CREATE TABLE users (
     user_name text DEFAULT ''::text NOT NULL,
     accept_term_cond_time timestamp,
     email text DEFAULT ''::text NOT NULL,
+    user_contact_info_id integer,
     user_pw character varying(128) DEFAULT ''::character varying NOT NULL,
     realname character varying(32) DEFAULT ''::character varying NOT NULL,
     status character(1) DEFAULT 'A'::bpchar NOT NULL,
