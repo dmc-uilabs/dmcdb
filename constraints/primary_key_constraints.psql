@@ -190,6 +190,9 @@ ALTER TABLE ONLY dmdii_contact_type
 ALTER TABLE ONLY dmdii_member_area_of_expertise
     ADD CONSTRAINT dmdii_member_area_of_expertise_pkey PRIMARY KEY (id);
 
+ALTER TABLE ONLY dmdii_member_desired_area_of_expertise
+    ADD CONSTRAINT dmdii_member_desired_area_of_expertise_pkey PRIMARY KEY (id);
+
 ALTER TABLE ONLY dmdii_member_award
     ADD CONSTRAINT dmdii_member_award_pkey PRIMARY KEY (id);
 
@@ -208,17 +211,14 @@ ALTER TABLE ONLY dmdii_member_finance
 ALTER TABLE ONLY dmdii_member_institute_involvement
     ADD CONSTRAINT dmdii_member_institute_involvement_pkey PRIMARY KEY (id);
 
-ALTER TABLE ONLY dmdii_member_rnd_focus
-    ADD CONSTRAINT dmdii_member_rnd_focus_pkey PRIMARY KEY (id);
-
 ALTER TABLE ONLY dmdii_member_skill
     ADD CONSTRAINT dmdii_member_skill_pkey PRIMARY KEY (id);
 
 ALTER TABLE ONLY dmdii_member_user
     ADD CONSTRAINT dmdii_member_user_pkey PRIMARY KEY (id);
 
-ALTER TABLE ONLY dmdii_rnd_focus
-    ADD CONSTRAINT dmdii_rnd_focus_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY dmdii_role
+    ADD CONSTRAINT dmdii_role_pkey PRIMARY KEY (id);
 
 ALTER TABLE ONLY dmdii_skill
     ADD CONSTRAINT dmdii_skill_pkey PRIMARY KEY (id);
@@ -241,6 +241,20 @@ ALTER TABLE ONLY dmdii_project_events
 
 ALTER TABLE ONLY dmdii_document
 	ADD CONSTRAINT dmdii_document_pkey PRIMARY KEY (id);
+
+--
+-- Name: dmdii_document_tag_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ALTER TABLE ONLY dmdii_document_tag
+    ADD CONSTRAINT dmdii_document_tag_pkey PRIMARY KEY (id);
+
+--
+-- Name: dmdii_document_tag_join_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ALTER TABLE ONLY dmdii_document_tag_join
+    ADD CONSTRAINT dmdii_document_tag_join_pkey PRIMARY KEY (id);
 
 --
 -- Name: dmdii_project_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:

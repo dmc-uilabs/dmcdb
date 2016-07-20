@@ -13,6 +13,16 @@ ALTER TABLE only dmdii_document
       REFERENCES users (user_id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
 
+ALTER TABLE only dmdii_document_tag_join
+  ADD CONSTRAINT dmdii_document_tag_join_dmdii_document_fkey FOREIGN KEY (dmdii_document_id)
+    REFERENCES dmdii_document (id) MATCH SIMPLE
+    ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only dmdii_document_tag_join
+  ADD CONSTRAINT dmdii_document_tag_join_document_tag_fkey FOREIGN KEY (dmdii_document_tag_id)
+    REFERENCES dmdii_document_tag (id) MATCH SIMPLE
+    ON UPDATE NO ACTION ON DELETE NO ACTION;
+
 ALTER TABLE only dmdii_project
   ADD CONSTRAINT dmdii_project_status_id_fkey FOREIGN KEY (status_id)
       REFERENCES dmdii_project_status (id) MATCH SIMPLE

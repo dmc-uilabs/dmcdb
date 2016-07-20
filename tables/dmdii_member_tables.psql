@@ -26,6 +26,14 @@ CREATE TABLE dmdii_member_area_of_expertise
 ALTER TABLE dmdii_member_area_of_expertise
   OWNER TO gforge;
 
+CREATE TABLE dmdii_member_desired_area_of_expertise
+(
+  id serial NOT NULL,
+  organization_dmdii_member_id integer NOT NULL,
+  dmdii_area_of_expertise_id integer NOT NULL
+);
+ALTER TABLE dmdii_member_desired_area_of_expertise
+  OWNER TO gforge;
 
 CREATE TABLE dmdii_member_award
 (
@@ -97,17 +105,6 @@ CREATE TABLE dmdii_member_institute_involvement
 ALTER TABLE dmdii_member_institute_involvement
   OWNER TO gforge;
 
-
-CREATE TABLE dmdii_member_rnd_focus
-(
-  id serial NOT NULL,
-  organization_dmdii_member_id integer NOT NULL,
-  dmdii_rnd_focus_id integer NOT NULL
-);
-ALTER TABLE dmdii_member_rnd_focus
-  OWNER TO gforge;
-
-
 CREATE TABLE dmdii_member_skill
 (
   id serial NOT NULL,
@@ -128,13 +125,12 @@ CREATE TABLE dmdii_member_user
 ALTER TABLE dmdii_member_user
   OWNER TO gforge;
 
-CREATE TABLE dmdii_rnd_focus
+CREATE TABLE dmdii_role
 (
   id serial NOT NULL,
-  name text,
-  description text
+  role text NOT NULL
 );
-ALTER TABLE dmdii_rnd_focus
+ALTER TABLE dmdii_role
   OWNER TO gforge;
 
 CREATE TABLE dmdii_skill
