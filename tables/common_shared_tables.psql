@@ -1,6 +1,6 @@
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+-- Name: users; Type: TABLE; Schema: public; Owner: gforge; Tablespace:
 --
 
 CREATE TABLE users (
@@ -44,7 +44,10 @@ CREATE TABLE users (
     about_me text,
     export_control boolean DEFAULT false NOT NULL,
     image text,
-    last_activity integer
+    last_activity integer,
+    verified boolean DEFAULT false NOT NULL,
+    expiration_date timestamp with time zone DEFAULT (now() at time zone 'utc') NOT NULL,
+    resource_path text
 );
 
 ALTER TABLE users OWNER TO gforge;
@@ -123,7 +126,7 @@ create table common_review (
 ALTER TABLE common_review OWNER TO gforge;
 
 --
--- Name: canned_responses; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+-- Name: canned_responses; Type: TABLE; Schema: public; Owner: gforge; Tablespace:
 --
 
 CREATE TABLE canned_responses (
@@ -151,7 +154,7 @@ ALTER TABLE canned_responses_pk_seq OWNER TO gforge;
 
 
 --
--- Name: licenses; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+-- Name: licenses; Type: TABLE; Schema: public; Owner: gforge; Tablespace:
 --
 
 CREATE TABLE licenses (
