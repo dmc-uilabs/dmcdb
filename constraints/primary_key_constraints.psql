@@ -299,6 +299,20 @@ ALTER TABLE ONLY dmdii_quick_link
 	ADD CONSTRAINT dmdii_quick_link_pkey PRIMARY KEY (id);
 
 --
+-- Name: dmdii_file_type_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ALTER TABLE ONLY dmdii_file_type
+	ADD CONSTRAINT dmdii_file_type_pkey PRIMARY KEY (id);
+
+--
+-- Name: dmdii_project_update_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ALTER TABLE ONLY dmdii_project_update
+	ADD CONSTRAINT dmdii_project_update_pkey PRIMARY KEY (id);
+
+--
 -- Name: role_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
 --
 

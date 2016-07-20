@@ -96,7 +96,8 @@ CREATE TABLE dmdii_document
 	owner_id integer NOT NULL,
 	modified timestamp with time zone,
 	expires timestamp with time zone,
-	is_deleted boolean DEFAULT false
+	is_deleted boolean DEFAULT false,
+	file_type_id integer
 );
 ALTER TABLE dmdii_document
   OWNER TO gforge;
@@ -149,4 +150,24 @@ CREATE TABLE user_role_assignment
 	role_id integer NOT NULL
 );
 ALTER TABLE user_role_assignment
+  OWNER TO gforge;
+
+CREATE TABLE dmdii_file_type
+(
+  id serial NOT NULL,
+  name text NOT NULL
+);
+ALTER TABLE dmdii_file_type
+  OWNER TO gforge;
+
+CREATE TABLE dmdii_project_update
+(
+  id serial NOT NULL,
+	date date,
+  title text,
+	description text,
+	creator_id integer NOT NULL,
+	project_id integer NOT NULL
+);
+ALTER TABLE dmdii_project_update
   OWNER TO gforge;
