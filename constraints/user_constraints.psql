@@ -107,3 +107,23 @@ ALTER TABLE ONLY users
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_typeid FOREIGN KEY (type_id) REFERENCES user_type(type_id) MATCH FULL;
 
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT user_contact_info_fkey FOREIGN KEY (user_contact_info_id)
+    REFERENCES user_contact_info (id) MATCH SIMPLE
+    ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE ONLY user_contact_info
+    ADD CONSTRAINT user_public_contact_info_fkey FOREIGN KEY (user_public_contact_info_id)
+    REFERENCES user_public_contact_info (id) MATCH SIMPLE
+    ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE ONLY user_contact_info
+    ADD CONSTRAINT user_private_contact_info_fkey FOREIGN KEY (user_private_contact_info_id)
+    REFERENCES user_private_contact_info (id) MATCH SIMPLE
+    ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE ONLY user_contact_info
+    ADD CONSTRAINT user_member_portal_contact_info_fkey FOREIGN KEY (user_member_portal_contact_info_id)
+    REFERENCES user_member_portal_contact_info (id) MATCH SIMPLE
+    ON UPDATE NO ACTION ON DELETE NO ACTION;

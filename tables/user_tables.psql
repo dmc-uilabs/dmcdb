@@ -789,3 +789,35 @@ ALTER TABLE ONLY user_skills ALTER COLUMN user_skill_id SET DEFAULT nextval('use
 
 ALTER TABLE ONLY user_type ALTER COLUMN type_id SET DEFAULT nextval('user_type_type_id_seq'::regclass);
 
+
+CREATE TABLE user_contact_info (
+    id serial NOT NULL,
+    user_public_contact_info_id integer,
+    user_private_contact_info_id integer,
+    user_member_portal_contact_info_id integer
+);
+ALTER TABLE user_contact_info OWNER TO gforge;
+
+CREATE TABLE user_public_contact_info (
+    id serial NOT NULL,
+    email text,
+    phone text,
+    location text
+);
+ALTER TABLE user_public_contact_info OWNER TO gforge;
+
+CREATE TABLE user_private_contact_info (
+    id serial NOT NULL,
+    email text,
+    phone text,
+    location text
+);
+ALTER TABLE user_private_contact_info OWNER TO gforge;
+
+CREATE TABLE user_member_portal_contact_info (
+    id serial NOT NULL,
+    email text,
+    phone text,
+    location text
+);
+ALTER TABLE user_member_portal_contact_info OWNER TO gforge;
