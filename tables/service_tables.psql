@@ -174,7 +174,9 @@ CREATE TABLE service_images
   url text,
   verified boolean DEFAULT false NOT NULL,
   expiration_date timestamp with time zone DEFAULT (now() at time zone 'utc') NOT NULL,
-  resource_path text
+  resource_path text,
+  CONSTRAINT service_images_pkey PRIMARY KEY (id)
+
 )
 WITH (
   OIDS=FALSE
