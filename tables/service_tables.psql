@@ -129,6 +129,9 @@ CREATE TABLE service_document
   modified text,
   size text,
   file text,
+  verified boolean DEFAULT false NOT NULL,
+  expiration_date timestamp with time zone DEFAULT (now() at time zone 'utc') NOT NULL,
+  resource_path text,
   CONSTRAINT service_document_pkey PRIMARY KEY (id)
 )
 WITH (
@@ -169,7 +172,11 @@ CREATE TABLE service_images
   id integer NOT NULL DEFAULT nextval('service_images_id_seq'::regclass),
   service_id integer,
   url text,
+  verified boolean DEFAULT false NOT NULL,
+  expiration_date timestamp with time zone DEFAULT (now() at time zone 'utc') NOT NULL,
+  resource_path text,
   CONSTRAINT service_images_pkey PRIMARY KEY (id)
+
 )
 WITH (
   OIDS=FALSE
@@ -561,7 +568,7 @@ CREATE TABLE service_run_parameter
 (
   id integer NOT NULL DEFAULT nextval('service_run_parameter_id_seq'::regclass),
   parameter_id integer,
-  run_id integer, 
+  run_id integer,
   value text,
   CONSTRAINT service_run_parameter_pkey PRIMARY KEY (id)
 )
@@ -581,8 +588,3 @@ ALTER TABLE service_run_parameter
   ADD CONSTRAINT service_run_parameter_run_id FOREIGN KEY (run_id)
       REFERENCES service_run (run_id) MATCH SIMPLE
       ON UPDATE CASCADE ON DELETE NO ACTION;
-
-
-
-
-
