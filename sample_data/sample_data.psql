@@ -1352,7 +1352,6 @@ COPY service (service_id, organization_id, title, description, owner_id, release
 2	1	demo service	this is a demo service	102	2016-03-21 09:12:59.897666	type1	tag1	specification1	feature_image	1	marketplace	type 1	parent 1	true
 \.
 
-
 --
 -- Name: service_interface_interface_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -4412,4 +4411,3 @@ COPY wiki_pages_wiki_categories_join (cat_id, page_id) FROM stdin;
 
 
 SET search_path = sqlj, pg_catalog;
-
