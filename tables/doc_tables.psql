@@ -8,13 +8,14 @@ CREATE TABLE doc2_files (
     owner_id integer NOT NULL,
     owner text NOT NULL,
     expiration_date timestamp with time zone NOT NULL,
-    resource_path text NOT NULL,
+    resource_path text,
     filename text NOT NULL,
     description text NOT NULL,
     modified_date integer NOT NULL,
     doc_group_id integer NOT NULL,
     size integer,
-    group_id integer DEFAULT 0 NOT NULL
+    group_id integer DEFAULT 0 NOT NULL,
+    verified boolean DEFAULT false NOT NULL
 );
 
 
