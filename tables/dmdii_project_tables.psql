@@ -99,7 +99,7 @@ CREATE TABLE dmdii_document
 	is_deleted boolean DEFAULT false NOT NULL,
 	file_type_id integer,
 	verified boolean DEFAULT false NOT NULL,
-	access_level integer
+	access_level text
 );
 ALTER TABLE dmdii_document
   OWNER TO gforge;
