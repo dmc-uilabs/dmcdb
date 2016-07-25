@@ -96,8 +96,10 @@ CREATE TABLE dmdii_document
 	owner_id integer NOT NULL,
 	modified timestamp with time zone,
 	expires timestamp with time zone,
-	is_deleted boolean DEFAULT false,
-	file_type_id integer
+	is_deleted boolean DEFAULT false NOT NULL,
+	file_type_id integer,
+	verified boolean DEFAULT false NOT NULL,
+	access_level text
 );
 ALTER TABLE dmdii_document
   OWNER TO gforge;

@@ -17,3 +17,7 @@ insert into role values (1, 'SUPERADMIN');
 insert into role values (2, 'ADMIN');
 insert into role values (3, 'VIP');
 insert into role values (4, 'MEMBER');
+
+insert into dmdii_file_type values (1, 'OVERVIEW');
+insert into dmdii_file_type values (2, 'STATUS');
+insert into dmdii_file_type values (3, 'FINANCIAL');
