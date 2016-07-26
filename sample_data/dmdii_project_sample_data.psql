@@ -37,6 +37,8 @@ COPY dmdii_project (id, status_id, awarded_date, end_date, project_title, projec
 1006	2	2016-06-01 00:00:00	2017-06-30 00:00:00	Stargate	test summary	1001	1006	1000	4	1	2015	3	2	90000	5000
 1007	3	2015-07-01 00:00:00	2016-03-30 00:00:00	Green Phaser	test summary	1002	1007	1001	1	2	2016	3	1	56000	3500
 1008	3	2015-07-01 00:00:00	2015-08-31 00:00:00	Spiders From Mars	test summary	1000	1001	1001	1	2	2016	7	1	90000	4500
+1009	3	2014-07-01 00:00:00	2015-09-01 00:00:00	Wormhole Delivery	test summary	1000	1001	1001	1	2	2016	7	1	80000	4500
+1010	3	2016-07-01 00:00:00	2017-08-31 00:00:00	Flying Car	test summary	1000	1001	1001	1	2	2016	7	1	70000	4500
 \.
 
 COPY dmdii_project_update(id, date, title, description, creator_id, project_id) FROM stdin;
