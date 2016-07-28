@@ -3006,7 +3006,7 @@ SELECT pg_catalog.setval('project_tags_join_project_tags_join_id_seq', 1, false)
 -- Name: project_tags_tag_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gforge
 --
 
-SELECT pg_catalog.setval('project_tags_tag_id_seq', 1, false);
+SELECT pg_catalog.setval('project_tags_tag_id_seq', 110, false);
 
 
 --
