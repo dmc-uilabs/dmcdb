@@ -97,3 +97,8 @@ ALTER TABLE only dmdii_project_update
   ADD CONSTRAINT dmdii_project_update_creator_id_fkey FOREIGN KEY (creator_id)
       REFERENCES users (user_id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only user_token
+  ADD CONSTRAINT user_token_user_id_fkey FOREIGN KEY (user_id)
+      REFERENCES users (user_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
