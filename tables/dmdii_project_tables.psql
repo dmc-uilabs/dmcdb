@@ -190,3 +190,14 @@ CREATE TABLE dmdii_project_update
 );
 ALTER TABLE dmdii_project_update
   OWNER TO gforge;
+
+CREATE TABLE user_token
+(
+  id serial NOT NULL,
+	issued timestamp with time zone,
+  user_id integer NOT NULL,
+	token character(64),
+	attempts_made integer
+);
+ALTER TABLE user_token
+  OWNER TO gforge;

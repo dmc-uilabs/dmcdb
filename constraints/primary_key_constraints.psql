@@ -341,6 +341,13 @@ ALTER TABLE ONLY user_role_assignment
 	ADD CONSTRAINT user_role_assignment_pkey PRIMARY KEY (id);
 
 --
+-- Name: user_token_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ALTER TABLE ONLY user_token
+	ADD CONSTRAINT user_token_pkey PRIMARY KEY (id);
+
+--
 -- Name: doc_data_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
 --
 
