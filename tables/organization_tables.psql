@@ -28,7 +28,7 @@ create table organization
 	website text,
     social_media_linkedin text,
     social_media_twitter text,
-    social_medial_inthenews text, 
+    social_medial_inthenews text,
 	perfered_comm_method text,
     category_tier integer,
     date_joining text,
@@ -46,7 +46,8 @@ create table organization_user
 (
    id serial primary key,
    user_id integer,
-   organization_id integer
+   organization_id integer,
+	 is_verified boolean
 );
 ALTER TABLE organization_user OWNER TO gforge;
 
