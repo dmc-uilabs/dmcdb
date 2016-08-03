@@ -27,10 +27,10 @@ COPY users (user_id, user_name, email, user_pw, realname, confirm_hash, authoriz
 1002	test3	test3@test.com	password	test name3	\N	\N	\N	\N	\N	\N	\N	test address	phone	fax	\N	firstname	lastname	\N	US	\N	\N	\N	\N	\N	\N	\N
 \.
 
-COPY user_role_assignment (id, organization_id, user_id, role_id) FROM stdin;
-1	1001	1000	1
-2	1001	1001	2
-3	1001	1002	3
+COPY user_role_assignment (organization_id, user_id, role_id) FROM stdin;
+1001	1000	1
+1001	1001	2
+1001	1002	3
 \.
 
 COPY dmdii_project (id, status_id, awarded_date, end_date, project_title, project_summary, principal_point_of_contact_id, organization_dmdii_member_id, principal_investigator_id, focus_area_id, thrust_id, project_root_number, project_call_number, project_number, cost_share, dmdii_funding) FROM stdin;
