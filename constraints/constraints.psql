@@ -1567,8 +1567,8 @@ ALTER TABLE ONLY project_task
 -- Name: projecttask_groupprojectid_fk; Type: FK CONSTRAINT; Schema: public; Owner: gforge
 --
 
-ALTER TABLE ONLY project_task
-    ADD CONSTRAINT projecttask_groupprojectid_fk FOREIGN KEY (group_project_id) REFERENCES project_group_list(group_project_id) ON DELETE CASCADE;
+-- ALTER TABLE ONLY project_task
+--     ADD CONSTRAINT projecttask_groupprojectid_fk FOREIGN KEY (group_project_id) REFERENCES project_group_list(group_project_id) ON DELETE CASCADE;
 
 
 --
