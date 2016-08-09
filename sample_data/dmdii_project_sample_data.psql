@@ -112,8 +112,8 @@ COPY dmdii_project_contributing_company (id, dmdii_project_id, contributing_comp
 1015	1007	1005
 \.
 
-COPY dmdii_quick_link (text, link, dmdii_document_id, created) FROM stdin;
-Quick Link Text	\N	\N	2016-04-01
-\N	http://www.quicklinkurl.com	\N	2016-5-31
-\N	\N	1010	2016-07-04
+COPY dmdii_quick_link (text, link, dmdii_document_id, created, display_name) FROM stdin;
+Quick Link Text	\N	\N	2016-04-01	Quick Link Number One
+\N	http://www.quicklinkurl.com	\N	2016-5-31	Quick Link Number Two
+\N	\N	1010	2016-07-04	Quick Link Number Three
 \.
