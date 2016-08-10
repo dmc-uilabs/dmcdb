@@ -148,7 +148,8 @@ CREATE TABLE dmdii_quick_link
   text text,
 	link text,
 	dmdii_document_id integer,
-	created date
+	created date,
+	display_name text
 );
 ALTER TABLE dmdii_quick_link
   OWNER TO gforge;
