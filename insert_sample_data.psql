@@ -10,9 +10,9 @@ SET search_path = public, pg_catalog;
 
 -- load organizational membership information
 \i setup_data/organization_setup_data.psql
-\i sample_data/V1_1__OrganizationTestData.psql
-\i sample_data/dmdii_member_data.sql
 \i setup_data/dmdii_setup_data.psql
+\i sample_data/V1_1__OrganizationTestData.psql
+\i sample_data/dmdii_member_sample_data.sql
 \i sample_data/dmdii_project_sample_data.psql
 
 --load Community event data
