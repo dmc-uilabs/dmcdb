@@ -34,9 +34,9 @@ COPY user_role_assignment (organization_id, user_id, role_id) FROM stdin;
 \.
 
 COPY dmdii_project_contact (id, first_name, last_name, email) FROM stdin;
-1000 Firstname Lastname Email
-1001 Firstname Lastname Email
-1002 Firstname Lastname Email
+1000	Firstname	Lastname	Email
+1001	Firstname	Lastname	Email
+1002	Firstname	Lastname	Email
 \.
 
 COPY dmdii_project (id, status_id, awarded_date, end_date, project_title, project_summary, principal_point_of_contact_id, organization_dmdii_member_id, principal_investigator_id, focus_area_id, thrust_id, project_root_number, project_call_number, project_number, cost_share, dmdii_funding) FROM stdin;
