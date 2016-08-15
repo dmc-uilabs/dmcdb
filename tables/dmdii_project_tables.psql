@@ -202,3 +202,14 @@ CREATE TABLE user_token
 );
 ALTER TABLE user_token
   OWNER TO gforge;
+
+CREATE TABLE dmdii_project_contact
+(
+  id serial NOT NULL,
+  first_name text,
+  last_name text,
+  email text
+);
+ALTER TABLE dmdii_project_contact
+  OWNER TO gforge;
+
