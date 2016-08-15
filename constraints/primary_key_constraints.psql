@@ -1674,3 +1674,6 @@ ALTER TABLE ONLY user_private_contact_info
 
 ALTER TABLE ONLY user_member_portal_contact_info
     ADD CONSTRAINT user_member_portal_contact_info_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY dmdii_project_contact
+    ADD CONSTRAINT dmdii_project_contact_pkey PRIMARY KEY (id);
