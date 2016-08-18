@@ -21,6 +21,7 @@ insert into role values (4, 'MEMBER');
 insert into dmdii_file_type values (1, 'OVERVIEW');
 insert into dmdii_file_type values (2, 'STATUS');
 insert into dmdii_file_type values (3, 'FINANCIAL');
+insert into dmdii_file_type values (4, 'SCHEDULE');
 
 ----------- Adding static DMDII member related data ------------------
 insert into dmdii_area_of_expertise (name) values ('Additive Manufacturing');
