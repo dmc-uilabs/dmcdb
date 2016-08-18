@@ -72,4 +72,5 @@ update organization set location='Chicago, IL', description='Lorem Ipsum is simp
 -- add fforgeadmin to General Electric for testing
 insert into organization_user(organization_id, user_id) values (1, 102);
 
-SELECT pg_catalog.setval('organization_organization_id_seq', 14, true);
+-- setting start value > then values in search test data
+SELECT pg_catalog.setval('organization_organization_id_seq', 20, true);

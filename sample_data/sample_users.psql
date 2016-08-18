@@ -30,6 +30,7 @@ COPY users (user_id, user_name, email, user_pw, realname, status, shell, unix_pw
 -- Name: users_pk_seq; Type: SEQUENCE SET; Schema: public; Owner: gforge
 --
 
-SELECT pg_catalog.setval('users_pk_seq', 115, true);
+-- setting start value > then values in search test data
+SELECT pg_catalog.setval('users_pk_seq', 560, true);
 
 
