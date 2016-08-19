@@ -193,9 +193,6 @@ ALTER TABLE ONLY dmdii_member_area_of_expertise
 ALTER TABLE ONLY dmdii_member_desired_area_of_expertise
     ADD CONSTRAINT dmdii_member_desired_area_of_expertise_pkey PRIMARY KEY (id);
 
-ALTER TABLE ONLY dmdii_member_award
-    ADD CONSTRAINT dmdii_member_award_pkey PRIMARY KEY (id);
-
 ALTER TABLE ONLY dmdii_member_collaboration
     ADD CONSTRAINT dmdii_member_collaboration_pkey PRIMARY KEY (id);
 

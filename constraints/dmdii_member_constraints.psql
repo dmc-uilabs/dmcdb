@@ -18,12 +18,6 @@ ALTER TABLE only dmdii_member_desired_area_of_expertise
       ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 
-ALTER TABLE only dmdii_member_award
-  ADD CONSTRAINT dmdii_member_award_organization_dmdii_member_id_fkey FOREIGN KEY (organization_dmdii_member_id)
-      REFERENCES organization_dmdii_member (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION;
-
-
 ALTER TABLE only dmdii_member_collaboration
   ADD CONSTRAINT dmdii_member_collaboration_organization_dmdii_member_id_fkey FOREIGN KEY (organization_dmdii_member_id)
       REFERENCES organization_dmdii_member (id) MATCH SIMPLE

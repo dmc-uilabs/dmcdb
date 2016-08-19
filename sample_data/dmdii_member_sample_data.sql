@@ -7,11 +7,6 @@ insert into dmdii_member_desired_area_of_expertise (organization_dmdii_member_id
 	values (1,15);
 insert into dmdii_member_desired_area_of_expertise (organization_dmdii_member_id, dmdii_area_of_expertise_id)
 	values (1,29);
--- awards
-insert into dmdii_member_award (organization_dmdii_member_id, name, description, link)
-	values (1, 'Award 1', 'Award 1 description', 'link-to-award');
-insert into dmdii_member_award (organization_dmdii_member_id, name, description, link)
-	values (1, 'Award 1', 'Award 1 description', 'link-to-award');
 -- contacts
 insert into dmdii_member_contact (organization_dmdii_member_id, dmdii_contact_type_id, first_name, last_name, email)
 	values (1, 1, 'Steve', 'Stevens', 'sstevens@email.com');

@@ -118,6 +118,17 @@ CREATE TABLE organization_skill
 );
 ALTER TABLE organization_skill  OWNER TO gforge;
 
+CREATE TABLE organization_award
+(
+  id serial primary key,
+  organization_id integer NOT NULL,
+  name text,
+  description text,
+  link text
+);
+ALTER TABLE organization_award
+  OWNER TO gforge;
+
 -- Company reviews -- this may need to be changed based on where the review is written
 CREATE TABLE organization_review
 (

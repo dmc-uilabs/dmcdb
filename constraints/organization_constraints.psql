@@ -62,6 +62,11 @@ ALTER TABLE only organization_skill
   ADD CONSTRAINT organization_skill_organization_id_fkey FOREIGN KEY (organization_id)
       REFERENCES organization (organization_id) ON DELETE CASCADE;
 
+ALTER TABLE only organization_award
+  ADD CONSTRAINT organization_award_organization_id_fkey FOREIGN KEY (organization_id)
+      REFERENCES organization (organization_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
 ALTER TABLE only organization_review
   ADD CONSTRAINT organization_review_organization_id_fkey FOREIGN KEY (organization_id)
       REFERENCES organization (organization_id) ON DELETE CASCADE;

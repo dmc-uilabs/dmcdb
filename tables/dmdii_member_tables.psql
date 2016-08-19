@@ -35,17 +35,6 @@ CREATE TABLE dmdii_member_desired_area_of_expertise
 ALTER TABLE dmdii_member_desired_area_of_expertise
   OWNER TO gforge;
 
-CREATE TABLE dmdii_member_award
-(
-  id serial NOT NULL,
-  organization_dmdii_member_id integer NOT NULL,
-  name text,
-  description text,
-  link text
-);
-ALTER TABLE dmdii_member_award
-  OWNER TO gforge;
-
 
 CREATE TABLE dmdii_member_collaboration
 (
