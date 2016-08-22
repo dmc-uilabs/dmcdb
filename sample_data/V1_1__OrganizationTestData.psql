@@ -2,7 +2,7 @@
 -- The data is for testing purpose. Only need to be added for testing purpose.
 -- Industry Tier 1
 insert into common_address (street_address1, street_address2, city, state, country, zip) values ('1 Main St.', '', 'Plesentville', 'XX', 'US', '00000');
-insert into organization (organization_id, name, addressid) values (1, 'General Electric', 1);
+insert into organization (organization_id, name, address_id) values (1, 'General Electric', 1);
 insert into organization_area_of_expertise (organization_id, area_of_expertise_id)
 	values (1,1);
 insert into organization_area_of_expertise (organization_id, area_of_expertise_id)
@@ -17,64 +17,64 @@ insert into Organization_DMDII_Member (Organization_ID, DMDII_Type_ID, Modificat
 	values (1, 1, to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2019','dd-mm-yyyy'));
 
 insert into common_address (street_address1, street_address2, city, state, country, zip) values ('1 Main St.', '', 'Plesentville', 'XX', 'US', '00000');
-insert into organization (organization_id,name, addressid) values (2,'Dow', 2);
+insert into organization (organization_id,name, address_id) values (2,'Dow', 2);
 insert into organization_award (organization_id, name, description, link)
 	values (2, 'Award 2', 'Award 2 description', 'link-to-award');
 insert into Organization_DMDII_Member (Organization_ID, DMDII_Type_ID, Modification_Date, Start_Date, Expire_Date)
 	values (2, 1, to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2019','dd-mm-yyyy'));	
 	
 insert into common_address (street_address1, street_address2, city, state, country, zip) values ('1 Main St.', '', 'Plesentville', 'XX', 'US', '00000');
-insert into organization (organization_id,name, addressid) values (3,'Lockheed Martin Corporation', 3);
+insert into organization (organization_id,name, address_id) values (3,'Lockheed Martin Corporation', 3);
 insert into Organization_DMDII_Member (Organization_ID, DMDII_Type_ID, Modification_Date, Start_Date, Expire_Date)
 	values (3, 1, to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2019','dd-mm-yyyy'));
 	
 insert into common_address (street_address1, street_address2, city, state, country, zip) values ('1 Main St.', '', 'Plesentville', 'XX', 'US', '00000');
-insert into organization (organization_id,name, addressid) values (4,'Siemens Product Lifecycle Management Software Inc.', 4);
+insert into organization (organization_id,name, address_id) values (4,'Siemens Product Lifecycle Management Software Inc.', 4);
 insert into Organization_DMDII_Member (Organization_ID, DMDII_Type_ID, Modification_Date, Start_Date, Expire_Date)
 	values (4, 1, to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2019','dd-mm-yyyy'));
 
 insert into common_address (street_address1, street_address2, city, state, country, zip) values ('1 Main St.', '', 'Plesentville', 'XX', 'US', '00000');
-insert into organization (organization_id,name, addressid) values (5,'Rolls-Royce', 5);
+insert into organization (organization_id,name, address_id) values (5,'Rolls-Royce', 5);
 insert into Organization_DMDII_Member (Organization_ID, DMDII_Type_ID, Modification_Date, Start_Date, Expire_Date)
 	values (5, 1, to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2019','dd-mm-yyyy'));
 	
 -- Industry Tire 2
 
 insert into common_address (street_address1, street_address2, city, state, country, zip) values ('1 Main St.', '', 'Plesentville', 'XX', 'US', '00000');
-insert into organization (organization_id,name, addressid) values (6,'Boeing', 6);
+insert into organization (organization_id,name, address_id) values (6,'Boeing', 6);
 insert into Organization_DMDII_Member (Organization_ID, DMDII_Type_ID, Modification_Date, Start_Date, Expire_Date)
 	values (6, 2, to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2019','dd-mm-yyyy'));
 
 insert into common_address (street_address1, street_address2, city, state, country, zip) values ('1 Main St.', '', 'Plesentville', 'XX', 'US', '00000');
-insert into organization (organization_id,name, addressid) values (7,'Deere and Company', 7);
+insert into organization (organization_id,name, address_id) values (7,'Deere and Company', 7);
 insert into Organization_DMDII_Member (Organization_ID, DMDII_Type_ID, Modification_Date, Start_Date, Expire_Date)
 	values (7, 2, to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2019','dd-mm-yyyy'));	
 	
 insert into common_address (street_address1, street_address2, city, state, country, zip) values ('1 Main St.', '', 'Plesentville', 'XX', 'US', '00000');
-insert into organization (organization_id,name, addressid) values (8,'Microsoft', 8);
+insert into organization (organization_id,name, address_id) values (8,'Microsoft', 8);
 insert into Organization_DMDII_Member (Organization_ID, DMDII_Type_ID, Modification_Date, Start_Date, Expire_Date)
 	values (8, 2, to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2019','dd-mm-yyyy'));
 	
 insert into common_address (street_address1, street_address2, city, state, country, zip) values ('1 Main St.', '', 'Plesentville', 'XX', 'US', '00000');
-insert into organization (organization_id,name, addressid) values (9,'Caterpillar', 9);
+insert into organization (organization_id,name, address_id) values (9,'Caterpillar', 9);
 insert into Organization_DMDII_Member (Organization_ID, DMDII_Type_ID, Modification_Date, Start_Date, Expire_Date)
 	values (9, 2, to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2019','dd-mm-yyyy'));
 
 insert into common_address (street_address1, street_address2, city, state, country, zip) values ('1 Main St.', '', 'Plesentville', 'XX', 'US', '00000');
-insert into organization (organization_id,name, addressid) values (10,'Illinois Tool Works', 10);
+insert into organization (organization_id,name, address_id) values (10,'Illinois Tool Works', 10);
 insert into Organization_DMDII_Member (Organization_ID, DMDII_Type_ID, Modification_Date, Start_Date, Expire_Date)
 	values (10, 2, to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2019','dd-mm-yyyy'));
 	
 insert into common_address (street_address1, street_address2, city, state, country, zip) values ('1 Main St.', '', 'Plesentville', 'XX', 'US', '00000');
-insert into organization (organization_id,name, addressid) values (11,'Procter & Gamble', 11);
+insert into organization (organization_id,name, address_id) values (11,'Procter & Gamble', 11);
 insert into Organization_DMDII_Member (Organization_ID, DMDII_Type_ID, Modification_Date, Start_Date, Expire_Date)
 	values (11, 2, to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2016','dd-mm-yyyy'),to_timestamp('01-01-2019','dd-mm-yyyy'));
 	
 -- A company that is not DMDII member and a dummy entry with "Other" stands for any other companies not listed.
 insert into common_address (street_address1, street_address2, city, state, country, zip) values ('1 Main St.', '', 'Plesentville', 'XX', 'US', '00000');
-insert into organization (organization_id,name, addressid) values (12,'Google', 12);
+insert into organization (organization_id,name, address_id) values (12,'Google', 12);
 insert into common_address (street_address1, street_address2, city, state, country, zip) values ('1 Main St.', '', 'Plesentville', 'XX', 'US', '00000');
-insert into organization (organization_id,name, addressid) values (13,'Other', 13);
+insert into organization (organization_id,name, address_id) values (13,'Other', 13);
 
 
 update organization set location='Chicago, IL', description='Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text Lorem Ipsum is simply dummy text', division='The Helicopter Company', industry='The Helicopter Company', naics_code='1111111111', rd_focus='The Helicopter Company', customers='General Electric', awards='Best Company in USA', tech_expertise='Lorem Ipsum is simply dummy text', tools_software_equip_mach='Lorem Ipsum is simply dummy text', post_collaboration='Lorem Ipsum is simply dummy text', collaboration_interest='Lorem Ipsum is simply dummy text', past_projects='Lorem Ipsum is simply dummy text', upcoming_project_interests='Lorem Ipsum is simply dummy text', social_media_twitter='https://twitter.com/thehelicoptercompany', social_media_linkedin='https://www.linkedin.com/in/thehelicoptercompany', website='http://www.google.com', perfered_comm_method='1', email='user@company.com', phone='', category_tier=1, date_joining='01/01/2016', reason_joining='Lorem Ipsum is simply dummy text', logo_image='/uploads/company/logo/1/20160315182711000000.png', owner='none';
