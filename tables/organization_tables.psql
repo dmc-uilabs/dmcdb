@@ -47,7 +47,8 @@ CREATE TABLE area_of_expertise
 	id serial NOT NULL,
 	name text,
 	description text,
-	link text
+	link text,
+	is_dmdii boolean
 );
 ALTER TABLE area_of_expertise
   OWNER TO gforge;
