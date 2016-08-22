@@ -91,7 +91,6 @@ CREATE TABLE dmdii_document
   id serial NOT NULL,
   name character varying(255) NOT NULL,
   url text NOT NULL,
-	path text NOT NULL,
 	dmdii_project_id integer,
 	owner_id integer NOT NULL,
 	modified timestamp with time zone,
@@ -212,4 +211,3 @@ CREATE TABLE dmdii_project_contact
 );
 ALTER TABLE dmdii_project_contact
   OWNER TO gforge;
-
