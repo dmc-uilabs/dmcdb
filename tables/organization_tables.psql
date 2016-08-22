@@ -22,7 +22,7 @@ create table organization
 	collaboration_interest text,
 	past_projects text,
 	upcoming_project_interests text,
-	addressId integer not null,
+	address_id integer not null,
 	email text,
 	phone text,
 	website text,
@@ -36,7 +36,7 @@ create table organization
 	feature_image integer,
 	logo_image text,
 	follow text,
-	favorates_count integer,
+	favorites_count integer,
 	is_owner text,
 	owner text
 );
