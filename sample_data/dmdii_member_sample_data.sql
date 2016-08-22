@@ -13,11 +13,6 @@ insert into dmdii_member_finance (organization_dmdii_member_id, name, asset_url)
 	values (1, 'finance asset 1', 'asset-url-1');
 insert into dmdii_member_finance (organization_dmdii_member_id, name, asset_url)
 	values (1, 'finance asset 2', 'asset-url-2');
--- institute involvement
-insert into dmdii_member_institute_involvement (organization_dmdii_member_id, static_line_item, date)
-	values (1, 'involvement 1', '02/12/2016');
-insert into dmdii_member_institute_involvement (organization_dmdii_member_id, static_line_item, date)
-	values (1, 'involvement 2', '04/12/2016');
 
 -- Events
 insert into dmdii_member_events (event_title, event_description, event_location, event_date)

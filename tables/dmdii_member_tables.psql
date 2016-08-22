@@ -54,17 +54,6 @@ ALTER TABLE dmdii_member_finance
   OWNER TO gforge;
 
 
-CREATE TABLE dmdii_member_institute_involvement
-(
-  id serial NOT NULL,
-  organization_dmdii_member_id integer NOT NULL,
-  static_line_item text,
-  date date,
-  user_id integer
-);
-ALTER TABLE dmdii_member_institute_involvement
-  OWNER TO gforge;
-
 CREATE TABLE dmdii_role
 (
   id serial NOT NULL,

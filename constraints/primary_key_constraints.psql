@@ -205,9 +205,6 @@ ALTER TABLE ONLY dmdii_member_customer
 ALTER TABLE ONLY dmdii_member_finance
     ADD CONSTRAINT dmdii_member_finance_pkey PRIMARY KEY (id);
 
-ALTER TABLE ONLY dmdii_member_institute_involvement
-    ADD CONSTRAINT dmdii_member_institute_involvement_pkey PRIMARY KEY (id);
-
 ALTER TABLE ONLY dmdii_role
     ADD CONSTRAINT dmdii_role_pkey PRIMARY KEY (id);
 
