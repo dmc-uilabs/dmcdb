@@ -42,6 +42,34 @@ create table organization
 );
 ALTER TABLE organization OWNER TO gforge;
 
+CREATE TABLE area_of_expertise
+(
+  id serial NOT NULL,
+  name text,
+  description text,
+  link text
+);
+ALTER TABLE dmdii_area_of_expertise
+  OWNER TO gforge;
+
+CREATE TABLE organization_area_of_expertise
+(
+  id serial NOT NULL,
+  organization_id integer NOT NULL,
+  area_of_expertise_id integer NOT NULL
+);
+ALTER TABLE organization_area_of_expertise
+  OWNER TO gforge;
+
+CREATE TABLE organization_desired_area_of_expertise
+(
+  id serial NOT NULL,
+  organization_id integer NOT NULL,
+  area_of_expertise_id integer NOT NULL
+);
+ALTER TABLE organization_desired_area_of_expertise
+  OWNER TO gforge;
+
 create table organization_user
 (
    id serial primary key,
