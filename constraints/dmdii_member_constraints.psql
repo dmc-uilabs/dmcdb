@@ -14,12 +14,6 @@ ALTER TABLE only dmdii_member_contact
       ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 
-ALTER TABLE only dmdii_member_customer
-  ADD CONSTRAINT dmdii_member_customer_organization_dmdii_member_id_fkey FOREIGN KEY (organization_dmdii_member_id)
-      REFERENCES organization_dmdii_member (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION;
-
-
 ALTER TABLE only dmdii_member_finance
   ADD CONSTRAINT dmdii_member_finance_organization_dmdii_member_id_fkey FOREIGN KEY (organization_dmdii_member_id)
       REFERENCES organization_dmdii_member (id) MATCH SIMPLE

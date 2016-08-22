@@ -31,17 +31,6 @@ ALTER TABLE dmdii_member_contact
   OWNER TO gforge;
 
 
-CREATE TABLE dmdii_member_customer
-(
-  id serial NOT NULL,
-  organization_dmdii_member_id integer NOT NULL,
-  name text,
-  link text
-);
-ALTER TABLE dmdii_member_customer
-  OWNER TO gforge;
-
-
 CREATE TABLE dmdii_member_finance
 (
   id serial NOT NULL,

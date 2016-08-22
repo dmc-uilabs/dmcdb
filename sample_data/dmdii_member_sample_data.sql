@@ -3,11 +3,7 @@ insert into dmdii_member_contact (organization_dmdii_member_id, dmdii_contact_ty
 	values (1, 1, 'Steve', 'Stevens', 'sstevens@email.com');
 insert into dmdii_member_contact (organization_dmdii_member_id, dmdii_contact_type_id, first_name, last_name, email)
 	values (1, 2, 'William', 'Williams', 'wwilliams@email.com');
--- customers
-insert into dmdii_member_customer (organization_dmdii_member_id, name, link)
-	values (1, 'Google', 'www.google.com');
-insert into dmdii_member_customer (organization_dmdii_member_id, name, link)
-	values (1, 'Microsoft', 'www.microsoft.com');
+
 -- finance
 insert into dmdii_member_finance (organization_dmdii_member_id, name, asset_url)
 	values (1, 'finance asset 1', 'asset-url-1');

@@ -199,9 +199,6 @@ ALTER TABLE ONLY dmdii_member_collaboration
 ALTER TABLE ONLY dmdii_member_contact
     ADD CONSTRAINT dmdii_member_contact_type_pkey PRIMARY KEY (id);
 
-ALTER TABLE ONLY dmdii_member_customer
-    ADD CONSTRAINT dmdii_member_customer_pkey PRIMARY KEY (id);
-
 ALTER TABLE ONLY dmdii_member_finance
     ADD CONSTRAINT dmdii_member_finance_pkey PRIMARY KEY (id);
 
