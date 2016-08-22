@@ -5,115 +5,115 @@
 
 create table organization
 (
-    organization_id serial primary key,
-    accountId integer,
-    name text,
-    location text,
+	organization_id serial primary key,
+	accountId integer,
+	name text,
+	location text,
 	description text,
-    division text,
-    industry text,
+	division text,
+	industry text,
 	naics_code text,
-    rd_focus text,
+	rd_focus text,
 	customers text,
-    awards text,
-    tech_expertise text,
-    tools_software_equip_mach text,
-    post_collaboration text,
+	awards text,
+	tech_expertise text,
+	tools_software_equip_mach text,
+	post_collaboration text,
 	collaboration_interest text,
 	past_projects text,
-    upcoming_project_interests text,
-    addressId integer not null,
-    email text,
-    phone text,
+	upcoming_project_interests text,
+	addressId integer not null,
+	email text,
+	phone text,
 	website text,
-    social_media_linkedin text,
-    social_media_twitter text,
-    social_medial_inthenews text,
+	social_media_linkedin text,
+	social_media_twitter text,
+	social_medial_inthenews text,
 	perfered_comm_method text,
-    category_tier integer,
-    date_joining text,
-    reason_joining text,
-    feature_image integer,
-    logo_image text,
-    follow text,
-    favorates_count integer,
-    is_owner text,
-    owner text
+	category_tier integer,
+	date_joining text,
+	reason_joining text,
+	feature_image integer,
+	logo_image text,
+	follow text,
+	favorates_count integer,
+	is_owner text,
+	owner text
 );
 ALTER TABLE organization OWNER TO gforge;
 
 CREATE TABLE area_of_expertise
 (
-  id serial NOT NULL,
-  name text,
-  description text,
-  link text
+	id serial NOT NULL,
+	name text,
+	description text,
+	link text
 );
 ALTER TABLE area_of_expertise
   OWNER TO gforge;
 
 CREATE TABLE organization_area_of_expertise
 (
-  id serial NOT NULL,
-  organization_id integer NOT NULL,
-  area_of_expertise_id integer NOT NULL
+	id serial NOT NULL,
+	organization_id integer NOT NULL,
+	area_of_expertise_id integer NOT NULL
 );
 ALTER TABLE organization_area_of_expertise
   OWNER TO gforge;
 
 CREATE TABLE organization_desired_area_of_expertise
 (
-  id serial NOT NULL,
-  organization_id integer NOT NULL,
-  area_of_expertise_id integer NOT NULL
+	id serial NOT NULL,
+	organization_id integer NOT NULL,
+	area_of_expertise_id integer NOT NULL
 );
 ALTER TABLE organization_desired_area_of_expertise
   OWNER TO gforge;
 
 create table organization_user
 (
-   id serial primary key,
-   user_id integer,
-   organization_id integer,
+	id serial primary key,
+	user_id integer,
+	organization_id integer,
 	 is_verified boolean
 );
 ALTER TABLE organization_user OWNER TO gforge;
 
 create table organization_admin
 (
-   id serial primary key,
-   organization_user_id integer,
-   organization_id integer
+	id serial primary key,
+	organization_user_id integer,
+	organization_id integer
 );
 ALTER TABLE organization_admin OWNER TO gforge;
 
 -- org_user_flag=true, the customer is in organization with ref_id as organization_id; otherwise, the customer is created with name
 create table organization_customer
 (
-   id serial primary key,
-   organization_id integer,
-   org_user_flag boolean,
-   ref_name text NOT NULL,
-   ref_id integer
+	id serial primary key,
+	organization_id integer,
+	org_user_flag boolean,
+	ref_name text NOT NULL,
+	ref_id integer
 );
 ALTER TABLE organization_customer OWNER TO gforge;
 
 
 
 CREATE TABLE organization_image (
-    id serial primary key,
-    organization_id integer,
+	id serial primary key,
+	organization_id integer,
 	image_type integer,
-    image_id integer
+	image_id integer
 );
 ALTER TABLE organization_image OWNER TO gforge;
 
 
 CREATE TABLE organization_video (
-    id serial primary key,
-    organization_id integer,
+	id serial primary key,
+	organization_id integer,
 	video_type integer,
-    video_id integer
+	video_id integer
 );
 ALTER TABLE organization_video OWNER TO gforge;
 
@@ -148,11 +148,11 @@ ALTER TABLE organization_skill  OWNER TO gforge;
 
 CREATE TABLE organization_award
 (
-  id serial primary key,
-  organization_id integer NOT NULL,
-  name text,
-  description text,
-  link text
+	id serial primary key,
+	organization_id integer NOT NULL,
+	name text,
+	description text,
+	link text
 );
 ALTER TABLE organization_award
   OWNER TO gforge;
@@ -187,8 +187,8 @@ ALTER TABLE organization_dmdii_type OWNER TO gforge;
 
 CREATE TABLE organization_dmdii_type_category
 (
-  id serial NOT NULL,
-  category text NOT NULL
+	id serial NOT NULL,
+	category text NOT NULL
 );
 ALTER TABLE organization_dmdii_type_category
   OWNER TO gforge;
