@@ -1,5 +1,5 @@
 ALTER TABLE only organization
-  ADD CONSTRAINT organization_addressid_fkey FOREIGN KEY (addressid)
+  ADD CONSTRAINT organization_addressid_fkey FOREIGN KEY (address_id)
       REFERENCES common_address (id) ON DELETE CASCADE;
 
 ALTER TABLE only organization      
