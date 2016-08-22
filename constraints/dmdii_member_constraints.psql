@@ -40,15 +40,6 @@ ALTER TABLE only dmdii_member_institute_involvement
       ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 
-ALTER TABLE only dmdii_member_skill
-  ADD CONSTRAINT dmdii_member_skill_dmdii_skill_id_fkey FOREIGN KEY (dmdii_skill_id)
-      REFERENCES dmdii_skill (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION;
-ALTER TABLE only dmdii_member_skill
-  ADD CONSTRAINT dmdii_member_skill_organization_dmdii_member_id_fkey FOREIGN KEY (organization_dmdii_member_id)
-      REFERENCES organization_dmdii_member (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION;
-			
 ALTER TABLE only dmdii_member_user
   ADD CONSTRAINT dmdii_member_user_organization_dmdii_member_id_fkey FOREIGN KEY (organization_dmdii_member_id)
       REFERENCES organization_dmdii_member (id) MATCH SIMPLE

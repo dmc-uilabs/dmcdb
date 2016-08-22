@@ -65,16 +65,6 @@ CREATE TABLE dmdii_member_institute_involvement
 ALTER TABLE dmdii_member_institute_involvement
   OWNER TO gforge;
 
-CREATE TABLE dmdii_member_skill
-(
-  id serial NOT NULL,
-  organization_dmdii_member_id integer NOT NULL,
-  dmdii_skill_id integer NOT NULL
-);
-ALTER TABLE dmdii_member_skill
-  OWNER TO gforge;
-
-
 CREATE TABLE dmdii_member_user
 (
   id serial NOT NULL,

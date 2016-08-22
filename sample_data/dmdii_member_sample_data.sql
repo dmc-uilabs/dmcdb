@@ -18,11 +18,6 @@ insert into dmdii_member_institute_involvement (organization_dmdii_member_id, st
 	values (1, 'involvement 1', '02/12/2016');
 insert into dmdii_member_institute_involvement (organization_dmdii_member_id, static_line_item, date)
 	values (1, 'involvement 2', '04/12/2016');
--- Skills
-insert into dmdii_member_skill (organization_dmdii_member_id, dmdii_skill_id)
-	values (1, 1);
-insert into dmdii_member_skill (organization_dmdii_member_id, dmdii_skill_id)
-	values (1, 2);
 
 -- Events
 insert into dmdii_member_events (event_title, event_description, event_location, event_date)
