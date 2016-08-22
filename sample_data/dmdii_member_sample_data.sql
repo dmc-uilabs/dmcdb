@@ -1,12 +1,3 @@
---------- Associating dmdii members and their additional data ----------------
-insert into dmdii_member_area_of_expertise (organization_dmdii_member_id, dmdii_area_of_expertise_id)
-	values (1,1);
-insert into dmdii_member_area_of_expertise (organization_dmdii_member_id, dmdii_area_of_expertise_id)
-	values (1,2);
-insert into dmdii_member_desired_area_of_expertise (organization_dmdii_member_id, dmdii_area_of_expertise_id)
-	values (1,15);
-insert into dmdii_member_desired_area_of_expertise (organization_dmdii_member_id, dmdii_area_of_expertise_id)
-	values (1,29);
 -- contacts
 insert into dmdii_member_contact (organization_dmdii_member_id, dmdii_contact_type_id, first_name, last_name, email)
 	values (1, 1, 'Steve', 'Stevens', 'sstevens@email.com');

@@ -49,7 +49,7 @@ CREATE TABLE area_of_expertise
   description text,
   link text
 );
-ALTER TABLE dmdii_area_of_expertise
+ALTER TABLE area_of_expertise
   OWNER TO gforge;
 
 CREATE TABLE organization_area_of_expertise

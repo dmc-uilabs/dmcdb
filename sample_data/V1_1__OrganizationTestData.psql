@@ -1,9 +1,16 @@
 -- The Organization_id will be automatically generated.
 -- The data is for testing purpose. Only need to be added for testing purpose.
-
 -- Industry Tier 1
 insert into common_address (street_address1, street_address2, city, state, country, zip) values ('1 Main St.', '', 'Plesentville', 'XX', 'US', '00000');
 insert into organization (organization_id, name, addressid) values (1, 'General Electric', 1);
+insert into organization_area_of_expertise (organization_id, area_of_expertise_id)
+	values (1,1);
+insert into organization_area_of_expertise (organization_id, area_of_expertise_id)
+	values (1,2);
+insert into organization_desired_area_of_expertise (organization_id, area_of_expertise_id)
+	values (1,15);
+insert into organization_desired_area_of_expertise (organization_id, area_of_expertise_id)
+	values (1,29);
 insert into organization_award (organization_id, name, description, link)
 	values (1, 'Award 1', 'Award 1 description', 'link-to-award');
 insert into Organization_DMDII_Member (Organization_ID, DMDII_Type_ID, Modification_Date, Start_Date, Expire_Date)
