@@ -48,7 +48,7 @@ CREATE TABLE area_of_expertise
 	name text,
 	description text,
 	link text,
-	is_dmdii boolean
+	is_dmdii boolean DEFAULT false NOT NULL
 );
 ALTER TABLE area_of_expertise
   OWNER TO gforge;
