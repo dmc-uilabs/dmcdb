@@ -1,0 +1,41 @@
+CREATE TABLE document
+(
+  id serial NOT NULL,
+  name character varying(255) NOT NULL,
+  url text NOT NULL,
+	organization_id integer,
+	owner_id integer NOT NULL,
+	modified timestamp with time zone,
+	expires timestamp with time zone,
+	is_deleted boolean DEFAULT false NOT NULL,
+	file_type_id integer,
+	verified boolean DEFAULT false NOT NULL,
+	access_level text
+);
+ALTER TABLE document
+  OWNER TO gforge;
+
+CREATE TABLE document_tag
+(
+  id serial NOT NULL,
+  tag_name text NOT NULL
+);
+ALTER TABLE document_tag
+  OWNER TO gforge;
+
+CREATE TABLE document_tag_join
+(
+  id serial NOT NULL,
+  document_id integer NOT NULL,
+  document_tag_id integer NOT NULL
+);
+ALTER TABLE document_tag_join
+  OWNER TO gforge;
+
+CREATE TABLE file_type
+(
+  id serial NOT NULL,
+  name text NOT NULL
+);
+ALTER TABLE file_type
+  OWNER TO gforge;
