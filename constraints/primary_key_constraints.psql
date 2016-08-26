@@ -1662,3 +1662,31 @@ ALTER TABLE ONLY user_member_portal_contact_info
 
 ALTER TABLE ONLY dmdii_project_contact
     ADD CONSTRAINT dmdii_project_contact_pkey PRIMARY KEY (id);
+
+--
+-- Name: document_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ALTER TABLE ONLY document
+	ADD CONSTRAINT document_pkey PRIMARY KEY (id);
+
+--
+-- Name: document_tag_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ALTER TABLE ONLY document_tag
+    ADD CONSTRAINT document_tag_pkey PRIMARY KEY (id);
+
+--
+-- Name: document_tag_join_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ALTER TABLE ONLY document_tag_join
+    ADD CONSTRAINT document_tag_join_pkey PRIMARY KEY (id);
+
+	--
+	-- Name: file_type_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+	--
+
+	ALTER TABLE ONLY file_type
+		ADD CONSTRAINT file_type_pkey PRIMARY KEY (id);
