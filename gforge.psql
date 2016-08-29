@@ -43,7 +43,6 @@ SET search_path = public, pg_catalog;
 \i tables/service_compare_tables.psql
 
 
-
 \i functions/artifact_functions.psql
 \i functions/cem_functions.psql
 \i functions/core_functions.psql
