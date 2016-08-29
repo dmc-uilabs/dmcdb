@@ -3018,6 +3018,15 @@ INSERT into project_task (project_task_id, group_project_id, summary, details, p
 
 
 --
+-- Data for Name: service_compare; Type: TABLE DATA; Schema: public; Owner: gforge
+--
+
+INSERT into service_compare (service_id, profile_id) values (1, 111);
+INSERT into service_compare (service_id, profile_id) values (2, 111);
+INSERT into service_compare (service_id, profile_id) values (3, 111);
+
+
+--
 -- Data for Name: project_task_artifact; Type: TABLE DATA; Schema: public; Owner: gforge
 --
 
