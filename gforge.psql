@@ -40,7 +40,7 @@ SET search_path = public, pg_catalog;
 \i tables/dmdii_project_tables.psql
 \i tables/resource_tables.psql
 \i tables/document_tables.psql
-\i tables/service_compare_tables.psql
+
 
 
 \i functions/artifact_functions.psql
