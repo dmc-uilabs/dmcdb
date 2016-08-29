@@ -3,8 +3,8 @@
 --
 
 create table service_compare(
-id serial primary key,
-service_Id integer references service(service_id),
-profile_Id integer references users(user_id)
+service_compare_id serial primary key,
+service_id integer references service(service_id),
+profile_id integer references users(user_id)
 );
 ALTER TABLE service_compare OWNER TO gforge;
