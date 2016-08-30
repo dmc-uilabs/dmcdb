@@ -25,10 +25,6 @@ COPY users (user_id, user_name, email, user_pw, realname, confirm_hash, authoriz
 1000	test1	test1@test.com	password	test name1	\N	\N	\N	\N	\N	\N	\N	test address	phone	fax	\N	firstname	lastname	\N	US	\N	\N	\N	\N	\N	\N	\N
 1001	test2	test2@test.com	password	test name2	\N	\N	\N	\N	\N	\N	\N	test address	phone	fax	\N	firstname	lastname	\N	US	\N	\N	\N	\N	\N	\N	\N
 1002	test3	test3@test.com	password	test name3	\N	\N	\N	\N	\N	\N	\N	test address	phone	fax	\N	firstname	lastname	\N	US	\N	\N	\N	\N	\N	\N	\N
-561	103552215657713056245@google.com	jwebb@nexient.com	password	Jeff Webb	\N	\N	\N	\N	\N	\N	\N	test address	phone	fax	\N	Jeff	Webb	\N	US	\N	\N	\N	\N	\N	\N	\N
-564	100841046366361761980@google.com	losey.doug@gmail.com	password	Doug Losey	\N	\N	\N	\N	\N	\N	\N	test address	phone	fax	\N	Doug	Losey	\N	US	\N	\N	\N	\N	\N	\N	\N
-565	104924764981374674854@google.com	m.rowland507@gmail.com	password	Max Rowland	\N	\N	\N	\N	\N	\N	\N	test address	phone	fax	\N	Max	Rowland	\N	US	\N	\N	\N	\N	\N	\N	\N
-566	107687977894048836826@google.com	tritonalharmony@gmail.com	password	Tony Wamsley	\N	\N	\N	\N	\N	\N	\N	test address	phone	fax	\N	Tony	Wamsley	\N	US	\N	\N	\N	\N	\N	\N	\N
 \.
 
 COPY user_role_assignment (organization_id, user_id, role_id) FROM stdin;
