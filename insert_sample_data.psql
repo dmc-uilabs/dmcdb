@@ -12,9 +12,9 @@ SET search_path = public, pg_catalog;
 \i setup_data/organization_setup_data.psql
 \i setup_data/dmdii_setup_data.psql
 \i setup_data/document_setup_data.psql
-
-\i sample_data/V1_2__OrganizationTestData.psql
-
+\i sample_data/V1_1__OrganizationTestData.psql
+\i sample_data/dmdii_member_sample_data.sql
+\i sample_data/dmdii_project_sample_data.psql
 
 --load Community event data
 \i sample_data/community_event_sample_data.psql
