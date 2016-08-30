@@ -1,0 +1,10 @@
+--
+-- Tables for compare services
+--
+
+create table service_compare(
+service_compare_id serial primary key,
+service_id integer references service(service_id),
+profile_id integer references users(user_id)
+);
+ALTER TABLE service_compare OWNER TO gforge;
