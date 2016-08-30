@@ -31,7 +31,6 @@ COPY user_role_assignment (organization_id, user_id, role_id) FROM stdin;
 1001	1000	1
 1001	1001	2
 1001	1002	3
-
 \.
 
 COPY dmdii_project_contact (id, first_name, last_name, email) FROM stdin;
