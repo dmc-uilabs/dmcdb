@@ -71,7 +71,7 @@ CREATE TABLE dmdii_project
   awarded_date timestamp without time zone,
 	end_date timestamp without time zone,
   project_title character varying(255),
-  project_summary character varying(255),
+  project_summary text,
   principal_point_of_contact_id integer,
   organization_dmdii_member_id integer NOT NULL,
   principal_investigator_id integer,
@@ -147,7 +147,7 @@ CREATE TABLE dmdii_quick_link
   text text,
 	link text,
 	dmdii_document_id integer,
-	created date,
+	created timestamp with time zone,
 	display_name text
 );
 ALTER TABLE dmdii_quick_link

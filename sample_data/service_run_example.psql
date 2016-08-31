@@ -33,3 +33,13 @@ SELECT pg_catalog.setval('service_interface_parameter_id_seq', 3);
 SELECT pg_catalog.setval('service_interface_interface_id_seq1', 3);
 SELECT pg_catalog.setval('service_specifications_id_seq', 1);
 SELECT pg_catalog.setval('service_service_id_seq', 3);
+
+
+
+--
+-- Data for Name: service_compare; Type: TABLE DATA; Schema: public; Owner: gforge
+--
+
+INSERT into service_compare (service_id, profile_id) values (1, 111);
+INSERT into service_compare (service_id, profile_id) values (2, 111);
+INSERT into service_compare (service_id, profile_id) values (3, 111);
