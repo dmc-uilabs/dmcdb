@@ -1806,3 +1806,55 @@ ALTER TABLE only service_review_reply_flag
 ALTER TABLE only service_review_reply_flag
   ADD CONSTRAINT service_review_reply_flag_user_id_fkey FOREIGN KEY (user_id)
       REFERENCES users (user_id) ON DELETE CASCADE;
+
+
+-------------------------
+-- users review --
+-------------------------
+ALTER TABLE only users_review_new
+  ADD CONSTRAINT users_review_users_id_fkey FOREIGN KEY (user_id)
+      REFERENCES users (user_id) ON DELETE CASCADE;
+	  
+ALTER TABLE only users_review_new
+  ADD CONSTRAINT users_review_user_id_fkey FOREIGN KEY (user_id)
+      REFERENCES users (user_id) ON DELETE CASCADE;
+
+ALTER TABLE only users_review_rate
+  ADD CONSTRAINT users_review_rate_id_fkey FOREIGN KEY (review_id)
+      REFERENCES users_review_new (id) ON DELETE CASCADE;
+	  
+ALTER TABLE only users_review_rate      
+  ADD CONSTRAINT users_review_rate_user_id_fkey FOREIGN KEY (user_id)
+       REFERENCES users (user_id) ON DELETE CASCADE;
+
+ALTER TABLE only users_review_flag
+  ADD CONSTRAINT users_review_id_flag_fkey FOREIGN KEY (review_id)
+      REFERENCES users_review_new (id) ON DELETE CASCADE;
+
+ALTER TABLE only users_review_flag
+  ADD CONSTRAINT users_review_flag_user_id_fkey FOREIGN KEY (user_id)
+      REFERENCES users (user_id) ON DELETE CASCADE;
+
+ALTER TABLE only users_review_reply
+  ADD CONSTRAINT users_review_reply_id_fkey FOREIGN KEY (review_id)
+      REFERENCES users_review_new (id) ON DELETE CASCADE;
+
+ALTER TABLE only users_review_reply
+  ADD CONSTRAINT users_review_reply_user_id_fkey FOREIGN KEY (user_id)
+      REFERENCES users (user_id) ON DELETE CASCADE;
+	  
+ALTER TABLE only users_review_reply_rate
+  ADD CONSTRAINT users_review_reply_rate_id_fkey FOREIGN KEY (review_reply_id)
+      REFERENCES users_review_reply (id) ON DELETE CASCADE;
+
+ALTER TABLE only users_review_reply_rate
+  ADD CONSTRAINT users_review_reply_rate_user_id_fkey FOREIGN KEY (user_id)
+      REFERENCES users (user_id) ON DELETE CASCADE;
+	  
+ALTER TABLE only users_review_reply_flag
+  ADD CONSTRAINT users_review_reply_flag_id_fkey FOREIGN KEY (review_reply_id)
+      REFERENCES users_review_reply (id) ON DELETE CASCADE;
+
+ALTER TABLE only users_review_reply_flag
+  ADD CONSTRAINT users_review_reply_flag_user_id_fkey FOREIGN KEY (user_id)
+      REFERENCES users (user_id) ON DELETE CASCADE;
