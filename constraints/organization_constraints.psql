@@ -1,5 +1,5 @@
 ALTER TABLE only organization
-  ADD CONSTRAINT organization_addressid_fkey FOREIGN KEY (addressid)
+  ADD CONSTRAINT organization_addressid_fkey FOREIGN KEY (address_id)
       REFERENCES common_address (id) ON DELETE CASCADE;
 
 ALTER TABLE only organization      
@@ -13,6 +13,24 @@ ALTER TABLE only organization_user
 ALTER TABLE only organization_user
   ADD CONSTRAINT organization_user_user_id_fkey FOREIGN KEY (user_id)
       REFERENCES users (user_id) ON DELETE CASCADE;
+
+ALTER TABLE only organization_area_of_expertise
+  ADD CONSTRAINT org_area_of_expertise_org_id_fkey FOREIGN KEY (organization_id)
+      REFERENCES organization (organization_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE only organization_area_of_expertise
+  ADD CONSTRAINT org_area_of_expertise_expertise_id_fkey FOREIGN KEY (area_of_expertise_id)
+      REFERENCES area_of_expertise (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only organization_desired_area_of_expertise
+  ADD CONSTRAINT org_desired_area_of_expertise_org_id_fkey FOREIGN KEY (organization_id)
+      REFERENCES organization (organization_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE only organization_desired_area_of_expertise
+  ADD CONSTRAINT org_desired_area_of_expertise_expertise_id_fkey FOREIGN KEY (area_of_expertise_id)
+      REFERENCES area_of_expertise (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 ALTER TABLE only organization_admin
   ADD CONSTRAINT organization_admin_organization_id_fkey FOREIGN KEY (organization_id)
@@ -61,6 +79,11 @@ ALTER TABLE only organization_contact
 ALTER TABLE only organization_skill
   ADD CONSTRAINT organization_skill_organization_id_fkey FOREIGN KEY (organization_id)
       REFERENCES organization (organization_id) ON DELETE CASCADE;
+
+ALTER TABLE only organization_award
+  ADD CONSTRAINT organization_award_organization_id_fkey FOREIGN KEY (organization_id)
+      REFERENCES organization (organization_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 ALTER TABLE only organization_review
   ADD CONSTRAINT organization_review_organization_id_fkey FOREIGN KEY (organization_id)
