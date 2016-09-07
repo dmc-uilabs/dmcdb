@@ -30,7 +30,7 @@ COPY common_image (id, caption, thumbnail, large_image) FROM stdin;
 -- Data for Name: organization; Type: TABLE DATA; Schema: public; Owner: gforge
 --
 
-COPY organization (organization_id, accountid, name, location, description, division, industry, naics_code, rd_focus, customers, awards, tech_expertise, tools_software_equip_mach, post_collaboration, collaboration_interest, past_projects, upcoming_project_interests, addressid, email, phone, website, social_media_linkedin, social_media_twitter, social_medial_inthenews, perfered_comm_method, category_tier, date_joining, reason_joining, feature_image, logo_image, follow, favorates_count, is_owner, owner) FROM stdin;
+COPY organization (organization_id, accountid, name, location, description, division, industry, naics_code, rd_focus, customers, awards, tech_expertise, tools_software_equip_mach, post_collaboration, collaboration_interest, past_projects, upcoming_project_interests, address_id, email, phone, website, social_media_linkedin, social_media_twitter, social_medial_inthenews, perfered_comm_method, category_tier, date_joining, reason_joining, feature_image, logo_image, follow, favorites_count, is_owner, owner) FROM stdin;
 15	1	GE Global Research	Niskayuna	GE Global Research is the research and development division of General Electric	\N	R&S	\N	\N	\N	\N	jet engines, software	predix	\N	\N	\N	\N	100	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	100	\N	\N	\N	\N	joeengineer
 16	1075	ACME Incorporated	USA	ACME Machines and Equipment	ACME	industry	\N	\N	ACME customers	ACME awards	machines	electronics, java	\N	\N	\N	\N	1075	\N	\N	\N	\N	\N	\N	\N	30	\N	\N	1075	\N	\N	\N	false	acmeUser
 \.

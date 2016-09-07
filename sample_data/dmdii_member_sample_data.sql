@@ -1,42 +1,14 @@
---------- Associating dmdii members and their additional data ----------------
-insert into dmdii_member_area_of_expertise (organization_dmdii_member_id, dmdii_area_of_expertise_id)
-	values (1,1);
-insert into dmdii_member_area_of_expertise (organization_dmdii_member_id, dmdii_area_of_expertise_id)
-	values (1,2);
-insert into dmdii_member_desired_area_of_expertise (organization_dmdii_member_id, dmdii_area_of_expertise_id)
-	values (1,15);
-insert into dmdii_member_desired_area_of_expertise (organization_dmdii_member_id, dmdii_area_of_expertise_id)
-	values (1,29);
--- awards
-insert into dmdii_member_award (organization_dmdii_member_id, name, description, link)
-	values (1, 'Award 1', 'Award 1 description', 'link-to-award');
-insert into dmdii_member_award (organization_dmdii_member_id, name, description, link)
-	values (1, 'Award 1', 'Award 1 description', 'link-to-award');
 -- contacts
 insert into dmdii_member_contact (organization_dmdii_member_id, dmdii_contact_type_id, first_name, last_name, email)
 	values (1, 1, 'Steve', 'Stevens', 'sstevens@email.com');
 insert into dmdii_member_contact (organization_dmdii_member_id, dmdii_contact_type_id, first_name, last_name, email)
 	values (1, 2, 'William', 'Williams', 'wwilliams@email.com');
--- customers
-insert into dmdii_member_customer (organization_dmdii_member_id, name, link)
-	values (1, 'Google', 'www.google.com');
-insert into dmdii_member_customer (organization_dmdii_member_id, name, link)
-	values (1, 'Microsoft', 'www.microsoft.com');
+
 -- finance
 insert into dmdii_member_finance (organization_dmdii_member_id, name, asset_url)
 	values (1, 'finance asset 1', 'asset-url-1');
 insert into dmdii_member_finance (organization_dmdii_member_id, name, asset_url)
 	values (1, 'finance asset 2', 'asset-url-2');
--- institute involvement
-insert into dmdii_member_institute_involvement (organization_dmdii_member_id, static_line_item, date)
-	values (1, 'involvement 1', '02/12/2016');
-insert into dmdii_member_institute_involvement (organization_dmdii_member_id, static_line_item, date)
-	values (1, 'involvement 2', '04/12/2016');
--- Skills
-insert into dmdii_member_skill (organization_dmdii_member_id, dmdii_skill_id)
-	values (1, 1);
-insert into dmdii_member_skill (organization_dmdii_member_id, dmdii_skill_id)
-	values (1, 2);
 
 -- Events
 insert into dmdii_member_events (event_title, event_description, event_location, event_date)

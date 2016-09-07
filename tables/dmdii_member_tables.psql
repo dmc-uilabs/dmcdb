@@ -1,49 +1,9 @@
-CREATE TABLE dmdii_area_of_expertise
-(
-  id serial NOT NULL,
-  name text,
-  description text,
-  link text
-);
-ALTER TABLE dmdii_area_of_expertise
-  OWNER TO gforge;
-
-
 CREATE TABLE dmdii_contact_type
 (
   id serial NOT NULL,
   type text NOT NULL
 );
 ALTER TABLE dmdii_contact_type
-  OWNER TO gforge;
-
-CREATE TABLE dmdii_member_area_of_expertise
-(
-  id serial NOT NULL,
-  organization_dmdii_member_id integer NOT NULL,
-  dmdii_area_of_expertise_id integer NOT NULL
-);
-ALTER TABLE dmdii_member_area_of_expertise
-  OWNER TO gforge;
-
-CREATE TABLE dmdii_member_desired_area_of_expertise
-(
-  id serial NOT NULL,
-  organization_dmdii_member_id integer NOT NULL,
-  dmdii_area_of_expertise_id integer NOT NULL
-);
-ALTER TABLE dmdii_member_desired_area_of_expertise
-  OWNER TO gforge;
-
-CREATE TABLE dmdii_member_award
-(
-  id serial NOT NULL,
-  organization_dmdii_member_id integer NOT NULL,
-  name text,
-  description text,
-  link text
-);
-ALTER TABLE dmdii_member_award
   OWNER TO gforge;
 
 
@@ -71,17 +31,6 @@ ALTER TABLE dmdii_member_contact
   OWNER TO gforge;
 
 
-CREATE TABLE dmdii_member_customer
-(
-  id serial NOT NULL,
-  organization_dmdii_member_id integer NOT NULL,
-  name text,
-  link text
-);
-ALTER TABLE dmdii_member_customer
-  OWNER TO gforge;
-
-
 CREATE TABLE dmdii_member_finance
 (
   id serial NOT NULL,
@@ -93,37 +42,6 @@ CREATE TABLE dmdii_member_finance
 ALTER TABLE dmdii_member_finance
   OWNER TO gforge;
 
-
-CREATE TABLE dmdii_member_institute_involvement
-(
-  id serial NOT NULL,
-  organization_dmdii_member_id integer NOT NULL,
-  static_line_item text,
-  date date,
-  user_id integer
-);
-ALTER TABLE dmdii_member_institute_involvement
-  OWNER TO gforge;
-
-CREATE TABLE dmdii_member_skill
-(
-  id serial NOT NULL,
-  organization_dmdii_member_id integer NOT NULL,
-  dmdii_skill_id integer NOT NULL
-);
-ALTER TABLE dmdii_member_skill
-  OWNER TO gforge;
-
-
-CREATE TABLE dmdii_member_user
-(
-  id serial NOT NULL,
-  organization_dmdii_member_id integer NOT NULL,
-  user_id integer NOT NULL,
-  dmdii_role_id integer
-);
-ALTER TABLE dmdii_member_user
-  OWNER TO gforge;
 
 CREATE TABLE dmdii_role
 (
