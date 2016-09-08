@@ -38,7 +38,8 @@ create table organization
 	follow text,
 	favorites_count integer,
 	is_owner text,
-	owner text
+	owner text,
+	is_deleted boolean NOT NULL DEFAULT false
 );
 ALTER TABLE organization OWNER TO gforge;
 

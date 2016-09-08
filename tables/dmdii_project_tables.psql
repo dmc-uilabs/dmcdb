@@ -81,7 +81,8 @@ CREATE TABLE dmdii_project
   project_call_number integer,
   project_number integer,
 	cost_share numeric(12,2),
-	dmdii_funding numeric(12,2)
+	dmdii_funding numeric(12,2),
+  is_deleted boolean NOT NULL DEFAULT false
 );
 ALTER TABLE dmdii_project
   OWNER TO gforge;
@@ -98,7 +99,8 @@ CREATE TABLE dmdii_document
 	is_deleted boolean DEFAULT false NOT NULL,
 	file_type_id integer,
 	verified boolean DEFAULT false NOT NULL,
-	access_level text
+	access_level text,
+  is_deleted boolean NOT NULL Default false
 );
 ALTER TABLE dmdii_document
   OWNER TO gforge;
