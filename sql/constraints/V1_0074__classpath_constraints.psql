@@ -1,4 +1,4 @@
-SET search_path = sqlj, pg_catalog;
+SET search_path = sqlj, public, pg_catalog;
 
 --
 -- Name: classpath_entry_pkey; Type: CONSTRAINT; Schema: sqlj; Owner: postgres; Tablespace: 

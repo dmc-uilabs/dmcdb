@@ -13,8 +13,7 @@ SET client_min_messages = warning;
 -- Name: sqlj; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
-CREATE SCHEMA sqlj;
-
+CREATE SCHEMA IF NOT EXISTS sqlj;
 
 ALTER SCHEMA sqlj OWNER TO postgres;
 

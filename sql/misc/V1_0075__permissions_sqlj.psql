@@ -1,3 +1,4 @@
+SET search_path = sqlj, public, pg_catalog;
 
 --
 -- Name: sqlj; Type: ACL; Schema: -; Owner: postgres

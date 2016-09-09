@@ -1,6 +1,7 @@
 --
 -- Data for Name: classpath_entry; Type: TABLE DATA; Schema: sqlj; Owner: postgres
 --
+SET search_path = sqlj;
 
 COPY classpath_entry (schemaname, ordinal, jarid) FROM stdin;
 public	1	1
@@ -39,7 +40,7 @@ COPY jar_repository (jarid, jarname, jarorigin, jarowner, jarmanifest, deploymen
 
 SELECT pg_catalog.setval('jar_repository_jarid_seq', 1, true);
 
-
+SET search_path = public;
 --
 -- Data for Name: typemap_entry; Type: TABLE DATA; Schema: sqlj; Owner: postgres
 --
