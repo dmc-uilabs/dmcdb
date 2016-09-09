@@ -601,7 +601,7 @@ CREATE TABLE service_review_new
 	user_id integer,
 	review_timestamp timestamp,
 	review text,
-	stars integer
+	rating integer
 );
 ALTER TABLE service_review_new OWNER TO gforge;
 
