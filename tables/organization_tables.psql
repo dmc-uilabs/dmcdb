@@ -294,6 +294,14 @@ CREATE TABLE organization_review_reply_flag
 	comment text
 );
 ALTER TABLE organization_review_flag OWNER TO gforge;
+
+CREATE TABLE organization_authorized_identity_provider
+(
+	id serial primary key,
+	organization_id integer,
+	idp_domain text
+);
+ALTER TABLE organization_authorized_identity_provider OWNER TO gforge;
 --
 -- End tables for organization
 --
