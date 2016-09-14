@@ -126,12 +126,15 @@ CREATE TABLE service_document
   service_document_id text,
   owner_id integer,
   title text,
-  modified text,
+  modified timestamp with time zone,
   size text,
-  file text,
+  url text,
   verified boolean DEFAULT false NOT NULL,
   expiration_date timestamp with time zone DEFAULT (now() at time zone 'utc') NOT NULL,
   resource_path text,
+	file_type_id integer,
+	is_deleted boolean DEFAULT false NOT NULL,
+	access_level text,
   CONSTRAINT service_document_pkey PRIMARY KEY (id)
 )
 WITH (
@@ -656,3 +659,40 @@ CREATE TABLE service_review_reply_flag
 	comment text
 );
 ALTER TABLE service_review_flag OWNER TO gforge;
+
+CREATE TABLE service_document_file_type
+(
+	id serial primary key,
+	name text
+);
+ALTER TABLE service_document_file_type OWNER TO gforge;
+
+ALTER TABLE service_document
+ADD CONSTRAINT service_document_file_type_id FOREIGN KEY (file_type_id)
+		REFERENCES service_document_file_type(id) MATCH SIMPLE
+		ON UPDATE CASCADE ON DELETE NO ACTION;
+
+CREATE TABLE service_document_tag
+(
+	id serial primary key,
+	tag_name text
+);
+ALTER TABLE service_document_tag OWNER TO gforge;
+
+CREATE TABLE service_document_tag_join
+(
+	id serial primary key,
+	service_document_id integer,
+	service_document_tag_id integer
+);
+ALTER TABLE service_document_tag_join OWNER TO gforge;
+
+ALTER TABLE service_document_tag_join
+ADD CONSTRAINT service_document_tag_join_service_document_fkey FOREIGN KEY (service_document_id)
+		REFERENCES service_document(id) MATCH SIMPLE
+		ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE service_document_tag_join
+ADD CONSTRAINT service_document_tag_join_service_document_tag_fkey FOREIGN KEY (service_document_tag_id)
+		REFERENCES service_document_tag(id) MATCH SIMPLE
+		ON UPDATE NO ACTION ON DELETE NO ACTION;
