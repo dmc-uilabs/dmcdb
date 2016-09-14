@@ -38,7 +38,8 @@ create table organization
 	follow text,
 	favorites_count integer,
 	is_owner text,
-	owner text
+	owner text,
+	is_deleted boolean NOT NULL DEFAULT false
 );
 ALTER TABLE organization OWNER TO gforge;
 
@@ -201,7 +202,8 @@ CREATE TABLE organization_dmdii_member
 	DMDII_type_id integer,
 	modification_date timestamp,
 	start_date timestamp,
-	expire_date timestamp
+	expire_date timestamp,
+	is_deleted boolean NOT NULL Default false
 );
 ALTER TABLE organization_dmdii_member OWNER TO gforge;
 
