@@ -3,14 +3,12 @@ CREATE TABLE document
   id serial NOT NULL,
   name character varying(255) NOT NULL,
   url text NOT NULL,
-	organization_id integer,
 	owner_id integer NOT NULL,
 	modified timestamp with time zone,
 	expires timestamp with time zone,
 	is_deleted boolean DEFAULT false NOT NULL,
 	file_type_id integer,
-	verified boolean DEFAULT false NOT NULL,
-	access_level text
+	verified boolean DEFAULT false NOT NULL
 );
 ALTER TABLE document
   OWNER TO gforge;
@@ -38,4 +36,54 @@ CREATE TABLE file_type
   name text NOT NULL
 );
 ALTER TABLE file_type
+  OWNER TO gforge;
+
+CREATE TABLE organization_document_join
+(
+  id serial NOT NULL primary key,
+	document_id integer NOT NULL,
+  organization_id integer NOT NULL,
+	access_level text
+);
+ALTER TABLE organization_document_join
+  OWNER TO gforge;
+
+CREATE TABLE service_document_join
+(
+  id serial NOT NULL primary key,
+	document_id integer NOT NULL,
+  service_id integer NOT NULL,
+	access_level text
+);
+ALTER TABLE service_document_join
+  OWNER TO gforge;
+
+CREATE TABLE group_document_join
+(
+  id serial NOT NULL primary key,
+	document_id integer NOT NULL,
+  group_id integer NOT NULL,
+	access_level text
+);
+ALTER TABLE group_document_join
+  OWNER TO gforge;
+
+CREATE TABLE user_document_join
+(
+  id serial NOT NULL primary key,
+	document_id integer NOT NULL,
+  user_id integer NOT NULL,
+	access_level text
+);
+ALTER TABLE user_document_join
+  OWNER TO gforge;
+
+CREATE TABLE dmdii_document_join
+(
+  id serial NOT NULL primary key,
+	document_id integer NOT NULL,
+  dmdii_project_id integer NOT NULL,
+	access_level text
+);
+ALTER TABLE dmdii_document_join
   OWNER TO gforge;

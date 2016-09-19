@@ -1,9 +1,4 @@
 ALTER TABLE only document
-  ADD CONSTRAINT document_organization_id_fkey FOREIGN KEY (organization_id)
-      REFERENCES organization (organization_id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION;
-
-ALTER TABLE only document
   ADD CONSTRAINT document_owner_id_fkey FOREIGN KEY (owner_id)
       REFERENCES users (user_id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
@@ -21,4 +16,54 @@ ALTER TABLE only document_tag_join
 ALTER TABLE only document_tag_join
   ADD CONSTRAINT document_tag_join_document_tag_fkey FOREIGN KEY (document_tag_id)
     REFERENCES document_tag (id) MATCH SIMPLE
+    ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only organization_document_join
+  ADD CONSTRAINT organization_document_join_organization_fkey FOREIGN KEY (organization_id)
+    REFERENCES organization (organization_id) MATCH SIMPLE
+    ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only organization_document_join
+  ADD CONSTRAINT organization_document_join_document_fkey FOREIGN KEY (document_id)
+    REFERENCES document (id) MATCH SIMPLE
+    ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only service_document_join
+  ADD CONSTRAINT service_document_join_service_fkey FOREIGN KEY (service_id)
+    REFERENCES service (service_id) MATCH SIMPLE
+    ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only service_document_join
+  ADD CONSTRAINT service_document_join_document_fkey FOREIGN KEY (document_id)
+    REFERENCES document (id) MATCH SIMPLE
+    ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only group_document_join
+  ADD CONSTRAINT group_document_join_group_fkey FOREIGN KEY (group_id)
+    REFERENCES groups (group_id) MATCH SIMPLE
+    ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only group_document_join
+  ADD CONSTRAINT group_document_join_document_fkey FOREIGN KEY (document_id)
+    REFERENCES document (id) MATCH SIMPLE
+    ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only user_document_join
+  ADD CONSTRAINT user_document_join_project_fkey FOREIGN KEY (user_id)
+    REFERENCES users (user_id) MATCH SIMPLE
+    ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only user_document_join
+  ADD CONSTRAINT user_document_join_document_fkey FOREIGN KEY (document_id)
+    REFERENCES document (id) MATCH SIMPLE
+    ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only dmdii_document_join
+  ADD CONSTRAINT dmdii_document_join_dmdii_project_fkey FOREIGN KEY (dmdii_project_id)
+    REFERENCES dmdii_project (id) MATCH SIMPLE
+    ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only dmdii_document_join
+  ADD CONSTRAINT dmdii_document_join_document_fkey FOREIGN KEY (document_id)
+    REFERENCES document (id) MATCH SIMPLE
     ON UPDATE NO ACTION ON DELETE NO ACTION;
