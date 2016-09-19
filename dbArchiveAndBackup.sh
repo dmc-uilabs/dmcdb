@@ -8,7 +8,8 @@ then
 	git pull origin master
 	dropdb -h localhost -p 5432 -U postgres --if-exists gforge
  	createdb -h localhost -p 5432 -U postgres -O gforge gforge
-	psql -h localhost -p 5432 -d gforge -U postgres < gforge.psql
+	./flyway clean migrate info -configFile=conf/core/flyway.conf
+	./flyway migrate info -configFile=conf/data/flyway.conf
 	if [ $? -ne 0 ]; 
 	then 
 		echo "Attempted recovery failed for database at $ip on $date. Please perform manual recovery." | sendmail $email
