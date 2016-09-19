@@ -13,5 +13,5 @@ CREATE FUNCTION page_deleted() RETURNS trigger
  $$;
 
 
-ALTER FUNCTION public.page_deleted() OWNER TO postgres;
+ALTER FUNCTION public.page_deleted() OWNER TO gforge;
 

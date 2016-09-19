@@ -11,7 +11,7 @@ CREATE TABLE classpath_entry (
 );
 
 
-ALTER TABLE classpath_entry OWNER TO postgres;
+ALTER TABLE classpath_entry OWNER TO gforge;
 
 --
 -- Name: jar_entry; Type: TABLE; Schema: sqlj; Owner: postgres; Tablespace: 
@@ -25,7 +25,7 @@ CREATE TABLE jar_entry (
 );
 
 
-ALTER TABLE jar_entry OWNER TO postgres;
+ALTER TABLE jar_entry OWNER TO gforge;
 
 --
 -- Name: jar_entry_entryid_seq; Type: SEQUENCE; Schema: sqlj; Owner: postgres
@@ -39,7 +39,7 @@ CREATE SEQUENCE jar_entry_entryid_seq
     CACHE 1;
 
 
-ALTER TABLE jar_entry_entryid_seq OWNER TO postgres;
+ALTER TABLE jar_entry_entryid_seq OWNER TO gforge;
 
 --
 -- Name: jar_entry_entryid_seq; Type: SEQUENCE OWNED BY; Schema: sqlj; Owner: postgres
@@ -62,7 +62,7 @@ CREATE TABLE jar_repository (
 );
 
 
-ALTER TABLE jar_repository OWNER TO postgres;
+ALTER TABLE jar_repository OWNER TO gforge;
 
 --
 -- Name: jar_repository_jarid_seq; Type: SEQUENCE; Schema: sqlj; Owner: postgres
@@ -76,7 +76,7 @@ CREATE SEQUENCE jar_repository_jarid_seq
     CACHE 1;
 
 
-ALTER TABLE jar_repository_jarid_seq OWNER TO postgres;
+ALTER TABLE jar_repository_jarid_seq OWNER TO gforge;
 
 --
 -- Name: jar_repository_jarid_seq; Type: SEQUENCE OWNED BY; Schema: sqlj; Owner: postgres

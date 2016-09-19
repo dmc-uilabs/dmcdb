@@ -25,7 +25,7 @@ CREATE FUNCTION user_delete() RETURNS trigger
 $$;
 
 
-ALTER FUNCTION public.user_delete() OWNER TO postgres;
+ALTER FUNCTION public.user_delete() OWNER TO gforge;
 
 --
 -- Name: user_insert(); Type: FUNCTION; Schema: public; Owner: postgres
@@ -41,7 +41,7 @@ CREATE FUNCTION user_insert() RETURNS trigger
 $$;
 
 
-ALTER FUNCTION public.user_insert() OWNER TO postgres;
+ALTER FUNCTION public.user_insert() OWNER TO gforge;
 
 --
 -- Name: user_skills_delete(); Type: FUNCTION; Schema: public; Owner: postgres
@@ -57,7 +57,7 @@ CREATE FUNCTION user_skills_delete() RETURNS trigger
 $$;
 
 
-ALTER FUNCTION public.user_skills_delete() OWNER TO postgres;
+ALTER FUNCTION public.user_skills_delete() OWNER TO gforge;
 
 --
 -- Name: user_skills_insert(); Type: FUNCTION; Schema: public; Owner: postgres
@@ -73,7 +73,7 @@ CREATE FUNCTION user_skills_insert() RETURNS trigger
 $$;
 
 
-ALTER FUNCTION public.user_skills_insert() OWNER TO postgres;
+ALTER FUNCTION public.user_skills_insert() OWNER TO gforge;
 
 --
 -- Name: user_update(); Type: FUNCTION; Schema: public; Owner: postgres
@@ -89,6 +89,6 @@ CREATE FUNCTION user_update() RETURNS trigger
 $$;
 
 
-ALTER FUNCTION public.user_update() OWNER TO postgres;
+ALTER FUNCTION public.user_update() OWNER TO gforge;
 
 

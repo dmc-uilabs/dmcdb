@@ -10,7 +10,7 @@ CREATE TABLE typemap_entry (
 );
 
 
-ALTER TABLE typemap_entry OWNER TO postgres;
+ALTER TABLE typemap_entry OWNER TO gforge;
 
 --
 -- Name: typemap_entry_mapid_seq; Type: SEQUENCE; Schema: sqlj; Owner: postgres
@@ -24,7 +24,7 @@ CREATE SEQUENCE typemap_entry_mapid_seq
     CACHE 1;
 
 
-ALTER TABLE typemap_entry_mapid_seq OWNER TO postgres;
+ALTER TABLE typemap_entry_mapid_seq OWNER TO gforge;
 
 --
 -- Name: typemap_entry_mapid_seq; Type: SEQUENCE OWNED BY; Schema: sqlj; Owner: postgres

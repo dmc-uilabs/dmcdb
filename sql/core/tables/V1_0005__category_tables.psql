@@ -10,5 +10,5 @@ CREATE SEQUENCE category_cat_id_seq
     CACHE 1;
 
 
-ALTER TABLE category_cat_id_seq OWNER TO postgres;
+ALTER TABLE category_cat_id_seq OWNER TO gforge;
 

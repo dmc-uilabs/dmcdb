@@ -8,7 +8,7 @@ CREATE TABLE cem_children (
 );
 
 
-ALTER TABLE cem_children OWNER TO postgres;
+ALTER TABLE cem_children OWNER TO gforge;
 
 --
 -- Name: cem_object_git_acl; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
@@ -82,7 +82,7 @@ CREATE SEQUENCE cem_objects_cem_id_seq
     CACHE 1;
 
 
-ALTER TABLE cem_objects_cem_id_seq OWNER TO postgres;
+ALTER TABLE cem_objects_cem_id_seq OWNER TO gforge;
 
 --
 -- Name: cem_objects_cem_id_seq1; Type: SEQUENCE; Schema: public; Owner: gforge
@@ -115,7 +115,7 @@ CREATE TABLE cem_parents (
 );
 
 
-ALTER TABLE cem_parents OWNER TO postgres;
+ALTER TABLE cem_parents OWNER TO gforge;
 
 --
 -- Name: cem_runnable_messages; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
@@ -149,7 +149,7 @@ CREATE SEQUENCE cem_runnable_messages_message_id_seq
     CACHE 1;
 
 
-ALTER TABLE cem_runnable_messages_message_id_seq OWNER TO postgres;
+ALTER TABLE cem_runnable_messages_message_id_seq OWNER TO gforge;
 
 --
 -- Name: cem_runnable_messages_message_id_seq1; Type: SEQUENCE; Schema: public; Owner: gforge
@@ -205,7 +205,7 @@ CREATE SEQUENCE cem_runnables_runnable_id_seq
     CACHE 1;
 
 
-ALTER TABLE cem_runnables_runnable_id_seq OWNER TO postgres;
+ALTER TABLE cem_runnables_runnable_id_seq OWNER TO gforge;
 
 --
 -- Name: cem_runnables_runnable_id_seq1; Type: SEQUENCE; Schema: public; Owner: gforge
@@ -264,7 +264,7 @@ CREATE SEQUENCE cem_runnables_running_running_id_seq
     CACHE 1;
 
 
-ALTER TABLE cem_runnables_running_running_id_seq OWNER TO postgres;
+ALTER TABLE cem_runnables_running_running_id_seq OWNER TO gforge;
 
 --
 -- Name: cem_runnables_running_running_id_seq1; Type: SEQUENCE; Schema: public; Owner: gforge
@@ -319,7 +319,7 @@ CREATE SEQUENCE cem_service_categories_cem_service_id_seq
     CACHE 1;
 
 
-ALTER TABLE cem_service_categories_cem_service_id_seq OWNER TO postgres;
+ALTER TABLE cem_service_categories_cem_service_id_seq OWNER TO gforge;
 
 --
 -- Name: cem_service_categories_cem_service_id_seq1; Type: SEQUENCE; Schema: public; Owner: gforge
@@ -401,7 +401,7 @@ CREATE SEQUENCE cem_tags_join_join_id_seq
     CACHE 1;
 
 
-ALTER TABLE cem_tags_join_join_id_seq OWNER TO postgres;
+ALTER TABLE cem_tags_join_join_id_seq OWNER TO gforge;
 
 --
 -- Name: cem_tags_join_join_id_seq1; Type: SEQUENCE; Schema: public; Owner: gforge
@@ -436,7 +436,7 @@ CREATE SEQUENCE cem_tags_tag_id_seq
     CACHE 1;
 
 
-ALTER TABLE cem_tags_tag_id_seq OWNER TO postgres;
+ALTER TABLE cem_tags_tag_id_seq OWNER TO gforge;
 
 
 --
@@ -452,7 +452,7 @@ CREATE TABLE deleted_cem_object_git_acl (
 );
 
 
-ALTER TABLE deleted_cem_object_git_acl OWNER TO postgres;
+ALTER TABLE deleted_cem_object_git_acl OWNER TO gforge;
 
 --
 -- Name: TABLE deleted_cem_object_git_acl; Type: COMMENT; Schema: public; Owner: postgres
@@ -478,7 +478,7 @@ CREATE TABLE deleted_cem_objects (
 );
 
 
-ALTER TABLE deleted_cem_objects OWNER TO postgres;
+ALTER TABLE deleted_cem_objects OWNER TO gforge;
 
 --
 -- Name: TABLE deleted_cem_objects; Type: COMMENT; Schema: public; Owner: postgres
@@ -499,7 +499,7 @@ CREATE TABLE deleted_cem_service_categories (
 );
 
 
-ALTER TABLE deleted_cem_service_categories OWNER TO postgres;
+ALTER TABLE deleted_cem_service_categories OWNER TO gforge;
 
 --
 -- Name: TABLE deleted_cem_service_categories; Type: COMMENT; Schema: public; Owner: postgres
@@ -521,7 +521,7 @@ CREATE TABLE deleted_cem_tags_join (
 );
 
 
-ALTER TABLE deleted_cem_tags_join OWNER TO postgres;
+ALTER TABLE deleted_cem_tags_join OWNER TO gforge;
 
 --
 -- Name: TABLE deleted_cem_tags_join; Type: COMMENT; Schema: public; Owner: postgres

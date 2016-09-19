@@ -15,7 +15,7 @@ CREATE TABLE deleted_site_activity (
 );
 
 
-ALTER TABLE deleted_site_activity OWNER TO postgres;
+ALTER TABLE deleted_site_activity OWNER TO gforge;
 
 --
 -- Name: TABLE deleted_site_activity; Type: COMMENT; Schema: public; Owner: postgres
@@ -38,7 +38,7 @@ CREATE TABLE deleted_site_activity_comments (
 );
 
 
-ALTER TABLE deleted_site_activity_comments OWNER TO postgres;
+ALTER TABLE deleted_site_activity_comments OWNER TO gforge;
 
 --
 -- Name: TABLE deleted_site_activity_comments; Type: COMMENT; Schema: public; Owner: postgres

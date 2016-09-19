@@ -199,4 +199,4 @@ CREATE SEQUENCE logging_log_id_seq
     CACHE 1;
 
 
-ALTER TABLE logging_log_id_seq OWNER TO postgres;
+ALTER TABLE logging_log_id_seq OWNER TO gforge;

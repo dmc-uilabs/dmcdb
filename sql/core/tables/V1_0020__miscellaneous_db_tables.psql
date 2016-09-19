@@ -186,7 +186,7 @@ CREATE SEQUENCE recentchanges_rc_id_seq
     CACHE 1;
 
 
-ALTER TABLE recentchanges_rc_id_seq OWNER TO postgres;
+ALTER TABLE recentchanges_rc_id_seq OWNER TO gforge;
 
 
 --
@@ -201,7 +201,7 @@ CREATE SEQUENCE revision_rev_id_seq
     CACHE 1;
 
 
-ALTER TABLE revision_rev_id_seq OWNER TO postgres;
+ALTER TABLE revision_rev_id_seq OWNER TO gforge;
 
 --
 -- Name: supported_langu_language_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
@@ -278,7 +278,7 @@ CREATE SEQUENCE text_old_id_seq
     CACHE 1;
 
 
-ALTER TABLE text_old_id_seq OWNER TO postgres;
+ALTER TABLE text_old_id_seq OWNER TO gforge;
 
 
 --
@@ -293,7 +293,7 @@ CREATE SEQUENCE trackbacks_tb_id_seq
     CACHE 1;
 
 
-ALTER TABLE trackbacks_tb_id_seq OWNER TO postgres;
+ALTER TABLE trackbacks_tb_id_seq OWNER TO gforge;
 
 --
 -- Name: unix_uid_seq; Type: SEQUENCE; Schema: public; Owner: gforge

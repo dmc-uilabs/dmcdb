@@ -30,7 +30,7 @@ CREATE SEQUENCE cell_gateways_gateway_id_seq
     CACHE 1;
 
 
-ALTER TABLE cell_gateways_gateway_id_seq OWNER TO postgres;
+ALTER TABLE cell_gateways_gateway_id_seq OWNER TO gforge;
 
 --
 -- Name: cell_gateways_gateway_id_seq1; Type: SEQUENCE; Schema: public; Owner: gforge

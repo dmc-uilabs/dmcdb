@@ -13,7 +13,7 @@ CREATE FUNCTION service_delete() RETURNS trigger
 $$;
 
 
-ALTER FUNCTION public.service_delete() OWNER TO postgres;
+ALTER FUNCTION public.service_delete() OWNER TO gforge;
 
 --
 -- Name: service_insert(); Type: FUNCTION; Schema: public; Owner: postgres
@@ -29,7 +29,7 @@ CREATE FUNCTION service_insert() RETURNS trigger
 $$;
 
 
-ALTER FUNCTION public.service_insert() OWNER TO postgres;
+ALTER FUNCTION public.service_insert() OWNER TO gforge;
 
 --
 -- Name: service_update(); Type: FUNCTION; Schema: public; Owner: postgres
@@ -45,7 +45,7 @@ CREATE FUNCTION service_update() RETURNS trigger
 $$;
 
 
-ALTER FUNCTION public.service_update() OWNER TO postgres;
+ALTER FUNCTION public.service_update() OWNER TO gforge;
 
 --
 -- Name: site_activity_before_delete(); Type: FUNCTION; Schema: public; Owner: gforge

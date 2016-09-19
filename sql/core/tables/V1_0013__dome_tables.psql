@@ -77,7 +77,7 @@ CREATE SEQUENCE service_interface_interface_id_seq
     CACHE 1;
 
 
-ALTER TABLE service_interface_interface_id_seq OWNER TO postgres;
+ALTER TABLE service_interface_interface_id_seq OWNER TO gforge;
 
 --
 -- Name: service_interface_interface_id_seq1; Type: SEQUENCE; Schema: public; Owner: gforge
@@ -113,7 +113,7 @@ CREATE SEQUENCE job_job_id_seq
     CACHE 1;
 
 
-ALTER TABLE job_job_id_seq OWNER TO postgres;
+ALTER TABLE job_job_id_seq OWNER TO gforge;
 
 
 --
@@ -272,7 +272,7 @@ CREATE SEQUENCE runnable_runtimes_runtime_id_seq
     CACHE 1;
 
 
-ALTER TABLE runnable_runtimes_runtime_id_seq OWNER TO postgres;
+ALTER TABLE runnable_runtimes_runtime_id_seq OWNER TO gforge;
 
 --
 -- Name: runnable_runtimes_runtime_id_seq1; Type: SEQUENCE; Schema: public; Owner: gforge
@@ -326,7 +326,7 @@ CREATE SEQUENCE servers_server_id_seq
     CACHE 1;
 
 
-ALTER TABLE servers_server_id_seq OWNER TO postgres;
+ALTER TABLE servers_server_id_seq OWNER TO gforge;
 
 --
 -- Name: servers_server_id_seq1; Type: SEQUENCE; Schema: public; Owner: gforge
@@ -374,7 +374,7 @@ CREATE SEQUENCE service_categories_cat_id_seq
     CACHE 1;
 
 
-ALTER TABLE service_categories_cat_id_seq OWNER TO postgres;
+ALTER TABLE service_categories_cat_id_seq OWNER TO gforge;
 
 --
 -- Name: service_categories_cat_id_seq1; Type: SEQUENCE; Schema: public; Owner: gforge

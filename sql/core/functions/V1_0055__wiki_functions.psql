@@ -11,7 +11,7 @@ CREATE FUNCTION wiki_pages_delete() RETURNS trigger
    END;
 $$;
 
-ALTER FUNCTION public.wiki_pages_delete() OWNER TO postgres;
+ALTER FUNCTION public.wiki_pages_delete() OWNER TO gforge;
 
 --
 -- Name: wiki_pages_insert(); Type: FUNCTION; Schema: public; Owner: postgres
@@ -27,7 +27,7 @@ CREATE FUNCTION wiki_pages_insert() RETURNS trigger
 $$;
 
 
-ALTER FUNCTION public.wiki_pages_insert() OWNER TO postgres;
+ALTER FUNCTION public.wiki_pages_insert() OWNER TO gforge;
 
 --
 -- Name: wiki_pages_update(); Type: FUNCTION; Schema: public; Owner: postgres
@@ -43,4 +43,4 @@ CREATE FUNCTION wiki_pages_update() RETURNS trigger
 $$;
 
 
-ALTER FUNCTION public.wiki_pages_update() OWNER TO postgres;
+ALTER FUNCTION public.wiki_pages_update() OWNER TO gforge;
