@@ -165,3 +165,7 @@ alter table only organization_dmdii_type
       REFERENCES organization_dmdii_type_category (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
 
+alter table only organization_authorized_identity_provider
+  add constraint organization_id_authorized_idp_fkey foreign key (organization_id)
+      references organization (organization_id) match simple
+      on update no action on delete no action;
