@@ -1,0 +1,94 @@
+
+--
+-- Name: insert_pfo_role_setting(integer, text, integer, integer); Type: FUNCTION; Schema: public; Owner: gforge
+--
+
+CREATE FUNCTION insert_pfo_role_setting(role_id integer, section_name text, ref_id integer, perm_val integer) RETURNS void
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+	IF perm_val != 0 THEN
+	   INSERT INTO pfo_role_setting VALUES (role_id, section_name, ref_id, perm_val) ;	END IF ;END ;$$;
+
+
+--
+-- Name: user_delete(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION user_delete() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+    BEGIN
+	PERFORM core_delete( 'users', OLD.user_id);
+	RETURN NEW;
+    END;
+$$;
+
+
+ALTER FUNCTION public.user_delete() OWNER TO gforge;
+
+--
+-- Name: user_insert(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION user_insert() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+    BEGIN
+	PERFORM core_insert( 'users', NEW.user_id);
+	RETURN NEW;
+    END;
+$$;
+
+
+ALTER FUNCTION public.user_insert() OWNER TO gforge;
+
+--
+-- Name: user_skills_delete(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION user_skills_delete() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+    BEGIN
+        PERFORM core_update( 'users', OLD.user_id);
+        RETURN NEW;
+    END;
+$$;
+
+
+ALTER FUNCTION public.user_skills_delete() OWNER TO gforge;
+
+--
+-- Name: user_skills_insert(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION user_skills_insert() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+    BEGIN
+        PERFORM core_update( 'users', NEW.user_id);
+        RETURN NEW;
+    END;
+$$;
+
+
+ALTER FUNCTION public.user_skills_insert() OWNER TO gforge;
+
+--
+-- Name: user_update(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION user_update() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+    BEGIN
+	PERFORM core_update( 'users', NEW.user_id);
+	RETURN NEW;
+    END;
+$$;
+
+
+ALTER FUNCTION public.user_update() OWNER TO gforge;
+
+

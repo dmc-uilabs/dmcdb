@@ -44,4 +44,5 @@ psql -U postgres -c "CREATE ROLE $PSQLUSER NOSUPERUSER NOCREATEDB NOCREATEROLE I
 
 psql -U postgres -c "CREATE DATABASE $DB WITH OWNER $PSQLUSER;"
 
-psql -U postgres -d gforge < gforge.psql
+./flyway clean migrate info -configFile=conf/core/flyway.conf
+./flyway migrate info -configFile=conf/data/flyway.conf

@@ -1,0 +1,162 @@
+
+--
+-- Name: deleted_site_activity; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE deleted_site_activity (
+    activity_id integer NOT NULL,
+    time_posted integer NOT NULL,
+    user_id integer NOT NULL,
+    type_id integer NOT NULL,
+    object_id integer NOT NULL,
+    ref_id integer,
+    assigned_to_id integer,
+    deleted_date integer NOT NULL
+);
+
+
+ALTER TABLE deleted_site_activity OWNER TO gforge;
+
+--
+-- Name: TABLE deleted_site_activity; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE deleted_site_activity IS 'Deleted site activity.';
+
+
+--
+-- Name: deleted_site_activity_comments; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE deleted_site_activity_comments (
+    activity_comment_id integer NOT NULL,
+    site_activity_id integer NOT NULL,
+    user_id integer NOT NULL,
+    time_posted integer NOT NULL,
+    comment text NOT NULL,
+    deleted_date integer NOT NULL
+);
+
+
+ALTER TABLE deleted_site_activity_comments OWNER TO gforge;
+
+--
+-- Name: TABLE deleted_site_activity_comments; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE deleted_site_activity_comments IS 'Deleted site activity comments.';
+
+
+--
+-- Name: site_activity; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE site_activity (
+    activity_id integer NOT NULL,
+    time_posted integer NOT NULL,
+    user_id integer NOT NULL,
+    type_id integer NOT NULL,
+    object_id integer NOT NULL,
+    ref_id integer,
+    assigned_to_id integer
+);
+
+ALTER TABLE site_activity OWNER TO gforge;
+
+--
+-- Name: site_activity_mapping; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE site_activity_mapping (
+    activity_type_id integer NOT NULL,
+    activity_type_string text NOT NULL
+);
+
+ALTER TABLE site_activity_mapping OWNER TO gforge;
+
+INSERT INTO site_activity_mapping VALUES 
+(1,  'user_profile_comment'),
+(2,  'project_home_comment'),
+(3,  'project_add_member'),
+(4,  'project_news_post'),
+(5,  'project_forum_post'),
+(6,  'project_gallery_addition'),
+(7,  'project_bug_addition'),
+(8,  'project_task_addition'),
+(9,  'project_task_update'),
+(10, 'project_create'),
+(11, 'project_bug_update'),
+(12, 'project_bug_closed'),
+(13, 'project_component_add'),
+(14, 'project_component_created');
+
+--
+-- Name: site_activity_activity_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE site_activity_activity_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE site_activity_activity_id_seq OWNER TO gforge;
+
+--
+-- Name: site_activity_activity_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE site_activity_activity_id_seq OWNED BY site_activity.activity_id;
+
+
+--
+-- Name: site_activity_comments; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE site_activity_comments (
+    activity_comment_id integer NOT NULL,
+    site_activity_id integer NOT NULL,
+    user_id integer NOT NULL,
+    time_posted integer NOT NULL,
+    comment text NOT NULL
+);
+
+
+ALTER TABLE site_activity_comments OWNER TO gforge;
+
+--
+-- Name: site_activity_comments_activity_comment_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE site_activity_comments_activity_comment_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE site_activity_comments_activity_comment_id_seq OWNER TO gforge;
+
+--
+-- Name: site_activity_comments_activity_comment_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE site_activity_comments_activity_comment_id_seq OWNED BY site_activity_comments.activity_comment_id;
+
+
+--
+-- Name: activity_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY site_activity ALTER COLUMN activity_id SET DEFAULT nextval('site_activity_activity_id_seq'::regclass);
+
+
+--
+-- Name: activity_comment_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY site_activity_comments ALTER COLUMN activity_comment_id SET DEFAULT nextval('site_activity_comments_activity_comment_id_seq'::regclass);
+
