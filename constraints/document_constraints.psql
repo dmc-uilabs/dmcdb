@@ -4,8 +4,8 @@ ALTER TABLE only document
       ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 ALTER TABLE only document
-  ADD CONSTRAINT document_file_type_id_fkey FOREIGN KEY (file_type_id)
-      REFERENCES file_type (id) MATCH SIMPLE
+  ADD CONSTRAINT document_doc_class_id_fkey FOREIGN KEY (doc_class_id)
+      REFERENCES doc_class (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 ALTER TABLE only document_tag_join
