@@ -1,4 +1,4 @@
-insert into file_type values (1, 'LOGO');
-insert into file_type values (2, 'IMAGE');
-insert into file_type values (3, 'VIDEO');
-insert into file_type values (4, 'PROFILE');
+insert into doc_class values (1, 'LOGO');
+insert into doc_class values (2, 'IMAGE');
+insert into doc_class values (3, 'VIDEO');
+insert into doc_class values (4, 'PROFILE');
