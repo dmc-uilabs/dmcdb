@@ -1,0 +1,46 @@
+--
+-- Name: wiki_pages_delete(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION wiki_pages_delete() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+   BEGIN
+     PERFORM core_delete( 'wiki', OLD.page_id);
+     RETURN new;
+   END;
+$$;
+
+ALTER FUNCTION public.wiki_pages_delete() OWNER TO gforge;
+
+--
+-- Name: wiki_pages_insert(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION wiki_pages_insert() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+   BEGIN
+     PERFORM core_insert( 'wiki', NEW.page_id);
+     RETURN new;
+   END;
+$$;
+
+
+ALTER FUNCTION public.wiki_pages_insert() OWNER TO gforge;
+
+--
+-- Name: wiki_pages_update(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION wiki_pages_update() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+  BEGIN
+     PERFORM core_update( 'wiki', NEW.page_id);
+     RETURN new;
+  END;
+$$;
+
+
+ALTER FUNCTION public.wiki_pages_update() OWNER TO gforge;

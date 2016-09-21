@@ -1,0 +1,62 @@
+
+--
+-- Name: service_delete(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION service_delete() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+    BEGIN
+	PERFORM core_delete( 'services', OLD.interface_id);
+	RETURN NEW;
+    END;
+$$;
+
+
+ALTER FUNCTION public.service_delete() OWNER TO gforge;
+
+--
+-- Name: service_insert(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION service_insert() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+    BEGIN
+	PERFORM core_insert( 'services', NEW.interface_id);
+	RETURN NEW;
+    END;
+$$;
+
+
+ALTER FUNCTION public.service_insert() OWNER TO gforge;
+
+--
+-- Name: service_update(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION service_update() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+    BEGIN
+	PERFORM core_update( 'services', NEW.interface_id);
+	RETURN NEW;
+    END;
+$$;
+
+
+ALTER FUNCTION public.service_update() OWNER TO gforge;
+
+--
+-- Name: site_activity_before_delete(); Type: FUNCTION; Schema: public; Owner: gforge
+--
+
+CREATE FUNCTION site_activity_before_delete() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+    BEGIN
+		INSERT INTO deleted_site_activity VALUES(OLD.activity_id, OLD.time_posted,OLD.user_id,OLD.type_id,OLD.object_id,OLD.ref_id,OLD.assigned_to_id,EXTRACT(EPOCH FROM now())::integer);
+		RETURN OLD;
+    END;
+$$;
+

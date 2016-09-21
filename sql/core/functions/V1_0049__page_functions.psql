@@ -1,0 +1,17 @@
+
+--
+-- Name: page_deleted(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION page_deleted() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+ BEGIN
+ DELETE FROM recentchanges WHERE rc_namespace = OLD.page_namespace AND rc_title = OLD.page_title;
+ RETURN NULL;
+ END;
+ $$;
+
+
+ALTER FUNCTION public.page_deleted() OWNER TO gforge;
+

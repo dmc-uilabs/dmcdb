@@ -1,0 +1,586 @@
+--
+-- Name: cem_children; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE cem_children (
+    cem_id integer NOT NULL,
+    child_id integer NOT NULL
+);
+
+
+ALTER TABLE cem_children OWNER TO gforge;
+
+--
+-- Name: cem_object_git_acl; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE cem_object_git_acl (
+    cem_git_acl_id integer NOT NULL,
+    cem_id integer NOT NULL,
+    user_id integer NOT NULL,
+    permissions character(3) NOT NULL
+);
+
+
+ALTER TABLE cem_object_git_acl OWNER TO gforge;
+
+--
+-- Name: cem_object_git_acl_cem_git_acl_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE cem_object_git_acl_cem_git_acl_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE cem_object_git_acl_cem_git_acl_id_seq OWNER TO gforge;
+
+--
+-- Name: cem_object_git_acl_cem_git_acl_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE cem_object_git_acl_cem_git_acl_id_seq OWNED BY cem_object_git_acl.cem_git_acl_id;
+
+
+--
+-- Name: cem_objects; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE cem_objects (
+    cem_id integer NOT NULL,
+    group_id integer NOT NULL,
+    name text,
+    parent_cem_id integer DEFAULT 0 NOT NULL,
+    last_repo_update integer DEFAULT 0,
+    repo_creation_time integer DEFAULT 0,
+    export_control boolean DEFAULT false,
+    description text
+);
+
+
+ALTER TABLE cem_objects OWNER TO gforge;
+
+--
+-- Name: TABLE cem_objects; Type: COMMENT; Schema: public; Owner: gforge
+--
+
+COMMENT ON TABLE cem_objects IS '"Components" created by users in a project';
+
+
+--
+-- Name: cem_objects_cem_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE cem_objects_cem_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE cem_objects_cem_id_seq OWNER TO gforge;
+
+--
+-- Name: cem_objects_cem_id_seq1; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE cem_objects_cem_id_seq1
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE cem_objects_cem_id_seq1 OWNER TO gforge;
+
+--
+-- Name: cem_objects_cem_id_seq1; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE cem_objects_cem_id_seq1 OWNED BY cem_objects.cem_id;
+
+
+--
+-- Name: cem_parents; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE cem_parents (
+    cem_id integer NOT NULL,
+    parent_id integer NOT NULL
+);
+
+
+ALTER TABLE cem_parents OWNER TO gforge;
+
+--
+-- Name: cem_runnable_messages; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE cem_runnable_messages (
+    message_id integer NOT NULL,
+    message text NOT NULL,
+    running_id integer NOT NULL
+);
+
+
+ALTER TABLE cem_runnable_messages OWNER TO gforge;
+
+--
+-- Name: TABLE cem_runnable_messages; Type: COMMENT; Schema: public; Owner: gforge
+--
+
+COMMENT ON TABLE cem_runnable_messages IS 'Messages retrieved from SQS queue from DOME';
+
+
+--
+-- Name: cem_runnable_messages_message_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE cem_runnable_messages_message_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE cem_runnable_messages_message_id_seq OWNER TO gforge;
+
+--
+-- Name: cem_runnable_messages_message_id_seq1; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE cem_runnable_messages_message_id_seq1
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE cem_runnable_messages_message_id_seq1 OWNER TO gforge;
+
+--
+-- Name: cem_runnable_messages_message_id_seq1; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE cem_runnable_messages_message_id_seq1 OWNED BY cem_runnable_messages.message_id;
+
+
+--
+-- Name: cem_runnables; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE cem_runnables (
+    runnable_id integer NOT NULL,
+    cem_id integer NOT NULL,
+    type_id integer NOT NULL,
+    ref_id integer NOT NULL
+);
+
+
+ALTER TABLE cem_runnables OWNER TO gforge;
+
+--
+-- Name: TABLE cem_runnables; Type: COMMENT; Schema: public; Owner: gforge
+--
+
+COMMENT ON TABLE cem_runnables IS 'Runnable "models" that a user registers';
+
+
+--
+-- Name: cem_runnables_runnable_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE cem_runnables_runnable_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE cem_runnables_runnable_id_seq OWNER TO gforge;
+
+--
+-- Name: cem_runnables_runnable_id_seq1; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE cem_runnables_runnable_id_seq1
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE cem_runnables_runnable_id_seq1 OWNER TO gforge;
+
+--
+-- Name: cem_runnables_runnable_id_seq1; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE cem_runnables_runnable_id_seq1 OWNED BY cem_runnables.runnable_id;
+
+
+--
+-- Name: cem_runnables_running; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE cem_runnables_running (
+    running_id integer NOT NULL,
+    interface_id integer NOT NULL,
+    owner_id integer NOT NULL,
+    queue_url text,
+    finished boolean DEFAULT false NOT NULL,
+    time_started integer DEFAULT 0 NOT NULL,
+    viewed boolean DEFAULT false NOT NULL
+);
+
+
+ALTER TABLE cem_runnables_running OWNER TO gforge;
+
+--
+-- Name: TABLE cem_runnables_running; Type: COMMENT; Schema: public; Owner: gforge
+--
+
+COMMENT ON TABLE cem_runnables_running IS 'Runnable "models" that have been run. Each unique run is logged here';
+
+
+--
+-- Name: cem_runnables_running_running_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE cem_runnables_running_running_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE cem_runnables_running_running_id_seq OWNER TO gforge;
+
+--
+-- Name: cem_runnables_running_running_id_seq1; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE cem_runnables_running_running_id_seq1
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE cem_runnables_running_running_id_seq1 OWNER TO gforge;
+
+--
+-- Name: cem_runnables_running_running_id_seq1; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE cem_runnables_running_running_id_seq1 OWNED BY cem_runnables_running.running_id;
+
+
+--
+-- Name: cem_service_categories; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE cem_service_categories (
+    cem_service_id integer NOT NULL,
+    cem_id integer NOT NULL,
+    cat_id integer NOT NULL
+);
+
+
+ALTER TABLE cem_service_categories OWNER TO gforge;
+
+--
+-- Name: TABLE cem_service_categories; Type: COMMENT; Schema: public; Owner: gforge
+--
+
+COMMENT ON TABLE cem_service_categories IS 'Service types for "components"';
+
+
+--
+-- Name: cem_service_categories_cem_service_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE cem_service_categories_cem_service_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE cem_service_categories_cem_service_id_seq OWNER TO gforge;
+
+--
+-- Name: cem_service_categories_cem_service_id_seq1; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE cem_service_categories_cem_service_id_seq1
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE cem_service_categories_cem_service_id_seq1 OWNER TO gforge;
+
+--
+-- Name: cem_service_categories_cem_service_id_seq1; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE cem_service_categories_cem_service_id_seq1 OWNED BY cem_service_categories.cem_service_id;
+
+
+--
+-- Name: cem_tags; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE cem_tags (
+    cem_tag_id integer NOT NULL,
+    tag_name text NOT NULL
+);
+
+
+ALTER TABLE cem_tags OWNER TO gforge;
+
+--
+-- Name: cem_tags_cem_tag_id_seq; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE cem_tags_cem_tag_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE cem_tags_cem_tag_id_seq OWNER TO gforge;
+
+--
+-- Name: cem_tags_cem_tag_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE cem_tags_cem_tag_id_seq OWNED BY cem_tags.cem_tag_id;
+
+
+--
+-- Name: cem_tags_join; Type: TABLE; Schema: public; Owner: gforge; Tablespace: 
+--
+
+CREATE TABLE cem_tags_join (
+    join_id integer NOT NULL,
+    cem_id integer NOT NULL,
+    cem_tag_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE cem_tags_join OWNER TO gforge;
+
+--
+-- Name: cem_tags_join_join_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE cem_tags_join_join_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE cem_tags_join_join_id_seq OWNER TO gforge;
+
+--
+-- Name: cem_tags_join_join_id_seq1; Type: SEQUENCE; Schema: public; Owner: gforge
+--
+
+CREATE SEQUENCE cem_tags_join_join_id_seq1
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE cem_tags_join_join_id_seq1 OWNER TO gforge;
+
+--
+-- Name: cem_tags_join_join_id_seq1; Type: SEQUENCE OWNED BY; Schema: public; Owner: gforge
+--
+
+ALTER SEQUENCE cem_tags_join_join_id_seq1 OWNED BY cem_tags_join.join_id;
+
+
+--
+-- Name: cem_tags_tag_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE cem_tags_tag_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE cem_tags_tag_id_seq OWNER TO gforge;
+
+
+--
+-- Name: deleted_cem_object_git_acl; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE deleted_cem_object_git_acl (
+    cem_git_acl_id integer NOT NULL,
+    cem_id integer NOT NULL,
+    user_id integer NOT NULL,
+    permissions character(3) NOT NULL,
+    deleted_date integer NOT NULL
+);
+
+
+ALTER TABLE deleted_cem_object_git_acl OWNER TO gforge;
+
+--
+-- Name: TABLE deleted_cem_object_git_acl; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE deleted_cem_object_git_acl IS 'Deleted component permissions';
+
+
+--
+-- Name: deleted_cem_objects; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE deleted_cem_objects (
+    cem_id integer NOT NULL,
+    group_id integer NOT NULL,
+    name text,
+    parent_cem_id integer DEFAULT 0 NOT NULL,
+    last_repo_update integer DEFAULT 0,
+    repo_creation_time integer DEFAULT 0,
+    export_control boolean DEFAULT false,
+    description text,
+    deleted_date integer NOT NULL
+);
+
+
+ALTER TABLE deleted_cem_objects OWNER TO gforge;
+
+--
+-- Name: TABLE deleted_cem_objects; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE deleted_cem_objects IS 'Deleted components';
+
+
+--
+-- Name: deleted_cem_service_categories; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE deleted_cem_service_categories (
+    cem_service_id integer NOT NULL,
+    cem_id integer NOT NULL,
+    cat_id integer NOT NULL,
+    deleted_date integer NOT NULL
+);
+
+
+ALTER TABLE deleted_cem_service_categories OWNER TO gforge;
+
+--
+-- Name: TABLE deleted_cem_service_categories; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE deleted_cem_service_categories IS 'Deleted service types for "components"';
+
+
+--
+-- Name: deleted_cem_tags_join; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE deleted_cem_tags_join (
+    join_id integer NOT NULL,
+    cem_id integer NOT NULL,
+    cem_tag_id integer NOT NULL,
+    group_id integer NOT NULL,
+    deleted_date integer NOT NULL
+);
+
+
+ALTER TABLE deleted_cem_tags_join OWNER TO gforge;
+
+--
+-- Name: TABLE deleted_cem_tags_join; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE deleted_cem_tags_join IS 'Deleted tags-components mapping';
+
+
+--
+-- Name: cem_git_acl_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY cem_object_git_acl ALTER COLUMN cem_git_acl_id SET DEFAULT nextval('cem_object_git_acl_cem_git_acl_id_seq'::regclass);
+
+
+--
+-- Name: cem_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY cem_objects ALTER COLUMN cem_id SET DEFAULT nextval('cem_objects_cem_id_seq1'::regclass);
+
+
+--
+-- Name: message_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY cem_runnable_messages ALTER COLUMN message_id SET DEFAULT nextval('cem_runnable_messages_message_id_seq1'::regclass);
+
+
+--
+-- Name: runnable_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY cem_runnables ALTER COLUMN runnable_id SET DEFAULT nextval('cem_runnables_runnable_id_seq1'::regclass);
+
+
+--
+-- Name: running_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY cem_runnables_running ALTER COLUMN running_id SET DEFAULT nextval('cem_runnables_running_running_id_seq1'::regclass);
+
+
+--
+-- Name: cem_service_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY cem_service_categories ALTER COLUMN cem_service_id SET DEFAULT nextval('cem_service_categories_cem_service_id_seq1'::regclass);
+
+
+--
+-- Name: cem_tag_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY cem_tags ALTER COLUMN cem_tag_id SET DEFAULT nextval('cem_tags_cem_tag_id_seq'::regclass);
+
+
+--
+-- Name: join_id; Type: DEFAULT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY cem_tags_join ALTER COLUMN join_id SET DEFAULT nextval('cem_tags_join_join_id_seq1'::regclass);

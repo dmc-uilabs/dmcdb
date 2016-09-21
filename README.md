@@ -1,0 +1,1 @@
+Please see https://digitalmfgcommons.atlassian.net/wiki/display/DMDIIDMC/DB+Migration+-+Flyway.

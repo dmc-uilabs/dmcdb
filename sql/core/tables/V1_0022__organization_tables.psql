@@ -1,0 +1,307 @@
+
+--
+-- Tables for organization / company profiles
+--
+
+create table organization
+(
+	organization_id serial primary key,
+	accountId integer,
+	name text,
+	location text,
+	description text,
+	division text,
+	industry text,
+	naics_code text,
+	rd_focus text,
+	customers text,
+	awards text,
+	tech_expertise text,
+	tools_software_equip_mach text,
+	post_collaboration text,
+	collaboration_interest text,
+	past_projects text,
+	upcoming_project_interests text,
+	address_id integer not null,
+	email text,
+	phone text,
+	website text,
+	social_media_linkedin text,
+	social_media_twitter text,
+	social_medial_inthenews text,
+	perfered_comm_method text,
+	category_tier integer,
+	date_joining text,
+	reason_joining text,
+	feature_image integer,
+	logo_image text,
+	follow text,
+	favorites_count integer,
+	is_owner text,
+	owner text,
+	is_deleted boolean NOT NULL DEFAULT false
+);
+ALTER TABLE organization OWNER TO gforge;
+
+CREATE TABLE area_of_expertise
+(
+	id serial NOT NULL,
+	name text,
+	description text,
+	link text,
+	is_dmdii boolean DEFAULT false NOT NULL
+);
+ALTER TABLE area_of_expertise
+  OWNER TO gforge;
+
+CREATE TABLE organization_area_of_expertise
+(
+	id serial NOT NULL,
+	organization_id integer NOT NULL,
+	area_of_expertise_id integer NOT NULL
+);
+ALTER TABLE organization_area_of_expertise
+  OWNER TO gforge;
+
+CREATE TABLE organization_desired_area_of_expertise
+(
+	id serial NOT NULL,
+	organization_id integer NOT NULL,
+	area_of_expertise_id integer NOT NULL
+);
+ALTER TABLE organization_desired_area_of_expertise
+  OWNER TO gforge;
+
+create table organization_user
+(
+	id serial primary key,
+	user_id integer,
+	organization_id integer,
+	 is_verified boolean
+);
+ALTER TABLE organization_user OWNER TO gforge;
+
+create table organization_admin
+(
+	id serial primary key,
+	organization_user_id integer,
+	organization_id integer
+);
+ALTER TABLE organization_admin OWNER TO gforge;
+
+-- org_user_flag=true, the customer is in organization with ref_id as organization_id; otherwise, the customer is created with name
+create table organization_customer
+(
+	id serial primary key,
+	organization_id integer,
+	org_user_flag boolean,
+	ref_name text NOT NULL,
+	ref_id integer
+);
+ALTER TABLE organization_customer OWNER TO gforge;
+
+
+
+CREATE TABLE organization_image (
+	id serial primary key,
+	organization_id integer,
+	image_type integer,
+	image_id integer
+);
+ALTER TABLE organization_image OWNER TO gforge;
+
+
+CREATE TABLE organization_video (
+	id serial primary key,
+	organization_id integer,
+	video_type integer,
+	video_id integer
+);
+ALTER TABLE organization_video OWNER TO gforge;
+
+
+CREATE TABLE organization_contact_type
+(
+	id serial primary key,
+	contact_type text
+);
+ALTER TABLE organization_contact_type  OWNER TO gforge;
+
+
+CREATE TABLE organization_contact
+(
+	id serial primary key,
+	organization_id integer,
+	contact_type_id integer,
+	name text,
+	phone_number text,
+	title text,
+	email text
+);
+ALTER TABLE organization_contact OWNER TO gforge;
+
+CREATE TABLE organization_skill
+(
+	id serial primary key,
+	organization_id integer,
+	skill text
+);
+ALTER TABLE organization_skill  OWNER TO gforge;
+
+CREATE TABLE organization_award
+(
+	id serial primary key,
+	organization_id integer NOT NULL,
+	name text,
+	description text,
+	link text
+);
+ALTER TABLE organization_award
+  OWNER TO gforge;
+
+-- Company reviews -- this may need to be changed based on where the review is written
+CREATE TABLE organization_review
+(
+	id serial primary key,
+	organization_id integer,
+	name text,
+	reply boolean,
+	reviewId text,
+	status boolean,
+	date text,
+	rating integer,
+	likes integer,
+	dislike integer,
+	comment text
+);
+ALTER TABLE organization_review  OWNER TO gforge;
+
+-- Organization DMDII membership status
+--   Used to keep track of an organization's DMDII membership status
+CREATE TABLE organization_dmdii_type
+(
+	id serial primary key,
+	organization_dmdii_type_category_id integer,
+	tier integer,
+	dmdii_member_desc text
+);
+ALTER TABLE organization_dmdii_type OWNER TO gforge;
+
+CREATE TABLE organization_dmdii_type_category
+(
+	id serial NOT NULL,
+	category text NOT NULL
+);
+ALTER TABLE organization_dmdii_type_category
+  OWNER TO gforge;
+
+CREATE TABLE organization_dmdii_member
+(
+	id serial primary key,
+	organization_id integer,
+	DMDII_type_id integer,
+	modification_date timestamp,
+	start_date timestamp,
+	expire_date timestamp,
+	is_deleted boolean NOT NULL Default false
+);
+ALTER TABLE organization_dmdii_member OWNER TO gforge;
+
+CREATE TABLE organization_profile_change_type
+(
+	id serial primary key,
+	change_type text,
+	description text
+);
+ALTER TABLE organization_profile_change_type OWNER TO gforge;
+
+CREATE TABLE organization_profile_change
+(
+	id serial primary key,
+	organization_id integer,
+	user_id integer,
+	change_timestamp timestamp,
+	change_type_id integer,
+	table_or_field text,
+	new_value text,
+	old_value text
+);
+ALTER TABLE organization_profile_change OWNER TO gforge;
+
+--------------------------
+-- Organization review ---
+--------------------------
+
+CREATE TABLE organization_review_new
+(
+	id serial primary key,
+	organization_id integer,
+	user_id integer,
+	review_timestamp timestamp,
+	review text,
+	rating integer
+);
+ALTER TABLE organization_review_new OWNER TO gforge;
+
+CREATE TABLE organization_review_rate
+(
+	id serial primary key,
+	review_id integer,
+	user_id integer,
+	review_rate_timestamp timestamp,
+	helpfulOrNot boolean
+);
+ALTER TABLE organization_review_rate OWNER TO gforge;
+
+CREATE TABLE organization_review_flag
+(
+	id serial primary key,
+	review_id integer,
+	user_id integer,
+	review_flag_timestamp timestamp,
+	reason text,
+	comment text
+);
+ALTER TABLE organization_review_flag OWNER TO gforge;
+
+CREATE TABLE organization_review_reply
+(
+	id serial primary key,
+	user_id integer,
+	review_reply_timestamp timestamp,
+	review_id integer,
+	review_reply text
+);
+ALTER TABLE organization_review_reply OWNER TO gforge;
+
+CREATE TABLE organization_review_reply_rate
+(
+	id serial primary key,
+	review_reply_id integer,
+	user_id integer,
+	review_rate_timestamp timestamp,
+	helpful_or_not boolean
+);
+ALTER TABLE organization_review_reply_rate OWNER TO gforge;
+
+CREATE TABLE organization_review_reply_flag
+(
+	id serial primary key,
+	review_reply_id integer,
+	user_id integer,
+	review_reply_flag_timestamp timestamp,
+	reason text,
+	comment text
+);
+ALTER TABLE organization_review_flag OWNER TO gforge;
+
+CREATE TABLE organization_authorized_identity_provider
+(
+	id serial primary key,
+	organization_id integer,
+	idp_domain text
+);
+ALTER TABLE organization_authorized_identity_provider OWNER TO gforge;
+--
+-- End tables for organization
+--
