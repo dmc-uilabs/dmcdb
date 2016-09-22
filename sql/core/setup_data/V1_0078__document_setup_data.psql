@@ -1,4 +1,8 @@
-insert into doc_class values (1, 'LOGO');
-insert into doc_class values (2, 'IMAGE');
-insert into doc_class values (3, 'VIDEO');
-insert into doc_class values (4, 'PROFILE');
+insert into doc_class values (1, 'OVERVIEW');
+insert into doc_class values (2, 'STATUS');
+insert into doc_class values (3, 'FINANCIAL');
+insert into doc_class values (4, 'SCHEDULE');
+insert into doc_class values (5, 'LOGO');
+insert into doc_class values (6, 'IMAGE');
+insert into doc_class values (7, 'VIDEO');
+insert into doc_class values (8, 'PROFILE');
