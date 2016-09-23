@@ -41,7 +41,7 @@ ALTER TABLE dmdii_user
 
 CREATE TABLE dmdii_project_focus_area
 (
-  id integer NOT NULL,
+  id serial NOT NULL,
   name text
 );
 ALTER TABLE dmdii_project_focus_area
@@ -49,7 +49,7 @@ ALTER TABLE dmdii_project_focus_area
 
 CREATE TABLE dmdii_project_thrust
 (
-  id integer NOT NULL,
+  id serial NOT NULL,
   name text,
 	code text
 );
@@ -58,7 +58,7 @@ ALTER TABLE dmdii_project_thrust
 
 CREATE TABLE dmdii_project_status
 (
-	id integer NOT NULL,
+	id serial NOT NULL,
 	name text
 );
 ALTER TABLE dmdii_project_status
