@@ -103,97 +103,6 @@ ALTER TABLE service_history
 
 
 
-
-
-CREATE SEQUENCE service_document_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    MAXVALUE 2147483647
-    CACHE 1;
-
-
-ALTER TABLE service_document_id_seq OWNER TO gforge;
-
--- Table: service_document
-
--- DROP TABLE service_document;
-
-CREATE TABLE service_document
-(
-  id integer NOT NULL DEFAULT nextval('service_document_id_seq'::regclass),
-  service_id integer,
-  service_document_id text,
-  owner_id integer,
-  title text,
-  modified text,
-  size text,
-  file text,
-  verified boolean DEFAULT false NOT NULL,
-  expiration_date timestamp with time zone DEFAULT (now() at time zone 'utc') NOT NULL,
-  resource_path text,
-  CONSTRAINT service_document_pkey PRIMARY KEY (id)
-)
-WITH (
-  OIDS=FALSE
-);
-ALTER TABLE service_document
-  OWNER TO gforge;
-
-ALTER TABLE service_document
-  ADD CONSTRAINT service_document_owner_id FOREIGN KEY (owner_id)
-      REFERENCES users (user_id) MATCH SIMPLE
-      ON UPDATE CASCADE ON DELETE NO ACTION;
-
-ALTER TABLE service_document
-  ADD CONSTRAINT service_document_service_id FOREIGN KEY (service_id)
-      REFERENCES service (service_id) MATCH SIMPLE
-      ON UPDATE CASCADE ON DELETE CASCADE;
-
-
-
-
-CREATE SEQUENCE	service_images_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    MAXVALUE 2147483647
-    CACHE 1;
-
-
-ALTER TABLE service_images_id_seq OWNER TO gforge;
-
--- Table: service_images
-
--- DROP TABLE service_images;
-
-CREATE TABLE service_images
-(
-  id integer NOT NULL DEFAULT nextval('service_images_id_seq'::regclass),
-  service_id integer,
-  url text,
-  verified boolean DEFAULT false NOT NULL,
-  expiration_date timestamp with time zone DEFAULT (now() at time zone 'utc') NOT NULL,
-  resource_path text,
-  CONSTRAINT service_images_pkey PRIMARY KEY (id)
-
-)
-WITH (
-  OIDS=FALSE
-);
-ALTER TABLE service_images
-  OWNER TO gforge;
-
-ALTER TABLE service_images
-  ADD CONSTRAINT service_image_service_id FOREIGN KEY (service_id)
-      REFERENCES service (service_id) MATCH SIMPLE
-      ON UPDATE CASCADE ON DELETE CASCADE;
-
-
-
-
-
-
 CREATE SEQUENCE	service_tag_id_seq
     START WITH 1
     INCREMENT BY 1
@@ -655,4 +564,4 @@ CREATE TABLE service_review_reply_flag
 	reason text,
 	comment text
 );
-ALTER TABLE service_review_flag OWNER TO gforge;
+ALTER TABLE service_review_reply_flag OWNER TO gforge;
