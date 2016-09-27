@@ -4,10 +4,14 @@ insert into dmdii_project_focus_area(name) values ('Sensors & Metrology');
 insert into dmdii_project_focus_area(name) values ('Supply Chain Management');
 insert into dmdii_project_focus_area(name) values ('Product Lifecycle Management');
 insert into dmdii_project_focus_area(name) values ('Other');
+insert into dmdii_project_focus_area(name) values ('Cyber Security');
 
 insert into dmdii_project_thrust(name, code) values ('Advanced Manufacturing Enterprise', 'AME');
 insert into dmdii_project_thrust(name, code) values ('Intelligent Machining', 'IM');
 insert into dmdii_project_thrust(name, code) values ('Advanced Analysis', 'AA');
+insert into dmdii_project_thrust(name, code) values ('Adaptive Vehicle Make', 'AVM');
+insert into dmdii_project_thrust(name, code) values ('Digital Manufacturing Commons', 'DMC');
+insert into dmdii_project_thrust(name, code) values ('Cost Systems', 'CS');
 
 insert into dmdii_project_status(name) values ('pre-awarded');
 insert into dmdii_project_status(name) values ('awarded');
