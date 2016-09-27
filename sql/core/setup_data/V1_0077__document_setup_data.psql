@@ -1,8 +1,0 @@
-insert into doc_class(name) values ('OVERVIEW');
-insert into doc_class(name) values ('STATUS');
-insert into doc_class(name) values ('FINANCIAL');
-insert into doc_class(name) values ('SCHEDULE');
-insert into doc_class(name) values ('LOGO');
-insert into doc_class(name) values ('IMAGE');
-insert into doc_class(name) values ('VIDEO');
-insert into doc_class(name) values ('PROFILE');
