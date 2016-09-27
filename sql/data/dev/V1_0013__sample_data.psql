@@ -266,7 +266,7 @@ COPY individual_discussions_following (id, individual_discussion_id, account_id)
 
 COPY individual_discussions_comments_flagged (id, account_id, comment_id, reason, comment) FROM stdin;
 1	550	1	Bad	Inappropriate
-2	550	2	Off-Topic	Doesn't make sense
+2	550	2	Off-Topic	Doesn''t make sense
 \.
 
 SELECT pg_catalog.setval('individual_discussions_comments_id_seq', 5);
@@ -2826,7 +2826,7 @@ SELECT pg_catalog.setval('project_assigned_to_pk_seq', 1, false);
 --
 
 COPY project_group_list (group_project_id, group_id, project_name, is_public, description, send_all_posts_to) FROM stdin;
-1	1	Default	0	Default Project - Don't Change	\N
+1	1	Default	0	Default Project - Don''t Change	\N
 \.
 
 
@@ -3833,7 +3833,7 @@ COPY trove_cat (trove_cat_id, version, parent, root_parent, shortname, fullname,
 81	2000031601	80	18	realtimestrategy	Real Time Strategy	Real Time strategy games	0	0	Topic :: Games/Entertainment :: Real Time Strategy	18 :: 80 :: 81
 288	2001032001	80	18	sidescrolling	Side-Scrolling/Arcade Games	Arcade-style side-scrolling games	0	0	Topic :: Games/Entertainment :: Side-Scrolling/Arcade Games	18 :: 80 :: 288
 71	2000031601	18	18	education	Education	Programs and tools for educating yourself or others.	0	0	Topic :: Education	18 :: 71
-73	2000031601	71	18	testing	Testing	Tools for testing someone's knowledge on a subject.	0	0	Topic :: Education :: Testing	18 :: 71 :: 73
+73	2000031601	71	18	testing	Testing	Tools for testing someone''s knowledge on a subject.	0	0	Topic :: Education :: Testing	18 :: 71 :: 73
 72	2000031601	71	18	cai	Computer Aided Instruction (CAI)	Programs for authoring or using Computer Aided Instrution courses.	0	0	Topic :: Education :: Computer Aided Instruction (CAI)	18 :: 71 :: 72
 66	2000031601	18	18	database	Database	Front ends, engines, and tools for database work.	0	0	Topic :: Database	18 :: 66
 68	2000031601	66	18	frontends	Front-Ends	Clients and front-ends for generating queries to database engines.	0	0	Topic :: Database :: Front-Ends	18 :: 66 :: 68
@@ -3936,9 +3936,9 @@ COPY trove_cat (trove_cat_id, version, parent, root_parent, shortname, fullname,
 189	2000032001	14	13	mpl	Mozilla Public License (MPL)	Mozilla Public License (MPL)	0	0	License :: OSI Approved :: Mozilla Public License (MPL)	13 :: 14 :: 189
 305	2001041701	189	13	mpl11	Mozilla Public License 1.1	Mozilla Public License 1.1	0	0	License :: OSI Approved :: Mozilla Public License (MPL) :: Mozilla Public License 1.1	13 :: 14 :: 189 :: 305
 199	2000032101	0	0	os	Operating System	What operating system the program requires to run, if any.	0	0	Operating System	199
-200	2000032101	199	199	posix	POSIX	POSIX plus standard Berkeley socket facilities. Don't list a more specific OS unless your program requires it.	0	0	Operating System :: POSIX	199 :: 200
-201	2000032101	200	199	linux	Linux	Any version of Linux. Don't specify a subcategory unless the program requires a particular distribution.	0	0	Operating System :: POSIX :: Linux	199 :: 200 :: 201
-202	2000032101	200	199	bsd	BSD	Any variant of BSD. Don't specify a subcategory unless the program requires a particular BSD flavor.	0	0	Operating System :: POSIX :: BSD	199 :: 200 :: 202
+200	2000032101	199	199	posix	POSIX	POSIX plus standard Berkeley socket facilities. Don''t list a more specific OS unless your program requires it.	0	0	Operating System :: POSIX	199 :: 200
+201	2000032101	200	199	linux	Linux	Any version of Linux. Don''t specify a subcategory unless the program requires a particular distribution.	0	0	Operating System :: POSIX :: Linux	199 :: 200 :: 201
+202	2000032101	200	199	bsd	BSD	Any variant of BSD. Don''t specify a subcategory unless the program requires a particular BSD flavor.	0	0	Operating System :: POSIX :: BSD	199 :: 200 :: 202
 203	2000041101	202	199	freebsd	FreeBSD	FreeBSD	0	0	Operating System :: POSIX :: BSD :: FreeBSD	199 :: 200 :: 202 :: 203
 204	2000032101	202	199	netbsd	NetBSD	NetBSD	0	0	Operating System :: POSIX :: BSD :: NetBSD	199 :: 200 :: 202 :: 204
 205	2000032101	202	199	openbsd	OpenBSD	OpenBSD	0	0	Operating System :: POSIX :: BSD :: OpenBSD	199 :: 200 :: 202 :: 205
@@ -4015,7 +4015,7 @@ COPY trove_cat (trove_cat_id, version, parent, root_parent, shortname, fullname,
 264	2000080701	160	160	erlang	Erlang	Erlang - developed by Ericsson - http://www.erlang.org/	0	0	Programming Language :: Erlang	160 :: 264
 267	2000082001	160	160	zope	Zope	Zope Object Publishing	0	0	Programming Language :: Zope	160 :: 267
 269	2000082801	160	160	asm	Assembly	ASM programming	0	0	Programming Language :: Assembly	160 :: 269
-271	2000092001	160	160	csharp	C#	Microsoft's C++/Java Language	0	0	Programming Language :: C#	160 :: 271
+271	2000092001	160	160	csharp	C#	Microsoft''s C++/Java Language	0	0	Programming Language :: C#	160 :: 271
 273	2000102001	160	160	Pike	Pike	Pike, see http://pike.roxen.com/.	0	0	Programming Language :: Pike	160 :: 273
 184	2000032001	160	160	asp	ASP	Active Server Pages	0	0	Programming Language :: ASP	160 :: 184
 185	2000032001	160	160	shell	Unix Shell	Unix Shell	0	0	Programming Language :: Unix Shell	160 :: 185
