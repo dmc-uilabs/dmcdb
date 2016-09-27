@@ -1,0 +1,34 @@
+
+--
+-- Name: user_following; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE user_following (
+    follower integer NOT NULL,
+    followed integer NOT NULL
+);
+
+
+ALTER TABLE user_following OWNER TO gforge;
+
+--
+-- Name: user_following_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
+--
+
+ALTER TABLE ONLY user_following
+    ADD CONSTRAINT user_following_pkey PRIMARY KEY (follower, followed);
+
+--
+-- Name: user_following_follower_fkey; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY user_following
+    ADD CONSTRAINT user_following_follower_fkey FOREIGN KEY (follower) REFERENCES users(user_id) ON DELETE SET DEFAULT;
+
+--
+-- Name: user_following_followed_fkey; Type: FK CONSTRAINT; Schema: public; Owner: gforge
+--
+
+ALTER TABLE ONLY user_following
+    ADD CONSTRAINT user_following_followed_fkey FOREIGN KEY (followed) REFERENCES users(user_id) ON DELETE SET DEFAULT;
+
