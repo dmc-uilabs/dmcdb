@@ -3,11 +3,6 @@ ALTER TABLE only document
       REFERENCES users (user_id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE only document
-  ADD CONSTRAINT document_doc_class_id_fkey FOREIGN KEY (doc_class_id)
-      REFERENCES doc_class (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION;
-
 ALTER TABLE only document_tag_join
   ADD CONSTRAINT document_tag_join_document_fkey FOREIGN KEY (document_id)
     REFERENCES document (id) MATCH SIMPLE

@@ -1683,10 +1683,3 @@ ALTER TABLE ONLY document_tag
 
 ALTER TABLE ONLY document_tag_join
     ADD CONSTRAINT document_tag_join_pkey PRIMARY KEY (id);
-
-	--
-	-- Name: file_type_pkey; Type: CONSTRAINT; Schema: public; Owner: gforge; Tablespace:
-	--
-
-	ALTER TABLE ONLY doc_class
-		ADD CONSTRAINT doc_class_pkey PRIMARY KEY (id);

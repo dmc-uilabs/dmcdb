@@ -9,7 +9,7 @@ CREATE TABLE document
 	modified timestamp with time zone,
 	expires timestamp with time zone,
 	is_deleted boolean DEFAULT false NOT NULL,
-	doc_class_id integer,
+	doc_class text,
 	verified boolean DEFAULT false NOT NULL,
 	access_level text
 );
@@ -31,12 +31,4 @@ CREATE TABLE document_tag_join
   document_tag_id integer NOT NULL
 );
 ALTER TABLE document_tag_join
-  OWNER TO gforge;
-
-CREATE TABLE doc_class
-(
-  id serial NOT NULL,
-  name text NOT NULL
-);
-ALTER TABLE doc_class
   OWNER TO gforge;
