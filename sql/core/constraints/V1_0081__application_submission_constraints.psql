@@ -1,0 +1,19 @@
+ALTER TABLE only application_submission
+  ADD CONSTRAINT application_submission_application_document_fk FOREIGN KEY (application_id)
+      REFERENCES document (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only application_submission
+  ADD CONSTRAINT application_submission_application_icon_document_fk FOREIGN KEY (application_icon_id)
+      REFERENCES document (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only application_submission_document
+  ADD CONSTRAINT application_submission_document_application_submission FOREIGN KEY (application_submission_id)
+      REFERENCES application_submission (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only application_submission_document
+  ADD CONSTRAINT application_submission_document_document FOREIGN KEY (document_id)
+      REFERENCES document (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
