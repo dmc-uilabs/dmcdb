@@ -52,3 +52,12 @@ CREATE TABLE application_submission_document
 );
 ALTER TABLE application_submission_document
   OWNER TO gforge;
+
+CREATE TABLE application_submission_application_tag
+(
+  id serial primary key,
+  application_submission_id integer NOT NULL,
+  application_tag_id integer NOT NULL
+);
+ALTER TABLE application_submission_application_tag
+  OWNER TO gforge;
