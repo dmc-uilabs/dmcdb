@@ -219,6 +219,11 @@ COPY individual_discussions (id, title, created_by, created_at, account_id, proj
 4	For Project	Goggles	12345	550	4
 \.
 
+
+INSERT into individual_discussions (id, title, created_by, created_at, account_id, project_id) VALUES (5, 'For Project Test', 'Google2', '12345', 111, 2);
+INSERT into individual_discussions (id, title, created_by, created_at, account_id, project_id) VALUES (6, 'For Project Test', 'Google3', '12345', 111, 2);
+INSERT into individual_discussions (id, title, created_by, created_at, account_id, project_id) VALUES (7, 'For Project Test', 'Google4', '12345', 111, 2);
+
 --
 -- Data for Name: individual_discussions_comments; Type: TABLE DATA; Schema: public; Owner: gforge
 --
@@ -259,6 +264,11 @@ COPY individual_discussions_following (id, individual_discussion_id, account_id)
 2	1	102
 3	2	550
 \.
+
+INSERT into individual_discussions_following (id, individual_discussion_id, account_id) VALUES (4, 5, 111);
+INSERT into individual_discussions_following (id, individual_discussion_id, account_id) VALUES (5, 6, 111);
+INSERT into individual_discussions_following (id, individual_discussion_id, account_id) VALUES (6, 7, 111);
+
 
 --
 -- Data for Name: individual_discussions_comments_flagged; Type: TABLE DATA; Schema: public; Owner: gforge
