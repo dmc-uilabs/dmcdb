@@ -1,16 +1,6 @@
 ALTER TABLE only document
-  ADD CONSTRAINT document_organization_id_fkey FOREIGN KEY (organization_id)
-      REFERENCES organization (organization_id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION;
-
-ALTER TABLE only document
   ADD CONSTRAINT document_owner_id_fkey FOREIGN KEY (owner_id)
       REFERENCES users (user_id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION;
-
-ALTER TABLE only document
-  ADD CONSTRAINT document_file_type_id_fkey FOREIGN KEY (file_type_id)
-      REFERENCES file_type (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 ALTER TABLE only document_tag_join

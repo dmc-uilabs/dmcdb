@@ -1,0 +1,2 @@
+INSERT INTO common_video_image_type(type_desc) VALUES ('organization_video');
+INSERT INTO common_video_image_type(type_desc) VALUES ('organization_image');

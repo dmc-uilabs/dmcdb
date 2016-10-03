@@ -1,0 +1,36 @@
+insert into dmdii_project_focus_area(name) values ( 'Model-Based Design/Enterprise');
+insert into dmdii_project_focus_area(name) values ('Manufacturing Processes');
+insert into dmdii_project_focus_area(name) values ('Sensors & Metrology');
+insert into dmdii_project_focus_area(name) values ('Supply Chain Management');
+insert into dmdii_project_focus_area(name) values ('Product Lifecycle Management');
+insert into dmdii_project_focus_area(name) values ('Other');
+insert into dmdii_project_focus_area(name) values ('Cyber Security');
+
+insert into dmdii_project_thrust(name, code) values ('Advanced Manufacturing Enterprise', 'AME');
+insert into dmdii_project_thrust(name, code) values ('Intelligent Machining', 'IM');
+insert into dmdii_project_thrust(name, code) values ('Advanced Analysis', 'AA');
+insert into dmdii_project_thrust(name, code) values ('Adaptive Vehicle Make', 'AVM');
+insert into dmdii_project_thrust(name, code) values ('Digital Manufacturing Commons', 'DMC');
+insert into dmdii_project_thrust(name, code) values ('Cost Systems', 'CS');
+
+insert into dmdii_project_status(name) values ('pre-awarded');
+insert into dmdii_project_status(name) values ('awarded');
+insert into dmdii_project_status(name) values ('completed');
+
+insert into role(role) values ('SUPERADMIN');
+insert into role(role) values ('ADMIN');
+insert into role(role) values ('VIP');
+insert into role(role) values ('MEMBER');
+
+insert into dmdii_file_type(name) values ('OVERVIEW');
+insert into dmdii_file_type(name) values ('STATUS');
+insert into dmdii_file_type(name) values ('FINANCIAL');
+insert into dmdii_file_type(name) values ('SCHEDULE');
+
+----------- Adding static DMDII member related data ------------------
+insert into dmdii_contact_type (type) values ('primary point of contact');
+insert into dmdii_contact_type (type) values ('secondary point of contact');
+insert into dmdii_contact_type (type) values ('executive lead');
+
+insert into dmdii_skill (tag_name, tag_link) values ('tag1', 'taglink1');
+insert into dmdii_skill (tag_name, tag_link) values ('tag2', 'taglink2');

@@ -2,58 +2,18 @@
 -- Tables for tracking notification
 --
 
-create table notification_action
-(
-   id serial primary key,
-   action text
-);
-ALTER TABLE notification_action OWNER TO gforge;
-
-create table notification_object_type
-(
-	id serial primary key,
-	object_name text
-);
-ALTER TABLE notification_object_type OWNER TO gforge;
-
-create table notification_type
-(
-	id serial primary key,
-	notification_object_type_id integer,
-	action_id integer,
-	notification_type text
-);
-ALTER TABLE notification_type OWNER TO gforge;
-
 create table notification
 (
 	id serial primary key,
-	notification_type_id integer,
-	object_id integer,
-	origination_user_id integer,
-	detail_link text,
-	notification_time timestamp
+	type text NOT NULL,
+    created_by integer NOT NULL,
+    created_for integer NOT NULL,
+    created timestamp with time zone NOT NULL,
+    message text,
+    is_deleted boolean NOT NULL DEFAULT false,
+    unread boolean NOT NULL
 );
 ALTER TABLE notification OWNER TO gforge;
-
-create table notification_consumption
-(
-	id serial primary key,
-	notificaition_id integer,
-	user_id integer,
-	consumption_time timestamp
-);
-ALTER TABLE notification_consumption OWNER TO gforge;
-
-create table notification_additional_info
-(
-	id serial primary key,
-	notificaiton_id integer,
-	addition_info_order integer,
-	information text,
-	note text
-);
-ALTER TABLE notification_additional_info OWNER TO gforge;
 
 
 CREATE TABLE deleted_mailing_lists (
