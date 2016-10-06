@@ -1,0 +1,8 @@
+create table favorite_products(
+id serial primary key,
+account_id integer references users(user_id),
+service_id integer references service(service_id),
+UNIQUE (account_id, service_id)
+);
+
+ALTER TABLE favorite_products OWNER TO gforge;
