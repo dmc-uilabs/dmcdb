@@ -1,0 +1,63 @@
+CREATE TABLE application_submission
+(
+  id serial primary key,
+  application_id integer NOT NULL,
+  developer_id text NOT NULL,
+  contact_name text	NOT NULL,
+  contact_email text NOT NULL,
+  contact_phone text NOT NULL,
+  application_name text NOT NULL UNIQUE,
+  application_version text NOT NULL,
+  application_title text NOT NULL,
+  short_description text NOT NULL,
+  full_description text,
+  release_notes text,
+  application_icon_id integer NOT NULL,
+  application_category text NOT NULL,
+  application_subcategory text NOT NULL,
+  application_pricing_structure text NOT NULL,
+  application_cost text NOT NULL,
+  application_hosting_method text NOT NULL,
+  application_hosting_method_notes text,
+  system_requirements text,
+  application_license text NOT NULL,
+  standard_license_terms boolean NOT NULL,
+  website_url text,
+  support_email text NOT NULL,
+  privacy_policy text NOT NULL,
+  submission_notes text,
+  copyright text NOT NULL,
+  submitted_on timestamp with time zone NOT NULL,
+  assigned_to text NOT NULL,
+  review_status text NOT NULL,
+  reviewer_notes text,
+  status text NOT NULL
+);
+ALTER TABLE application_submission
+  OWNER TO gforge;
+
+CREATE TABLE application_tag
+(
+  id serial primary key,
+  tag_name text NOT NULL
+);
+ALTER TABLE application_tag
+  OWNER TO gforge;
+
+CREATE TABLE application_submission_document
+(
+  id serial primary key,
+  application_submission_id integer NOT NULL,
+  document_id integer NOT NULL
+);
+ALTER TABLE application_submission_document
+  OWNER TO gforge;
+
+CREATE TABLE application_submission_application_tag
+(
+  id serial primary key,
+  application_submission_id integer NOT NULL,
+  application_tag_id integer NOT NULL
+);
+ALTER TABLE application_submission_application_tag
+  OWNER TO gforge;
