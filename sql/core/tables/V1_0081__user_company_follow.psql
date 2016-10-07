@@ -1,0 +1,7 @@
+﻿create table user_company_follow(
+id serial primary key,
+account_id integer references users(user_id),
+company_id integer references organization(organization_id),
+UNIQUE (account_id, company_id)
+);
+ALTER TABLE user_company_follow OWNER TO gforge;
