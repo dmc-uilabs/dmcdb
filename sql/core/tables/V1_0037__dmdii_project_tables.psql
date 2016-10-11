@@ -73,7 +73,7 @@ CREATE TABLE dmdii_project
   project_title character varying(255),
   project_summary text,
   principal_point_of_contact_id integer,
-  organization_dmdii_member_id integer,
+  organization_dmdii_member_id integer NOT NULL,
   principal_investigator_id integer,
 	focus_area_id integer,
 	thrust_id integer,
