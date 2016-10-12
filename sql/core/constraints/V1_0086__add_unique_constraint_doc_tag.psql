@@ -1,0 +1,1 @@
+ALTER TABLE document_tag ADD CONSTRAINT constraint_name UNIQUE (tag_name);
