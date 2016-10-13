@@ -1,4 +1,4 @@
-CREATE FUNCTION test() returns boolean AS
+CREATE FUNCTION migrate_user_contact() returns boolean AS
 $BODY$
 DECLARE
 	temprow users%rowtype;
@@ -13,4 +13,6 @@ END;
 $BODY$
 LANGUAGE plpgsql;
 
-select * from test();
+select * from migrate_user_contact();
+
+DROP FUNCTION IF EXISTS migrate_user_contact();
