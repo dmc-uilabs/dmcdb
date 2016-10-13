@@ -1,0 +1,18 @@
+CREATE FUNCTION migrate_user_contact() returns boolean AS
+$BODY$
+DECLARE
+	temprow users%rowtype;
+BEGIN
+FOR temprow IN SELECT * FROM users WHERE user_contact_info_id is null
+LOOP
+	insert into user_contact_info (user_public_contact_info_id, user_private_contact_info_id, user_member_portal_contact_info_id) values (null, null, null);
+	update users set user_contact_info_id = (select max(id) from user_contact_info) where user_id = temprow.user_id;
+END LOOP;
+RETURN true;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+select * from migrate_user_contact();
+
+DROP FUNCTION IF EXISTS migrate_user_contact();
