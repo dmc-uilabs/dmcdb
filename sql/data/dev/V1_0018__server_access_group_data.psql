@@ -1,0 +1,25 @@
+--set access groups
+insert into server_access_group (name)
+	values ('global');
+insert into server_access_group (name)
+	values ('test1');
+insert into server_access_group (name)
+	values ('test2');
+
+--put each user in an access group
+insert into user_in_server_access_group (server_access_group_id, user_id)
+  values (1,1000);
+insert into user_in_server_access_group (server_access_group_id, user_id)
+  values (2,1000);
+insert into user_in_server_access_group (server_access_group_id, user_id)
+  values (1,1001);
+
+--put each server in an access group
+insert into server_in_server_access_group (server_access_group_id, server_id)
+  values (1,1);
+insert into server_in_server_access_group (server_access_group_id, server_id)
+  values (1,2);
+insert into server_in_server_access_group (server_access_group_id, server_id)
+  values (1,3);
+insert into server_in_server_access_group (server_access_group_id, server_id)
+  values (2,3); 
