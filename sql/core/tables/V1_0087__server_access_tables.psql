@@ -1,0 +1,67 @@
+SET default_with_oids = false;
+
+
+-- groups used to give users access to servers
+
+CREATE TABLE server_access_group
+(
+   id serial,
+   name text NOT NULL
+);
+
+ALTER TABLE ONLY server_access_group
+  OWNER TO gforge;
+
+ALTER TABLE ONLY server_access_group
+	ADD CONSTRAINT server_access_group_pkey PRIMARY KEY (id);
+
+
+-- user join access_group
+-- TODO: need pk and what type of cascade...use serial or int for ids
+
+CREATE TABLE user_in_server_access_group
+(
+   server_access_group_id integer,
+   user_id integer
+);
+
+ALTER TABLE only user_in_server_access_group
+  OWNER TO gforge;
+
+ALTER TABLE ONLY user_in_server_access_group
+	ADD CONSTRAINT user_in_server_access_group_pkey PRIMARY KEY (server_access_group_id, user_id);
+
+ALTER TABLE only user_in_server_access_group
+  ADD CONSTRAINT server_access_group_fkey FOREIGN KEY (server_access_group_id)
+      REFERENCES server_access_group (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE;
+
+ALTER TABLE only user_in_server_access_group
+  ADD CONSTRAINT user_fkey FOREIGN KEY (user_id)
+      REFERENCES users (user_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE;
+
+
+-- server join access_group
+
+CREATE TABLE server_in_server_access_group
+(
+   server_access_group_id integer,
+   server_id integer
+);
+
+ALTER TABLE server_in_server_access_group
+  OWNER TO gforge;
+
+ALTER TABLE ONLY server_in_server_access_group
+	ADD CONSTRAINT server_in_server_access_group_pkey PRIMARY KEY (server_access_group_id, server_id);
+
+ALTER TABLE server_in_server_access_group
+  ADD CONSTRAINT server_access_group_fkey FOREIGN KEY (server_access_group_id)
+      REFERENCES server_access_group (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE;
+
+ALTER TABLE server_in_server_access_group
+  ADD CONSTRAINT server_fkey FOREIGN KEY (server_id)
+      REFERENCES servers (server_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE;
