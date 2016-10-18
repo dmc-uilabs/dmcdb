@@ -40,3 +40,6 @@ ALTER TABLE document
 
 ALTER TABLE document
     ADD resource_type_id integer;
+
+ALTER TABLE document
+	ADD version text;
