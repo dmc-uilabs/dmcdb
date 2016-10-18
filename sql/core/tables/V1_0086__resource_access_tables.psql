@@ -1,0 +1,42 @@
+CREATE TABLE resource_group
+(
+    id serial NOT NULL PRIMARY KEY,
+    parent_type text NOT NULL,
+    parent_id integer,
+    role_id integer
+);
+ALTER TABLE resource_group
+    OWNER TO gforge;
+
+CREATE TABLE user_in_resource_group
+(
+    user_id integer NOT NULL,
+    resource_group_id integer NOT NULL,
+    PRIMARY KEY (user_id, resource_group_id)
+);
+ALTER TABLE user_in_resource_group
+    OWNER TO gforge;
+
+CREATE TABLE resource_in_resource_group
+(
+    resource_type_id integer NOT NULL,
+    resource_id integer NOT NULL,
+    resource_group_id integer NOT NULL,
+    PRIMARY KEY (resource_type_id, resource_id, resource_group_id)
+);
+ALTER TABLE resource_in_resource_group
+    OWNER TO gforge;
+
+CREATE TABLE resource_type
+(
+    id serial NOT NULL PRIMARY KEY,
+    name text NOT NULL
+);
+ALTER TABLE resource_type
+    OWNER TO gforge;
+
+ALTER TABLE document
+    DROP access_level;
+
+ALTER TABLE document
+    ADD resource_type_id integer;
