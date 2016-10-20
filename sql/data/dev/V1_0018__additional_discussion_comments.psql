@@ -1,0 +1,6 @@
+insert into individual_discussions_comments (individual_discussion_id, full_name, account_id, comment_id, avatar, reply, text, created_at, likes, dislikes) values
+(3, 'Joe', 550, 0, 'avatar', false, 'comment on discussion project 2', '12301310', 4, 2);
+insert into individual_discussions_comments (individual_discussion_id, full_name, account_id, comment_id, avatar, reply, text, created_at, likes, dislikes) values
+(3, 'fforgeadmin', 102, 1, 'avatar', false, 'another comment on discussion project 2', '123013893', 1, 0);
+insert into individual_discussions_comments (individual_discussion_id, full_name, account_id, comment_id, avatar, reply, text, created_at, likes, dislikes) values
+(3, 'Joe', 550, 3, 'avatar', true, 'reply to discussion project 2', '12307310', 134, 22);
