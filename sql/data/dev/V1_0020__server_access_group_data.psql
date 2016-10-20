@@ -11,8 +11,7 @@ insert into user_in_server_access_group (server_access_group_id, user_id)
   values (1,1000);
 insert into user_in_server_access_group (server_access_group_id, user_id)
   values (2,1000);
-insert into user_in_server_access_group (server_access_group_id, user_id)
-  values (1,1001);
+
 
 --put each server in an access group
 insert into server_in_server_access_group (server_access_group_id, server_id)
