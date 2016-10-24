@@ -1,0 +1,11 @@
+ALTER TABLE dmdii_member_news
+	ADD is_deleted boolean;
+
+ALTER TABLE dmdii_member_events
+	ADD is_deleted boolean;
+
+ALTER TABLE dmdii_project_news
+	ADD is_deleted boolean;
+
+ALTER TABLE dmdii_project_events
+	ADD is_deleted boolean;
