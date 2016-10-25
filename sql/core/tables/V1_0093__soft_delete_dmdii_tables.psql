@@ -9,3 +9,6 @@ ALTER TABLE dmdii_project_news
 
 ALTER TABLE dmdii_project_events
 	ADD is_deleted boolean;
+
+ALTER TABLE dmdii_project_update
+	ADD is_deleted boolean;
