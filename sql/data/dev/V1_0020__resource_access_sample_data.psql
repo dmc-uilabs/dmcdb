@@ -3,18 +3,18 @@
 --
 
 COPY resource_group (parent_type, parent_id, role_id) FROM stdin;
-PROJECT	1	2
-PROJECT	1	4
-PROJECT	2	2
-PROJECT	2	4
-PROJECT	3	2
-PROJECT	3	4
-PROJECT	4	2
-PROJECT	4	4
-PROJECT	5	2
-PROJECT	5	4
-PROJECT	6	2
-PROJECT	6	4
+2	1	2
+2	1	4
+2	2	2
+2	2	4
+2	3	2
+2	3	4
+2	4	2
+2	4	4
+2	5	2
+2	5	4
+2	6	2
+2	6	4
 \.
 
 COPY document (name, url, parent_type, parent_id, owner_id, modified, expires, is_deleted, doc_class, verified, resource_type, version, is_public) FROM stdin;
