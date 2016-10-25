@@ -1,7 +1,7 @@
 CREATE TABLE resource_group
 (
     id serial NOT NULL PRIMARY KEY,
-    parent_type text NOT NULL,
+    parent_type integer NOT NULL,
     parent_id integer,
     role_id integer
 );
