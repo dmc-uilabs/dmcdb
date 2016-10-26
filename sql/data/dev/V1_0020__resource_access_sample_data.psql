@@ -1,0 +1,61 @@
+--
+-- Data for Name: resource_group; Type: TABLE DATA; Schema: public; Owner: gforge
+--
+
+COPY resource_group (parent_type, parent_id, role_id) FROM stdin;
+2	1	2
+2	1	4
+2	2	2
+2	2	4
+2	3	2
+2	3	4
+2	4	2
+2	4	4
+2	5	2
+2	5	4
+2	6	2
+2	6	4
+\.
+
+COPY document (name, url, parent_type, parent_id, owner_id, modified, expires, is_deleted, doc_class, verified, resource_type, version, is_public) FROM stdin;
+proj-doc name	https://test-final-verify.s3.amazonaws.com/APPLICATION/test2/Documents/1476811620--662396-sanitized-test.jpeg?AWSAccessKeyId=AKIAJDE3BJULBHCYEX4Q&Expires=1479403621&Signature=oPMXayaL5egZ%2BR0hmI%2Fd0GfBUKM%3D	PROJECT	1	1001	2016-10-18 13:26:56.507-04	2016-11-17 12:26:56.507-05	f	\N	t	DOCUMENT	1	f
+doc name	https://test-final-verify.s3.amazonaws.com/APPLICATION/test2/Documents/1476811700--662396-sanitized-test.jpeg?AWSAccessKeyId=AKIAJDE3BJULBHCYEX4Q&Expires=1479403700&Signature=RfiA7qZdegqx10M3%2B3h7n2DlCJw%3D	PROJECT	2	1001	2016-10-18 13:28:19.671-04	2016-11-17 12:28:19.671-05	f	\N	t	DOCUMENT	1	f
+another doc name	https://test-final-verify.s3.amazonaws.com/APPLICATION/test2/Documents/1476811705--662396-sanitized-test.jpeg?AWSAccessKeyId=AKIAJDE3BJULBHCYEX4Q&Expires=1479403705&Signature=kLSlfSr3RxXGd8kANwDl1BvG15I%3D	PROJECT	3	1001	2016-10-18 13:28:24.823-04	2016-11-17 12:28:24.823-05	f	\N	t	DOCUMENT	2	f
+yet another doc name	https://test-final-verify.s3.amazonaws.com/APPLICATION/test2/Documents/1476811711--662396-sanitized-test.jpeg?AWSAccessKeyId=AKIAJDE3BJULBHCYEX4Q&Expires=1479403711&Signature=v2kLHd%2BVAtGypCcrPqKcn%2BnMMng%3D	PROJECT	4	1001	2016-10-18 13:28:30.85-04	2016-11-17 12:28:30.85-05	f	\N	t	DOCUMENT	1	f
+jmekler doc1	https://test-final-verify.s3.amazonaws.com/APPLICATION/berlier/Documents/1476983792--662396-sanitized-test.jpeg?AWSAccessKeyId=AKIAJDE3BJULBHCYEX4Q&Expires=1479575793&Signature=UbQn4azZLIljJ6Kxy8Jc1YcJFQg%3D	PROJECT	1	104	2016-10-20 13:16:31.401-04	2016-11-19 12:16:31.401-05	f	\N	t	DOCUMENT	1	f
+jmekler doc2	https://test-final-verify.s3.amazonaws.com/APPLICATION/berlier/Documents/1476983809--662396-sanitized-test.jpeg?AWSAccessKeyId=AKIAJDE3BJULBHCYEX4Q&Expires=1479575810&Signature=7Epnwzk2d3ef%2FWfIJ61dOUDP0fE%3D	PROJECT	2	104	2016-10-20 13:16:48.84-04	2016-11-19 12:16:48.84-05	f	\N	t	DOCUMENT	1	f
+jmekler doc3	https://test-final-verify.s3.amazonaws.com/APPLICATION/berlier/Documents/1476983815--662396-sanitized-test.jpeg?AWSAccessKeyId=AKIAJDE3BJULBHCYEX4Q&Expires=1479575815&Signature=apPC18mfYP7cmvYf4%2BCaFizmfrs%3D	PROJECT	3	104	2016-10-20 13:16:54.737-04	2016-11-19 12:16:54.737-05	f	\N	t	DOCUMENT	1	f
+berlier doc1	https://test-final-verify.s3.amazonaws.com/APPLICATION/berlier/Documents/1476983878--662396-sanitized-test.jpeg?AWSAccessKeyId=AKIAJDE3BJULBHCYEX4Q&Expires=1479575879&Signature=VqMap98xNXXk%2F1brSUnG8praU1o%3D	PROJECT	4	103	2016-10-20 13:17:57.817-04	2016-11-19 12:17:57.817-05	f	\N	t	DOCUMENT	1	f
+berlier doc2	https://test-final-verify.s3.amazonaws.com/APPLICATION/berlier/Documents/1476983883--662396-sanitized-test.jpeg?AWSAccessKeyId=AKIAJDE3BJULBHCYEX4Q&Expires=1479575884&Signature=Hz0pHr2vt%2BjeVC1QXab%2FAgxmhks%3D	PROJECT	5	103	2016-10-20 13:18:03.197-04	2016-11-19 12:18:03.197-05	f	\N	t	DOCUMENT	1	f
+berlier doc3	https://test-final-verify.s3.amazonaws.com/APPLICATION/berlier/Documents/1476983890--662396-sanitized-test.jpeg?AWSAccessKeyId=AKIAJDE3BJULBHCYEX4Q&Expires=1479575890&Signature=P2CaAWQ4tvPwVrXBwTHXh86d73M%3D	PROJECT	6	103	2016-10-20 13:18:08.591-04	2016-11-19 12:18:08.591-05	f	\N	t	DOCUMENT	1	t
+\.
+
+COPY resource_in_resource_group (resource_type, resource_id, resource_group_id) FROM stdin;
+DOCUMENT	1	1
+DOCUMENT	2	3
+DOCUMENT	3	5
+DOCUMENT	4	7
+DOCUMENT	5	2
+DOCUMENT	6	4
+DOCUMENT	7	6
+DOCUMENT	8	8
+DOCUMENT	9	10
+DOCUMENT	10	12
+\.
+
+COPY user_role_assignment (user_id, role_id) FROM stdin;
+111	1
+\.
+
+COPY user_in_resource_group (user_id, resource_group_id) FROM stdin;
+105	1
+105	4
+105	6
+106	2
+106	3
+103	2
+\.
+
+COPY document_user (user_id, document_id) FROM stdin;
+108	4
+\.
