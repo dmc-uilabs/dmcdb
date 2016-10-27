@@ -1,0 +1,8 @@
+CREATE TABLE directory
+(
+    id serial NOT NULL PRIMARY KEY,
+    name text NOT NULL,
+    parent_id integer
+);
+ALTER TABLE directory
+    OWNER TO gforge;
