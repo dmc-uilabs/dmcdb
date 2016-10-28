@@ -760,6 +760,14 @@ CREATE TABLE project_weekly_metric (
 
 ALTER TABLE project_weekly_metric OWNER TO gforge;
 
+CREATE TABLE group_join_approval_request (
+    id serial primary key,
+    project_id integer NOT NULL,
+    user_id integer NOT NULL,
+    status text NOT NULL
+);
+ALTER TABLE group_join_approval_request OWNER TO gforge;
+
 --
 -- Name: project_weekly_metric_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
 --
