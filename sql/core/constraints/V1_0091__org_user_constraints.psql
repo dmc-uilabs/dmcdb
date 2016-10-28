@@ -1,0 +1,18 @@
+-- Remove bad data
+DELETE FROM organization_user
+WHERE organization_id IS NUll;
+
+-- Remove duplicate data
+DELETE FROM organization_user
+WHERE id NOT in (
+SELECT MIN(id)
+FROM organization_user
+GROUP BY user_id
+);
+
+ALTER TABLE organization_user
+	ADD CONSTRAINT organization_user_user_id_org_id_key UNIQUE (user_id, organization_id);
+
+ALTER TABLE organization_user
+	ALTER COLUMN user_id SET NOT NULL,
+	ALTER COLUMN organization_id SET NOT NULL;
