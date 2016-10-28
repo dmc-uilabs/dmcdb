@@ -759,7 +759,6 @@ CREATE TABLE project_weekly_metric (
 
 ALTER TABLE project_weekly_metric OWNER TO gforge;
 
-
 --
 -- Name: project_weekly_metric_pk_seq; Type: SEQUENCE; Schema: public; Owner: gforge
 --
