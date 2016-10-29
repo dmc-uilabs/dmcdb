@@ -2,19 +2,19 @@
 -- Data for Name: resource_group; Type: TABLE DATA; Schema: public; Owner: gforge
 --
 
-COPY resource_group (parent_type, parent_id, role_id) FROM stdin;
-2	1	2
-2	1	4
-2	2	2
-2	2	4
-2	3	2
-2	3	4
-2	4	2
-2	4	4
-2	5	2
-2	5	4
-2	6	2
-2	6	4
+COPY resource_group (parent_type, parent_id, role) FROM stdin;
+PROJECT	1	ADMIN
+PROJECT	1	MEMBER
+PROJECT	2	ADMIN
+PROJECT	2	MEMBER
+PROJECT	3	ADMIN
+PROJECT	3	MEMBER
+PROJECT	4	ADMIN
+PROJECT	4	MEMBER
+PROJECT	5	ADMIN
+PROJECT	5	MEMBER
+PROJECT	6	ADMIN
+PROJECT	6	MEMBER
 \.
 
 COPY document (name, url, parent_type, parent_id, owner_id, modified, expires, is_deleted, doc_class, verified, resource_type, version, is_public) FROM stdin;
