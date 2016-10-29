@@ -1,0 +1,45 @@
+COPY resource_group (parent_type, parent_id, role) FROM stdin;
+ORGANIZATION	1	ADMIN
+ORGANIZATION	1	MEMBER
+ORGANIZATION	2	ADMIN
+ORGANIZATION	2	MEMBER
+ORGANIZATION	3	ADMIN
+ORGANIZATION	3	MEMBER
+\.
+
+COPY user_in_resource_group (user_id, resource_group_id) FROM stdin;
+105	2
+105	14
+106	4
+109	13
+109	14
+110	15
+110	16
+300	16
+1001	17
+1001	18
+1002	18
+\.
+
+COPY service (organization_id, title, description, owner_id, release_date, service_type, tags, specifications, feature_image, project_id, from_location, type, parent, published) FROM stdin;
+2	service4	this is a demo service	1000	2013-03-21 09:12:59.897666	type1	tag1	specification1	feature_image	2	marketplace	type 1	parent 1	t
+2	service5	this is a demo service	1000	2013-03-21 09:12:59.897666	type1	tag1	specification1	feature_image	2	marketplace	type 1	parent 1	t
+2	service6	this is a demo service	1000	2013-03-21 09:12:59.897666	type1	tag1	specification1	feature_image	3	marketplace	type 1	parent 1	t
+\.
+
+COPY document (name, url, parent_type, parent_id, owner_id, modified, expires, is_deleted, doc_class, verified, resource_type, version, is_public) FROM stdin;
+berlier doc4	https://test-final-verify.s3.amazonaws.com/APPLICATION/berlier/Documents/1476983890--662396-sanitized-test.jpeg?AWSAccessKeyId=AKIAJDE3BJULBHCYEX4Q&Expires=1479575890&Signature=P2CaAWQ4tvPwVrXBwTHXh86d73M%3D	ORGANIZATION	1	103	2016-10-20 13:18:08.591-04	2016-11-19 12:18:08.591-05	f	\N	t	DOCUMENT	1	f
+berlier doc5	https://test-final-verify.s3.amazonaws.com/APPLICATION/berlier/Documents/1476983890--662396-sanitized-test.jpeg?AWSAccessKeyId=AKIAJDE3BJULBHCYEX4Q&Expires=1479575890&Signature=P2CaAWQ4tvPwVrXBwTHXh86d73M%3D	ORGANIZATION	1	103	2016-10-20 13:18:08.591-04	2016-11-19 12:18:08.591-05	f	\N	t	DOCUMENT	1	f
+berlier doc6	https://test-final-verify.s3.amazonaws.com/APPLICATION/berlier/Documents/1476983890--662396-sanitized-test.jpeg?AWSAccessKeyId=AKIAJDE3BJULBHCYEX4Q&Expires=1479575890&Signature=P2CaAWQ4tvPwVrXBwTHXh86d73M%3D	ORGANIZATION	2	103	2016-10-20 13:18:08.591-04	2016-11-19 12:18:08.591-05	f	\N	t	DOCUMENT	1	f
+jmekler doc4	https://test-final-verify.s3.amazonaws.com/APPLICATION/berlier/Documents/1476983815--662396-sanitized-test.jpeg?AWSAccessKeyId=AKIAJDE3BJULBHCYEX4Q&Expires=1479575815&Signature=apPC18mfYP7cmvYf4%2BCaFizmfrs%3D	ORGANIZATION	2	104	2016-10-20 13:16:54.737-04	2016-11-19 12:16:54.737-05	f	\N	t	DOCUMENT	1	f
+jmekler doc5	https://test-final-verify.s3.amazonaws.com/APPLICATION/berlier/Documents/1476983815--662396-sanitized-test.jpeg?AWSAccessKeyId=AKIAJDE3BJULBHCYEX4Q&Expires=1479575815&Signature=apPC18mfYP7cmvYf4%2BCaFizmfrs%3D	SERVICE	1	104	2016-10-20 13:16:54.737-04	2016-11-19 12:16:54.737-05	f	\N	t	DOCUMENT	1	f
+berlier doc7	https://test-final-verify.s3.amazonaws.com/APPLICATION/berlier/Documents/1476983890--662396-sanitized-test.jpeg?AWSAccessKeyId=AKIAJDE3BJULBHCYEX4Q&Expires=1479575890&Signature=P2CaAWQ4tvPwVrXBwTHXh86d73M%3D	SERVICE	2	103	2016-10-20 13:18:08.591-04	2016-11-19 12:18:08.591-05	f	\N	t	DOCUMENT	1	f
+berlier doc8	https://test-final-verify.s3.amazonaws.com/APPLICATION/berlier/Documents/1476983890--662396-sanitized-test.jpeg?AWSAccessKeyId=AKIAJDE3BJULBHCYEX4Q&Expires=1479575890&Signature=P2CaAWQ4tvPwVrXBwTHXh86d73M%3D	SERVICE	4	103	2016-10-20 13:18:08.591-04	2016-11-19 12:18:08.591-05	f	\N	t	DOCUMENT	1	f
+\.
+
+COPY resource_in_resource_group (resource_type, resource_id, resource_group_id) FROM stdin;
+DOCUMENT	11	13
+DOCUMENT	12	14
+DOCUMENT	13	15
+DOCUMENT	14	16
+\.
