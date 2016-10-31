@@ -1,0 +1,2 @@
+ALTER TABLE only resource_group
+	DROP CONSTRAINT resource_group_role_id_fkey;
