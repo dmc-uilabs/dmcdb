@@ -1,0 +1,4 @@
+ALTER TABLE resource_group
+	DROP role_id;
+ALTER TABLE resource_group
+	ADD role text;
