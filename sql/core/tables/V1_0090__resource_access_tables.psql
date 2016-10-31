@@ -3,7 +3,7 @@ CREATE TABLE resource_group
     id serial NOT NULL PRIMARY KEY,
     parent_type integer NOT NULL,
     parent_id integer,
-    role text
+    role_id integer
 );
 ALTER TABLE resource_group
     OWNER TO gforge;
