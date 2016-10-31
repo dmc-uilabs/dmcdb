@@ -1,3 +1,0 @@
-ALTER TABLE resource_group
-	DROP role_id,
-	ADD role, text;
