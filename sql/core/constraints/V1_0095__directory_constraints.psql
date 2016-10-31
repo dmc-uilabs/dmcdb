@@ -2,3 +2,8 @@ ALTER TABLE only directory
   ADD CONSTRAINT directory_directory_parent_id_fkey FOREIGN KEY (parent_id)
       REFERENCES directory (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+ALTER TABLE only document
+  ADD CONSTRAINT document_directory_id_fkey FOREIGN KEY (directory_id)
+      REFERENCES directory (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION;
