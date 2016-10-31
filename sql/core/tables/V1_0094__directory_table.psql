@@ -2,7 +2,11 @@ CREATE TABLE directory
 (
     id serial NOT NULL PRIMARY KEY,
     name text NOT NULL,
-    parent_id integer
+    parent_id integer,
+    is_deleted boolean
 );
 ALTER TABLE directory
     OWNER TO gforge;
+
+ALTER TABLE document
+	ADD COLUMN directory_id INTEGER;
