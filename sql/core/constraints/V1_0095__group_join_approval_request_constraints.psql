@@ -1,0 +1,4 @@
+ALTER TABLE ONLY group_join_approval_request
+	ADD CONSTRAINT group_join_approval_request_users_fkey FOREIGN KEY (user_id)
+	REFERENCES users (user_id) MATCH SIMPLE
+	ON UPDATE NO ACTION ON DELETE NO ACTION;
