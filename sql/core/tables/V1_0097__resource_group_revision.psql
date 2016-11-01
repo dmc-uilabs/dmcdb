@@ -1,0 +1,8 @@
+ALTER TABLE resource_group
+	DROP role_id;
+ALTER TABLE resource_group
+	ADD role text;
+ALTER TABLE resource_group
+	DROP parent_type;
+ALTER TABLE resource_group
+	ADD parent_type text;
