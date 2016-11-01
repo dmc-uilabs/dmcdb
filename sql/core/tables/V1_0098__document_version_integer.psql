@@ -1,0 +1,4 @@
+ALTER TABLE document
+	DROP version;
+ALTER TABLE document
+	ADD version integer;
