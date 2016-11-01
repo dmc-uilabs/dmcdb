@@ -3,7 +3,7 @@ CREATE TABLE directory
     id serial NOT NULL PRIMARY KEY,
     name text NOT NULL,
     parent_id integer,
-    is_deleted boolean
+    is_deleted boolean NOT NULL DEFAULT false
 );
 ALTER TABLE directory
     OWNER TO gforge;
