@@ -2,3 +2,5 @@ ALTER TABLE document
 	DROP version;
 ALTER TABLE document
 	ADD version integer;
+ALTER TABLE dmdii-document
+	ADD version integer;
