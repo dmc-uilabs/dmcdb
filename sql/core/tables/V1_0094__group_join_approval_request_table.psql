@@ -1,0 +1,10 @@
+CREATE TABLE group_join_approval_request (
+    id serial primary key,
+    project_id integer NOT NULL,
+    user_id integer NOT NULL,
+    status text NOT NULL
+);
+ALTER TABLE group_join_approval_request OWNER TO gforge;
+
+ALTER TABLE groups
+	ADD requires_approval boolean;
