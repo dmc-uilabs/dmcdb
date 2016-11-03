@@ -1,0 +1,26 @@
+-- Adding default values
+ALTER TABLE dmdii_member_news
+  ALTER COLUMN is_deleted SET DEFAULT false;
+
+ALTER TABLE dmdii_member_events
+  ALTER COLUMN is_deleted SET DEFAULT false;
+
+ALTER TABLE dmdii_project_news
+  ALTER COLUMN is_deleted SET DEFAULT false;
+
+ALTER TABLE dmdii_project_events
+  ALTER COLUMN is_deleted SET DEFAULT false;
+
+ALTER TABLE dmdii_project_update
+  ALTER COLUMN is_deleted SET DEFAULT false;
+
+-- Updating existing data
+UPDATE dmdii_member_news SET is_deleted = false WHERE is_deleted IS NULL;
+
+UPDATE dmdii_member_events SET is_deleted = false WHERE is_deleted IS NULL;
+
+UPDATE dmdii_project_news SET is_deleted = false WHERE is_deleted IS NULL;
+
+UPDATE dmdii_project_events SET is_deleted = false WHERE is_deleted IS NULL;
+
+UPDATE dmdii_project_update SET is_deleted = false WHERE is_deleted IS NULL;
