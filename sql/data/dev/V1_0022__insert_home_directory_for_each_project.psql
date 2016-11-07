@@ -1,0 +1,22 @@
+CREATE FUNCTION migrate_existing_groups()
+	RETURNS BOOLEAN AS
+$BODY$
+DECLARE
+	temprow groups%ROWTYPE;
+BEGIN
+	FOR temprow IN SELECT * FROM groups WHERE directory_id IS NULL
+	LOOP
+		INSERT INTO directory (name) VALUES ('home');
+		UPDATE groups
+		SET directory_id = (SELECT max(id) FROM directory)
+		WHERE group_id = temprow.group_id;
+	END LOOP;
+	RETURN TRUE;
+END;
+$BODY$
+LANGUAGE plpgsql;
+
+SELECT *
+FROM migrate_existing_groups();
+
+DROP FUNCTION IF EXISTS migrate_existing_groups();
