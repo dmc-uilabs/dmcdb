@@ -1,0 +1,10 @@
+COPY pfo_role_class (class_id, class_name) FROM stdin;
+1	PFO_RoleExplicit
+2	PFO_RoleAnonymous
+3	PFO_RoleLoggedIn
+\.
+
+--
+-- Name: pfo_role_class_seq; Type: SEQUENCE SET; Schema: public; Owner: gforge
+--
+SELECT pg_catalog.setval('pfo_role_class_seq', 3, true);
