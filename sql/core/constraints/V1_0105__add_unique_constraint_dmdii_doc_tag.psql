@@ -1,0 +1,5 @@
+ALTER TABLE dmdii_document_tag ADD CONSTRAINT dmdii_doc_tag_name_ak UNIQUE (tag_name);
+
+ALTER TABLE document_tag DROP CONSTRAINT constraint_name;
+
+ALTER TABLE document_tag ADD CONSTRAINT doc_tag_name_ak UNIQUE (tag_name);

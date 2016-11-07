@@ -209,12 +209,77 @@ COPY service_categories (cat_id, parent_id, name) FROM stdin;
 -- Data for Name: individual_discussions; Type: TABLE DATA; Schema: public; Owner: gforge
 --
 
-=
+COPY individual_discussions (id, title, created_by, created_at, account_id) FROM stdin;
+1	For Community	John	12345	550
+2	For Community	Wayne	12345	550
+\.
+
+COPY individual_discussions (id, title, created_by, created_at, account_id, project_id) FROM stdin;
+3	For Project	Google	12345	550	2
+4	For Project	Goggles	12345	550	4
+\.
+
 
 --
 -- Data for Name: individual_discussions_comments; Type: TABLE DATA; Schema: public; Owner: gforge
 --
 
+COPY individual_discussions_comments (id, individual_discussion_id, full_name, account_id, comment_id, avatar, reply, text, created_at, likes, dislikes) FROM stdin;
+1	1	Joe	550	0	avatar	false	text	123	30	5
+2	1	Joe	550	0	avatar	false	text2	123	56	2
+3	1	Joe	550	1	avatar	false	text3	123	1	8
+4	1	Joe	550	1	avatar	false	text4	123	36	57
+5	2	Joe	550	0	avatar	false	hi	123	567	0
+\.
+
+--
+-- Data for Name: individual_discussions_comments_helpful; Type: TABLE DATA; Schema: public; Owner: gforge
+--
+
+COPY individual_discussions_comments_helpful (id, account_id, comment_id, helpful) FROM stdin;
+1	550	2	TRUE
+2	550	1	FALSE
+\.
+
+--
+-- Data for Name: individual_discussions_tags; Type: TABLE DATA; Schema: public; Owner: gforge
+--
+
+COPY individual_discussions_tags (id, individual_discussion_id, name) FROM stdin;
+1	1	tag
+2	1	tag1
+3	2	tag
+\.
+
+--
+-- Data for Name: individual_discussions_following; Type: TABLE DATA; Schema: public; Owner: gforge
+--
+
+COPY individual_discussions_following (id, individual_discussion_id, account_id) FROM stdin;
+1	1	550
+2	1	102
+3	2	550
+\.
+
+--
+-- Data for Name: individual_discussions_comments_flagged; Type: TABLE DATA; Schema: public; Owner: gforge
+--
+
+COPY individual_discussions_comments_flagged (id, account_id, comment_id, reason, comment) FROM stdin;
+1	550	1	Bad	Inappropriate
+2	550	2	Off-Topic	Doesn''t make sense
+\.
+
+SELECT pg_catalog.setval('individual_discussions_comments_id_seq', 5);
+SELECT pg_catalog.setval('individual_discussions_id_seq', 4);
+SELECT pg_catalog.setval('individual_discussions_comments_helpful_id_seq', 2);
+SELECT pg_catalog.setval('individual_discussions_tags_id_seq', 3);
+SELECT pg_catalog.setval('individual_discussions_following_id_seq', 3);
+SELECT pg_catalog.setval('individual_discussions_comments_flagged_id_seq', 2);
+
+--
+-- Name: service_categories_cat_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
 
 SELECT pg_catalog.setval('service_categories_cat_id_seq', 1, false);
 
@@ -346,577 +411,577 @@ SELECT pg_catalog.setval('community_forum_sections_section_id_seq', 1, false);
 --
 
 COPY cron_history (rundate, job, output) FROM stdin;
-1331316361	18
+1331316361	18	
 1331316482	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331319961	18
+1331319961	18	
 1331320081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331323561	18
+1331323561	18	
 1331323681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331327161	18
+1331327161	18	
 1331327281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331330761	18
+1331330761	18	
 1331330881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331334361	18
+1331334361	18	
 1331334481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331337961	18
+1331337961	18	
 1331338081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331341562	18
+1331341562	18	
 1331341681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
 1331344803	23	Unable to find CVSROOT dir. Configured value is:Unable to find SVNROOT dir. Configured value is:/svnroot
-1331345161	18
+1331345161	18	
 1331345282	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331348762	18
+1331348762	18	
 1331348881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331352361	18
+1331352361	18	
 1331352481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331355961	18
+1331355961	18	
 1331356082	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331359562	18
+1331359562	18	
 1331359681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331363162	18
+1331363162	18	
 1331363281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331366762	18
+1331366762	18	
 1331366881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331370361	18
+1331370361	18	
 1331370481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331373962	18
+1331373962	18	
 1331374081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331377562	18
+1331377562	18	
 1331377681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331381162	18
+1331381162	18	
 1331381281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331384762	18
+1331384762	18	
 1331384881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331388362	18
+1331388362	18	
 1331388481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331391961	18
+1331391961	18	
 1331392083	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331395561	18
+1331395561	18	
 1331395682	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331399161	18
+1331399161	18	
 1331399281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331402761	18
+1331402761	18	
 1331402881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331406361	18
+1331406361	18	
 1331406481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331409961	18
+1331409961	18	
 1331410081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331413561	18
+1331413561	18	
 1331413681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331417161	18
+1331417161	18	
 1331417281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331420761	18
+1331420761	18	
 1331420881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331424361	18
+1331424361	18	
 1331424481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331427964	18
+1331427964	18	
 1331428081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
 1331431203	23	Unable to find CVSROOT dir. Configured value is:Unable to find SVNROOT dir. Configured value is:/svnroot
-1331431561	18
+1331431561	18	
 1331431681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331435163	18
+1331435163	18	
 1331435281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331438762	18
+1331438762	18	
 1331438881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331442362	18
+1331442362	18	
 1331442481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331445961	18
+1331445961	18	
 1331446082	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331449561	18
+1331449561	18	
 1331449682	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331453161	18
+1331453161	18	
 1331453281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331456761	18
+1331456761	18	
 1331456882	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331460361	18
+1331460361	18	
 1331460481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331463961	18
+1331463961	18	
 1331464081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331467561	18
+1331467561	18	
 1331467681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331471162	18
+1331471162	18	
 1331471281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331474762	18
+1331474762	18	
 1331474881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331478362	18
+1331478362	18	
 1331478481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331481961	18
+1331481961	18	
 1331482082	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331485561	18
+1331485561	18	
 1331485682	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331489161	18
+1331489161	18	
 1331489282	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331492761	18
+1331492761	18	
 1331492881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331496363	18
+1331496363	18	
 1331496482	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331499961	18
+1331499961	18	
 1331500082	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331503561	18
+1331503561	18	
 1331503681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331507161	18
+1331507161	18	
 1331507281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331510761	18
+1331510761	18	
 1331510881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331514361	18
+1331514361	18	
 1331514481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
 1331517603	23	Unable to find CVSROOT dir. Configured value is:Unable to find SVNROOT dir. Configured value is:/svnroot
-1331517961	18
+1331517961	18	
 1331518081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331521561	18
+1331521561	18	
 1331521681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331525161	18
+1331525161	18	
 1331525282	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331528761	18
+1331528761	18	
 1331528882	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331532361	18
+1331532361	18	
 1331532482	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331535961	18
+1331535961	18	
 1331536081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331539561	18
+1331539561	18	
 1331539681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331543161	18
+1331543161	18	
 1331543281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331546761	18
+1331546761	18	
 1331546881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331550361	18
+1331550361	18	
 1331550481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331553962	18
+1331553962	18	
 1331554081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331557561	18
+1331557561	18	
 1331557681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331561161	18
+1331561161	18	
 1331561281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331564761	18
+1331564761	18	
 1331564881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331316361	18
+1331316361	18	
 1331316482	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331319961	18
+1331319961	18	
 1331320081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331323561	18
+1331323561	18	
 1331323681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331327161	18
+1331327161	18	
 1331327281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331330761	18
+1331330761	18	
 1331330881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331334361	18
+1331334361	18	
 1331334481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331337961	18
+1331337961	18	
 1331338081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331341562	18
+1331341562	18	
 1331341681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
 1331344803	23	Unable to find CVSROOT dir. Configured value is:Unable to find SVNROOT dir. Configured value is:/svnroot
-1331345161	18
+1331345161	18	
 1331345282	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331348762	18
+1331348762	18	
 1331348881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331352361	18
+1331352361	18	
 1331352481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331355961	18
+1331355961	18	
 1331356082	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331359562	18
+1331359562	18	
 1331359681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331363162	18
+1331363162	18	
 1331363281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331366762	18
+1331366762	18	
 1331366881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331370361	18
+1331370361	18	
 1331370481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331373962	18
+1331373962	18	
 1331374081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331377562	18
+1331377562	18	
 1331377681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331381162	18
+1331381162	18	
 1331381281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331384762	18
+1331384762	18	
 1331384881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331388362	18
+1331388362	18	
 1331388481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331391961	18
+1331391961	18	
 1331392083	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331395561	18
+1331395561	18	
 1331395682	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331399161	18
+1331399161	18	
 1331399281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331402761	18
+1331402761	18	
 1331402881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331406361	18
+1331406361	18	
 1331406481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331409961	18
+1331409961	18	
 1331410081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331413561	18
+1331413561	18	
 1331413681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331417161	18
+1331417161	18	
 1331417281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331420761	18
+1331420761	18	
 1331420881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331424361	18
+1331424361	18	
 1331424481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331427964	18
+1331427964	18	
 1331428081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
 1331431203	23	Unable to find CVSROOT dir. Configured value is:Unable to find SVNROOT dir. Configured value is:/svnroot
-1331431561	18
+1331431561	18	
 1331431681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331435163	18
+1331435163	18	
 1331435281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331438762	18
+1331438762	18	
 1331438881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331442362	18
+1331442362	18	
 1331442481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331445961	18
+1331445961	18	
 1331446082	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331449561	18
+1331449561	18	
 1331449682	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331453161	18
+1331453161	18	
 1331453281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331456761	18
+1331456761	18	
 1331456882	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331460361	18
+1331460361	18	
 1331460481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331463961	18
+1331463961	18	
 1331464081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331467561	18
+1331467561	18	
 1331467681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331471162	18
+1331471162	18	
 1331471281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331474762	18
+1331474762	18	
 1331474881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331478362	18
+1331478362	18	
 1331478481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331481961	18
+1331481961	18	
 1331482082	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331485561	18
+1331485561	18	
 1331485682	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331489161	18
+1331489161	18	
 1331489282	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331492761	18
+1331492761	18	
 1331492881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331496363	18
+1331496363	18	
 1331496482	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331499961	18
+1331499961	18	
 1331500082	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331503561	18
+1331503561	18	
 1331503681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331507161	18
+1331507161	18	
 1331507281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331510761	18
+1331510761	18	
 1331510881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331514361	18
+1331514361	18	
 1331514481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
 1331517603	23	Unable to find CVSROOT dir. Configured value is:Unable to find SVNROOT dir. Configured value is:/svnroot
-1331517961	18
+1331517961	18	
 1331518081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331521561	18
+1331521561	18	
 1331521681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331525161	18
+1331525161	18	
 1331525282	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331528761	18
+1331528761	18	
 1331528882	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331532361	18
+1331532361	18	
 1331532482	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331535961	18
+1331535961	18	
 1331536081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331539561	18
+1331539561	18	
 1331539681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331543161	18
+1331543161	18	
 1331543281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331546761	18
+1331546761	18	
 1331546881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331550361	18
+1331550361	18	
 1331550481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331553962	18
+1331553962	18	
 1331554081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331557561	18
+1331557561	18	
 1331557681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331561161	18
+1331561161	18	
 1331561281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331564761	18
+1331564761	18	
 1331564881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331316361	18
+1331316361	18	
 1331316482	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331319961	18
+1331319961	18	
 1331320081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331323561	18
+1331323561	18	
 1331323681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331327161	18
+1331327161	18	
 1331327281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331330761	18
+1331330761	18	
 1331330881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331334361	18
+1331334361	18	
 1331334481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331337961	18
+1331337961	18	
 1331338081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331341562	18
+1331341562	18	
 1331341681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
 1331344803	23	Unable to find CVSROOT dir. Configured value is:Unable to find SVNROOT dir. Configured value is:/svnroot
-1331345161	18
+1331345161	18	
 1331345282	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331348762	18
+1331348762	18	
 1331348881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331352361	18
+1331352361	18	
 1331352481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331355961	18
+1331355961	18	
 1331356082	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331359562	18
+1331359562	18	
 1331359681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331363162	18
+1331363162	18	
 1331363281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331366762	18
+1331366762	18	
 1331366881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331370361	18
+1331370361	18	
 1331370481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331373962	18
+1331373962	18	
 1331374081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331377562	18
+1331377562	18	
 1331377681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331381162	18
+1331381162	18	
 1331381281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331384762	18
+1331384762	18	
 1331384881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331388362	18
+1331388362	18	
 1331388481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331391961	18
+1331391961	18	
 1331392083	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331395561	18
+1331395561	18	
 1331395682	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331399161	18
+1331399161	18	
 1331399281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331402761	18
+1331402761	18	
 1331402881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331406361	18
+1331406361	18	
 1331406481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331409961	18
+1331409961	18	
 1331410081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331413561	18
+1331413561	18	
 1331413681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331417161	18
+1331417161	18	
 1331417281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331420761	18
+1331420761	18	
 1331420881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331424361	18
+1331424361	18	
 1331424481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331427964	18
+1331427964	18	
 1331428081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
 1331431203	23	Unable to find CVSROOT dir. Configured value is:Unable to find SVNROOT dir. Configured value is:/svnroot
-1331431561	18
+1331431561	18	
 1331431681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331435163	18
+1331435163	18	
 1331435281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331438762	18
+1331438762	18	
 1331438881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331442362	18
+1331442362	18	
 1331442481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331445961	18
+1331445961	18	
 1331446082	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331449561	18
+1331449561	18	
 1331449682	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331453161	18
+1331453161	18	
 1331453281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331456761	18
+1331456761	18	
 1331456882	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331460361	18
+1331460361	18	
 1331460481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331463961	18
+1331463961	18	
 1331464081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331467561	18
+1331467561	18	
 1331467681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331471162	18
+1331471162	18	
 1331471281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331474762	18
+1331474762	18	
 1331474881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331478362	18
+1331478362	18	
 1331478481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331481961	18
+1331481961	18	
 1331482082	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331485561	18
+1331485561	18	
 1331485682	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331489161	18
+1331489161	18	
 1331489282	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331492761	18
+1331492761	18	
 1331492881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331496363	18
+1331496363	18	
 1331496482	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331499961	18
+1331499961	18	
 1331500082	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331503561	18
+1331503561	18	
 1331503681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331507161	18
+1331507161	18	
 1331507281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331510761	18
+1331510761	18	
 1331510881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331514361	18
+1331514361	18	
 1331514481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
 1331517603	23	Unable to find CVSROOT dir. Configured value is:Unable to find SVNROOT dir. Configured value is:/svnroot
-1331517961	18
+1331517961	18	
 1331518081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331521561	18
+1331521561	18	
 1331521681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331525161	18
+1331525161	18	
 1331525282	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331528761	18
+1331528761	18	
 1331528882	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331532361	18
+1331532361	18	
 1331532482	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331535961	18
+1331535961	18	
 1331536081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331539561	18
+1331539561	18	
 1331539681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331543161	18
+1331543161	18	
 1331543281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331546761	18
+1331546761	18	
 1331546881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331550361	18
+1331550361	18	
 1331550481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331553962	18
+1331553962	18	
 1331554081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331557561	18
+1331557561	18	
 1331557681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331561161	18
+1331561161	18	
 1331561281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331564761	18
+1331564761	18	
 1331564881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331316361	18
+1331316361	18	
 1331316482	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331319961	18
+1331319961	18	
 1331320081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331323561	18
+1331323561	18	
 1331323681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331327161	18
+1331327161	18	
 1331327281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331330761	18
+1331330761	18	
 1331330881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331334361	18
+1331334361	18	
 1331334481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331337961	18
+1331337961	18	
 1331338081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331341562	18
+1331341562	18	
 1331341681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
 1331344803	23	Unable to find CVSROOT dir. Configured value is:Unable to find SVNROOT dir. Configured value is:/svnroot
-1331345161	18
+1331345161	18	
 1331345282	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331348762	18
+1331348762	18	
 1331348881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331352361	18
+1331352361	18	
 1331352481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331355961	18
+1331355961	18	
 1331356082	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331359562	18
+1331359562	18	
 1331359681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331363162	18
+1331363162	18	
 1331363281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331366762	18
+1331366762	18	
 1331366881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331370361	18
+1331370361	18	
 1331370481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331373962	18
+1331373962	18	
 1331374081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331377562	18
+1331377562	18	
 1331377681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331381162	18
+1331381162	18	
 1331381281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331384762	18
+1331384762	18	
 1331384881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331388362	18
+1331388362	18	
 1331388481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331391961	18
+1331391961	18	
 1331392083	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331395561	18
+1331395561	18	
 1331395682	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331399161	18
+1331399161	18	
 1331399281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331402761	18
+1331402761	18	
 1331402881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331406361	18
+1331406361	18	
 1331406481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331409961	18
+1331409961	18	
 1331410081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331413561	18
+1331413561	18	
 1331413681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331417161	18
+1331417161	18	
 1331417281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331420761	18
+1331420761	18	
 1331420881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331424361	18
+1331424361	18	
 1331424481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331427964	18
+1331427964	18	
 1331428081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
 1331431203	23	Unable to find CVSROOT dir. Configured value is:Unable to find SVNROOT dir. Configured value is:/svnroot
-1331431561	18
+1331431561	18	
 1331431681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331435163	18
+1331435163	18	
 1331435281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331438762	18
+1331438762	18	
 1331438881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331442362	18
+1331442362	18	
 1331442481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331445961	18
+1331445961	18	
 1331446082	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331449561	18
+1331449561	18	
 1331449682	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331453161	18
+1331453161	18	
 1331453281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331456761	18
+1331456761	18	
 1331456882	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331460361	18
+1331460361	18	
 1331460481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331463961	18
+1331463961	18	
 1331464081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331467561	18
+1331467561	18	
 1331467681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331471162	18
+1331471162	18	
 1331471281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331474762	18
+1331474762	18	
 1331474881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331478362	18
+1331478362	18	
 1331478481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331481961	18
+1331481961	18	
 1331482082	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331485561	18
+1331485561	18	
 1331485682	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331489161	18
+1331489161	18	
 1331489282	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331492761	18
+1331492761	18	
 1331492881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331496363	18
+1331496363	18	
 1331496482	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331499961	18
+1331499961	18	
 1331500082	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331503561	18
+1331503561	18	
 1331503681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331507161	18
+1331507161	18	
 1331507281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331510761	18
+1331510761	18	
 1331510881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331514361	18
+1331514361	18	
 1331514481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
 1331517603	23	Unable to find CVSROOT dir. Configured value is:Unable to find SVNROOT dir. Configured value is:/svnroot
-1331517961	18
+1331517961	18	
 1331518081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331521561	18
+1331521561	18	
 1331521681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331525161	18
+1331525161	18	
 1331525282	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331528761	18
+1331528761	18	
 1331528882	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331532361	18
+1331532361	18	
 1331532482	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331535961	18
+1331535961	18	
 1331536081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331539561	18
+1331539561	18	
 1331539681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331543161	18
+1331543161	18	
 1331543281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331546761	18
+1331546761	18	
 1331546881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331550361	18
+1331550361	18	
 1331550481	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331553962	18
+1331553962	18	
 1331554081	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331557561	18
+1331557561	18	
 1331557681	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331561161	18
+1331561161	18	
 1331561281	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
-1331564761	18
+1331564761	18	
 1331564881	17	/etc/aliases: 77 aliases, longest 10 bytes, 781 bytes total\n
 \.
 
@@ -2185,7 +2250,46 @@ COPY people_skill_year (skill_year_id, name) FROM stdin;
 
 SELECT pg_catalog.setval('people_skill_year_pk_seq', 5, true);
 
+--
+-- Data for Name: pfo_role; Type: TABLE DATA; Schema: public; Owner: gforge
+--
 
+COPY pfo_role (role_id, role_name, role_class, home_group_id, is_public) FROM stdin;
+1	Anonymous	2	\N	t
+2	LoggedIn	3	\N	t
+3	Forge administrators	1	\N	f
+4	News moderators	1	\N	f
+5	Stats administrators	1	\N	f
+6	Default	1	1	f
+7	Admin	1	2	f
+8	Senior Developer	1	2	f
+9	Junior Developer	1	2	f
+10	Doc Writer	1	2	f
+11	Support Tech	1	2	f
+12	Admin	1	3	f
+13	Senior Developer	1	3	f
+14	Junior Developer	1	3	f
+15	Doc Writer	1	3	f
+16	Support Tech	1	3	f
+17	Admin	1	4	f
+18	Senior Developer	1	4	f
+19	Junior Developer	1	4	f
+20	Doc Writer	1	4	f
+21	Support Tech	1	4	f
+22	Admin	1	1	f
+23	Senior Developer	1	1	f
+24	Junior Developer	1	1	f
+25	Doc Writer	1	1	f
+26	Support Tech	1	1	f
+27	Project Member	1	6	f
+28	Admin	1	6	f
+\.
+
+--
+-- Name: pfo_role_seq; Type: SEQUENCE SET; Schema: public; Owner: gforge
+--
+
+SELECT pg_catalog.setval('pfo_role_seq', 28, true);
 
 
 --
