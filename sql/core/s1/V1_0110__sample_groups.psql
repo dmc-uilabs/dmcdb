@@ -1,0 +1,19 @@
+--
+-- Data for Name: groups; Type: TABLE DATA; Schema: public; Owner: gforge
+--
+
+COPY groups (group_id, group_name, homepage, is_public, status, unix_group_name, unix_box, http_domain, short_description, register_purpose, license_other, register_time, rand_hash, use_mail, use_survey, use_forum, use_pm, use_scm, use_news, type_id, use_docman, new_doc_address, send_all_docs, use_pm_depend_box, use_ftp, use_tracker, use_frs, use_stats, enable_pserver, enable_anonscm, license, scm_box, use_docman_search, force_docman_reindex, use_webdav, use_docman_create_online, is_template, built_from_template, export_control, gallery_folder, profile_image, user_id) FROM stdin;
+2	Stats Group	\N	0	A	stats	shell1	\N	\N	\N	\N	0	\N	1	1	1	1	1	1	1	1		0	1	1	1	1	1	1	1	100	cvs1	1	0	0	0	0	0	f	0	0	\N
+3	News Group	\N	0	A	newsadmin	shell1	\N	\N	\N	\N	0	\N	1	1	1	1	1	1	1	1		0	1	1	1	1	1	1	1	100	cvs1	1	0	0	0	0	0	f	0	0	\N
+4	Peer Ratings Group	\N	0	A	peerrating	shell1	\N	\N	\N	\N	0	\N	1	1	1	1	1	1	1	1		0	1	1	1	1	1	1	1	100	cvs1	1	0	0	0	0	0	f	0	0	\N
+1	Master Group	\N	0	A	siteadmin	shell1	\N	\N	\N	\N	0	\N	1	1	1	1	1	1	1	1		0	1	1	1	1	1	1	1	100	cvs1	1	0	0	0	0	0	f	0	0	\N
+5	Template Project	\N	1	P	template	shell1	\N	Project to house templates used to build other projects	\N	\N	1120266772	\N	1	1	1	1	1	1	1	1		0	1	1	1	1	1	1	1	100	\N	1	0	0	0	1	0	f	0	0	\N
+6	Low Heat Loss Transformer	lowheatlosstran.172.31.22.212	0	A	lowheatlosstran	shell1	lowheatlosstran.172.31.22.212	Power transformer with improved heat losses relative to a standard iron core.	Power transformer with improved heat losses relative to a standard iron core.	\N	1442495897	8fcf04ae4b8078190d806fd2434ddc36	0	0	0	0	0	0	1	0		0	0	0	0	0	0	1	0	100	50.17.222.247	1	0	1	0	0	0	f	0	0	102
+\.
+
+
+--
+-- Name: groups_pk_seq; Type: SEQUENCE SET; Schema: public; Owner: gforge
+--
+
+SELECT pg_catalog.setval('groups_pk_seq', 6, true);
