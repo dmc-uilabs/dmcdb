@@ -30,17 +30,17 @@ berlier doc2	https://test-final-verify.s3.amazonaws.com/APPLICATION/berlier/Docu
 berlier doc3	https://test-final-verify.s3.amazonaws.com/APPLICATION/berlier/Documents/1476983890--662396-sanitized-test.jpeg?AWSAccessKeyId=AKIAJDE3BJULBHCYEX4Q&Expires=1479575890&Signature=P2CaAWQ4tvPwVrXBwTHXh86d73M%3D	PROJECT	6	103	2016-10-20 13:18:08.591-04	2016-11-19 12:18:08.591-05	f	\N	t	DOCUMENT	0	t
 \.
 
-COPY resource_in_resource_group (resource_type, resource_id, resource_group_id) FROM stdin;
-DOCUMENT	1	1
-DOCUMENT	2	3
-DOCUMENT	3	5
-DOCUMENT	4	7
-DOCUMENT	5	2
-DOCUMENT	6	4
-DOCUMENT	7	6
-DOCUMENT	8	8
-DOCUMENT	9	10
-DOCUMENT	10	12
+COPY resource_in_resource_group (resource_id, resource_group_id) FROM stdin;
+1	1
+2	3
+3	5
+4	7
+5	2
+6	4
+7	6
+8	8
+9	10
+10	12
 \.
 
 COPY user_role_assignment (user_id, role_id) FROM stdin;

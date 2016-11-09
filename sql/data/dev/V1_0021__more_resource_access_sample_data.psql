@@ -37,9 +37,9 @@ berlier doc7	https://test-final-verify.s3.amazonaws.com/APPLICATION/berlier/Docu
 berlier doc8	https://test-final-verify.s3.amazonaws.com/APPLICATION/berlier/Documents/1476983890--662396-sanitized-test.jpeg?AWSAccessKeyId=AKIAJDE3BJULBHCYEX4Q&Expires=1479575890&Signature=P2CaAWQ4tvPwVrXBwTHXh86d73M%3D	SERVICE	4	103	2016-10-20 13:18:08.591-04	2016-11-19 12:18:08.591-05	f	\N	t	DOCUMENT	0	f
 \.
 
-COPY resource_in_resource_group (resource_type, resource_id, resource_group_id) FROM stdin;
-DOCUMENT	11	13
-DOCUMENT	12	14
-DOCUMENT	13	15
-DOCUMENT	14	16
+COPY resource_in_resource_group (resource_id, resource_group_id) FROM stdin;
+11	13
+12	14
+13	15
+14	16
 \.

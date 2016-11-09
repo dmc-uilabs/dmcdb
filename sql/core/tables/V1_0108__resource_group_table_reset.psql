@@ -1,0 +1,10 @@
+DROP TABLE resource_in_resource_group;
+
+CREATE TABLE resource_in_resource_group
+(
+	resource_id integer NOT NULL,
+	resource_group_id integer NOT NULL,
+	PRIMARY KEY (resource_id, resource_group_id)
+);
+ALTER TABLE resource_in_resource_group
+	OWNER TO gforge;
