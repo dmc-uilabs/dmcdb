@@ -1,0 +1,15 @@
+ALTER TABLE user_in_resource_group
+		DROP CONSTRAINT user_in_resource_group_resource_group_id_fkey;
+
+ALTER TABLE ONLY user_in_resource_group
+  ADD CONSTRAINT user_in_resource_group_resource_group_id_fkey FOREIGN KEY (resource_group_id)
+      REFERENCES resource_group (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE ;
+
+ALTER TABLE resource_in_resource_group
+		DROP CONSTRAINT resource_in_resource_group_resource_group_id_fkey;
+
+ALTER TABLE ONLY resource_in_resource_group
+  ADD CONSTRAINT resource_in_resource_group_resource_group_id_fkey FOREIGN KEY (resource_group_id)
+      REFERENCES resource_group (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE;
