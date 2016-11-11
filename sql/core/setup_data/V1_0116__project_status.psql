@@ -1,0 +1,2 @@
+INSERT into project_status values ('1', 'Open');
+INSERT into project_status values ('2', 'Closed');
