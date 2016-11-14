@@ -1,0 +1,7 @@
+--set access groups
+insert into server_access_group (name)
+	values ('global');
+insert into server_access_group (name)
+	values ('test1');
+insert into server_access_group (name)
+	values ('test2');
