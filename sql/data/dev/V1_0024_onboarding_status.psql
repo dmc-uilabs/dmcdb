@@ -1,0 +1,18 @@
+
+INSERT INTO onboarding_status (user_id,profile,account,company,storefront) VALUES (100,'f','f','f','f');
+INSERT INTO onboarding_status (user_id,profile,account,company,storefront) VALUES (102,'f','f','f','f');
+INSERT INTO onboarding_status (user_id,profile,account,company,storefront) VALUES (103,'f','f','f','f');
+INSERT INTO onboarding_status (user_id,profile,account,company,storefront) VALUES (104,'f','f','f','f');
+INSERT INTO onboarding_status (user_id,profile,account,company,storefront) VALUES (105,'f','f','f','f');
+INSERT INTO onboarding_status (user_id,profile,account,company,storefront) VALUES (106,'f','f','f','f');
+INSERT INTO onboarding_status (user_id,profile,account,company,storefront) VALUES (107,'f','f','f','f');
+INSERT INTO onboarding_status (user_id,profile,account,company,storefront) VALUES (108,'f','f','f','f');
+INSERT INTO onboarding_status (user_id,profile,account,company,storefront) VALUES (109,'f','f','f','f');
+INSERT INTO onboarding_status (user_id,profile,account,company,storefront) VALUES (110,'f','f','f','f');
+INSERT INTO onboarding_status (user_id,profile,account,company,storefront) VALUES (111,'f','f','f','f');
+INSERT INTO onboarding_status (user_id,profile,account,company,storefront) VALUES (300,'f','f','f','f');
+INSERT INTO onboarding_status (user_id,profile,account,company,storefront) VALUES (550,'f','f','f','f');
+
+INSERT INTO onboarding_status (user_id,profile,account,company,storefront) VALUES (1000,'f','f','f','f');
+INSERT INTO onboarding_status (user_id,profile,account,company,storefront) VALUES (1001,'f','f','f','f');
+INSERT INTO onboarding_status (user_id,profile,account,company,storefront) VALUES (1002,'f','f','f','f');

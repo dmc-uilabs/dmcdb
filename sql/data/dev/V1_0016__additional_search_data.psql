@@ -31,12 +31,22 @@ SELECT pg_catalog.setval('organization_organization_id_seq', 17, true);
 --
 -- Data for Name: organization_user; Type: TABLE DATA; Schema: public; Owner: gforge
 --
-COPY organization_user (id, user_id, organization_id) FROM stdin;
-2	300	16
-3	550	15
+COPY organization_user (id, user_id, organization_id, is_verified) FROM stdin;
+1	102	1	\N
+2	300	16	\N
+3	550	15	\N
+5	1006	1000	\N
+7	1008	1007	f
+8	1005	1	f
+6	1007	1	t
+10	1010	1	t
+12	1011	1006	t
+13	1012	1	f
+17	1009	18	t
+19	1014	1007	f
 \.
 
-SELECT pg_catalog.setval('organization_user_id_seq', 4, true);
+SELECT pg_catalog.setval('organization_user_id_seq', 19, true);
 
 --
 -- Data for Name: organization_dmdii_member; Type: TABLE DATA; Schema: public; Owner: gforge
