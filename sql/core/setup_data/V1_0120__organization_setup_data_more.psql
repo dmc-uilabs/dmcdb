@@ -3,3 +3,4 @@ insert into area_of_expertise (name, is_dmdii) values ('Digital Manufacturing Co
 insert into area_of_expertise (name, is_dmdii) values ('DMC Application Development', TRUE);
 
 UPDATE area_of_expertise 	SET name='Geothermic'	WHERE name='Geothermic)';
+UPDATE area_of_expertise 	SET name='Non-Nuclear Generation (Coal)'	WHERE name='Non-Nuclear Generation (Coal';
