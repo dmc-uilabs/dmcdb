@@ -1,0 +1,5 @@
+-- Areas of expertise tagging
+insert into area_of_expertise (name, is_dmdii) values ('Digital Manufacturing Commons DMC', TRUE);
+insert into area_of_expertise (name, is_dmdii) values ('DMC Application Development', TRUE);
+
+UPDATE area_of_expertise 	SET name='Geothermic'	WHERE name='Geothermic)';
