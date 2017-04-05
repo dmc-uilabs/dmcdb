@@ -1,0 +1,2 @@
+ALTER TABLE recent_update
+ADD internal_description text;

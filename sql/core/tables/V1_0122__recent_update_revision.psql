@@ -1,0 +1,8 @@
+ALTER TABLE recent_update
+ADD user_id int;
+
+ALTER TABLE recent_update
+DROP update_date;
+
+ALTER TABLE recent_update
+ADD update_date bigint;
