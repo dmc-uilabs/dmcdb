@@ -1,0 +1,6 @@
+update document set is_public = 't'
+from service s
+where doc_class = 'SUPPORT' and parent_type = 'SERVICE'
+and parent_id = s.service_id
+and published = 't'
+and is_deleted = 'f'
