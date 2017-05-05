@@ -1,3 +1,8 @@
---Added a new column called sha256 in the dmdii_document table    
+--Added a new column called sha256 in the dmdii_document table
 
 ALTER TABLE dmdii_document ADD sha256 text;
+
+
+--Fill the column with the default string sha256
+
+UPDATE dmdii_document SET sha256 = 'sha256';
