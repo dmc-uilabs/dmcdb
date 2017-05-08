@@ -1,0 +1,4 @@
+--Added a new column called sha256 in the dmdii_document table
+
+ALTER TABLE dmdii_document ADD sha256 text  DEFAULT 'sha256';
+ALTER TABLE document ADD sha256 text  DEFAULT 'sha256';
