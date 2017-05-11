@@ -1,4 +1,4 @@
 //Add a new column called scan_date to table document, dmdii document
 
-ALTER TABLE document ADD scan_date Date default null;
-ALTER TABLE dmdii_document ADD scan_date Date default null;
+ALTER TABLE document ADD scan_date int default 1494481748532;
+ALTER TABLE dmdii_document ADD scan_date 1nt default 1494481748532;
