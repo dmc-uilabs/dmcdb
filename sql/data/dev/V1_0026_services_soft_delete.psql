@@ -1,0 +1,10 @@
+/*
+Add column is_deleted in service table
+Holds 0 if service is not deleted
+Holds Unix timestamp of deleted date if deleted
+*/
+
+ALTER TABLE ONLY service
+ADD COLUMN is_deleted bigint NOT NULL DEFAULT(0);
+
+ALTER TABLE ONLY service ADD CONSTRAINT unix_positive CHECK (is_deleted >= 0);
