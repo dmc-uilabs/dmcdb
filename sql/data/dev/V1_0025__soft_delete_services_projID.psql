@@ -1,0 +1,43 @@
+-------- Soft Delete Services Not Attached to the Specified Dome Servers -------------
+
+-- Select urls of servers with services attached
+select url, count(*)
+into dome_servers
+from service s
+join service_interface si on si.service_id = s.service_id
+join servers serv on serv.server_id = si.server_id
+group by url
+order by 2;
+
+-- Create whitelist of active dome servers
+create table active_dome_servers (
+url text
+);
+insert into active_dome_servers values
+('http://40.71.89.61:8080/DOMEApiServicesV7/'),
+('http://52.168.4.192:8080/DOMEApiServicesV7/'),
+('http://13.82.104.151:8080/DOMEApiServicesV7/'),
+('http://52.179.7.64:8080/DOMEApiServicesV7/'),
+('http://40.78.98.38:8080/DOMEApiServicesV7/');
+
+-- Remove whitelisted servers from server list
+delete from dome_servers where url in
+(select url from active_dome_servers);
+
+-- Grab services to be deleted for each server in list
+select s.service_id
+into services_to_be_deleted
+from service s
+join service_interface si on si.service_id = s.service_id
+join servers serv on serv.server_id = si.server_id
+where serv.url in (select url from dome_servers);
+
+-- For each service to be deleted, change project_id to 0
+update service
+set project_id = 0
+where service_id in (select service_id from services_to_be_deleted);
+
+-- Drop temporary tables
+drop table services_to_be_deleted;
+drop table dome_servers;
+drop table active_dome_servers;
