@@ -1,0 +1,2 @@
+ALTER TABLE document ADD encryption_type text default 'AES';
+alter table dmdii_document add encryption_type text default 'AES';
