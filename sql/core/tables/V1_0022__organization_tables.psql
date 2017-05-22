@@ -40,7 +40,8 @@ create table organization
 	is_owner text,
 	owner text,
 	is_deleted boolean NOT NULL DEFAULT false,
-	production_capabilities text
+	production_capabilities text,
+	other_organization_tags text
 );
 ALTER TABLE organization OWNER TO gforge;
 
