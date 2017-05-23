@@ -1,0 +1,4 @@
+//Add a new column called scan_date to table document, dmdii document
+
+ALTER TABLE document ADD scan_date bigint default 1494481748532;
+ALTER TABLE dmdii_document ADD scan_date bigint default 1494481748532;
