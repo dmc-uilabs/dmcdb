@@ -13,7 +13,6 @@ CREATE TABLE document
 	verified boolean DEFAULT false NOT NULL,
 	access_level text
 );
-
 ALTER TABLE document
   OWNER TO gforge;
 
