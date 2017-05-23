@@ -11,8 +11,10 @@ CREATE TABLE document
 	is_deleted boolean DEFAULT false NOT NULL,
 	doc_class text,
 	verified boolean DEFAULT false NOT NULL,
-	access_level text
+	access_level text,
+  is_accepted BOOLEAN NOT NULL DEFAULT true
 );
+
 ALTER TABLE document
   OWNER TO gforge;
 
