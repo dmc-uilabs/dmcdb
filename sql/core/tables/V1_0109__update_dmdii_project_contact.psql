@@ -1,0 +1,14 @@
+ALTER TABLE dmdii_project DROP CONSTRAINT dmdii_project_principal_point_of_contact_fkey;
+
+UPDATE dmdii_project set principal_point_of_contact_id = u.user_id
+FROM dmdii_project_contact pc
+JOIN
+	(select max(user_id) as user_id, lower(email) as email, lower(lastname) as lastname
+	from users
+	group by lower(email), lower(lastname)) as u on lower(u.email) = lower(pc.email)
+WHERE pc.id = principal_point_of_contact_id;
+
+ALTER TABLE dmdii_project
+ ADD CONSTRAINT dmdii_project_principal_point_of_contact_fkey FOREIGN KEY (principal_point_of_contact_id)
+     REFERENCES users (user_id) MATCH SIMPLE
+     ON UPDATE NO ACTION ON DELETE NO ACTION;
