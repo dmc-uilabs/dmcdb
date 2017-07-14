@@ -1,0 +1,4 @@
+ALTER TABLE organization ADD COLUMN dmdii_membership_info text;
+
+ALTER TABLE organization ADD COLUMN is_paid boolean DEFAULT false;
+ALTER TABLE organization ALTER COLUMN is_paid SET NOT NULL;
