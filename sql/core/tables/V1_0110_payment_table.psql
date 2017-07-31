@@ -1,0 +1,20 @@
+CREATE TABLE payment
+(
+  id serial NOT NULL PRIMARY KEY,
+  user_id integer NOT NULL,
+  parent_id integer NOT NULL,
+  parent_type text NOT NULL,
+  payment_status text NOT NULL,
+  amount numeric(25,2),
+  charge_id text,
+  charge_dt timestamp with time zone NOT NULL DEFAULT now(),
+  description text,
+  CONSTRAINT payment_user_id_fkey FOREIGN KEY (user_id)
+      REFERENCES users (user_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE payment
+  OWNER TO gforge;
