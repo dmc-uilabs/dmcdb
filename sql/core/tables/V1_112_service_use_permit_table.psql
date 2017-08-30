@@ -1,0 +1,23 @@
+CREATE TABLE service_use_permit
+(
+  id serial PRIMARY KEY,
+  organization_id integer NOT NULL,
+  user_id integer NOT NULL,
+  service_id integer NOT NULL,
+  remaining_uses integer DEFAULT 0,
+  expire_dt timestamp with time zone,
+  CONSTRAINT service_use_permit_organization_id_fkey FOREIGN KEY (organization_id)
+      REFERENCES organization (organization_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT service_use_permit_service_id_fkey FOREIGN KEY (service_id)
+      REFERENCES service (service_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT service_use_permit_user_id_fkey FOREIGN KEY (user_id)
+      REFERENCES users (user_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE service_use_permit
+  OWNER TO gforge;
