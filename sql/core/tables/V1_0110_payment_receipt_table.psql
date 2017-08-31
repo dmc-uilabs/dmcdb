@@ -1,0 +1,23 @@
+CREATE TABLE payment_receipt
+(
+  id serial PRIMARY KEY,
+  user_id integer NOT NULL,
+  organization_id integer,
+  parent_id integer NOT NULL,
+  parent_type text NOT NULL,
+  payment_status text NOT NULL,
+  amount numeric(25,2),
+  balance numeric(25,2),
+  description text,
+  create_dt timestamp with time zone NOT NULL DEFAULT now(),
+  charge_id text,
+  payment_plan_id integer,
+  CONSTRAINT payment_user_id_fkey FOREIGN KEY (user_id)
+      REFERENCES users (user_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE payment_receipt
+  OWNER TO gforge;
