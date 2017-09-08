@@ -1,31 +1,5 @@
-CREATE TABLE dmdii_event
-(
-  id serial NOT NULL PRIMARY KEY,
-  start_date timestamp without time zone,
-  end_date timestamp without time zone,
-  event_title character varying(255),
-  event_summary text,
-  principal_point_of_contact_id integer,
-  is_deleted boolean NOT NULL DEFAULT false,
-  CONSTRAINT dmdii_project_principal_point_of_contact_fkey FOREIGN KEY (principal_point_of_contact_id)
-      REFERENCES users (user_id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
-
-)
-
-ALTER TABLE dmdii_event OWNER TO gforge;
-GRANT ALL ON TABLE dmdii_event TO gforge;
-
-
-CREATE TABLE dmdii_event_organizations
-(
-  id serial NOT NULL,
-  dmdii_event_id integer,
-  organization_id integer,
-  CONSTRAINT dmdii_event_organizations_dmdii_event_id_fkey FOREIGN KEY (dmdii_event_id)
-      REFERENCES dmdii_event (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
-)
-
-ALTER TABLE dmdii_event_organizations OWNER TO gforge;
-GRANT ALL ON TABLE dmdii_event_organizations TO gforge;
+ALTER TABLE dmdii_project ADD COLUMN is_event boolean;
+UPDATE dmdii_project set is_event = false;
+UPDATE dmdii_project set is_event = true WHERE cost_share = 5252 AND dmdii_funding = 5353;
+ALTER TABLE dmdii_project ALTER COLUMN is_event SET NOT NULL;
+ALTER TABLE dmdii_project ALTER COLUMN is_event SET DEFAULT false;
