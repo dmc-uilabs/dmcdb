@@ -1,5 +1,5 @@
 ALTER TABLE dmdii_project ADD COLUMN is_event boolean;
 UPDATE dmdii_project set is_event = false;
-UPDATE dmdii_project set is_event = true WHERE cost_share = 5252 AND dmdii_funding = 5353;
+UPDATE dmdii_project set is_event = true WHERE cost_share=8395 and dmdii_funding = 5983;
 ALTER TABLE dmdii_project ALTER COLUMN is_event SET NOT NULL;
 ALTER TABLE dmdii_project ALTER COLUMN is_event SET DEFAULT false;
